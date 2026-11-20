@@ -134,6 +134,39 @@ def _identity(value, expected):
     require(all(value.get(key) == wanted for key, wanted in expected.items()), "Cross-run publication identity")
 
 
+def recovery_publication_verified(report):
+    """Presentation/media status check; never replaces the pinned recovery gate."""
+    try:
+        audit = report["audit"]
+        require(report.get("schema") == SCHEMA and report.get("synthetic") is False
+            and report.get("status") == audit.get("status") == "data_verified_shutdown_incomplete"
+            and report.get("model_promoted") is False and audit.get("complete") is True
+            and audit.get("synthetic") is False and audit.get("original_audit_status") == "not_passed"
+            and audit.get("native_shutdown_status") == "failed" and audit.get("native_clean_shutdown") is False,
+            "Missing separate recovery/failure status")
+        for key in ("manifest_fingerprint", "comparison_fingerprint", "audit_sha256", "audit_exit_sha256",
+                    "native_exit_sha256", "native_exit_fingerprint", "audit_exit_fingerprint", "trace_sha256",
+                    "recovery_request_fingerprint", "inventory_sha256", "retirement_proof_sha256"):
+            _hash(audit.get(key))
+        require(all(type(audit.get(k)) is str and re.fullmatch(r"[a-f0-9]{32}", audit[k])
+            for k in ("session_id", "recovery_session_id"))
+            and audit["session_id"] != audit["recovery_session_id"], "Recovery session is not distinct")
+        failure = report["costs"]["shutdown_failure"]
+        require(failure.get("status") == "failed" and failure.get("original_audit_status") == "not_passed"
+            and failure.get("clean_shutdown") is False and type(failure.get("scope")) is str and failure["scope"]
+            and failure.get("reason") == "independent watchdog wall deadline reached"
+            and failure.get("shared_phase_limit_s") == 3600,
+            "Shutdown failure scope is missing")
+        for key in ("native_watchdog_wall_s", "last_progress_shared_phase_s", "after_last_progress_wall_s"):
+            _number(failure.get(key))
+        require(failure["after_last_progress_wall_s"] <= failure["native_watchdog_wall_s"]
+            and failure["native_watchdog_wall_s"] == report["costs"].get("native_watchdog_wall_s"),
+            "Shutdown elapsed scope differs")
+        return True
+    except (KeyError, TypeError, ValueError, AttributeError):
+        return False
+
+
 def _pending(output, audit_output, identity):
     result = dict(schema=SCHEMA, generated_at=datetime.now(timezone.utc).isoformat(),
         status="unknown", synthetic=False, audit=dict(status="pending", complete=False, synthetic=False),
@@ -292,6 +325,11 @@ def _build_publication(output, audit_output, *, expected_manifest_fingerprint,
     if receipt.get("status") != "audit_exit_zero_report_verified":
         return pending
     envelope, trace, native, audit_exit = _gate(output, audit_output, identity, _hash(expected_audit_sha256))
+    return _present_verified(output, identity, envelope, trace, native, audit_exit, expected_audit_sha256)
+
+
+def _present_verified(output, identity, envelope, trace, native, audit_exit, expected_audit_sha256, *, recovery=None):
+    """Render already verified scientific evidence; process semantics stay explicit."""
     accounting = envelope["report"]["accounting"]
     all_rows, monitors, train_curves = defaultdict(list), {}, {model: [] for model in MODELS[1:]}
     memory, videos, checkpoints, reserved = [], [], {}, {}
@@ -366,7 +404,7 @@ def _build_publication(output, audit_output, *, expected_manifest_fingerprint,
     memory_summary = [dict(model=m, phase=p, samples=len(samples), **{
         key: max(s[key] for s in samples if key in s) for key in ("lifetime_peak_rss_mib", "sampled_gpu_used_mib")
         if any(key in s for s in samples)}) for (m, p), samples in memory_groups.items()]
-    return dict(schema=SCHEMA, generated_at=datetime.now(timezone.utc).isoformat(), status="completed_audited",
+    result = dict(schema=SCHEMA, generated_at=datetime.now(timezone.utc).isoformat(), status="completed_audited",
         synthetic=False, model_promoted=False, audit=dict(status="passed", complete=True, synthetic=False,
             session_id=identity["session_id"], manifest_fingerprint=identity["runtime_fingerprint"],
             comparison_fingerprint=identity["comparison_fingerprint"], audit_sha256=expected_audit_sha256,
@@ -393,6 +431,12 @@ def _build_publication(output, audit_output, *, expected_manifest_fingerprint,
             "Eight TRAIN recordings and two parent-only TEST subsets were scheduled; no final-model TEST recordings exist.",
             "Verified source JPEGs require a separate bound encoding step for playable media.",
             "No continuous-path collision certificate, physical-robot validation, retraining or model promotion is implied."])
+    if recovery is not None:
+        result["status"] = "data_verified_shutdown_incomplete"
+        result["audit"].update(recovery["audit"])
+        result["costs"].update(recovery["costs"])
+        result["limitations"][0] = "Saved data passed a separate CPU recovery audit; simulator shutdown failed and the original final audit remains not passed."
+    return result
 
 
 def build_publication(output, audit_output, *, expected_manifest_fingerprint,

@@ -27,6 +27,46 @@ function fixture(){
   return report;
 }
 
+function recoveryFixture(){
+  const r=fixture();r.status='data_verified_shutdown_incomplete';
+  Object.assign(r.audit,{status:r.status,original_audit_status:'not_passed',native_shutdown_status:'failed',native_clean_shutdown:false,session_id:'f'.repeat(32),recovery_session_id:'e'.repeat(32)});
+  for(const key of ['audit_exit_sha256','native_exit_sha256','native_exit_fingerprint','audit_exit_fingerprint','recovery_request_fingerprint','inventory_sha256','retirement_proof_sha256'])r.audit[key]='a'.repeat(64);
+  r.costs.native_watchdog_wall_s=1000;
+  r.costs.shutdown_failure={status:'failed',original_audit_status:'not_passed',clean_shutdown:false,reason:'independent watchdog wall deadline reached',native_watchdog_wall_s:1000,last_progress_shared_phase_s:100,after_last_progress_wall_s:400,shared_phase_limit_s:3600,scope:'Shared time is stale; tail includes shutdown wait and is not isolated compute.'};
+  r.costs.recovery_audit={wall_s:2,cpu_user_s:1,cpu_system_s:.1,peak_rss_bytes:1048576,scope:'wait4_exact_audit_child_including_reaped_descendants'};
+  return r;
+}
+
+test('separate recovery visibly retains shutdown failure and exposes measured curves/costs',()=>{
+  const report=recoveryFixture();assert.equal(panel.resultsAudited(report),true);
+  assert.equal(panel.statusView(report).state,'failed');
+  const nodes=dom();try{panel.render(report);
+    assert.equal(nodes.get('statusTitle').textContent,'Data verified; simulator shutdown failed');
+    assert.match(text(nodes.get('evidenceDetails')),/Original final audit: not passed.*Simulator shutdown: failed/);
+    assert.match(text(nodes.get('phaseWall')),/Shared phase recorded before shutdown · stale/);
+    assert.match(text(nodes.get('phaseWall')),/After last progress update, including shutdown wait 400.00 s/);
+    assert.match(text(nodes.get('phaseWall')),/Exact audit child user CPU 1.00 s/);
+    assert.match(text(nodes.get('phaseWall')),/Exact audit child lifetime peak RSS 1.0 MiB/);
+    assert.match(text(nodes.get('phaseWall')),/Original shared-phase limit 3,600.00 s/);
+    assert.match(text(nodes.get('phaseWall')),/separate from training cost/);
+    assert.equal(descendants(nodes.get('trainChart')).filter(n=>n.tag==='polyline').length,2);
+    assert.match(text(nodes.get('broadResults')),/10 \/ 70/);
+    assert.equal(descendants(nodes.get('videoList')).filter(n=>n.tag==='article').length,10);
+    assert.match(text(nodes.get('videoList')),/Final-model TEST videos were not scheduled/);
+  }finally{delete globalThis.document;}
+});
+
+test('malformed recovery identity, failure scope or costs hide all outcomes',()=>{
+  for(const mutate of [r=>r.audit.status='passed',r=>r.audit.original_audit_status='passed',r=>r.audit.native_clean_shutdown=true,
+      r=>delete r.audit.audit_exit_sha256,r=>delete r.audit.native_exit_sha256,r=>r.audit.inventory_sha256='bad',
+      r=>r.audit.recovery_session_id=r.audit.session_id,r=>r.audit.native_shutdown_status='passed',r=>r.model_promoted=true,
+      r=>delete r.costs.shutdown_failure,r=>r.costs.shutdown_failure.after_last_progress_wall_s=1001,
+      r=>r.costs.shutdown_failure.native_watchdog_wall_s=999,r=>r.costs.shutdown_failure.shared_phase_limit_s=9999]){
+    const r=recoveryFixture();mutate(r);assert.equal(panel.resultsAudited(r),false);assert.deepEqual(panel.videoEntries(r),[]);
+    assert.deepEqual(panel.curveSeries(r,'train_curves'),[]);assert.equal(panel.statusView(r).badge,'Evidence inconsistent');
+  }
+});
+
 class Element{constructor(tag){this.tag=tag;this.children=[];this.attributes={};this.listeners={};this.textContent='';this.value='';}appendChild(node){this.children.push(node);return node;}replaceChildren(...nodes){this.children=nodes;this.textContent='';}setAttribute(key,value){this.attributes[key]=value;}addEventListener(key,callback){this.listeners[key]=callback;}}
 function dom(){const nodes=new Map();globalThis.document={createElement:tag=>new Element(tag),createElementNS:(_,tag)=>new Element(tag),getElementById:id=>{if(!nodes.has(id))nodes.set(id,new Element(id));return nodes.get(id);}};return nodes;}
 const text=node=>node.textContent+node.children.map(text).join(' ');

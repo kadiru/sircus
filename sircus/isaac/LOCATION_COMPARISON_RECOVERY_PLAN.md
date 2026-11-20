@@ -1,7 +1,10 @@
 # Proposed CPU-only audit of the closed third comparison
 
-**Proposal only; pending user agreement.** No recovery auditor, simulator,
-training, model update, new shot or media export is started by this document.
+**Approved on November 18, 2026.** The user authorized implementation, mock tests
+and a CPU-only audit of saved data, with publication if it passes. The following
+is the preserved proposal; [implementation and execution status](LOCATION_COMPARISON_RECOVERY.md)
+are recorded separately. No simulator, training, model update or new shot is
+authorized by this recovery.
 The [third attempt failed during shutdown](../../baselines/isaac-seed22-comparison-shutdown-20261118/README.md)
 after its unaudited accounting reported all 18,520 requests terminal. This plan
 would assess the saved data without repeating the experiment. It requires an

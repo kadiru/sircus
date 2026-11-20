@@ -14,6 +14,7 @@ import re
 from urllib.parse import unquote, urlsplit
 
 from shot_benchmark_server import byte_range
+from location_comparison_publication import recovery_publication_verified
 
 SCHEMA = 'sircus-location-comparison-publication-v1'
 STATIC = {
@@ -66,10 +67,10 @@ def published_file(root, request):
         return None
     report = json.loads(report_path.read_text())
     audit = report.get('audit', {})
-    if not (report.get('schema') == SCHEMA and report.get('status') == 'completed_audited'
-            and report.get('synthetic') is False and audit.get('status') == 'passed'
-            and audit.get('complete') is True and audit.get('synthetic') is False
-            and _results_complete(report)):
+    canonical = (report.get('schema') == SCHEMA and report.get('status') == 'completed_audited'
+                 and report.get('synthetic') is False and audit.get('status') == 'passed'
+                 and audit.get('complete') is True and audit.get('synthetic') is False)
+    if not ((canonical or recovery_publication_verified(report)) and _results_complete(report)):
         return None
     media = [video.get('media') for video in report.get('videos', [])
              if isinstance(video, dict) and isinstance(video.get('media'), dict)

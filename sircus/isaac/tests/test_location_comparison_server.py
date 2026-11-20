@@ -11,6 +11,8 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import location_comparison_server as server
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from test_location_comparison_recovery_publication import recovery_presentation
 
 
 class LocationComparisonServerTests(unittest.TestCase):
@@ -59,6 +61,18 @@ class LocationComparisonServerTests(unittest.TestCase):
                      '/media/%2e%2e/report.json', '/media/..%2f../report.json'):
             with self.subTest(path=path):
                 self.assertEqual(self.request(path)[0], [404])
+
+    def test_recovery_serves_pinned_media_only_with_visible_failure_evidence(self):
+        self.report = recovery_presentation(self.report)
+        self.save_report()
+        self.assertEqual(self.request('/media/batch-00000.mp4')[0], [200])
+        good = copy.deepcopy(self.report)
+        for key in ('native_exit_sha256', 'audit_exit_sha256', 'inventory_sha256', 'retirement_proof_sha256'):
+            self.report = copy.deepcopy(good); self.report['audit'].pop(key); self.save_report()
+            self.assertEqual(self.request('/media/batch-00000.mp4')[0], [404])
+        self.report = copy.deepcopy(good)
+        self.report['costs']['shutdown_failure']['clean_shutdown'] = True; self.save_report()
+        self.assertEqual(self.request('/media/batch-00000.mp4')[0], [404])
 
     def test_pending_failed_synthetic_and_incomplete_reports_expose_no_video(self):
         original = copy.deepcopy(self.report)

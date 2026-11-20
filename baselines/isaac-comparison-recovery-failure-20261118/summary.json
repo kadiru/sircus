@@ -1,0 +1,89 @@
+{
+  "artifacts": {
+    "failed-audit-copy/recovery-audit-exit.json": "c2fc08c585ccf5fd6bea17da6e5ec83370e4ce15c29db253df0712a724a61dd0",
+    "failed-audit-copy/recovery-audit-failure.json": "025f4a83a54917883281bf6b3d03d87872ba427c418d23536524390acee44b19",
+    "failed-audit-copy/recovery-audit-owner.json": "0bac4e287c7f0cdf1b927bbdd3d0681282789243970950117442078af9b17341",
+    "host-audit/container.log": "75fb6c3c9aee5fd91e21f3140daa5e51aa64c81622f98f2db1757075c71c6e49",
+    "host-audit/recovery-container-exit.json": "61e21d827c4c96b851f965a5237148dc6164e74d2036e2e3c9a793830dd3ed2e",
+    "host-audit/recovery-container-owner.json": "d711b6f7db345435d876e1bfce4b4cdacf8b4d671c7b701fa675bf4bd449233f",
+    "post-failure-preservation.json": "f8244a683932a364bb0e967a4a9406c6c1172038a175ff1f3d87b10a8b6977e2"
+  },
+  "execution": {
+    "audit_child_starts": 1,
+    "cleanup_safe": true,
+    "container_exit_code": 1,
+    "finished_at": "2026-11-18T19:40:00.411234894Z",
+    "forced_cleanup_actions": [],
+    "native_application_starts": 0,
+    "new_shots": 0,
+    "oom": false,
+    "optimizer_steps": 0,
+    "retry_started": false
+  },
+  "failure": {
+    "capture_and_clean_counts_verified": false,
+    "cause_established": false,
+    "error_type": "ValueError",
+    "failed_trial_identified": false,
+    "failure_receipt_includes_values": false,
+    "reason": "Native rescored outcome differs: minimum_mouth_clearance_mm"
+  },
+  "identity": {
+    "comparison_fingerprint": "440cbcca29612820d3b36005010edd90fd4f8172646bd8ea95e57f154775f4e6",
+    "manifest_fingerprint": "bd551805def36cd5e694ed06bc8bcf9795e12053a4460cf710f645f7647e021f",
+    "manifest_sha256": "7de349d890ca032d2f8802b987350de55ca5314a52fbcfab6fdfc7d6c8109a5b",
+    "native_exit_sha256": "c5e54df4c434cc9c5b47a2ac89e46110c4f2b11d342d062787df9e99bfd649ff",
+    "native_session": "4c199e1ede56cdb4fe76d6b7ec782aae",
+    "recovery_session": "894488f0bf2944c5aa3164eebd379aef",
+    "request_fingerprint": "b8a4d691f6bf29a5da03c2189c43a173b55ba2f20faf8d2b5f2bb513cbf12680"
+  },
+  "limits": {
+    "cpu_cores": 4,
+    "cpu_seconds": 28800,
+    "memory_bytes": 8589934592,
+    "min_free_bytes": 6442450944,
+    "wall_s": 7200
+  },
+  "measurements": {
+    "cpu_system_s": 892.979863,
+    "cpu_user_s": 1216.189157,
+    "inner_wall_s": 942.7345917799976,
+    "outer_wall_s": 943.7634565070039,
+    "peak_rss_bytes": 1215520768,
+    "scope": "wait4_exact_audit_child_including_reaped_descendants",
+    "visible_gpu_devices": 0
+  },
+  "model_promoted": false,
+  "original_audit_passed": false,
+  "original_native_shutdown": "failed",
+  "preservation": {
+    "checked_at": "2026-11-18T19:44:31.755288+00:00",
+    "file_count": 25059,
+    "inputs": 101,
+    "inventory_sha256": "feb925f5bb05a4417ccc76d4e6efa448cbe2160cfccb52b007dbe3ab14311294",
+    "original_native_retirement_unchanged": true,
+    "schema": "sircus-post-failed-audit-preservation-v1",
+    "scope": "hash-only read from stopped container; no scoring, model load or audit retry",
+    "sources": 217,
+    "status": "all_sealed_bytes_unchanged",
+    "total_bytes": 4330228832,
+    "wall_s": 4.683859988930635
+  },
+  "recovery_audit_passed": false,
+  "schema": "sircus-comparison-recovery-failure-summary-v1",
+  "source": {
+    "producer_commit": "300ab5c6d161b51577d37d2a70f7499fc3f782e9",
+    "publication_prepared_but_not_run": true,
+    "recovery_archive_sha256": "4845c54f645a3ed7a11ac522cf08c29dd6d0a62b814ef86cdaa3827d9e78cb3f",
+    "recovery_commit": "b07d46f88d4a05ad8319a29d7bd13a63cbe696ee"
+  },
+  "status": "saved_data_audit_failed",
+  "validation": {
+    "ci_commit": "b07d46f88d4a05ad8319a29d7bd13a63cbe696ee",
+    "ci_conclusion": "success",
+    "ci_url": "https://github.com/kadiru/sircus/actions/runs/44379229653",
+    "original_environment_recovery_mocks": 59,
+    "outer_watchdog_mocks": 35,
+    "private_launcher_mocks": 12
+  }
+}
