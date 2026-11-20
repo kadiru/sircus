@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sircus · Learning across more bucket locations</title>
+  <link rel="stylesheet" href="/location_comparison.css">
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">Sircus · Separate seed-22 comparison</div>
+    <h1>Does training on more<br>bucket locations help?</h1>
+    <p class="lede">Two copies of the same saved neural network learn from equal numbers of new shot requests. One repeats 31 original locations; the other uses 8,960 distinct locations. Both retain the same physics, reward and geometry checks.</p>
+    <nav aria-label="Comparison sections"><a href="#overview">Status</a><a href="#learning">Learning curves</a><a href="#heldout">Unseen positions</a><a href="#compute">Compute</a><a href="#videos">Trial videos</a><a href="#evidence">Evidence</a></nav>
+  </header>
+  <section id="overview" aria-labelledby="statusTitle">
+    <div id="statusCard" class="card status"><div><span id="statusBadge" class="badge">Loading</span><h2 id="statusTitle">Reading the comparison report…</h2><p id="statusDetail" class="muted">An execution result is separate from its independent audit.</p><p id="freshness" class="small muted"></p></div><button id="refresh" type="button">Refresh</button></div>
+    <div id="modelCards" class="model-grid" aria-label="Three models and equal training budgets"></div>
+    <p id="assessmentProgress" class="small muted"></p>
+    <p class="note">A request counts even if the arms cannot safely reach or settle into the proposed setup. Four of the original 35 bucket locations overlap arm bases in this Isaac scene, leaving 31 for this comparison.</p>
+  </section>
+  <section id="learning" class="card">
+    <div class="section-heading"><div><div class="eyebrow">New data and frozen checks</div><h2>Learning curves</h2></div><label class="metric-control" for="curveMetric">Show<select id="curveMetric"><option value="captures">Captures / requests</option><option value="clean">Clean captures / requests</option><option value="rejected">Rejected / requests</option></select></label></div>
+    <p id="curveStatus" class="note"></p>
+    <div id="curveLegend" class="legend"></div>
+    <div class="chart-grid">
+      <div><h3>Exploratory TRAIN · 35-request batches</h3><p class="small muted">Each point shows one batch while the network is trying and learning. Batch outcomes can rise or fall. These are not unseen-position results.</p><div id="trainChart" class="chart"></div></div>
+      <div><h3>Frozen monitoring · 35 positions</h3><p class="small muted">Direct predictions with learning paused at fixed checkpoints. The last model is tested; monitoring does not select a winner.</p><div id="monitorChart" class="chart"></div></div>
+    </div>
+    <div id="trainTotals" class="table-wrap"></div>
+    <details><summary>Exact curve values</summary><div id="curveTable" class="table-wrap"></div></details>
+  </section>
+  <section id="heldout" class="card">
+    <div class="eyebrow">Primary comparison</div><h2>70 fresh, unseen bucket positions</h2>
+    <p id="heldoutStatus" class="note"></p>
+    <div id="broadResults" class="table-wrap"></div>
+    <p class="note">Each model gets one direct prediction per position. All 70 requests remain in the denominator, including rejections. Clean captures use the unchanged, stricter clean-entry score. No search or model update uses these test outcomes.</p>
+    <div class="divider"></div><h3>25 nearby positions · separate sensitivity check</h3>
+    <p class="small muted">These positions are 50 mm from selected original locations. This smaller check is shown separately; it is not added to the primary 70-position score.</p>
+    <div id="localResults" class="table-wrap"></div>
+    <details><summary>Why requests were rejected</summary><div id="rejections" class="table-wrap"></div></details>
+    <p class="scope">This compares two continuations of one starting model, not independent repeated training seeds. The final results describe these fixed test positions; they do not establish performance on every configuration.</p>
+  </section>
+  <section id="compute" class="card">
+    <div class="eyebrow">Measured resource use</div><h2>Time and memory</h2>
+    <div id="phaseWall" class="table-wrap"></div>
+    <details open><summary>Recorded operations by model and phase</summary><div id="computeTable" class="table-wrap"></div></details>
+    <h3>Recorded memory maxima by model and phase</h3><div id="memoryTable" class="table-wrap"></div>
+    <p id="computeScope" class="note"></p>
+  </section>
+  <section id="videos" class="card">
+    <div class="eyebrow">Prescheduled native recordings</div><h2>Watch the actual trials</h2>
+    <p class="note">These are scheduled snapshots, not a selection of successful shots. A video is evidence of the recorded trial, not a replacement for the full numerical audit.</p>
+    <div id="videoList"></div>
+  </section>
+  <section id="evidence" class="card"><details><summary>Audit, saved models and limits</summary><div id="evidenceDetails"></div></details></section>
+  <footer>Read-only viewer · No training or motion controls. <a href="http://127.0.0.1:18797/#frozen" target="_blank" rel="noopener">Original three-seed sweep/PPO benchmark ↗</a> remains a separate historical experiment.</footer>
+</main>
+<script type="module" src="/location_comparison_panel.js"></script>
+</body>
+</html>
