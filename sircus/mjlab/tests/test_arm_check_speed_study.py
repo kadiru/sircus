@@ -2,13 +2,22 @@
 import copy
 import math
 from pathlib import Path
+import subprocess
+import sys
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
-from sircus.mjlab import arm_check_speed_study as study
-from sircus.mjlab.corrected_contract import grid_layouts
-from sircus.mjlab.planning_budget_plan import _wrap_choice
+try:
+    from sircus.mjlab import arm_check_speed_study as study
+    from sircus.mjlab.corrected_contract import grid_layouts
+    from sircus.mjlab.planning_budget_plan import _wrap_choice
+except ModuleNotFoundError as error:
+    # The legacy runner imported by this study requires Torch. Lightweight CI
+    # deliberately omits it; do not conceal a different missing dependency.
+    if error.name != "torch":
+        raise
+    study = None
 
 
 def provenance():
@@ -40,6 +49,7 @@ def outcome(label):
         experimental_route=dict(robot_assisted_capture=label == "arm_assisted_capture"))
 
 
+@unittest.skipIf(study is None, "Pinned study imports require Torch; covered on Ubuntu CPU")
 class StudyTests(unittest.TestCase):
     def test_fresh20_are_reproducible_spatially_disjoint_and_stratified(self):
         inputs = provenance()
@@ -162,6 +172,26 @@ class StudyTests(unittest.TestCase):
                     self.assertEqual(slot["request"][key], value)
         self.assertEqual(sites["site", "baseline"]["choice"], original_choice)
         self.assertEqual(set(saved), {"plans.json", "choices.json"})
+
+
+class DependencyGuardTests(unittest.TestCase):
+    def test_collection_without_torch_skips_only_study_cases(self):
+        code = """
+import builtins, runpy, sys
+original_import = builtins.__import__
+def without_torch(name, *args, **kwargs):
+    if name == 'torch' or name.startswith('torch.'):
+        raise ModuleNotFoundError('Torch intentionally absent in test', name='torch')
+    return original_import(name, *args, **kwargs)
+builtins.__import__ = without_torch
+scope = runpy.run_path(sys.argv[1], run_name='dependency_probe')
+assert scope['study'] is None
+assert scope['StudyTests'].__unittest_skip__ is True
+assert not getattr(scope['DependencyGuardTests'], '__unittest_skip__', False)
+"""
+        result = subprocess.run([sys.executable, "-c", code, str(Path(__file__).resolve())],
+            capture_output=True, text=True, timeout=30)
+        self.assertEqual(result.returncode, 0, result.stderr)
 
 
 if __name__ == "__main__":
