@@ -8,6 +8,17 @@
 <p id="savedReplayExplanation" class="fine">Recorded native simulation. Playback runs in your browser.</p><div id="savedReplayMarkers" class="saved-replay-markers" aria-label="Jump to a measured event"></div>
 </section>
 <div class="result" role="status" aria-live="polite"><span class="status-dot" id="resultDot"></span><div><strong id="resultTitle">Waiting for the learning study</strong><p id="resultText">Manual solves unlock after the completed study and frozen-checkpoint evaluation.</p></div></div>
+<section id="armCheckSpeed" class="results-section fast-planning-section" hidden>
+<p class="eyebrow">FASTER ARM CHECKS · SAME CLEARANCE REQUIREMENT</p><h2>Can arm checks finish before the planning limit?</h2>
+<p class="fine">At the previously missed target (971.2, −285.4 mm), arm checks used 29.9 of the 30 seconds. The original planner spent 86.1 seconds finding a reference path that its successful shot did not use; solving the reference arm pose itself took 0.38 seconds.</p>
+<p class="fine">The revised checker calculates object separations in batches and stops a rejected path at its first failed segment. Accepted paths still receive every motion sample and detailed collision check, with the same 5 mm clearance requirement.</p>
+<p id="armCheckSpeedStatus" class="subtle" role="status"></p><p id="armCheckSpeedProgress" class="fine"></p>
+<p id="armCheckSpeedScope" class="scope-note"></p>
+<div id="armCheckSpeedTable" class="table-wrap" tabindex="0" role="region" aria-label="Current and faster arm checks: first-drop captures and planning time"></div>
+<p id="armCheckSpeedPair" class="fine"></p>
+<details id="armCheckSpeedPositionDetails" hidden><summary>Results at each new bucket position</summary><div id="armCheckSpeedPositions" class="table-wrap" tabindex="0" role="region" aria-label="Per-position results for both arm checkers"></div></details>
+<p class="fine">Capture means a board rebound followed by one continuous second fully inside the bucket. Direct and table-assisted routes count. A position without a checked shot stays in the denominator. These are native MuJoCo drops at 64 substeps with the arms held at planned poses; camera perception and moving-arm execution are separate work.</p>
+<p id="armCheckSpeedNext" class="fine"></p></section>
 <section id="interactiveFastAcceptance" class="results-section fast-planning-section" hidden>
 <p class="eyebrow">DRAG BUCKET → PLAN → PREVIEW → ONE DROP</p><h2>Live planner check on fresh placements</h2>
 <p id="interactiveFastAcceptanceStatus" class="subtle" role="status"></p><p id="interactiveFastAcceptanceScope" class="fine"></p>
