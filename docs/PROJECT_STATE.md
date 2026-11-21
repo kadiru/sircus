@@ -1,5 +1,14 @@
 # Project state
 
+## Faster arm checks tested — November 21, 2026
+
+- [Completed comparison and reproduction](../sircus/mjlab/ARM_CHECK_SPEED_STUDY.md): current and optimized arm checks each captured **17/20 fresh positions**, at exactly the same positions (**10 direct, 7 table-assisted** per method). There were no gained or lost captures. Current checks produced 18 releases, one flight miss and two missing setups; optimized checks produced 19 releases, two flight misses and one missing setup. All positions remain in the denominator.
+- Mean full planning request: **21.96 → 14.05 seconds (36% less)**; median **23.32 → 8.85 seconds (62% less)**. The 90th percentile remains about **31.3 seconds**. Both methods retain a 30-second decision limit; reported request time also includes worker initialization and result handling, but excludes browser/network and drop simulation.
+- Changes are opt-in: batch the same conservative object-distance calculations, and stop a rejected path after its first failing segment. Accepted paths retain every original 0.5° motion sample, detailed collision check and 5 mm clearance requirement. A real-scene CPU check matched all records at **64 joint states and 8 path segments**; mean gate time fell **24.105 → 18.394 ms**. Models, scoring and native physics are unchanged.
+- The earlier difficult target **(971.2, −285.4) mm** still timed out under both versions. Its historical bottleneck was an **86.14-second reference-path search**, although the successful final shot used a different home-to-shot route. This optimization does not resolve that avoidable search; trying a candidate's direct path before the costly reference path remains the next focused improvement.
+- All **37 native test drops + 18 matched controls** finished at 64 substeps. Both control blocks and the **45,116-check independent audit passed**; native work used **186.10 leased 4090 seconds**. Frozen evidence is summarized in [the baseline artifact](../baselines/mjlab-arm-check-speed-20261121/summary.json).
+- Results are published at `#armCheckSpeed`; the live planner/default was **not switched**. This is simulator-geometry planning with sampled path checks and held-endpoint ball dynamics, not moving-arm trajectory or hardware validation. No retraining, service restart, 4070 workload or Isaac setup change. Implementation: `c526474` / `f6b9a94`, [draft PR #153](https://github.com/kadiru/sircus/pull/153), based on draft PR #152.
+
 ## Live fast-planner comparison completed — November 21, 2026
 
 - [Audited results](../sircus/mjlab/INTERACTIVE_FAST_RESULTS.md): all **20 attempts** finished on the same ten new positions. Fast captured **7/10**, original **8/10**; both captured at seven, fast gained none and lost one, and neither captured at two. Fast released seven shots and declined three setups; original released ten and missed twice. No technical failures; all **17 native traces** independently verified at 64 substeps.

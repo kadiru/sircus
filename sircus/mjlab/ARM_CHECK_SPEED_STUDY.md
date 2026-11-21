@@ -1,8 +1,49 @@
-# Arm-check speed diagnosis and proposed test
+# Faster arm checks: diagnosis and completed comparison
 
-This follow-up investigates the missed placement in the completed
-`interactive-fast-acceptance-v1` comparison. All numbers below are historical
-evidence; no improvement or new capture outcome is claimed here.
+On **November 21, 2026**, faster arm checks reduced mean planning time by
+**36%** on 20 fresh bucket positions. Both versions captured at the same
+**17/20 positions**. The original difficult position still times out.
+The live planner has not switched to these opt-in changes.
+
+## Results on new positions
+
+| Measurement | Current checks | Faster checks |
+|---|---:|---:|
+| Captures / fresh positions | 17/20 | 17/20 |
+| Direct / table-assisted captures | 10 / 7 | 10 / 7 |
+| Checked shots released | 18 | 19 |
+| Released shots that missed | 1 | 2 |
+| No checked shot within the limit | 2 | 1 |
+| Mean full planning request | 21.96 s | 14.05 s |
+| Median full planning request | 23.32 s | 8.85 s |
+| 90th-percentile request | 31.37 s | 31.31 s |
+
+Seventeen positions captured with both methods, three captured with neither,
+and there were **zero gains or losses**. Finding one additional checked
+setup did not add a capture. This batch supports faster typical planning;
+it does not prove equal performance everywhere on the table.
+
+Both methods use the same frozen model, shot menu, 30-second decision limit,
+arm-clearance requirements and native physics at **64 substeps**. All 40
+choices froze before any test drop. Each method had at most one release per
+position; missing setups remain in the capture denominator. Full request
+time includes worker initialization and result handling, excluding browser,
+network, GPU waiting and drop simulation. Initialization explains why some
+requests exceed the decision limit.
+
+The comparison completed **37 test drops and 18 matched controls**. Both
+control blocks and the independent **45,116-check audit passed**. Native
+work used **186.10 leased seconds on the 4090**. The 4070 workload and Isaac
+setup were untouched. No model was retrained.
+
+Capture requires a board rebound and one continuous second fully inside
+the bucket; direct and table-assisted routes count. The experiment uses
+simulator geometry, sampled collision checks along planned paths, and ball
+dynamics with arms held at the selected endpoints. It does not validate
+moving-arm trajectory execution, cameras or real hardware.
+
+The UI section is `#armCheckSpeed`. A compact committed result is
+[summary.json](../../baselines/mjlab-arm-check-speed-20261121/summary.json).
 
 ## Observed timeout
 
@@ -39,7 +80,7 @@ anchor-to-shot suffix failed. Thus this successful route did not use the
 expensive reference path. The completed original run explains a plausible
 shared bottleneck; the interrupted fast run has no complete internal proof.
 
-## Evidence and reproduction
+## Historical diagnosis evidence
 
 Runtime evidence remains outside Git on Ubuntu. Read these JSON records;
 do not rerun or overwrite the historical requests:
@@ -60,7 +101,7 @@ a failed edge. Count a path once: its final proof is also repeated inside
 the attempt history. The selected heading connection's `proof` is the
 actual accepted route; `path_attempts` retains the rejected suffix.
 
-## Focused change and validation plan
+## Changes and equivalence checks
 
 Two per-instance, opt-in optimizations preserve the historical audited
 implementation and its accepted-shot checks:
@@ -78,9 +119,83 @@ source files, thresholds, IK branches, model weights, physics and scoring
 remain unchanged. CPU tests compare accepted certificates and every gate
 sample against the original, and check early failures in both directions.
 
-Next measure CPU planning on this diagnostic case, then freeze fresh
-placements and compare baseline versus optimized planning time, setup rate
-and first-drop capture at 64 substeps. No-setup attempts stay in the capture
-denominator. Native testing is restricted to the 4090; the 4070 workload and
-Isaac setup remain outside this task. Do not claim faster planning or equal
-capture performance until the comparison completes.
+The geometric installer is `arm_check_speed.install_vectorized_gate(gate)`.
+Real-scene CPU validation matched the original check records at **64 joint
+states and 8 path segments**. Mean gate-check time was **24.105 ms versus
+18.394 ms** (about 24% lower). The new test positions were kept separate from
+this development check and the previously inspected target.
+
+The diagnostic replay at **(971.2, −285.4) mm** still found no checked shot
+within 30 seconds using either version (full requests: **31.34 / 31.41 s**).
+The next focused change is to try the candidate's own direct home path
+before obligating the expensive reference-path search, retaining the
+complete accepted-path audit and fallback. The speed result above does
+not establish that this unresolved case is fixed.
+
+## Saved evidence and reproduction
+
+Final evidence is outside Git:
+
+```text
+/home/kadir/sircus-mjlab/output/arm-check-speed-v2/
+/home/kadir/sircus-mjlab/output/arm-check-speed-v2-audit.json
+/home/kadir/sircus-mjlab/output/arm-check-speed-v1/cpu-equivalence.json
+/home/kadir/sircus-mjlab/studies/arm-check-speed-v1/.study-args.json
+```
+
+The final directory binds source files, frozen inputs, positions, all plans,
+selected requests and native traces. Its hashes are:
+
+| Artifact | SHA-256 |
+|---|---|
+| `report.json` | `bdba220d0b41a1bf025da32d14f42d0c19ca42e78b2f06616ae0adc3e238e093` |
+| `choices.json` | `53e399a4a03d6d2e0180ec00eb0029e8bdfa116e84c3c41d0a036f027b19794a` |
+| `evidence-manifest.json` | `2cb1ee72d30573d01d1e5925d8912dc874fb869ca81b7aae8a60f1613c4d607f` |
+| External audit | `a25c3a1f57a3cdbd1f66ed2cd9fd3446dc0a1605a8559d83ff8f41bff188dfa9` |
+
+The driver is `python -m sircus.mjlab.arm_check_speed_study`. Its required
+arguments are `--parent-study`, `--parent-audit`, `--reference`, `--assets`,
+`--fast-study`, `--fast-audit`, `--acceptance-study`, `--acceptance-audit`,
+`--evidence-root`, `--equivalence-report`, `--output`, `--gpu-lock`, and
+`--stage`. The archived `.study-args.json` records every exact input path;
+`--audit-output` supplies a separate fresh audit receipt. Assets are read
+from the existing Isaac asset directory without changing that setup.
+
+For a **new isolated repeat**, keep the audited runtime and inputs, choose
+unused output/audit paths, and omit the live display destination. From
+`/home/kadir/sircus-mjlab/studies/arm-check-speed-v1`, use the pinned Python:
+
+```python
+import json
+import os
+from pathlib import Path
+import subprocess
+
+runtime = Path('/home/kadir/sircus-mjlab/studies/arm-check-speed-v1')
+python = '/home/kadir/sircus-mjlab/venv/bin/python'
+env = dict(os.environ, CUDA_VISIBLE_DEVICES='GPU-ab1950b0-01dd-0fab-407f-2d17936b27f4',
+           OMP_NUM_THREADS='1', MKL_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1')
+args = json.loads((runtime / '.study-args.json').read_text())
+for flag, value in {
+    '--output': '/home/kadir/sircus-mjlab/output/arm-check-speed-repeat',
+    '--audit-output': '/home/kadir/sircus-mjlab/output/arm-check-speed-repeat-audit.json',
+}.items():
+    args[args.index(flag) + 1] = value
+if '--display-report' in args:
+    index = args.index('--display-report')
+    del args[index:index + 2]
+for stage in ('initialize', 'diagnose', 'prepare', 'run', 'finalize', 'audit'):
+    subprocess.run([python, '-m', 'sircus.mjlab.arm_check_speed_study',
+                    *args, '--stage', stage], cwd=runtime, env=env, check=True)
+```
+
+`run` waits for the shared 4090 lease, respects the one-hour native cap and
+8 GiB disk reserve, and does not stop another workload. Do not point a new
+run at the completed output. A repeat uses the same seeded protocol; it is
+not automatically a new unseen-position benchmark if its positions were
+already evaluated. A fresh benchmark needs a new frozen coordinate
+inventory and seed before seeing outcomes.
+
+Implementation checkpoints: `c526474` and `f6b9a94`,
+[draft PR #153](https://github.com/kadiru/sircus/pull/153), based on draft
+PR #152. The results panel is additive; it does not change the live planner.
