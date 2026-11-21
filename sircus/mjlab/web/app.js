@@ -68,7 +68,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, physicsSceneActive = false, physicsViewKey = '';
+let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, physicsSceneActive = false, physicsViewKey = '';
 let savedReplayRows = [], savedReplaySignature = '';
 const physicsSelected = () => $('mode').value === 'physics' && physics?.available === true;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
@@ -1042,6 +1042,7 @@ async function loadStatus() {
     showPlanningBudgetStudy();
     showFastPlanningStudy();
     showInteractiveFastAcceptance();
+    showArmCheckSpeed();
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
@@ -1063,6 +1064,57 @@ function showSavedPhysicsReplays() {
       ? report.interactive_recordings.title : 'Saved first-drop replays';
   }
   syncSolveButtons();
+}
+function showArmCheckSpeed() {
+  if (!armCheckSpeedSummary) return;
+  const view = armCheckSpeedSummary(report);
+  $('armCheckSpeed').hidden = !view;
+  if (!view) return;
+  const number = value => value === null ? '—' : String(value);
+  const seconds = value => value === null ? '—' : `${value.toFixed(1)} s`;
+  const phases = { initialized: 'Comparison initialized', preparing: 'Checking both planners at new positions',
+    prepared: 'All shot choices saved before testing', waiting_for_4090: 'Waiting for the shared 4090',
+    controls_pre: 'Checking simulator controls before drops', test_baseline: 'Testing current arm checks',
+    test_optimized: 'Testing faster arm checks', controls_post: 'Checking final simulator controls',
+    native_completed: 'Drops finished · verifying saved results', auditing: 'Verifying saved results', completed: 'Drops finished · final verification pending' };
+  $('armCheckSpeedStatus').textContent = view.complete ? 'Comparison complete · independent audit passed'
+    : view.status === 'failed' ? 'Comparison stopped · completed evidence preserved'
+    : view.status === 'completed' && view.audit === 'passed' && !view.accounting_valid ? 'Reported totals disagree · final results withheld'
+    : phases[view.phase] || 'Comparison in progress · final results pending';
+  $('armCheckSpeedProgress').textContent = `Plans completed: ${number(view.prepared)} / ${number(view.planned)} · Actual drops completed: ${number(view.releases)} / ${number(view.planned_releases)}`;
+  $('armCheckSpeedScope').textContent = `${number(view.total)} fresh bucket positions · ${number(view.budget)}-second decision limit for both · same frozen model · at most one drop per method and position.`;
+  $('armCheckSpeedTable').replaceChildren(); $('armCheckSpeedPositions').replaceChildren();
+  $('armCheckSpeedPair').textContent = ''; $('armCheckSpeedPositionDetails').hidden = !view.complete;
+  const table = (target, headers, rows) => {
+    const element = document.createElement('table'), head = document.createElement('thead'), body = document.createElement('tbody'), heading = document.createElement('tr');
+    for (const label of headers) { const cell = document.createElement('th'); cell.scope = 'col'; cell.textContent = label; heading.append(cell); }
+    head.append(heading);
+    for (const cells of rows) {
+      const row = document.createElement('tr');
+      cells.forEach((value, i) => { const cell = document.createElement(i === 0 ? 'th' : 'td'); if (i === 0) cell.scope = 'row'; cell.textContent = value; row.append(cell); }); body.append(row);
+    }
+    element.append(head, body); $(target).append(element);
+  };
+  if (view.complete) {
+    const measurements = [
+      ['First-drop captures', method => `${method.captures} / ${method.positions}`],
+      ['Checked shots released', method => `${method.admitted} / ${method.positions}`],
+      ['No checked shot within the limit', method => number(method.no_candidate)],
+      ['Released shots that missed', method => number(method.flight_misses)],
+      ['Mean planning time', method => seconds(method.timing.mean_s)],
+      ['Median planning time', method => seconds(method.timing.median_s)],
+      ['90th-percentile planning time', method => seconds(method.timing.p90_s)],
+    ];
+    table('armCheckSpeedTable', ['Measurement', ...view.methods.map(method => method.label)],
+      measurements.map(([name, value]) => [name, ...view.methods.map(value)]));
+    $('armCheckSpeedPair').textContent = `Faster checks gained ${view.paired.gained} captures and lost ${view.paired.lost}; both captured at ${view.paired.both} positions. All ${view.total} positions remain in each denominator. Planning time includes worker initialization and result handling, but excludes browser/network time and drop simulation.`;
+    const labels = { direct: 'Direct capture', table: 'Table-assisted capture', unclassified_capture: 'Capture · route unclassified',
+      setup_rejected: 'No checked shot', flight_miss: 'Released · missed', invalid_physics: 'Invalid physics', arm_assisted_capture: 'Robot-assisted · separate' };
+    table('armCheckSpeedPositions', ['Bucket X, Y (mm)', ...view.methods.map(method => method.label)],
+      view.positions.map(row => [row.bucket_xy_m.map(value => (value * 1000).toFixed(1)).join(', '),
+        ...view.methods.map(method => labels[row.outcomes[method.id]] || row.outcomes[method.id].replaceAll('_', ' '))]));
+  }
+  $('armCheckSpeedNext').textContent = view.error || view.next;
 }
 function showInteractiveFastAcceptance() {
   if (!interactiveFastAcceptanceSummary) return;
@@ -1414,6 +1466,7 @@ async function initializePhysics() {
     planningBudgetSummary = module.planningBudgetSummary;
     fastPlanningSummary = module.fastPlanningSummary;
     interactiveFastAcceptanceSummary = module.interactiveFastAcceptanceSummary;
+    armCheckSpeedSummary = module.armCheckSpeedSummary;
     physics = new module.InteractivePhysics({ onChange: updatePhysics });
     await physics.initialize();
     showSavedPhysicsReplays();
@@ -1422,6 +1475,7 @@ async function initializePhysics() {
     showPlanningBudgetStudy();
     showFastPlanningStudy();
     showInteractiveFastAcceptance();
+    showArmCheckSpeed();
   } catch { /* Historical viewing stays available without this optional API. */ }
 }
 for (const id of ['physicsDrop', 'physicsDropTop']) {

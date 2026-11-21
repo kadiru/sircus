@@ -1,0 +1,384 @@
+{
+  "version": "sircus-arm-check-speed-study-v1",
+  "status": "completed",
+  "audit_status": "passed",
+  "scope": "Privileged simulator geometry; endpoint-held native64; not driven arm trajectories or hardware",
+  "comparison": {
+    "methods": {
+      "baseline": {
+        "attempts": 20,
+        "releases": 18,
+        "setup_rate": 0.9,
+        "captures": 17,
+        "capture_rate": 0.85,
+        "outcomes": {
+          "direct": 10,
+          "table": 7,
+          "setup_rejected": 2,
+          "flight_miss": 1
+        },
+        "selected_routes": {
+          "direct": 10,
+          "table": 8
+        },
+        "requested_route_captures": 16,
+        "positions": 20,
+        "admitted": 18,
+        "no_candidate": 2,
+        "flight_misses": 1
+      },
+      "optimized": {
+        "attempts": 20,
+        "releases": 19,
+        "setup_rate": 0.95,
+        "captures": 17,
+        "capture_rate": 0.85,
+        "outcomes": {
+          "direct": 10,
+          "table": 7,
+          "flight_miss": 2,
+          "setup_rejected": 1
+        },
+        "selected_routes": {
+          "direct": 11,
+          "table": 8
+        },
+        "requested_route_captures": 16,
+        "positions": 20,
+        "admitted": 19,
+        "no_candidate": 1,
+        "flight_misses": 2
+      }
+    },
+    "latency": {
+      "baseline": {
+        "positions": 20,
+        "mean_s": 21.960727120708906,
+        "median_s": 23.31774976302404,
+        "p90_s": 31.372109054005705,
+        "max_s": 31.545746422954835,
+        "aggregate_s": 439.21454241417814
+      },
+      "optimized": {
+        "positions": 20,
+        "mean_s": 14.052061711682473,
+        "median_s": 8.84688832849497,
+        "p90_s": 31.31320147193037,
+        "max_s": 31.51443283795379,
+        "aggregate_s": 281.04123423364945
+      }
+    },
+    "decision_latency": {
+      "baseline": {
+        "positions": 20,
+        "mean_s": 21.45146367261186,
+        "median_s": 22.703836473054253,
+        "p90_s": 30.0,
+        "max_s": 30.0,
+        "aggregate_s": 429.02927345223725
+      },
+      "optimized": {
+        "positions": 20,
+        "mean_s": 13.552327766543021,
+        "median_s": 8.207328086020425,
+        "p90_s": 30.0,
+        "max_s": 30.0,
+        "aggregate_s": 271.04655533086043
+      }
+    },
+    "paired": {
+      "both": 17,
+      "gained": 0,
+      "lost": 0,
+      "neither": 3
+    },
+    "positions": [
+      {
+        "id": "arm-check-speed-test-00",
+        "bucket_xy_m": [
+          0.4310739236329699,
+          -0.4984792687606407
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "optimized": "direct"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-01",
+        "bucket_xy_m": [
+          0.9511626579844359,
+          -0.4838105390179463
+        ],
+        "outcomes": {
+          "baseline": "table",
+          "optimized": "table"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-02",
+        "bucket_xy_m": [
+          0.42769834037169624,
+          -0.07352225196125664
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "optimized": "direct"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-03",
+        "bucket_xy_m": [
+          0.9485604838248382,
+          0.11863252909162597
+        ],
+        "outcomes": {
+          "baseline": "setup_rejected",
+          "optimized": "flight_miss"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-04",
+        "bucket_xy_m": [
+          0.1440309257471414,
+          -0.14528483576602458
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "optimized": "direct"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-05",
+        "bucket_xy_m": [
+          1.2124489400250744,
+          -0.17940700889784722
+        ],
+        "outcomes": {
+          "baseline": "table",
+          "optimized": "table"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-06",
+        "bucket_xy_m": [
+          0.7664051554542719,
+          -0.6105082232651694
+        ],
+        "outcomes": {
+          "baseline": "table",
+          "optimized": "table"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-07",
+        "bucket_xy_m": [
+          0.8551428109953424,
+          0.2245165219705044
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "optimized": "direct"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-08",
+        "bucket_xy_m": [
+          0.16324316570889874,
+          0.12147053814272968
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "optimized": "direct"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-09",
+        "bucket_xy_m": [
+          1.1850921216938672,
+          0.15892945870689823
+        ],
+        "outcomes": {
+          "baseline": "setup_rejected",
+          "optimized": "setup_rejected"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-10",
+        "bucket_xy_m": [
+          0.37099605433113736,
+          -0.5304401822739592
+        ],
+        "outcomes": {
+          "baseline": "table",
+          "optimized": "table"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-11",
+        "bucket_xy_m": [
+          0.9111554344117132,
+          -0.33943134977479994
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "optimized": "direct"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-12",
+        "bucket_xy_m": [
+          0.40641372826775357,
+          -0.04901447178341817
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "optimized": "direct"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-13",
+        "bucket_xy_m": [
+          0.9583644128145247,
+          -0.03916026208630963
+        ],
+        "outcomes": {
+          "baseline": "flight_miss",
+          "optimized": "flight_miss"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-14",
+        "bucket_xy_m": [
+          0.12084444799181,
+          -0.2207946306454382
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "optimized": "direct"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-15",
+        "bucket_xy_m": [
+          1.2014949756200086,
+          -0.17152397077616433
+        ],
+        "outcomes": {
+          "baseline": "table",
+          "optimized": "table"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-16",
+        "bucket_xy_m": [
+          0.7480522940491615,
+          -0.6449838306954281
+        ],
+        "outcomes": {
+          "baseline": "table",
+          "optimized": "table"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-17",
+        "bucket_xy_m": [
+          0.6345997862803164,
+          0.19396925596531828
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "optimized": "direct"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-18",
+        "bucket_xy_m": [
+          0.22630157145986762,
+          0.023256196976648824
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "optimized": "direct"
+        }
+      },
+      {
+        "id": "arm-check-speed-test-19",
+        "bucket_xy_m": [
+          1.2231948277802807,
+          -0.18826723186811384
+        ],
+        "outcomes": {
+          "baseline": "table",
+          "optimized": "table"
+        }
+      }
+    ]
+  },
+  "progress": {
+    "prepared": 40,
+    "planned": 40,
+    "completed_releases": 37,
+    "planned_releases": 37
+  },
+  "gpu_lease_s": 186.10065092996228,
+  "control_summary": {
+    "controls_pre": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "controls_post": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "cpu_check_equivalence": {
+    "samples": 64,
+    "checked_pairs": 1502,
+    "passed": 14,
+    "rejected": 50,
+    "exact_full_record_equivalence": true,
+    "segment_mismatch_count": 0,
+    "mean_check_ms": {
+      "original": 24.105165453268757,
+      "vectorized": 18.393774952831638
+    },
+    "speedup": 1.3105067075727093
+  },
+  "diagnosis": {
+    "bucket_xy_mm": [
+      971.2010092480674,
+      -285.3881822068356
+    ],
+    "historical_fast_arm_check_s": 29.927377,
+    "historical_reference_path_s": 85.733423,
+    "historical_endpoint_ik_s": 0.384298,
+    "retest_baseline_total_s": 31.342075524968095,
+    "retest_optimized_total_s": 31.41017935797572,
+    "retest_checked_shot": false
+  },
+  "provenance": {
+    "executed_application_commit": "c52647488c15d198cc7ba194285c3b984c179c83",
+    "audit_checks": 45116,
+    "contract_fingerprint": "67304b0e849afd66c47405c8c2b7ef853cb0edfd63bd74be6f95dc610d8c0df8",
+    "neural_checkpoint_sha256": "3ea83197149204bb92782f9efd9a7ee985d6c7bbbfb0823bd068642eebdd1a1e",
+    "scene_sha256": "9a50295d9908be8634c2df1c0b460ec6011710cf8e14ce33cbc67a75749ff1c8",
+    "report_sha256": "bdba220d0b41a1bf025da32d14f42d0c19ca42e78b2f06616ae0adc3e238e093",
+    "audit_sha256": "a25c3a1f57a3cdbd1f66ed2cd9fd3446dc0a1605a8559d83ff8f41bff188dfa9",
+    "layouts_sha256": "539569576752dd7f5e7bdb80485733d00bb8a89678876520c76081699af5d62b",
+    "choices_sha256": "53e399a4a03d6d2e0180ec00eb0029e8bdfa116e84c3c41d0a036f027b19794a",
+    "evidence_manifest_sha256": "2cb1ee72d30573d01d1e5925d8912dc874fb869ca81b7aae8a60f1613c4d607f"
+  },
+  "limitations": [
+    "20 paired fresh placements; no claim of table-wide coverage or guaranteed capture equivalence",
+    "Both planners use the same frozen warm_early selector and 30-second decision budget",
+    "The old development timeout still remains unresolved",
+    "Live interactive planner remains unchanged; optimized worker is opt-in",
+    "Physics uses privileged simulator geometry and held arm endpoints at 64 substeps; no driven trajectory or physical validation",
+    "4070 workload and Isaac setup were not changed"
+  ]
+}
