@@ -1,5 +1,13 @@
 # Project state
 
+## Live fast-planner comparison completed — November 21, 2026
+
+- [Audited results](../sircus/mjlab/INTERACTIVE_FAST_RESULTS.md): all **20 attempts** finished on the same ten new positions. Fast captured **7/10**, original **8/10**; both captured at seven, fast gained none and lost one, and neither captured at two. Fast released seven shots and declined three setups; original released ten and missed twice. No technical failures; all **17 native traces** independently verified at 64 substeps.
+- Mean/median/90th-percentile HTTP planning waits: fast **21.16/20.21/30.20 seconds**, original **46.12/26.46/76.94 seconds**. These include HTTP polling and exclude GPU wait/drop. The fast roughly 30-second decision limit and original unbounded planner differ; this is an interactive tradeoff, not an isolated early-return experiment.
+- At **(971.2, −285.4) mm**, fast returned no checked shot after 30.17 seconds; original captured after 172.40 seconds planning. Keep the original explicitly selectable for difficult placements. The seven fast releases captured, but the three missing setups remain in its ten-position denominator.
+- The interrupted run resumed its exact first plan and preserved the **16.079-second** November 17 timing, without repeating drops or adding the pause. The other nine matched positions still average **21.73 versus 46.15 seconds**. Frozen positions, complete evidence, interruption history and audit hashes are retained; stale/duplicate request guards passed.
+- Results are published under `#interactiveFastAcceptance`. No new training, scoring/contact changes, service restart, 4070 workload or Isaac setup change accompanied this resume. The earlier dated state below describes the original interruption, not the current status.
+
 ## Live fast-planner comparison interrupted — November 17, 2026
 
 - The ten-position, twenty-attempt comparison stopped after its 3,600-second GPU wait expired. **0/20 requests completed and no native comparison drops ran.** The first fast plan took **16.079 seconds**; the original planner has no measured request in this batch.

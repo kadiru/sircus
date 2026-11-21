@@ -8,12 +8,12 @@ It does not train another model or change the contact physics or capture rule.
 ## Operator flow
 
 1. Drag the bucket on the table, or enter its X/Y coordinates.
-2. Leave **Fast checked planner** selected and press **Plan shot**.
+2. Leave **Faster planner · ~30 s decision budget** selected and press **Plan shot**.
 3. Inspect both arm poses and the release point. Planning uses a 30-second
    decision budget; worker startup and evidence verification add wall time.
 4. Press **Run one drop** to simulate the exact previewed configuration at
    64 substeps. A completed result can be replayed without another simulation.
-5. If no checked shot is found, select **Original planner** and plan again.
+5. If no checked shot is found, select **Original planner · explicit fallback** and plan again.
    This is an explicit fallback, with the original planning behavior and no
    30-second decision limit. There is no automatic second drop or retry.
 
