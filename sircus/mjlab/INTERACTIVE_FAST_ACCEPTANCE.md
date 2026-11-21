@@ -26,6 +26,10 @@ python -m sircus.mjlab.interactive_fast_check freeze \
 ```
 
 Replace `freeze` with `run` to execute, then `audit` to repeat CPU-only verification.
+`run --gpu-wait-s ...` requires the existing 4090-only selector in its environment:
+`CUDA_VISIBLE_DEVICES=GPU-ab1950b0-01dd-0fab-407f-2d17936b27f4`.
+This does not select the 4070. The native drop worker independently applies the same
+selector and acquires the shared lease.
 `--gpu-wait-s 3600` optionally checks for foreign 4090 compute jobs before each drop; it never
 stops them or takes their lease. The native worker still acquires the shared GPU lock and checks
 occupancy. A GPU wait is separate from planning latency. The 4070 and Isaac are untouched.
@@ -35,6 +39,10 @@ the existing job ID; it never submits another drop. An intent that was never acc
 as uncertain/unreleased. An unknown plan-submission outcome requires manual inspection. A
 timeout while polling retains the job for resume. A process lock prevents two runner instances.
 Keep the service and evidence directory intact when resuming.
+Resume moves the previous error into `interruptions` and clears the active error,
+so an old timeout cannot obscure current progress or completed results. A saved
+ready plan keeps its original measured planning time; interruption duration is
+not added to it.
 
 Every measured result must match the accepted preview, requested bucket, exact joints and
 release request hash. The final CPU audit verifies native trace hashes/IDs, 64-substep time,
