@@ -150,6 +150,26 @@ class AcceptanceTests(unittest.TestCase):
         subject.check_row(client, row, frozen(), lambda: None)
         self.assertEqual((client.plan_count, client.drop_count), (1, 1))
 
+    def test_resume_archives_old_error_and_releases_saved_plan_without_replanning(self):
+        row, client = self.row(), Client()
+        row.update(state="ready", plan_id="saved", preview=preview(row["bucket_xy_m"], "fast"))
+        client.job = dict(id="saved", state="ready", preview=row["preview"],
+                          bucket_xy_m=row["bucket_xy_m"], planner=row["planner"])
+        report = dict(status="failed", error="Previous GPU wait expired",
+                      updated_at_unix=123., results=[row])
+        with tempfile.TemporaryDirectory() as directory:
+            args = SimpleNamespace(base_url="http://localhost", output=Path(directory),
+                                   display_report=None, gpu_wait_s=0, timeout_s=1, poll_s=.001)
+            with patch.object(subject, "load_frozen", return_value=(frozen(), report)), \
+                 patch.object(subject, "Client", return_value=client), \
+                 patch.object(subject, "audit", return_value=report):
+                subject.run(args)
+        self.assertNotIn("error", report)
+        self.assertEqual(report["interruptions"], [
+            dict(error="Previous GPU wait expired", observed_at_unix=123.)])
+        self.assertEqual(row["state"], "completed")
+        self.assertEqual((client.plan_count, client.drop_count), (0, 1))
+
     def test_bucket_coordinates_only_and_deterministic_alternating_order(self):
         data = dict(bucket_xy_m=[.1, .2], q10=[3, 4], child=[dict(bucket_xy_m=[.3, .4])],
                     excluded_coordinates_m=[[.5, .6]])

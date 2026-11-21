@@ -395,6 +395,9 @@ def run(args):
     frozen, report = load_frozen(args)
     if report["status"] == "completed":
         return audit(args)
+    if "error" in report:
+        report.setdefault("interruptions", []).append(dict(
+            error=report.pop("error"), observed_at_unix=report.get("updated_at_unix")))
     report.update(status="running", audit_status="pending", next="Plan and drop each frozen placement once per method.")
     client = Client(args.base_url)
     def persist():
