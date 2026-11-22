@@ -1,0 +1,318 @@
+{
+  "version": "sircus-hybrid-miss-published-summary-v1",
+  "status": "completed",
+  "audit_status": "passed",
+  "evidence_date": "2026-11-22",
+  "producer_commit": "a135f3a3379ccade21be84e09eec77b34feabdf3",
+  "physics_substeps": 64,
+  "repeats_per_variant_per_case": 3,
+  "positions": 3,
+  "changed_parameter": "bouncer_joint_configuration",
+  "unchanged": [
+    "bucket coordinates",
+    "board center",
+    "full board orientation",
+    "release point",
+    "dropper joints",
+    "physics and scoring"
+  ],
+  "cases": [
+    {
+      "id": "stalled-reference-test-03",
+      "bucket_xy_m": [
+        0.9484147227579094,
+        -0.03507502760574792
+      ],
+      "shot_values": [
+        0.6058345576138615,
+        0.06491429859424128,
+        0.4976091239666261,
+        22.330081755597877,
+        0.1870037033253607
+      ],
+      "results": {
+        "original": {
+          "requested": 3,
+          "completed": 3,
+          "released": 3,
+          "setup_rejected": 0,
+          "captures": 0,
+          "direct": 0,
+          "table": 0,
+          "robot_contacts": 3,
+          "outcomes": [
+            "flight_miss",
+            "flight_miss",
+            "flight_miss"
+          ]
+        },
+        "corrected": {
+          "requested": 3,
+          "completed": 3,
+          "released": 3,
+          "setup_rejected": 0,
+          "captures": 0,
+          "direct": 0,
+          "table": 0,
+          "robot_contacts": 3,
+          "outcomes": [
+            "flight_miss",
+            "flight_miss",
+            "flight_miss"
+          ]
+        }
+      },
+      "accepted_joint_solution_records": 1,
+      "predicted_route": "direct",
+      "predicted_arm_clearance_m": {
+        "original": -0.018873126964286103,
+        "corrected": -0.018873483567757626
+      },
+      "max_proximal_joint_change_rad": 8.189108360312503e-07,
+      "first_robot_contact_s": 0.47760416666666666,
+      "original_trace_sha256": "df0faf399200a6b01bedecd1229446127685df81e415f6f2bbe975e398cdf879",
+      "identified_robot_geometry": "Arm14/link3/collision/0"
+    },
+    {
+      "id": "stalled-reference-test-09",
+      "bucket_xy_m": [
+        1.1950241751674764,
+        0.1605393061423136
+      ],
+      "shot_values": [
+        0.5931071150524352,
+        -0.03775942765415213,
+        0.47319475985245624,
+        21.41333748084996,
+        0.11465902723272303
+      ],
+      "results": {
+        "original": {
+          "requested": 3,
+          "completed": 3,
+          "released": 3,
+          "setup_rejected": 0,
+          "captures": 0,
+          "direct": 0,
+          "table": 0,
+          "robot_contacts": 3,
+          "outcomes": [
+            "flight_miss",
+            "flight_miss",
+            "flight_miss"
+          ]
+        },
+        "corrected": {
+          "requested": 3,
+          "completed": 3,
+          "released": 3,
+          "setup_rejected": 0,
+          "captures": 0,
+          "direct": 0,
+          "table": 0,
+          "robot_contacts": 3,
+          "outcomes": [
+            "flight_miss",
+            "flight_miss",
+            "flight_miss"
+          ]
+        }
+      },
+      "accepted_joint_solution_records": 8,
+      "predicted_route": "table",
+      "predicted_arm_clearance_m": {
+        "original": -0.022266590989043718,
+        "corrected": -0.022266224877873123
+      },
+      "max_proximal_joint_change_rad": 8.091614964733651e-07,
+      "first_robot_contact_s": 0.41367187499999997,
+      "original_trace_sha256": "306fa67a3cd9b08ae241f45ffd56cc0e6eb50420694ec0175fdc957f7ccbe80d",
+      "identified_robot_geometry": "Arm14/link3/collision/0"
+    },
+    {
+      "id": "stalled-reference-test-19",
+      "bucket_xy_m": [
+        1.2260114071809864,
+        0.18342521713426418
+      ],
+      "shot_values": [
+        0.5878007242909605,
+        -0.14398666406199986,
+        0.3736925543705354,
+        16.016394669101363,
+        0.25346928437628946
+      ],
+      "results": {
+        "original": {
+          "requested": 3,
+          "completed": 3,
+          "released": 3,
+          "setup_rejected": 0,
+          "captures": 0,
+          "direct": 0,
+          "table": 0,
+          "robot_contacts": 3,
+          "outcomes": [
+            "flight_miss",
+            "flight_miss",
+            "flight_miss"
+          ]
+        },
+        "corrected": {
+          "requested": 3,
+          "completed": 3,
+          "released": 3,
+          "setup_rejected": 0,
+          "captures": 0,
+          "direct": 0,
+          "table": 0,
+          "robot_contacts": 3,
+          "outcomes": [
+            "flight_miss",
+            "flight_miss",
+            "flight_miss"
+          ]
+        }
+      },
+      "accepted_joint_solution_records": 5,
+      "predicted_route": "table",
+      "predicted_arm_clearance_m": {
+        "original": -0.02298168655804788,
+        "corrected": -0.02298136442981896
+      },
+      "max_proximal_joint_change_rad": 8.102131392462297e-07,
+      "first_robot_contact_s": 0.5330729166666667,
+      "original_trace_sha256": "8d6d736a479cedff33e41e161a9c8bdfc44552598bc05ea09ef39ccea91f21ba",
+      "identified_robot_geometry": "Arm14/link3/collision/0"
+    }
+  ],
+  "aggregate": {
+    "original_captures": 0,
+    "original_requests": 9,
+    "corrected_captures": 0,
+    "corrected_requests": 9,
+    "original_robot_contacts": 9,
+    "corrected_robot_contacts": 9,
+    "setup_rejections": 0
+  },
+  "native_releases": {
+    "diagnostic": 18,
+    "controls": 18,
+    "total": 36
+  },
+  "controls": {
+    "controls_pre": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "controls_post": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "gpu_lease_s": 202.7052046379995,
+  "independent_checks": 8588,
+  "evidence_paths": {
+    "runtime": "/home/kadir/sircus-mjlab/studies/hybrid-miss-correction-v1",
+    "output": "/home/kadir/sircus-mjlab/output/hybrid-miss-correction-v1",
+    "audit": "/home/kadir/sircus-mjlab/output/hybrid-miss-correction-v1-audit.json",
+    "diagnosis": "/home/kadir/sircus-mjlab/output/hybrid-miss-diagnosis-v1.json",
+    "media": "/home/kadir/sircus-mjlab/output/hybrid-miss-media-v1"
+  },
+  "artifact_sha256": {
+    "report.json": "403ef97d59b5e250010c0bb7d9d9ece7dbbdff839056ea4e669ef3510928c87c",
+    "preparation.json": "cd98e9c09ebfaf7742660d42393390ce26ff2aa57dc0d68c423f410fb879c3f6",
+    "contract.json": "39077d39951e7fe6fe091d3273530e6117a8c4bdf178bf8fd89bc852aa6b374a",
+    "slots.json": "971c2a882dfa4dc77fcc8516927f0dc22192f85ee20c686cc3a7dc41ceb416e0",
+    "rows.jsonl": "5c27d460e1a035410862c0a0b5eb69ad1a1da2b0ec90a51775a511dc3ed415e0",
+    "evidence-manifest.json": "ac7dba2a7294436cdc18c703e3cf96ebef6296b44ded3412534e76fce75df6cf",
+    "audit": "b1eda9197f18f1bc581c372da45e402ce3670376c53097bb890b60ac810a81ed",
+    "diagnosis": "f563216c8a93b450e5ac3ad20bb6230cb14cf109c5687b6c5f070116c0a53406",
+    "launch": "1bc6db151472295bb6d7dbad1b3720807f25718d4ff41def5b5d5c821807e59c",
+    "launch_arguments": "47da9178f2ed86740f148acb6d77a28255c2b407d743fcb36769d36539f44948",
+    "verifier_source": "5bbca3f8a45f06d9028708566417dcd6c9b6aa4c523204ecceb5d4f04bbd3840"
+  },
+  "ui_section": "#hybridMissCorrection",
+  "limitations": [
+    "Selected development misses; not a new policy or unseen-position score",
+    "Accepted vector counts include wraps/numerical differences, not distinct elbow configurations",
+    "Conditional no-robot projections are not native capture evidence",
+    "Privileged simulator geometry; no camera or point-cloud perception",
+    "Arms held at selected endpoints during native drops; no driven-arm native trajectory validation",
+    "64 substeps only; no noise or timestep comparison",
+    "No retraining, planner promotion, 4070 or Isaac change"
+  ],
+  "next": "Allow a board center or heading change that moves link 3 out of the rebound path; conditional projections suggest the farther two shots also need additional range.",
+  "videos": [
+    {
+      "case_id": "stalled-reference-test-03",
+      "variant": "original",
+      "file": "case03-original.mp4",
+      "record_id": "stalled-reference-test-03-hybrid",
+      "duration_s": 9.8,
+      "trace_sha256": "df0faf399200a6b01bedecd1229446127685df81e415f6f2bbe975e398cdf879",
+      "video_sha256": "3020a9a16b3a3f09b17e6b7af969436d97c02f6a0c9d1d8dd8c7658525c55be4",
+      "manifest_sha256": "54a107ca376278e96e4a655b80b13706854ea4bbaa24a157a14a016714c030aa",
+      "native_steps_added": 0
+    },
+    {
+      "case_id": "stalled-reference-test-03",
+      "variant": "corrected",
+      "file": "case03-corrected.mp4",
+      "record_id": "stalled-reference-test-03-corrected-0",
+      "duration_s": 10.3,
+      "trace_sha256": "faa67363c286ffc806aaeee57755734f077e343c838124b55288cf6bbc661c83",
+      "video_sha256": "6760a595300980e6f80f4d474b27e15a196b4315a9e60f62a6d40d0fe9730489",
+      "manifest_sha256": "6b7ebdf151e2daf001ffa311af14a66486756b15a64cc2e5921b6c4feb225de6",
+      "native_steps_added": 0
+    },
+    {
+      "case_id": "stalled-reference-test-09",
+      "variant": "original",
+      "file": "case09-original.mp4",
+      "record_id": "stalled-reference-test-09-hybrid",
+      "duration_s": 7.7,
+      "trace_sha256": "306fa67a3cd9b08ae241f45ffd56cc0e6eb50420694ec0175fdc957f7ccbe80d",
+      "video_sha256": "6bb46bbeee874106ca681886aa2803123d01497a6ef489717999c5382ab357f9",
+      "manifest_sha256": "078eb6c23758f4df6c288e5bfe7704883231f8ad310bc8cb679d9c2b77f3790a",
+      "native_steps_added": 0
+    },
+    {
+      "case_id": "stalled-reference-test-09",
+      "variant": "corrected",
+      "file": "case09-corrected.mp4",
+      "record_id": "stalled-reference-test-09-corrected-0",
+      "duration_s": 7.666666666666667,
+      "trace_sha256": "d76fc2e194642ebe88624ed10004a350323842492e43eba3e39166fa9570b936",
+      "video_sha256": "7afc8d1fa9033d1ecbef7f51ec145ff18d16ec2c30f6f9a157b6e3e17fb8399a",
+      "manifest_sha256": "3205df8b09bca6067e84f09f89fb25df4bbf6ac5c70bdf6e7ed1433df2171554",
+      "native_steps_added": 0
+    },
+    {
+      "case_id": "stalled-reference-test-19",
+      "variant": "original",
+      "file": "case19-original.mp4",
+      "record_id": "stalled-reference-test-19-hybrid",
+      "duration_s": 8.166666666666666,
+      "trace_sha256": "8d6d736a479cedff33e41e161a9c8bdfc44552598bc05ea09ef39ccea91f21ba",
+      "video_sha256": "9c6ad47e27503b271117baa952f990fa5f5cd620add08ea5eda83566b1689d7d",
+      "manifest_sha256": "0147b431cc4c5e25ff3d9818cccc3909317661d20959f5fd8f6b0492efad1453",
+      "native_steps_added": 0
+    },
+    {
+      "case_id": "stalled-reference-test-19",
+      "variant": "corrected",
+      "file": "case19-corrected.mp4",
+      "record_id": "stalled-reference-test-19-corrected-0",
+      "duration_s": 8.133333333333333,
+      "trace_sha256": "20165cd2c133ce9e395394090cfa3f55d0046537029c4d03a6ac5bf303066049",
+      "video_sha256": "401c3b8eab70aee84c23a16254710ab9cba1a739698c5350af66a9ea536b2bd8",
+      "manifest_sha256": "ee508b8f90b7b975770e630bb947d904d32c999ed8d369aef1d55f76debb9ac4",
+      "native_steps_added": 0
+    }
+  ]
+}
