@@ -234,13 +234,13 @@ def audit_branches(artifact, layout, originals, directory, prior, home, resoluti
 
 
 
-def summarize(layouts, slots, observations, wrappers):
+def summarize(layouts, slots, observations, wrappers, *, variants=METHODS):
     """Count no-setup positions in the denominator; timing includes startup/IO."""
     from .intergrid_route_selector_plan import _account
     from .planning_budget_plan import _wrap_choice
 
-    _, methods, attempts = _account(layouts, slots, observations, METHODS)
-    expected = [(layout["id"], variant) for layout in layouts for variant in METHODS]
+    _, methods, attempts = _account(layouts, slots, observations, variants)
+    expected = [(layout["id"], variant) for layout in layouts for variant in variants]
     actual = [(item["site"]["layout"]["id"], item["variant"]) for item in wrappers]
     if actual != expected:
         raise ValueError("One ordered original plan receipt per placement and variant is required")
@@ -260,20 +260,20 @@ def summarize(layouts, slots, observations, wrappers):
     paired = dict(both=0, gained=0, lost=0, neither=0)
     positions = []
     for layout in layouts:
-        outcomes = {variant: attempts[layout["id"], variant][1] for variant in METHODS}
-        before, after = (outcomes[variant] in STANDARD_CAPTURES for variant in METHODS)
+        outcomes = {variant: attempts[layout["id"], variant][1] for variant in variants}
+        before, after = (outcomes[variant] in STANDARD_CAPTURES for variant in variants)
         paired["both" if before and after else "lost" if before else "gained" if after else "neither"] += 1
         positions.append(dict(id=layout["id"], bucket_xy_m=layout["bucket_xy_m"], outcomes=outcomes))
     return dict(
         methods=methods, paired=paired, positions=positions,
         latency={variant: latency([item["site"]["request_wall_s"] for item in wrappers
-                                   if item["variant"] == variant]) for variant in METHODS},
+                                   if item["variant"] == variant]) for variant in variants},
         decision_latency={variant: latency([item["site"]["decision_latency_s"] for item in wrappers
-                                            if item["variant"] == variant]) for variant in METHODS},
+                                            if item["variant"] == variant]) for variant in variants},
     )
 
 
-def verify_slots(study, layouts, wrappers, manifest, checks):
+def verify_slots(study, layouts, wrappers, manifest, checks, *, variants=METHODS):
     """Bind releases to the complete pre-native plan, not relabeled receipts."""
     from .planning_budget_plan import _wrap_choice
 
@@ -287,7 +287,7 @@ def verify_slots(study, layouts, wrappers, manifest, checks):
     slots = [_wrap_choice(item["site"]["choice"], item["variant"]) for item in wrappers]
     checks.equal(artifact["slots"], slots, "Outer choices exactly wrap original completed preparations")
     checks.equal([(slot["context_id"], slot["method"]) for slot in slots],
-                 [(layout["id"], variant) for layout in layouts for variant in METHODS],
+                 [(layout["id"], variant) for layout in layouts for variant in variants],
                  "One attempted drop per method at every fresh position")
     checks.equal(len({slot["id"] for slot in slots}), len(slots), "Unique outer attempted-shot IDs")
     for slot in slots:
@@ -304,22 +304,22 @@ def verify_slots(study, layouts, wrappers, manifest, checks):
                    "Native start bindings remain in final evidence")
     expected = {"test_" + variant: [slot["request"] for slot in slots
                                    if slot["method"] == variant and slot["request"] is not None]
-                for variant in METHODS}
-    checks.equal(receipt["requests_sha256"], digest({variant: expected["test_" + variant] for variant in METHODS}),
+                for variant in variants}
+    checks.equal(receipt["requests_sha256"], digest({variant: expected["test_" + variant] for variant in variants}),
                  "Every native request was frozen before test drops")
     return slots, expected
 
 
-def verify_workers(wrappers, layouts, spec, checks):
+def verify_workers(wrappers, layouts, spec, checks, *, variants=METHODS):
     """Keep separate persistent worker lifecycles despite identical inner names."""
     order = [layout["id"] for layout in layouts]
     random.Random(spec["processing_seed"]).shuffle(order)
     checks.equal(spec["processing_order"], order, "Seeded processing order")
-    checks.equal(spec["methods"], list(METHODS), "Independent baseline and optimized lanes")
+    checks.equal(spec["methods"], list(variants), "Independent baseline and optimized lanes")
     indexed = {(item["site"]["layout"]["id"], item["variant"]): item["site"] for item in wrappers}
-    checks.equal(len(indexed), len(layouts) * len(METHODS), "One lifecycle per requested job")
+    checks.equal(len(indexed), len(layouts) * len(variants), "One lifecycle per requested job")
     pool_ids, job_ids = set(), set()
-    for variant in METHODS:
+    for variant in variants:
         previous, pool = None, None
         for identity in order:
             site = indexed[identity, variant]
@@ -358,7 +358,7 @@ def verify_workers(wrappers, layouts, spec, checks):
                     checks.require(site["worker_pid"] != previous["worker_pid"], label + "/old timed-out process replaced")
             previous = site
 
-def audit_packets(study, parent, assets, spec, report, manifest, expected, prior, home, checks):
+def audit_packets(study, parent, assets, spec, report, manifest, expected, prior, home, checks, *, variants=METHODS):
     """Reconstruct contacts, whole-ball retention and routes from native arrays."""
     from . import replay650_verify as replay
     from .cell1050_rebound_study import control_requests
@@ -370,8 +370,8 @@ def audit_packets(study, parent, assets, spec, report, manifest, expected, prior
     calibration = replay.check_calibration(study, spec["identity"]["calibration"], checks)
     sources = read(parent / "control-replays.json")
     ledger, timings = observed_rows(study / "rows.jsonl"), observed_rows(study / "timing.jsonl")
-    adapters = {"test_" + method: "native-" + method for method in METHODS}
-    adapters.update({"diagnostic_" + method: "diagnostic/native-" + method for method in METHODS})
+    adapters = {"test_" + method: "native-" + method for method in variants}
+    adapters.update({"diagnostic_" + method: "diagnostic/native-" + method for method in variants})
     observed = {phase: {} for phase in expected}
     used = {directory: set() for directory in adapters.values()}
     resolutions = {directory: {} for directory in adapters.values()}
@@ -454,7 +454,7 @@ def audit_packets(study, parent, assets, spec, report, manifest, expected, prior
         checks.equal(report["controls"][phase], gate, phase + "/exact independently rescored control gate")
     return {key: row for phase in observed.values() for key, row in phase.items()}, len(control_rows)
 
-def verify_plans(study, layouts, spec, assets, prior, home, manifest, checks, *, artifact_root=None):
+def verify_plans(study, layouts, spec, assets, prior, home, manifest, checks, *, artifact_root=None, variants=METHODS, plan_hook=None):
     """Rebuild finite menus, checked prefixes, full proof bindings and choices."""
     from .clearance_expansion_plan import _empty, branch_proposals, needs_expansion
     from .intergrid_candidate_replay_plan import command_key
@@ -465,7 +465,7 @@ def verify_plans(study, layouts, spec, assets, prior, home, manifest, checks, *,
 
     artifact_root = study if artifact_root is None else artifact_root
     wrappers = read(artifact_root / "plans.json")
-    expected = [(layout, method) for layout in layouts for method in METHODS]
+    expected = [(layout, method) for layout in layouts for method in variants]
     checks.equal([(item["site"]["layout"], item["variant"]) for item in wrappers], expected,
                  "Exact ordered preparation for every placement and both variants")
     checks.require(all(set(item) == {"variant", "site"} for item in wrappers), "Exact outer wrapper schema")
@@ -486,7 +486,7 @@ def verify_plans(study, layouts, spec, assets, prior, home, manifest, checks, *,
             predictions[key] = implementation(request)
         return predictions[key]
     ranker.predict = independent_prediction
-    for method in METHODS:
+    for method in variants:
         checks.equal({path.stem for path in (artifact_root / "preparation" / method).glob("*.json")},
                      {layout["id"] for layout in layouts}, method + "/exact preparation file inventory")
     for wrapper in wrappers:
@@ -500,6 +500,11 @@ def verify_plans(study, layouts, spec, assets, prior, home, manifest, checks, *,
         own_manifest = manifest if prefix == "." else {
             name[len(prefix) + 1:]: value for name, value in manifest.items() if name.startswith(prefix + "/")}
         snapshots = verify_deadline(site, directory, own_manifest, checks, spec["planning_budget_s"])
+        proposals = menu(layout, libs, source_checkpoint)
+        ordered = order(checkpoint, proposals)
+        if plan_hook is not None:
+            plan_hook(site=site, snapshots=snapshots, directory=directory, manifest=own_manifest,
+                      checks=checks, spec=spec, variant=method, expected_menu=proposals, expected_order=ordered)
         checks.equal(set(plan), {"base", "fallback", "neural", "branches"}, identity + "/exact preparation stages")
         if not snapshots:
             verify_early_rule(site, snapshots, checks, spec["early_score_m"])
@@ -509,8 +514,6 @@ def verify_plans(study, layouts, spec, assets, prior, home, manifest, checks, *,
             audit_preparation(plan[stage], layout, "test", directory, prior, home, resolutions, checks)
         # Check each accepted publication, not a command chosen after observing
         # a simulated outcome. Full endpoint proofs need only be checked once.
-        proposals = menu(layout, libs, source_checkpoint)
-        ordered = order(checkpoint, proposals)
         for snapshot in snapshots:
             p, generated = snapshot["plan"], snapshot["generated"]
             for stage in p:
@@ -583,11 +586,11 @@ def verify_plans(study, layouts, spec, assets, prior, home, manifest, checks, *,
         order = [layout["id"] for layout in layouts]
         random.Random(spec["processing_seed"]).shuffle(order)
         worker_spec = dict(spec, processing_order=order)
-    verify_workers(wrappers, layouts, worker_spec, checks)
+    verify_workers(wrappers, layouts, worker_spec, checks, variants=variants)
     return wrappers
 
 
-def verify_layouts(args, spec, checks):
+def verify_layouts(args, spec, checks, *, layout_prefix="direct-path-first-test", extra_history=()):
     """Rebuild 20 placements from authenticated history and deterministic seeds."""
     from .interactive_fast_check import coordinates, fast_inventory
     from .interactive_physics_check import _digest, sample_positions
@@ -635,6 +638,7 @@ def verify_layouts(args, spec, checks):
     history = provenance["history_files"]
     required = {str(acceptance / "positions.json"), str(Path(args.fast_study) / "layouts.json"),
                 str(speed / "layouts.json")}
+    required.update(str(Path(name)) for name in extra_history)
     checks.require(isinstance(history, dict) and required <= set(history),
                    "Historical inventory includes both previous comparisons")
     allowed = {Path(name).resolve() for name in required}
@@ -657,7 +661,7 @@ def verify_layouts(args, spec, checks):
         rows = sample_positions(provenance["geometry"], provenance["grid"], occupied,
                                 provenance["bounds"], spec["seed"] + offset)
         for row in rows:
-            identity = f"direct-path-first-test-{len(reconstructed):02d}"
+            identity = f"{layout_prefix}-{len(reconstructed):02d}"
             reconstructed.append(dict(row, id=identity, context_id=identity, split="test", stratum=row["region"]))
         occupied.extend(tuple(row["bucket_xy_m"]) for row in rows)
     checks.equal(len(layouts), 20, "20 fresh paired positions")
@@ -667,13 +671,14 @@ def verify_layouts(args, spec, checks):
 
 
 
-def verify_diagnostic(study, spec, assets, prior, home, manifest, checks):
+def verify_diagnostic(study, spec, assets, prior, home, manifest, checks, *, variants=METHODS, plan_hook=None):
     """Audit the known difficult target separately from all fresh placements."""
     from .planning_budget_plan import _wrap_choice
     layout = dict(id="diagnostic-old-case02", context_id="diagnostic-old-case02", split="test",
                   stratum="development", bucket_xy_m=[0.9712010092480674, -0.2853881822068356])
     root = study / "diagnostic"
-    wrappers = verify_plans(study, [layout], spec, assets, prior, home, manifest, checks, artifact_root=root)
+    wrappers = verify_plans(study, [layout], spec, assets, prior, home, manifest, checks, artifact_root=root,
+                            variants=variants, plan_hook=plan_hook)
     artifact = read(root / "choices.json")
     checks.equal(artifact["bindings"], {"plans.json": sha(root / "plans.json")},
                  "Diagnostic choices bind the exact pre-native plans")
@@ -684,10 +689,10 @@ def verify_diagnostic(study, spec, assets, prior, home, manifest, checks):
         checks.equal(receipt["bindings"].get(name), sha(study / name),
                      "Diagnostic choices frozen before every native drop/" + name)
     planned = {variant: [slot["request"] for slot in slots
-                          if slot["method"] == variant and slot["request"] is not None] for variant in METHODS}
+                          if slot["method"] == variant and slot["request"] is not None] for variant in variants}
     checks.equal(receipt["diagnostic_requests_sha256"], digest(planned),
                  "Exact diagnostic requests frozen before native drops")
-    for variant in METHODS:
+    for variant in variants:
         features = read(root / ("native-" + variant) / "arm-check-features.json")
         checks.equal(features, dict(variant=variant, features=spec["features"][variant]),
                      "Diagnostic lane uses declared planner features/" + variant)

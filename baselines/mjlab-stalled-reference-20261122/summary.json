@@ -1,0 +1,281 @@
+{
+  "version": "sircus-stalled-reference-published-summary-v1",
+  "status": "completed",
+  "audit_status": "passed",
+  "evidence_date": "2026-11-22",
+  "producer_commit": "be97c2ab6c62bb36a93b90a224024aa4c1814789",
+  "positions": 20,
+  "physics_substeps": 64,
+  "planning_budget_s": 30.0,
+  "reference_path_budget_s": 5.0,
+  "seed": 2026112127,
+  "processing_seed": 2026112128,
+  "comparison": {
+    "methods": {
+      "baseline": {
+        "attempts": 20,
+        "releases": 19,
+        "setup_rate": 0.95,
+        "captures": 17,
+        "capture_rate": 0.85,
+        "outcomes": {
+          "direct": 14,
+          "flight_miss": 2,
+          "table": 3,
+          "setup_rejected": 1
+        },
+        "selected_routes": {
+          "direct": 14,
+          "table": 5
+        },
+        "requested_route_captures": 16,
+        "positions": 20,
+        "admitted": 19,
+        "no_candidate": 1,
+        "flight_misses": 2
+      },
+      "hybrid": {
+        "attempts": 20,
+        "releases": 20,
+        "setup_rate": 1.0,
+        "captures": 17,
+        "capture_rate": 0.85,
+        "outcomes": {
+          "direct": 14,
+          "flight_miss": 3,
+          "table": 3
+        },
+        "selected_routes": {
+          "direct": 14,
+          "table": 6
+        },
+        "requested_route_captures": 16,
+        "positions": 20,
+        "admitted": 20,
+        "no_candidate": 0,
+        "flight_misses": 3
+      }
+    },
+    "latency": {
+      "baseline": {
+        "positions": 20,
+        "mean_s": 11.437139154849955,
+        "median_s": 6.519934131500122,
+        "p90_s": 30.046064331999332,
+        "max_s": 30.04758026499985,
+        "aggregate_s": 228.74278309699912
+      },
+      "hybrid": {
+        "positions": 20,
+        "mean_s": 11.51800209145008,
+        "median_s": 6.582282792500337,
+        "p90_s": 30.04448083599982,
+        "max_s": 30.057643226000437,
+        "aggregate_s": 230.3600418290016
+      }
+    },
+    "decision_latency": {
+      "baseline": {
+        "positions": 20,
+        "mean_s": 11.13186044465001,
+        "median_s": 6.2501166334996014,
+        "p90_s": 30.0,
+        "max_s": 30.0,
+        "aggregate_s": 222.6372088930002
+      },
+      "hybrid": {
+        "positions": 20,
+        "mean_s": 11.213240521949956,
+        "median_s": 6.350579312000264,
+        "p90_s": 30.0,
+        "max_s": 30.0,
+        "aggregate_s": 224.26481043899912
+      }
+    },
+    "paired": {
+      "both": 17,
+      "gained": 0,
+      "lost": 0,
+      "neither": 3
+    }
+  },
+  "diagnostic": {
+    "bucket_xy_m": [
+      0.9712010092480674,
+      -0.2853881822068356
+    ],
+    "methods": {
+      "baseline": {
+        "planning_s": 31.26689813699977,
+        "checked_shot": false,
+        "outcome": "setup_rejected"
+      },
+      "hybrid": {
+        "planning_s": 21.534982983999726,
+        "checked_shot": true,
+        "outcome": "table"
+      }
+    }
+  },
+  "promotion_decision": {
+    "eligible": true,
+    "gates": {
+      "captures_preserved": true,
+      "mean_planning_within_tolerance": true,
+      "old_target_captured": true
+    },
+    "mean_time_ratio_limit": 1.1,
+    "requires_independent_audit": true
+  },
+  "fallback": {
+    "fresh_count": 1,
+    "fresh_position_ids": [
+      "stalled-reference-test-09"
+    ],
+    "diagnostic_count": 1
+  },
+  "failed_fresh_positions": [
+    {
+      "id": "stalled-reference-test-03",
+      "bucket_xy_m": [
+        0.9484147227579094,
+        -0.03507502760574792
+      ],
+      "outcomes": {
+        "baseline": "flight_miss",
+        "hybrid": "flight_miss"
+      }
+    },
+    {
+      "id": "stalled-reference-test-09",
+      "bucket_xy_m": [
+        1.1950241751674764,
+        0.1605393061423136
+      ],
+      "outcomes": {
+        "baseline": "setup_rejected",
+        "hybrid": "flight_miss"
+      }
+    },
+    {
+      "id": "stalled-reference-test-19",
+      "bucket_xy_m": [
+        1.2260114071809864,
+        0.18342521713426418
+      ],
+      "outcomes": {
+        "baseline": "flight_miss",
+        "hybrid": "flight_miss"
+      }
+    }
+  ],
+  "native_releases": {
+    "fresh": 39,
+    "diagnostic": 1,
+    "controls": 18,
+    "total": 58
+  },
+  "controls": {
+    "controls_pre": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "controls_post": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "gpu_lease_s": 293.41210384400074,
+  "independent_checks": 57230,
+  "evidence_paths": {
+    "runtime": "/home/kadir/sircus-mjlab/studies/stalled-reference-v1",
+    "output": "/home/kadir/sircus-mjlab/output/stalled-reference-v1",
+    "audit": "/home/kadir/sircus-mjlab/output/stalled-reference-v1-audit.json",
+    "arguments": "/home/kadir/sircus-mjlab/studies/stalled-reference-v1/.study-args.json",
+    "python": "/home/kadir/sircus-mjlab/venv/bin/python"
+  },
+  "artifact_sha256": {
+    "report.json": "e8cd7009362af9c80f7fe6a54b70937b6cbef8f4182eaf04d22e6b7e8dbac2e1",
+    "choices.json": "bab9c33832564689f28532d4fc04d3087467f3cedf4cab51f83e4b1dc325849b",
+    "evidence-manifest.json": "b10cc44774f3d1e822a8beaaa4db7698a11ba47597200c57795518d2bb91a394",
+    "contract.json": "3f36fe9c893f63505c54092bc5d81b98057e0a325822396e78b261b677efac58",
+    "layouts.json": "07da336ffb3ec7c6d935a49555f6b85bca500b316dfa5720f880e014a92532f0",
+    "plans.json": "a6d093e614f7dec136231ce70b3339c602c4e067c7ebb3e9f5136ea0a4b689bd",
+    "diagnostic/plans.json": "68ecf110abec372c0e067f0ee19b72cd8360252809cefc8f7a5a8eaf90f43434",
+    "neural-checkpoint.json": "3ea83197149204bb92782f9efd9a7ee985d6c7bbbfb0823bd068642eebdd1a1e",
+    "route-models.json": "3b43cb74946ab4dd53f110ffe1d9e07bff5409bd40966f1f128eb72009da6161",
+    "external_audit": "3e98667dd739ed9a390d54ae0176a8b22bb400edbe0c39f61f9a0e1b8fcb07fe",
+    "verifier_source": "c048a0b7b319f4bc95ab270071847a3bfab663f7355113f87907db91d73657e5",
+    "launch_arguments": "52fa6a9d5682615658ed770b868f69775c463fc107695c6fca8249323ec297f8",
+    "live_acceptance": "cccec2cac92a9e905d438b2106f4e6ad279595a83a0f4b693e4351a809afa3d1",
+    "live_launch": "573a6999225e0c376e05cc9655e3f2074576dcbaadea25c3b67b302041107e25",
+    "live_metadata_restoration": "510071192fbe97e3d3423657f4ecf7259e93235d73ed6a3a4ad7b10b0695fcd7"
+  },
+  "ui_section": "#stalledReference",
+  "interactive_deployment": {
+    "status": "promoted",
+    "port": 18781,
+    "default_planner": "hybrid",
+    "available_planners": [
+      "hybrid",
+      "fast",
+      "classic"
+    ],
+    "source_commit": "be97c2ab6c62bb36a93b90a224024aa4c1814789",
+    "replaced_only_idle_simulation_server": true,
+    "launch_receipt": "/home/kadir/sircus-mjlab/output/stalled-reference-live-v1/live-launch.json",
+    "rollback_receipt": "/home/kadir/sircus-mjlab/output/stalled-reference-live-v1/rollback-launch.json"
+  },
+  "limitations": [
+    "20 fresh positions, one attempt per method; no repeated-trial reliability claim",
+    "Diagnostic old timeout is development evidence excluded from fresh-position denominator",
+    "Simulator geometry; no camera or point-cloud perception",
+    "Arms held at selected endpoints; no driven-arm native trajectory validation",
+    "64 substeps only; noise and timestep robustness not tested",
+    "No model retraining and no 4070 or Isaac changes"
+  ],
+  "live_functional_acceptance": {
+    "status": "passed",
+    "cases": 3,
+    "captures": 3,
+    "included_in_fresh_study_denominator": false,
+    "scope": "Separate API/preview/native-release check: one known diagnostic and two new placements; not a paired benchmark",
+    "duplicate_releases_rejected": 3,
+    "stale_jobs_rejected": 2,
+    "independently_rescored_releases": 3,
+    "results": [
+      {
+        "case": "old-timeout",
+        "bucket_xy_m": [
+          0.9712010092480674,
+          -0.2853881822068356
+        ],
+        "planning_wait_s": 23.694599151611328,
+        "outcome": "table"
+      },
+      {
+        "case": "fresh-southwest",
+        "bucket_xy_m": [
+          0.3741340762269408,
+          -0.355878890156998
+        ],
+        "planning_wait_s": 5.541677236557007,
+        "outcome": "direct"
+      },
+      {
+        "case": "fresh-northeast",
+        "bucket_xy_m": [
+          0.9727216663024504,
+          -0.1018595554174131
+        ],
+        "planning_wait_s": 16.589060306549072,
+        "outcome": "direct"
+      }
+    ],
+    "receipt": "/home/kadir/sircus-mjlab/output/stalled-reference-live-v1/acceptance-report.json"
+  }
+}

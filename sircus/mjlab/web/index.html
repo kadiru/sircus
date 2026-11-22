@@ -31,6 +31,19 @@
 <details id="directPathFirstPositionDetails" hidden><summary>Results at each new bucket position</summary><div id="directPathFirstPositions" class="table-wrap" tabindex="0" role="region" aria-label="Per-position results for both planning orders"></div></details>
 <p class="fine">Capture requires a board rebound and one continuous second fully inside the bucket. Direct and table-assisted captures count; robot-assisted outcomes stay separate. These are native MuJoCo drops at 64 substeps with the arms held at planned poses. This does not test camera perception or moving-arm execution, and does not switch the live planner.</p>
 <p id="directPathFirstNext" class="fine"></p></section>
+<section id="stalledReference" class="results-section fast-planning-section" hidden>
+<p class="eyebrow">BOUNDED FALLBACK · KEEP THE SAME ARM CHECKS</p><h2>Recover a stalled search without slowing ordinary placements</h2>
+<p class="fine">The planner normally checks a route through a known reference pose. If searching reference paths consumes 5 seconds before finding a checked shot, it switches to checking a direct home-to-candidate path first. Both phases share the original 30-second decision limit; the fallback does not restart that clock.</p>
+<p class="fine">Both versions use optimized arm checks. Accepted paths retain the same 5 mm clearance requirement, detailed collision checks and 0.5° motion samples in both directions. The fallback may use a different initial joint-angle hint, but every accepted pose and path must pass the same checks.</p>
+<p id="stalledReferenceStatus" class="subtle" role="status"></p><p id="stalledReferenceProgress" class="fine"></p>
+<p id="stalledReferenceScope" class="scope-note"></p>
+<div id="stalledReferenceTable" class="table-wrap" tabindex="0" role="region" aria-label="Current checks and stalled-reference fallback: capture counts and time"></div>
+<p id="stalledReferencePair" class="fine"></p>
+<div id="stalledReferenceDiagnostic" class="table-wrap" tabindex="0" role="region" aria-label="Separate replay of the previously timed-out bucket position"></div><p id="stalledReferenceDiagnosticNote" class="fine"></p>
+<details id="stalledReferencePositionDetails" hidden><summary>Results at each new bucket position</summary><div id="stalledReferencePositions" class="table-wrap" tabindex="0" role="region" aria-label="Per-position results for both planning orders"></div></details>
+<p class="fine">Capture requires a board rebound and one continuous second fully inside the bucket. Direct and table-assisted captures count; robot-assisted outcomes stay separate. These are native MuJoCo drops at 64 substeps with the arms held at planned poses. This does not test camera perception or moving-arm execution. Twenty fresh positions provide limited comparison evidence, not a guarantee across the table.</p>
+<p id="stalledReferenceDecision" class="scope-note"></p>
+<p id="stalledReferenceNext" class="fine"></p></section>
 <section id="interactiveFastAcceptance" class="results-section fast-planning-section" hidden>
 <p class="eyebrow">DRAG BUCKET → PLAN → PREVIEW → ONE DROP</p><h2>Live planner check on fresh placements</h2>
 <p id="interactiveFastAcceptanceStatus" class="subtle" role="status"></p><p id="interactiveFastAcceptanceScope" class="fine"></p>

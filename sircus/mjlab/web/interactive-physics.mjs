@@ -386,9 +386,72 @@ export function directPathFirstSummary(study) {
     accounting_valid: accountingValid, complete: section.status === 'completed' && section.audit_status === 'passed' && budget > 0 && accountingValid,
     next: typeof section.next === 'string' ? section.next : '', error: typeof section.error === 'string' ? section.error : '' };
 }
+export function stalledReferenceSummary(study) {
+  const section = study?.stalled_reference_study;
+  if (section?.version !== 'sircus-stalled-reference-study-v1') return null;
+  const count = value => Number.isInteger(value) && value >= 0 ? value : null;
+  const seconds = value => Number.isFinite(value) && value >= 0 ? value : null;
+  const total = count(section.budgets?.positions), budget = seconds(section.budgets?.planning_s);
+  const comparison = section.comparison || {}, maximum = total === null ? null : total * 2;
+  const methods = Object.entries({ baseline: 'Current arm checks', hybrid: 'Fallback after stalled reference' }).map(([id, label]) => {
+    const raw = comparison.methods?.[id] || {}, stats = comparison.latency?.[id] || {};
+    const values = Object.fromEntries(['positions', 'admitted', 'captures', 'flight_misses', 'no_candidate'].map(key => [key, count(raw[key])]));
+    const timing = Object.fromEntries(['mean_s', 'median_s', 'p90_s', 'max_s'].map(key => [key, seconds(stats[key])]));
+    const validTiming = Object.values(timing).every(value => value !== null) && timing.mean_s <= timing.max_s
+      && timing.median_s <= timing.p90_s && timing.p90_s <= timing.max_s;
+    return { id, label, ...values, timing: validTiming ? timing : Object.fromEntries(Object.keys(timing).map(key => [key, null])),
+      valid: total > 0 && Object.values(values).every(value => value !== null) && values.positions === total
+        && values.admitted + values.no_candidate === total && values.captures <= values.admitted
+        && values.flight_misses <= values.admitted - values.captures };
+  });
+  const paired = Object.fromEntries(['both', 'gained', 'lost', 'neither'].map(key => [key, count(comparison.paired?.[key])]));
+  const pairValid = Object.values(paired).every(value => value !== null)
+    && paired.both + paired.gained + paired.lost + paired.neither === total
+    && paired.both + paired.lost === methods[0].captures && paired.both + paired.gained === methods[1].captures;
+  const progress = section.progress || {};
+  const bounded = value => { const n = count(value); return n !== null && (maximum === null || n <= maximum) ? n : null; };
+  const prepared = bounded(progress.prepared), planned = bounded(progress.planned), releases = bounded(progress.completed_releases), plannedReleases = bounded(progress.planned_releases);
+  const positions = Array.isArray(comparison.positions) ? comparison.positions : [];
+  const captures = new Set(['direct', 'table', 'unclassified_capture']);
+  const knownOutcomes = new Set([...captures, 'setup_rejected', 'flight_miss', 'invalid_physics', 'arm_assisted_capture']);
+  const positionRowsValid = positions.length === total && new Set(positions.map(row => row?.id)).size === total
+    && new Set(positions.map(row => JSON.stringify(row?.bucket_xy_m))).size === total
+    && positions.every(row => typeof row?.id === 'string' && row.id && vector(row.bucket_xy_m, 2)
+      && methods.every(method => knownOutcomes.has(row.outcomes?.[method.id])));
+  const observedPair = { both: 0, gained: 0, lost: 0, neither: 0 };
+  if (positionRowsValid) for (const row of positions) {
+    const before = captures.has(row.outcomes.baseline), after = captures.has(row.outcomes.hybrid);
+    observedPair[before && after ? 'both' : before ? 'lost' : after ? 'gained' : 'neither']++;
+  }
+  const positionsValid = positionRowsValid && Object.keys(observedPair).every(key => observedPair[key] === paired[key])
+    && methods.every(method => positions.filter(row => captures.has(row.outcomes[method.id])).length === method.captures
+      && positions.filter(row => row.outcomes[method.id] === 'setup_rejected').length === method.no_candidate
+      && positions.filter(row => row.outcomes[method.id] === 'flight_miss').length === method.flight_misses);
+  const accountingValid = total > 0 && methods.every(method => method.valid) && pairValid
+    && prepared === maximum && planned === maximum && plannedReleases === releases
+    && releases === methods.reduce((sum, method) => sum + method.admitted, 0) && positionsValid;
+  const diagnostic = section.diagnostic;
+  const diagnosticMethods = methods.map(method => {
+    const row = diagnostic?.methods?.[method.id];
+    const outcome = row?.outcome === null || knownOutcomes.has(row?.outcome) ? row.outcome : undefined;
+    return { id: method.id, label: method.label, checked_shot: row?.checked_shot,
+      planning_s: seconds(row?.planning_s), outcome };
+  });
+  const diagnosticValid = vector(diagnostic?.bucket_xy_m, 2) && diagnosticMethods.every(row =>
+    typeof row.checked_shot === 'boolean' && row.planning_s !== null && row.outcome !== undefined
+    && (row.checked_shot ? row.outcome !== 'setup_rejected' : row.outcome === null || row.outcome === 'setup_rejected'));
+  const finalEvidence = section.status === 'completed' && section.audit_status === 'passed' && budget > 0 && accountingValid;
+  const promotionEligible = finalEvidence && diagnosticValid && captures.has(diagnosticMethods[1].outcome)
+    && methods[1].captures >= methods[0].captures && methods[0].timing.mean_s !== null
+    && methods[1].timing.mean_s !== null && methods[1].timing.mean_s <= methods[0].timing.mean_s * 1.10;
+  return { promotion_eligible: promotionEligible, reference_path_s: seconds(section.budgets?.reference_path_s), diagnostic: diagnosticValid ? { bucket_xy_m: diagnostic.bucket_xy_m, methods: diagnosticMethods } : null, total, budget, methods, paired, prepared, planned, releases, planned_releases: plannedReleases,
+    positions: positionsValid ? positions : [], status: section.status, phase: section.phase, audit: section.audit_status,
+    accounting_valid: accountingValid, complete: section.status === 'completed' && section.audit_status === 'passed' && budget > 0 && accountingValid,
+    next: typeof section.next === 'string' ? section.next : '', error: typeof section.error === 'string' ? section.error : '' };
+}
 /** Capability-gated choice: older servers keep their exact original request shape. */
 export function physicsPlanners(capabilities) {
-  const labels = { fast: 'Faster planner · ~30 s decision budget', classic: 'Original planner · explicit fallback' };
+  const labels = { hybrid: 'Checked planner · stalled-search fallback', fast: 'Faster planner · ~30 s decision budget', classic: 'Original planner · explicit fallback' };
   const ids = Array.isArray(capabilities?.planners)
     ? [...new Set(capabilities.planners.map(row => row?.id).filter(id => Object.hasOwn(labels, id)))] : [];
   const choices = (ids.length ? ids : ['classic']).map(id => ({ id, label: labels[id] }));
