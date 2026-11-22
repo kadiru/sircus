@@ -20,7 +20,7 @@ from .fast_planning_audit import (
     verify_deadline, verify_early_rule,
 )
 
-VERSION = "sircus-direct-path-first-independent-audit-v1"
+VERSION = "sircus-direct-path-first-independent-audit-v2"
 STUDY_VERSION = "sircus-direct-path-first-study-v1"
 METHODS = ("baseline", "direct_first")
 
@@ -703,7 +703,7 @@ def summarize_diagnostic(layout, wrappers, slots, observations):
             raise ValueError("Diagnostic slot order or target changed")
         released = slot["request"] is not None
         result["methods"][variant] = dict(planning_s=site["request_wall_s"], checked_shot=released,
-            outcome=outcome(observations[slot["id"]]) if released else "no_candidate")
+            outcome=outcome(observations[slot["id"]]) if released else "setup_rejected")
     if set(observations) != {slot["id"] for slot in slots if slot["request"] is not None}:
         raise ValueError("Unaccounted diagnostic observation")
     return result
@@ -740,7 +740,11 @@ def audit(args):
     required_inputs = set(COPIED_INPUTS) | {"setup-home.json", "layouts.json", "cpu-equivalence.json"}
     checks.require(required_inputs <= set(spec["frozen_inputs"]), "All models, geometry, layouts and controls frozen")
     verify_bindings(study, spec["frozen_inputs"], checks, "Original frozen study inputs")
-    source = Path(__file__).resolve().parents[2]
+    # An external verifier revision audits the originally frozen producer tree;
+    # it must not rewrite that tree merely to repair audit reporting code.
+    declared_source = getattr(args, "frozen_source_root", None)
+    source = Path(declared_source).resolve() if declared_source is not None else Path(__file__).resolve().parents[2]
+    checks.require(source.is_dir(), "Declared frozen producer source tree exists")
     source_names = set(spec["source_sha256"])
     checks.require({"sircus/mjlab/arm_check_speed.py", "sircus/mjlab/arm_path_speed.py",
                     "sircus/mjlab/direct_path_first.py", "sircus/mjlab/direct_path_first_study.py",
@@ -790,7 +794,9 @@ def audit(args):
     checks.equal(report["comparison"], comparison, "Independent capture and timing summary matches report")
     diagnostic = summarize_diagnostic(diagnostic_layout, diagnostic_wrappers, diagnostic_slots, diagnostic_observations)
     checks.equal(report["diagnostic"], diagnostic, "Independent known-target result stays separate from fresh tests")
-    return dict(version=VERSION, status="passed", checks_count=checks.count, comparison=comparison, diagnostic=diagnostic,
+    return dict(version=VERSION, verifier_source_sha256=sha(Path(__file__)),
+                frozen_source_root=str(source), status="passed", checks_count=checks.count,
+                comparison=comparison, diagnostic=diagnostic,
                 test_releases=len(fresh_observations), diagnostic_releases=len(diagnostic_observations),
                 controls=controls, report_sha256=sha(study / "report.json"),
                 choices_sha256=sha(study / "choices.json"), evidence_manifest_sha256=sha(study / "evidence-manifest.json"))

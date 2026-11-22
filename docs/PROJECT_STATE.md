@@ -1,5 +1,14 @@
 # Project state
 
+## Candidate-first arm path comparison completed — November 21, 2026
+
+- [Results and reproduction](../sircus/mjlab/DIRECT_PATH_FIRST_STUDY.md): same frozen neural shot ordering and 30-second decision budget, with existing optimized geometry/path checks in both lanes. New order checks each candidate's serialized home path before searching for a reference path. Every accepted path retains the 5 mm margin and complete 0.5° forward/reverse samples. Deferred-reference IK hints are recorded explicitly; resulting joint branches may differ.
+- **20 fresh positions: both captured at the same 16/20** (12 direct, four table-assisted). Both released all 20; each missed four. Zero gains and zero losses. Mean planning **11.873 → 14.055 seconds**, median **7.128 → 9.220 seconds**. This does not justify changing the current default.
+- Separate old target **(971.201, −285.388) mm**: baseline timed out without a checked shot after **31.296 seconds**. Candidate-first found a checked path in **15.959 seconds** and the native drop captured via the table. The accepted path had three waypoints and 5.113 mm minimum sampled clearance. This development replay is excluded from the fresh-position denominator.
+- All **40 test releases + one diagnostic release + 18 controls** completed at 64 substeps, using **215.945 leased GPU seconds**. The independent audit passed **54,351 checks**. Verifier v2 fixed a diagnostic no-release label mismatch and verified the original archived producer source; no source evidence, selections or drops were rewritten or repeated.
+- UI `#directPathFirst` displays audited results and per-position outcomes. The simulation UI had stopped after the Ubuntu reboot; it was resumed with its exact saved planner arguments. No running service was interrupted, and its planner default remains unchanged. The 4070 and Isaac setup were not modified.
+- Implementation executed at `c44b2a6`, [draft PR #154](https://github.com/kadiru/sircus/pull/154), stacked on draft #153. [Sanitized aggregate](../baselines/mjlab-direct-path-first-20261121/summary.json). No training, camera input, moving-arm execution or physical validation in this study.
+
 ## Faster arm checks tested — November 21, 2026
 
 - [Completed comparison and reproduction](../sircus/mjlab/ARM_CHECK_SPEED_STUDY.md): current and optimized arm checks each captured **17/20 fresh positions**, at exactly the same positions (**10 direct, 7 table-assisted** per method). There were no gained or lost captures. Current checks produced 18 releases, one flight miss and two missing setups; optimized checks produced 19 releases, two flight misses and one missing setup. All positions remain in the denominator.

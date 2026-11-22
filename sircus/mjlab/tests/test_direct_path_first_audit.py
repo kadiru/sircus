@@ -6,6 +6,8 @@ from pathlib import Path
 import random
 from tempfile import TemporaryDirectory
 import unittest
+from types import SimpleNamespace
+from unittest.mock import patch
 
 
 HAS_DEPS = bool(importlib.util.find_spec("numpy") and importlib.util.find_spec("torch"))
@@ -167,6 +169,33 @@ class DirectPathFirstAuditTests(unittest.TestCase):
             changed = dict(fallback, passed=False)
             with self.assertRaisesRegex(ValueError, "exact immutable resolution"):
                 self.audit.verify_fallback_bytes(dict(fallback_resolution=changed), root, {}, {}, self.audit.Checks())
+
+    def test_diagnostic_no_release_label_matches_frozen_producer(self):
+        from sircus.mjlab import direct_path_first_study as producer
+        layouts, slots, observations, wrappers = self.fixture()
+        layout = layouts[1]  # Baseline timed out; direct-first released.
+        chosen = [row for row in slots if row["context_id"] == layout["id"]]
+        plans = [row for row in wrappers if row["site"]["layout"]["id"] == layout["id"]]
+        measured = {row["id"]: dict(observations[row["id"]], id=row["id"],
+                    adapter_directory="diagnostic/native-" + row["method"])
+                    for row in chosen if row["request"] is not None}
+        expected = self.audit.summarize_diagnostic(layout, plans, chosen, measured)
+        self.assertEqual(expected["methods"]["baseline"]["outcome"], "setup_rejected")
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "diagnostic").mkdir()
+            report = dict(native_completed=True, diagnostic=deepcopy(expected))
+            for result in report["diagnostic"]["methods"].values():
+                result["outcome"] = None
+            files = {"report.json": report, "diagnostic/choices.json": dict(slots=chosen),
+                     "layouts.json": dict(layouts=[]), "choices.json": dict(slots=[]), "plans.json": []}
+            for name, value in files.items():
+                (root / name).write_text(json.dumps(value))
+            with patch.object(producer, "frozen_check"), patch.object(producer, "summarize", return_value={}), \
+                    patch.object(producer, "publish") as publish, \
+                    patch("sircus.mjlab.parallel_capture_grid_audit.observed_rows", return_value=iter(measured.values())):
+                producer.finalize(SimpleNamespace(output=root))
+            self.assertEqual(publish.call_args.args[1]["diagnostic"], expected)
 
 
 if __name__ == "__main__":
