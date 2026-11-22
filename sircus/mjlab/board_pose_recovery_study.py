@@ -262,7 +262,13 @@ def repeat_schedule(plan,rows):
 
 
 def summarize(plan,rows):
-    from .intergrid_route_selector_plan import outcome,STANDARD_CAPTURES
+    # Summary generation must also work in the lightweight, Torch-free CI
+    # environment. These labels preserve the established route precedence.
+    def outcome(row):
+        if row['invalid_physics']:return 'invalid_physics'
+        if row['route_success']:return row['shot_route'] or 'unclassified_capture'
+        if row['experimental_route']['robot_assisted_capture']:return 'arm_assisted_capture'
+        return 'flight_miss'
     result=[]
     for case in plan['cases']:
         groups={};foundcase=[r for r in rows if r.get('context_id')==case['id']]
