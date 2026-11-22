@@ -68,7 +68,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, directPathFirstSummary, stalledReferenceSummary, hybridMissCorrectionSummary, physicsSceneActive = false, physicsViewKey = '';
+let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, directPathFirstSummary, stalledReferenceSummary, hybridMissCorrectionSummary, boardPoseRecoverySummary, physicsSceneActive = false, physicsViewKey = '';
 let savedReplayRows = [], savedReplaySignature = '';
 const physicsSelected = () => $('mode').value === 'physics' && physics?.available === true;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
@@ -1046,6 +1046,7 @@ async function loadStatus() {
     showDirectPathFirst();
     showStalledReference();
     showHybridMissCorrection();
+    showBoardPoseRecovery();
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
@@ -1067,6 +1068,76 @@ function showSavedPhysicsReplays() {
       ? report.interactive_recordings.title : 'Saved first-drop replays';
   }
   syncSolveButtons();
+}
+function showBoardPoseRecovery() {
+  if (!boardPoseRecoverySummary) return;
+  let assets = {};
+  try { assets = JSON.parse($('boardPoseVideoAssets').textContent || '{}'); } catch { /* Ignore invalid inline media. */ }
+  const view = boardPoseRecoverySummary(report, assets);
+  $('boardPoseRecovery').hidden = !view;
+  if (!view) return;
+  const signature = JSON.stringify([report.board_pose_recovery, Object.keys(assets)]);
+  if (showBoardPoseRecovery.signature === signature) return;
+  showBoardPoseRecovery.signature = signature;
+  const n = x => x === null ? '—' : String(x);
+  const mm = x => x === null ? '—' : (x * 1000).toFixed(1);
+  const p = (parent, text) => { const el = document.createElement('p'); el.className = 'fine'; el.textContent = text; parent.append(el); };
+  const table = (parent, headers, rows) => {
+    const el = document.createElement('table'), head = document.createElement('thead'), body = document.createElement('tbody'), tr = document.createElement('tr');
+    headers.forEach(text => { const cell = document.createElement('th'); cell.scope = 'col'; cell.textContent = text; tr.append(cell); }); head.append(tr);
+    rows.forEach(values => { const line = document.createElement('tr'); values.forEach((text, i) => { const cell = document.createElement(i ? 'td' : 'th'); if (!i) cell.scope = 'row'; cell.textContent = text; line.append(cell); }); body.append(line); });
+    el.append(head, body); parent.append(el);
+  };
+  const phases = { preparing: 'Checking nearby board positions and orientations', prepared: 'Candidate settings prepared', frozen: 'Candidates frozen before native drops', waiting_for_4090: 'Waiting for the shared 4090', running: 'Testing the frozen candidates', search: 'Testing candidate drops', repeating: 'Repeating successful settings', native_completed: 'Drops finished · independent verification pending' };
+  $('boardPoseStatus').textContent = view.complete ? 'Search and fresh repeats complete · independent audit passed'
+    : view.status === 'failed' ? 'Study stopped · completed evidence preserved'
+    : phases[view.phase] || 'Study in progress · final counts await verification';
+  $('boardPoseProgress').textContent = `Requests completed: ${n(view.completed)} / ${n(view.planned)} · ${n(view.substeps)} substeps · Search is separate from model training.`;
+  $('boardPoseResults').replaceChildren();
+  if (view.complete) table($('boardPoseResults'), ['Bucket X, Y (mm)', 'Proposed settings · setup checks', 'Search captures / drops', 'Fresh repeat captures / drops', 'Settings confirmed 3/3'], view.cases.map(r => [
+    r.bucket_xy_m.map(mm).join(', '), `${r.preparation.proposed} · ${r.preparation.checked}`, `${r.results.search.captures} / ${r.results.search.released}`,
+    `${r.results.repeat.captures} / ${r.results.repeat.released}`, String(r.confirmed.length),
+  ]));
+  $('boardPoseCases').replaceChildren();
+  for (const row of view.cases) {
+    const card = document.createElement('article'); card.className = 'hybrid-miss-case';
+    const h = document.createElement('h3'); h.textContent = `Bucket (${row.bucket_xy_m.map(mm).join(', ')}) mm`; card.append(h);
+    p(card, `${n(row.preparation.admitted)} accepted arm solutions; ${n(row.preparation.selected)} distinct shot settings selected for drops. ${n(row.preparation.proposed)} settings were proposed. Setup checks can retry the same setting with different arm joints; rejected or untested proposals are not ball drops.`);
+    if (view.complete) {
+      const a = row.results.original, b = row.results.search, c = row.results.repeat;
+      p(card, `Unchanged original: ${a.captures}/${a.released} captures. Search: ${b.direct} direct + ${b.table} table-assisted captures; ${b.robot_contacts}/${b.released} drops contacted a robot. Fresh repeats: ${c.direct} direct + ${c.table} table-assisted captures; ${c.robot_contacts}/${c.released} drops contacted a robot.`);
+      p(card, `Robot-assisted retention, reported separately: ${b.arm_assisted} during search; ${c.arm_assisted} during fresh repeats.`);
+      p(card, row.confirmed.length ? `${row.confirmed.length} setting(s) captured all three fresh repeats.` : 'No setting captured all three fresh repeats in this bounded search.');
+    }
+    const details = document.createElement('details'), summary = document.createElement('summary'); summary.textContent = 'Original and selected shot settings'; details.append(summary);
+    const wrap = document.createElement('div'); wrap.className = 'table-wrap';
+    const keys = ['original', 'selected'];
+    const setting = (key, format) => keys.map(k => row.settings[k] ? format(row.settings[k][key]) : 'Not selected');
+    const degrees = x => x === null ? '—' : x.toFixed(2);
+    table(wrap, ['Setting', 'Original', 'Selected search setting'], [
+      ['Board X, Y (mm)', ...setting('board_xy_m', x => x ? x.map(mm).join(', ') : '—')],
+      ['Board height (mm)', ...setting('board_height_m', mm)], ['Tilt from horizontal (°)', ...setting('tilt_deg', degrees)],
+      ['Drop gap (mm)', ...setting('drop_gap_m', mm)], ['Heading offset (°)', ...setting('heading_offset_deg', degrees)],
+      ['Board twist (°)', ...setting('twist_deg', degrees)],
+      ['Dropper joints (rad)', ...setting('q10', x => x ? x.map(v => v.toFixed(5)).join(', ') : '—')],
+      ['Bouncer joints (rad)', ...setting('q14', x => x ? x.map(v => v.toFixed(5)).join(', ') : '—')],
+    ]); details.append(wrap); card.append(details);
+    const films = document.createElement('div'); films.className = 'hybrid-miss-videos';
+    for (const key of keys) {
+      const figure = document.createElement('figure'), label = document.createElement('figcaption');
+      label.textContent = key === 'original' ? 'Unchanged original' : 'Selected search setting'; figure.append(label);
+      const video = row.videos[key];
+      if (video && view.complete) {
+        const player = document.createElement('video'); player.controls = true; player.preload = 'none'; player.playsInline = true; player.src = video.url;
+        player.setAttribute('aria-label', `${label.textContent} at bucket ${row.bucket_xy_m.map(mm).join(', ')} mm`); figure.append(player);
+        p(figure, video.label); p(figure, `Saved trace: ${video.trace_sha256.slice(0, 12)}…`);
+      } else p(figure, 'Recorded video awaits verified results and publication.');
+      films.append(figure);
+    }
+    card.append(films); $('boardPoseCases').append(card);
+  }
+  $('boardPoseControls').textContent = `Simulator controls: ${view.controls.status || 'pending'} · ${n(view.controls.completed)} / ${n(view.controls.planned)} · Independent audit: ${view.audit}.`;
+  $('boardPoseNext').textContent = view.error || view.next;
 }
 function showHybridMissCorrection() {
   if (!hybridMissCorrectionSummary) return;
@@ -1669,6 +1740,7 @@ async function initializePhysics() {
     directPathFirstSummary = module.directPathFirstSummary;
     stalledReferenceSummary = module.stalledReferenceSummary;
     hybridMissCorrectionSummary = module.hybridMissCorrectionSummary;
+    boardPoseRecoverySummary = module.boardPoseRecoverySummary;
     physics = new module.InteractivePhysics({ onChange: updatePhysics });
     await physics.initialize();
     showSavedPhysicsReplays();
@@ -1681,6 +1753,7 @@ async function initializePhysics() {
     showDirectPathFirst();
     showStalledReference();
     showHybridMissCorrection();
+    showBoardPoseRecovery();
   } catch { /* Historical viewing stays available without this optional API. */ }
 }
 for (const id of ['physicsDrop', 'physicsDropTop']) {
