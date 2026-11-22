@@ -1,5 +1,14 @@
 # Project state
 
+## Three hybrid-planner misses diagnosed and retested — November 22, 2026
+
+- [Results and reproduction](../sircus/mjlab/HYBRID_MISS_CORRECTION.md): the three misses from the preceding 20-position comparison all hit **board-arm link 3** after the board rebound. Native contact times were **0.478, 0.414 and 0.533 seconds** at bucket coordinates **(948.4, −35.1), (1195.0, 160.5), (1226.0, 183.4) mm** respectively. Link identity comes from CPU reconstruction at each recorded native contact; contact occurrence comes from native force evidence.
+- The one frozen correction changed board-arm joint configuration while retaining the bucket, board-pose target, release point and dropper joints. Preparation saved **1/8/5 accepted joint-solution records**; exact-vector counts include angle wraps and numerical differences, not 14 different elbow postures. The chosen alternatives mainly flipped wrist joints. Proximal joints remained essentially unchanged, and predicted arm clearance changed by less than **0.001 mm** while remaining negative.
+- At **64 substeps**, each original and each alternative captured **0/3**, with robot contact on **3/3** in both conditions. Totals: original **0/9**, attempted correction **0/9**; **no setup declines**. This targeted correction did not improve captures or clear the robot. It is selected development evidence, not a new policy score; the preceding **17/20** comparison remains unchanged.
+- **18 diagnostic + 18 control releases** completed, using **202.705 leased 4090 seconds**. Both nine-shot control blocks passed: each had three direct captures, three table-assisted captures and three expected noncaptures. The independent audit passed **8,588 checks**. Raw evidence is preserved outside Git; the [compact aggregate](../baselines/mjlab-hybrid-miss-20261122/summary.json) records identities and exact counts.
+- Computational producer **`a135f3a3379ccade21be84e09eec77b34feabdf3`**. UI panel: `#hybridMissCorrection`, with exact settings and saved native original/alternative video slots. Native drops hold the arms at the selected endpoints; they do not validate driven arm motion or perception. No model, physics, scoring, live planner, 4070 workload or Isaac setup change.
+- Next: permit a board center or heading change that moves the middle link out of the rebound path. Conditional projections ignoring robot contact suggest the farther two shots also lack range; that prediction needs an actual drop test before a capture claim.
+
 ## Delayed reference-path fallback comparison completed — November 22, 2026
 
 - [Results and reproduction](../sircus/mjlab/STALLED_REFERENCE_STUDY.md): optimized reference-first checks, switching to candidate-first only after **5 seconds of actual reference-path search**, within the same **30-second decision deadline**. Models and scoring stayed frozen; accepted paths retain every 5 mm clearance and 0.5° forward/reverse check.
