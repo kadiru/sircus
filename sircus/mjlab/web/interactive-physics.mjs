@@ -673,7 +673,7 @@ export function boardPoseRecoverySummary(study, videoAssets = {}) {
     return [{ id: raw.id, bucket_xy_m: raw.bucket_xy_m, preparation, confirmed,
       results: Object.fromEntries(methods.map(k => [k, result(raw.results?.[k])])),
       settings: Object.fromEntries(['original', 'selected'].map(k => [k, settings(raw.settings?.[k])])),
-      videos: Object.fromEntries(['original', 'selected'].map(k => [k, video(raw.videos?.[k])])),
+      videos: Object.fromEntries(['original', 'selected', 'closest'].map(k => [k, video(raw.videos?.[k])])),
     }];
   });
   const controls = { status: text(section.controls?.status), completed: count(section.controls?.completed), planned: count(section.controls?.planned) };

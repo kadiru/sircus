@@ -34,7 +34,7 @@ test('search and repeats remain separate with preparation denominator, settings 
   const report=fixture(),view=boardPoseRecoverySummary(report,assets),$=render(report);
   assert.equal(view.complete,true);assert.equal(view.cases[0].confirmed.length,1);
   assert.match($('boardPoseResults').text,/900.0, -100.0 20 · 10 1 \/ 4 3 \/ 3 1/);
-  assert.match($('boardPoseCases').text,/5 accepted arm solutions; 4 distinct shot settings selected/);
+  assert.match($('boardPoseCases').text,/5 accepted arm-solution records; 4 distinct shot settings selected/);
   assert.match($('boardPoseCases').text,/Robot-assisted retention, reported separately: 1 during search; 0 during fresh repeats/);
   assert.match($('boardPoseCases').text,/Heading offset \(°\) 10.00 10.00/);
   assert.equal($('boardPoseCases').videos.length,6);
@@ -58,7 +58,7 @@ test('alternative joint solutions and repeated checks are not counted as distinc
   const report=fixture(),p=report.board_pose_recovery.cases[0].preparation;
   p.admitted=60;p.checked=80;
   assert.equal(boardPoseRecoverySummary(report).complete,true);
-  assert.match(render(report)('boardPoseCases').text,/60 accepted arm solutions; 4 distinct shot settings/);
+  assert.match(render(report)('boardPoseCases').text,/60 accepted arm-solution records; 4 distinct shot settings/);
 });
 test('unsafe or mismatched media is never attached; optional panel preserves older pages',()=>{
   const report=fixture();for(const asset of [{url:'https://example.com/movie.mp4',trace_sha256:hash},{url:assets.clip.url,trace_sha256:'b'.repeat(64)}])
@@ -67,4 +67,11 @@ test('unsafe or mismatched media is never attached; optional panel preserves old
   const html=readFileSync(new URL('../web/index.html',import.meta.url),'utf8');
   assert.match(html,/id="boardPoseVideoAssets" type="application\/json">\{\}/);
   assert.match(html,/local development search, not a new policy score/);
+});
+
+ test('optional near-miss film is additional and does not change frozen selection or capture totals',()=>{
+  const report=fixture(),c=report.board_pose_recovery.cases[2];c.videos.closest={asset_id:'clip',trace_sha256:hash,label:'Robot-free near miss'};
+  const $=render(report);assert.equal($('boardPoseCases').videos.length,7);
+  assert.match($('boardPoseCases').text,/Additional robot-free near miss · selected after reviewing flights/);
+  assert.equal(boardPoseRecoverySummary(report,assets).cases[2].confirmed.length,1);
 });

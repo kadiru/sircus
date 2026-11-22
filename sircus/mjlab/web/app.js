@@ -1094,7 +1094,7 @@ function showBoardPoseRecovery() {
     : phases[view.phase] || 'Study in progress · final counts await verification';
   $('boardPoseProgress').textContent = `Requests completed: ${n(view.completed)} / ${n(view.planned)} · ${n(view.substeps)} substeps · Search is separate from model training.`;
   $('boardPoseResults').replaceChildren();
-  if (view.complete) table($('boardPoseResults'), ['Bucket X, Y (mm)', 'Proposed settings · setup checks', 'Search captures / drops', 'Fresh repeat captures / drops', 'Settings confirmed 3/3'], view.cases.map(r => [
+  if (view.complete) table($('boardPoseResults'), ['Bucket X, Y (mm)', 'Proposal records · setup checks', 'Search captures / drops', 'Fresh repeat captures / drops', 'Settings confirmed 3/3'], view.cases.map(r => [
     r.bucket_xy_m.map(mm).join(', '), `${r.preparation.proposed} · ${r.preparation.checked}`, `${r.results.search.captures} / ${r.results.search.released}`,
     `${r.results.repeat.captures} / ${r.results.repeat.released}`, String(r.confirmed.length),
   ]));
@@ -1102,7 +1102,7 @@ function showBoardPoseRecovery() {
   for (const row of view.cases) {
     const card = document.createElement('article'); card.className = 'hybrid-miss-case';
     const h = document.createElement('h3'); h.textContent = `Bucket (${row.bucket_xy_m.map(mm).join(', ')}) mm`; card.append(h);
-    p(card, `${n(row.preparation.admitted)} accepted arm solutions; ${n(row.preparation.selected)} distinct shot settings selected for drops. ${n(row.preparation.proposed)} settings were proposed. Setup checks can retry the same setting with different arm joints; rejected or untested proposals are not ball drops.`);
+    p(card, `${n(row.preparation.admitted)} accepted arm-solution records; ${n(row.preparation.selected)} distinct shot settings selected for drops. ${n(row.preparation.proposed)} proposal records include retries with different arm joints. Accepted solutions can include angle wraps or numerical duplicates; rejected or untested proposals are not ball drops.`);
     if (view.complete) {
       const a = row.results.original, b = row.results.search, c = row.results.repeat;
       p(card, `Unchanged original: ${a.captures}/${a.released} captures. Search: ${b.direct} direct + ${b.table} table-assisted captures; ${b.robot_contacts}/${b.released} drops contacted a robot. Fresh repeats: ${c.direct} direct + ${c.table} table-assisted captures; ${c.robot_contacts}/${c.released} drops contacted a robot.`);
@@ -1123,9 +1123,9 @@ function showBoardPoseRecovery() {
       ['Bouncer joints (rad)', ...setting('q14', x => x ? x.map(v => v.toFixed(5)).join(', ') : '—')],
     ]); details.append(wrap); card.append(details);
     const films = document.createElement('div'); films.className = 'hybrid-miss-videos';
-    for (const key of keys) {
+    for (const key of [...keys, ...(row.videos.closest ? ['closest'] : [])]) {
       const figure = document.createElement('figure'), label = document.createElement('figcaption');
-      label.textContent = key === 'original' ? 'Unchanged original' : 'Selected search setting'; figure.append(label);
+      label.textContent = key === 'original' ? 'Unchanged original' : key === 'closest' ? 'Additional robot-free near miss · selected after reviewing flights' : 'Selected search setting'; figure.append(label);
       const video = row.videos[key];
       if (video && view.complete) {
         const player = document.createElement('video'); player.controls = true; player.preload = 'none'; player.playsInline = true; player.src = video.url;
