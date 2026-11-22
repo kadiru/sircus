@@ -1,8 +1,9 @@
 """Synthetic bridge/provenance checks; no native capture evidence or GPU use."""
-import copy
 from contextlib import ExitStack, nullcontext
 import json
 from pathlib import Path
+import subprocess
+import sys
 from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 import unittest
@@ -10,9 +11,18 @@ from unittest.mock import patch
 
 from sircus.mjlab import interactive_stalled_planner as live
 from sircus.mjlab.benchmark_verify import sha
-from sircus.mjlab.fast_planning_study import COPIED_INPUTS
-from sircus.mjlab.stalled_reference_audit import VERSION as AUDIT_VERSION
-from sircus.mjlab.stalled_reference_study import promotion_decision
+try:
+    from sircus.mjlab.fast_planning_study import COPIED_INPUTS
+    from sircus.mjlab.stalled_reference_audit import VERSION as AUDIT_VERSION
+    from sircus.mjlab.stalled_reference_study import promotion_decision
+except ModuleNotFoundError as error:
+    # The legacy study runtime imports Torch even for mocked native execution.
+    # Lightweight CI omits Torch; a different missing dependency must still fail.
+    if error.name != "torch":
+        raise
+    HAVE_STUDY_RUNTIME = False
+else:
+    HAVE_STUDY_RUNTIME = True
 
 
 class LiveStalledTests(unittest.TestCase):
@@ -40,6 +50,7 @@ class LiveStalledTests(unittest.TestCase):
         args = SimpleNamespace(fast_study=fast, stalled_study=study, stalled_audit=root/'audit')
         return args, classic, report, audit, artifact, contract
 
+    @unittest.skipUnless(HAVE_STUDY_RUNTIME, "Legacy study/native imports require CPU Torch")
     def test_gate_requires_passed_bound_audit_and_predeclared_thresholds(self):
         with TemporaryDirectory() as temp:
             args, classic, report, audit, artifacts, contract = self.fixture(Path(temp))
@@ -58,6 +69,7 @@ class LiveStalledTests(unittest.TestCase):
                 report['decision'] = promotion_decision(report['comparison'], report['diagnostic'])
                 with self.assertRaises(ValueError): live.verified_stalled_inputs(args, classic)
 
+    @unittest.skipUnless(HAVE_STUDY_RUNTIME, "Legacy study/native imports require CPU Torch")
     def test_frozen_input_change_prevents_enablement(self):
         with TemporaryDirectory() as temp:
             args, classic, report, audit, artifacts, contract = self.fixture(Path(temp))
@@ -94,6 +106,7 @@ class LiveStalledTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 live.copy_prepared_proofs(source, Path(temp)/'new-target', request)
 
+    @unittest.skipUnless(HAVE_STUDY_RUNTIME, "Legacy study/native imports require CPU Torch")
     def test_native_release_dispatches_saved_proof_without_replanning(self):
         for mode, context in [('reference', 'resolutions/context.json'), ('direct_first', 'direct-contexts/context.json')]:
             with self.subTest(mode=mode), TemporaryDirectory() as temp, ExitStack() as stack:
@@ -124,6 +137,54 @@ class LiveStalledTests(unittest.TestCase):
                 path.write_text('{}')
                 with self.assertRaisesRegex(ValueError, 'request changed'):
                     live._hybrid_native_drop({}, {}, directory, 'old-sha', 'lease', 1, lambda e: None)
+
+
+class DependencyGuardTests(unittest.TestCase):
+    def test_collection_without_torch_runs_lightweight_cases_only(self):
+        code = """
+import builtins, io, runpy, sys, unittest
+original_import = builtins.__import__
+def without_torch(name, *args, **kwargs):
+    if name == 'torch' or name.startswith('torch.'):
+        raise ModuleNotFoundError('Torch intentionally absent in test', name='torch')
+    return original_import(name, *args, **kwargs)
+builtins.__import__ = without_torch
+scope = runpy.run_path(sys.argv[1], run_name='dependency_probe')
+assert scope['HAVE_STUDY_RUNTIME'] is False
+suite = unittest.defaultTestLoader.loadTestsFromTestCase(scope['LiveStalledTests'])
+stream = io.StringIO()
+result = unittest.TextTestRunner(stream=stream).run(suite)
+assert result.wasSuccessful(), stream.getvalue()
+assert result.testsRun == 5, stream.getvalue()
+assert {test._testMethodName for test, reason in result.skipped} == {
+    'test_gate_requires_passed_bound_audit_and_predeclared_thresholds',
+    'test_frozen_input_change_prevents_enablement',
+    'test_native_release_dispatches_saved_proof_without_replanning',
+}, stream.getvalue()
+"""
+        result = subprocess.run([sys.executable, "-c", code, str(Path(__file__).resolve())],
+                                capture_output=True, text=True, timeout=30)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_other_missing_dependencies_are_not_silently_skipped(self):
+        code = """
+import builtins, runpy, sys
+original_import = builtins.__import__
+def missing_dependency(name, *args, **kwargs):
+    if name == 'sircus.mjlab.fast_planning_study':
+        raise ModuleNotFoundError('A different dependency is absent', name='unexpected_dependency')
+    return original_import(name, *args, **kwargs)
+builtins.__import__ = missing_dependency
+try:
+    runpy.run_path(sys.argv[1], run_name='dependency_probe')
+except ModuleNotFoundError as error:
+    assert error.name == 'unexpected_dependency', str(error)
+else:
+    raise AssertionError('An unrelated import failure was hidden')
+"""
+        result = subprocess.run([sys.executable, "-c", code, str(Path(__file__).resolve())],
+                                capture_output=True, text=True, timeout=30)
+        self.assertEqual(result.returncode, 0, result.stderr)
 
 
 if __name__ == '__main__': unittest.main()
