@@ -8,6 +8,18 @@
 <p id="savedReplayExplanation" class="fine">Recorded native simulation. Playback runs in your browser.</p><div id="savedReplayMarkers" class="saved-replay-markers" aria-label="Jump to a measured event"></div>
 </section>
 <div class="result" role="status" aria-live="polite"><span class="status-dot" id="resultDot"></span><div><strong id="resultTitle">Waiting for the learning study</strong><p id="resultText">Manual solves unlock after the completed study and frozen-checkpoint evaluation.</p></div></div>
+<section id="boardFallbackStudy" class="results-section fast-planning-section" hidden>
+<p class="eyebrow">BOARD CLEARANCE FALLBACK · FIFTY NEW BUCKET POSITIONS</p><h2>Can moving the board improve the first drop?</h2>
+<p class="fine">Both planners use the same frozen learned selector and one 30-second decision limit. The candidate tries alternate board positions and directions when its checked shot predicts poor or unavailable ball-to-arm clearance. It keeps the checked choice if no better fully checked shot is found.</p>
+<p class="fine">The fallback may end the original candidate search early to reserve time for different board poses. The comparison measures that tradeoff; it does not assume every new choice will be better.</p>
+<p id="boardFallbackStatus" class="subtle" role="status"></p><p id="boardFallbackProgress" class="fine"></p>
+<div id="boardFallbackDiagnostic" class="scope-note"></div>
+<div id="boardFallbackTable" class="table-wrap" tabindex="0" role="region" aria-label="Current planner and board-pose fallback capture rates and planning times"></div>
+<p id="boardFallbackPair" class="fine"></p><p id="boardFallbackUse" class="fine"></p>
+<details id="boardFallbackDetails" hidden><summary>Results at each new bucket position</summary><div id="boardFallbackPositions" class="table-wrap" tabindex="0" role="region" aria-label="Fifty paired first-drop outcomes"></div></details>
+<p class="fine">All choices are frozen before testing, with at most one drop per planner and position. Missing setups remain in the denominator. Direct and table-assisted captures require a board rebound and one continuous second fully inside the bucket; robot-assisted retentions remain separate. Native MuJoCo uses 64 substeps and holds both arms at checked endpoints. This tests planning, not new model training, camera perception or driven-arm motion.</p>
+<p id="boardFallbackNext" class="scope-note"></p>
+</section>
 <section id="boardPoseRecovery" class="results-section fast-planning-section hybrid-miss-section" hidden>
 <p class="eyebrow">THREE MISSED TARGETS · BOARD POSITION AND ORIENTATION SEARCH</p><h2>Move the board to open the rebound path</h2>
 <p class="fine">The earlier three missed shots struck the bouncer arm’s middle segment. This search changes board position and orientation, then varies tilt and drop height where needed. The bucket stays fixed. Existing successful settings are preserved.</p>
