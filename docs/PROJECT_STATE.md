@@ -1,5 +1,13 @@
 # Project state
 
+## Bounded board-position fallback comparison prepared — November 22, 2026
+
+- [Protocol and diagnostic results](../sircus/mjlab/BOARD_FALLBACK_STUDY.md): the new planner tries alternate board centers/headings when a checked shot has poor or unavailable predicted arm clearance. It shares the original **30-second decision budget** and preserves a fully checked choice when no better candidate finishes in time. No model retraining or live default change.
+- **100 choices are frozen for 50 new bucket positions**, with **98 native drops ready** and two missing setups retained in the denominator. The sample contains 20 interior, 20 edge and 10 near-base positions. Native execution at 64 substeps is pending the existing 4090 lease; no capture comparison is available yet.
+- Separate known-target aiming test at **(1226.0, 183.4) mm**: **0/13 new captures**, with 11 robot-contact flights; unchanged parent **0/3**, without robot contact. No setting qualified for confirmation repeats. All 18 controls passed; **34 total native releases**, **129.46 leased GPU seconds**, and **7,364 independent audit checks**. The seven earlier confirmed settings remain preserved.
+- Frozen comparison producer **`fe41a30f58daffced7bd67f5d12e803636eccddf`**, heading producer **`316d6682d825e7995104936898427dd2827d025e`**. Draft [PR #158](https://github.com/kadiru/sircus/pull/158), stacked on #157. Pinned Ubuntu tests and producer CI passed; real-geometry CPU smoke verified exact prepared connection replay without GPU allocation.
+- UI destination **`#boardFallbackStudy`** distinguishes the completed aiming diagnostic from the pending fresh-position comparison. Existing videos are preserved. Current live planner remains `hybrid`; the 4070, Isaac setup and running service are unchanged.
+
 ## Board-position search recovered two diagnosed targets — November 22, 2026
 
 - [Results, settings and reproduction](../sircus/mjlab/BOARD_POSE_RECOVERY.md): changed board center, heading/twist and optional height/tilt/gap at the three previously missed bucket positions. CPU screening considered **14,344 unique parameter combinations plus 72 multistart IK retries**; 648 setup checks produced 216 admitted joint-solution records. These records can include equivalent angle representations. The frozen native menu selected **40 different shot parameter combinations per target**, including heading/twist, before any new drops.

@@ -21,6 +21,31 @@ ten minutes of CPU preparation. The original setting receives three matched
 repeats. Every qualifying new capture receives three fresh confirmations.
 Two nine-shot control blocks bracket the native experiment.
 
+### Completed diagnostic
+
+Changing heading alone did not recover this target. The original arm-free
+setting missed in all three matched repeats. Of the 13 new heading settings,
+11 produced robot contact and two cleared the arms but still missed. No new
+capture qualified for confirmation repeats.
+
+| Test | Releases | Captures | Releases with robot contact |
+|---|---:|---:|---:|
+| Original setting, matched repeats | 3 | 0 | 0 |
+| New heading settings | 13 | 0 | 11 |
+
+All 18 control shots passed their expected outcomes: 12 captures and six
+negative controls. The experiment therefore completed **34 native releases**,
+including controls, in **129.46 seconds of leased GPU time**. The independent
+audit passed **7,364 checks**. This establishes that this heading sweep did not
+solve the remaining target; it does not establish that the target is impossible.
+
+The producer was commit `316d6682d825e7995104936898427dd2827d025e`;
+the frozen runtime and output are named `remaining-heading-v1`. Audited bindings:
+
+- Report SHA-256: `f9b0af0ad7743acb1595e7755eafd6b2566c1b0c7117c37bef7fb80d825fc105`
+- Preparation SHA-256: `dd4746f8e3bcc4f5fc42110869df0e189774b62c3d471cfb9bd44258bb260cbe`
+- Evidence-manifest SHA-256: `26a5f190fb254efeff688a80d24d05dae168908b8b0113ba88accb8fb377f851`
+
 This known target is excluded from the new 50-position test. Its outcomes do
 not select among candidates at those new positions.
 
@@ -45,11 +70,13 @@ not select among candidates at those new positions.
   fewer original candidates to reserve time for board changes; it does not
   receive a second planning budget or the independent baseline's final answer.
 
-Fifty new seeded bucket positions are sampled across the admitted table
-region, excluding prior training, development, evaluation and recorded
-interactive positions. Each method prepares one choice per position using
-separate reusable CPU workers. All 100 decisions are frozen before any test
-drop. A missing setup remains an unsuccessful position in the denominator.
+Fifty new seeded bucket positions use a **stratified sample: 20 interior,
+20 near grid edges, and 10 near fixed robot bases**. This deliberately tests
+different parts of the admitted table region; it is not a uniform table sample.
+Prior training, development, evaluation and recorded interactive positions are
+excluded. Each method prepares one choice per position using separate reusable
+CPU workers. All 100 decisions are frozen before any test drop. A missing setup
+remains an unsuccessful position in the denominator.
 
 Native execution uses the 4090, 64 substeps, and the existing calibrated
 simulator/contact/scoring contract. Each method gets at most one release at
@@ -71,5 +98,6 @@ simulation or physical safety. The seven existing successful settings and all
 historical results are preserved. The live planner default remains unchanged
 while comparison results are reviewed. The 4070 and Isaac are untouched.
 
-Results are pending. Reproduction and compact audited results will be added
-at completion; raw traces and runtime configuration remain outside Git.
+The 50-position planner comparison is pending; the completed heading diagnostic
+above is separate development evidence. Comparison results will be added after
+independent validation. Raw traces and runtime configuration remain outside Git.

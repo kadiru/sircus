@@ -21,7 +21,7 @@ VERSION = "sircus-board-fallback-independent-audit-v1"
 STUDY_VERSION = "sircus-board-fallback-study-v1"
 METHODS = ("baseline", "fallback")
 
-def verify_plans(study, layouts, spec, assets, prior, home, manifest, checks, *, artifact_root=None, variants=METHODS, plan_hook=None):
+def verify_plans(study, layouts, spec, assets, prior, home, manifest, checks, *, artifact_root=None, variants=METHODS, plan_hook=None, selected_wrappers=None):
     """Rebuild finite menus, checked prefixes, full proof bindings and choices."""
     from .clearance_expansion_plan import _empty, branch_proposals, needs_expansion
     from .intergrid_candidate_replay_plan import command_key
@@ -31,7 +31,7 @@ def verify_plans(study, layouts, spec, assets, prior, home, manifest, checks, *,
     from .neural_shot_plan import CHECK_BATCH, CHECK_LIMIT, _choice, menu
 
     artifact_root = study if artifact_root is None else artifact_root
-    wrappers = read(artifact_root / "plans.json")
+    wrappers = read(artifact_root / "plans.json") if selected_wrappers is None else selected_wrappers
     expected = [(layout, method) for layout in layouts for method in variants]
     checks.equal([(item["site"]["layout"], item["variant"]) for item in wrappers], expected,
                  "Exact ordered preparation for every placement and both variants")
@@ -57,8 +57,12 @@ def verify_plans(study, layouts, spec, assets, prior, home, manifest, checks, *,
     ranker._audit_reach_models = reach_models(str(Path(assets).resolve()))
     ranker._audit_screen_cache = {}
     for method in variants:
-        checks.equal({path.stem for path in (artifact_root / "preparation" / method).glob("*.json")},
-                     {layout["id"] for layout in layouts}, method + "/exact preparation file inventory")
+        inventory = {path.stem for path in (artifact_root / "preparation" / method).glob("*.json")}
+        expected_inventory = {layout["id"] for layout in layouts}
+        if selected_wrappers is None:
+            checks.equal(inventory, expected_inventory, method + "/exact preparation file inventory")
+        else:
+            checks.require(expected_inventory <= inventory, method + "/selected preflight preparations exist")
     for wrapper in wrappers:
         site = wrapper["site"]
         layout, method, plan = site["layout"], wrapper["variant"], site["plan"]
@@ -158,7 +162,8 @@ def verify_plans(study, layouts, spec, assets, prior, home, manifest, checks, *,
         order = [layout["id"] for layout in layouts]
         random.Random(spec["processing_seed"]).shuffle(order)
         worker_spec = dict(spec, processing_order=order)
-    verify_workers(wrappers, layouts, worker_spec, checks, variants=variants)
+    if selected_wrappers is None:
+        verify_workers(wrappers, layouts, worker_spec, checks, variants=variants)
     return wrappers
 
 

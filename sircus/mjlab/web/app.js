@@ -1082,8 +1082,11 @@ function showBoardFallbackStudy() {
     : `Comparison in progress · ${String(view.phase || 'initializing').replaceAll('_', ' ')} · final scores pending`;
   $('boardFallbackProgress').textContent = `Plans checked: ${n(view.prepared)} / ${n(view.planned)} · Native drops completed: ${n(view.releases)} / ${n(view.planned_releases)}`;
   const diagnostic = view.diagnostic;
+  const confirmations = diagnostic?.repeat.released
+    ? `Fresh confirmations captured ${diagnostic.repeat.captures}/${diagnostic.repeat.released}; ${diagnostic.confirmed_settings} settings passed all three repeats.`
+    : 'No new setting captured, so none qualified for fresh confirmation drops.';
   $('boardFallbackDiagnostic').textContent = diagnostic
-    ? `Separate aiming experiment at (${diagnostic.bucket_xy_m.map(v => (1000*v).toFixed(1)).join(', ')}) mm: unchanged shot ${diagnostic.original.captures}/${diagnostic.original.released}; changed settings ${diagnostic.search.captures}/${diagnostic.search.released}; fresh confirmations ${diagnostic.repeat.captures}/${diagnostic.repeat.released}. ${diagnostic.confirmed_settings} settings passed all three repeats. Arm-assisted search retentions: ${diagnostic.search.arm_assisted}, reported separately. This known target is excluded from the 50-position comparison.` : '';
+    ? `Separate aiming experiment at (${diagnostic.bucket_xy_m.map(v => (1000*v).toFixed(1)).join(', ')}) mm: unchanged shot captured ${diagnostic.original.captures}/${diagnostic.original.released}; changed settings captured ${diagnostic.search.captures}/${diagnostic.search.released}. ${confirmations} Arm-assisted search retentions: ${diagnostic.search.arm_assisted}, reported separately. This known target is excluded from the 50-position comparison.` : '';
   $('boardFallbackTable').replaceChildren(); $('boardFallbackPositions').replaceChildren();
   $('boardFallbackPair').textContent = ''; $('boardFallbackUse').textContent = '';
   $('boardFallbackDetails').hidden = !view.complete;
