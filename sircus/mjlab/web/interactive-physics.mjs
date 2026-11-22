@@ -555,3 +555,72 @@ export class InteractivePhysics {
     } catch (error) { if (epoch === this.epoch) this.publish({ state: 'failed', id, bucket_xy_m: xy, message: error.message }); }
   }
 }
+
+/** Audited local development comparison; never promotes a planner or starts a drop. */
+export function hybridMissCorrectionSummary(study, videoAssets = {}) {
+  const section = study?.hybrid_miss_correction;
+  if (section?.version !== 'sircus-hybrid-miss-correction-v1') return null;
+  const number = value => Number.isFinite(value) ? value : null;
+  const count = value => Number.isInteger(value) && value >= 0 ? value : null;
+  const text = value => typeof value === 'string' ? value : '';
+  const hash = value => /^[a-f0-9]{64}$/i.test(value || '');
+  const methods = ['original', 'corrected'];
+  const outcomes = new Set(['direct', 'table', 'flight_miss', 'setup_rejected', 'invalid_physics', 'arm_assisted_capture']);
+  const settings = raw => raw && typeof raw === 'object' ? {
+    board_xy_m: vector(raw.board_xy_m, 2) ? raw.board_xy_m : null,
+    board_height_m: number(raw.board_height_m), tilt_deg: number(raw.tilt_deg), drop_gap_m: number(raw.drop_gap_m),
+    q10: vector(raw.q10, 6) ? raw.q10 : null, q14: vector(raw.q14, 6) ? raw.q14 : null,
+    description: text(raw.description),
+  } : null;
+  const result = raw => {
+    if (!raw || typeof raw !== 'object') return null;
+    const row = Object.fromEntries(['requested', 'completed', 'released', 'captures', 'direct', 'table', 'robot_contacts'].map(key => [key, count(raw[key])]));
+    const recorded = Array.isArray(raw.outcomes) ? raw.outcomes : [];
+    row.valid = Object.values(row).every(value => value !== null) && row.requested > 0
+      && row.completed === row.requested && row.released <= row.completed && row.robot_contacts <= row.released
+      && row.captures === row.direct + row.table && row.captures <= row.released
+      && recorded.length === row.completed && recorded.every(value => outcomes.has(value))
+      && recorded.filter(value => value === 'direct').length === row.direct
+      && recorded.filter(value => value === 'table').length === row.table
+      && recorded.filter(value => value !== 'setup_rejected').length === row.released;
+    row.rejected = row.completed === null || row.released === null ? null : row.completed - row.released;
+    row.outcomes = recorded.filter(value => outcomes.has(value));
+    return row;
+  };
+  const video = raw => {
+    if (!raw || typeof raw.asset_id !== 'string' || !hash(raw.trace_sha256)) return null;
+    const asset = videoAssets?.[raw.asset_id];
+    if (!asset || asset.trace_sha256 !== raw.trace_sha256 || typeof asset.url !== 'string'
+        || asset.url.length > 14 * 1024 * 1024 || !/^data:video\/mp4;base64,[A-Za-z0-9+/]+={0,2}$/.test(asset.url)) return null;
+    return { asset_id: raw.asset_id, url: asset.url, trace_sha256: raw.trace_sha256, label: text(raw.label) };
+  };
+  const seen = new Set(), xy = new Set();
+  let unique = true;
+  const cases = (Array.isArray(section.cases) ? section.cases : []).flatMap(raw => {
+    if (typeof raw?.id !== 'string' || !raw.id || !vector(raw.bucket_xy_m, 2)) { unique = false; return []; }
+    const coord = JSON.stringify(raw.bucket_xy_m);
+    if (seen.has(raw.id) || xy.has(coord)) unique = false;
+    seen.add(raw.id); xy.add(coord);
+    const d = raw.diagnosis;
+    const diagnosis = hash(d?.evidence_sha256) ? {
+      summary: text(d.summary), evidence_sha256: d.evidence_sha256,
+      events: (Array.isArray(d.events) ? d.events : []).filter(e => Number.isFinite(e?.time_s) && e.time_s >= 0 && typeof e.label === 'string'),
+    } : null;
+    return [{ id: raw.id, bucket_xy_m: raw.bucket_xy_m, diagnosis,
+      settings: Object.fromEntries(methods.map(key => [key, settings(raw.settings?.[key])])),
+      results: Object.fromEntries(methods.map(key => [key, result(raw.results?.[key])])),
+      videos: Object.fromEntries(methods.map(key => [key, video(raw.videos?.[key])])),
+      modification: text(raw.modification),
+    }];
+  });
+  const controls = { status: text(section.controls?.status), completed: count(section.controls?.completed), planned: count(section.controls?.planned) };
+  const accounting = unique && cases.length === 3 && cases.every(row => methods.every(key => row.results[key]?.valid)
+    && row.results.original.requested === row.results.corrected.requested);
+  const complete = section.status === 'completed' && section.audit_status === 'passed' && section.physics_substeps === 64
+    && controls.status === 'passed' && controls.planned > 0 && controls.completed === controls.planned && accounting;
+  return { complete, accounting, status: text(section.status), phase: text(section.phase), audit: text(section.audit_status),
+    completed: count(section.progress?.completed), planned: count(section.progress?.planned), controls,
+    correction: { parameter: text(section.correction?.parameter), label: text(section.correction?.label), description: text(section.correction?.description) },
+    cases, next: text(section.next), error: text(section.error), substeps: number(section.physics_substeps),
+  };
+}

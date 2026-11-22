@@ -8,6 +8,17 @@
 <p id="savedReplayExplanation" class="fine">Recorded native simulation. Playback runs in your browser.</p><div id="savedReplayMarkers" class="saved-replay-markers" aria-label="Jump to a measured event"></div>
 </section>
 <div class="result" role="status" aria-live="polite"><span class="status-dot" id="resultDot"></span><div><strong id="resultTitle">Waiting for the learning study</strong><p id="resultText">Manual solves unlock after the completed study and frozen-checkpoint evaluation.</p></div></div>
+<section id="hybridMissCorrection" class="results-section fast-planning-section hybrid-miss-section" hidden>
+<p class="eyebrow">THREE RECORDED MISSES · ONE TARGETED CORRECTION</p><h2>What blocked the ball after release?</h2>
+<p class="fine">These are the three missed positions from the 20-position planner comparison. We inspect their saved flights, change one specified part of the shot, and compare matched repeats with the original settings. This is a local correction test, not a new unseen-position score.</p>
+<p id="hybridMissStatus" class="subtle" role="status"></p><p id="hybridMissProgress" class="fine"></p>
+<p id="hybridMissRule" class="scope-note"></p>
+<div id="hybridMissResults" class="table-wrap" tabindex="0" role="region" aria-label="Matched original and corrected captures at the three missed positions"></div>
+<div id="hybridMissCases"></div>
+<p id="hybridMissControls" class="fine"></p><p id="hybridMissNext" class="scope-note"></p>
+<p class="fine">Videos replay saved native simulation traces; they are not generated illustrations or new drops. Original footage may be available while the new test waits. Drops use 64 substeps with both arms held at their selected poses. Capture requires a board rebound and one continuous second fully inside the bucket; direct and table-assisted routes count, and robot-assisted outcomes remain separate. No retraining or automatic planner change.</p>
+<script id="hybridMissVideoAssets" type="application/json">{}</script>
+</section>
 <section id="armCheckSpeed" class="results-section fast-planning-section" hidden>
 <p class="eyebrow">FASTER ARM CHECKS · SAME CLEARANCE REQUIREMENT</p><h2>Can arm checks finish before the planning limit?</h2>
 <p class="fine">At the previously missed target (971.2, −285.4 mm), arm checks used 29.9 of the 30 seconds. The original planner spent 86.1 seconds finding a reference path that its successful shot did not use; solving the reference arm pose itself took 0.38 seconds.</p>

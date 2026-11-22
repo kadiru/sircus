@@ -68,7 +68,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, directPathFirstSummary, stalledReferenceSummary, physicsSceneActive = false, physicsViewKey = '';
+let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, directPathFirstSummary, stalledReferenceSummary, hybridMissCorrectionSummary, physicsSceneActive = false, physicsViewKey = '';
 let savedReplayRows = [], savedReplaySignature = '';
 const physicsSelected = () => $('mode').value === 'physics' && physics?.available === true;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
@@ -1045,6 +1045,7 @@ async function loadStatus() {
     showArmCheckSpeed();
     showDirectPathFirst();
     showStalledReference();
+    showHybridMissCorrection();
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
@@ -1066,6 +1067,75 @@ function showSavedPhysicsReplays() {
       ? report.interactive_recordings.title : 'Saved first-drop replays';
   }
   syncSolveButtons();
+}
+function showHybridMissCorrection() {
+  if (!hybridMissCorrectionSummary) return;
+  let assets = {};
+  try { assets = JSON.parse($('hybridMissVideoAssets').textContent || '{}'); } catch { /* Invalid assets never become video sources. */ }
+  const view = hybridMissCorrectionSummary(report, assets);
+  $('hybridMissCorrection').hidden = !view;
+  if (!view) return;
+  // Preserve video playback when the study poll returns unchanged content.
+  const signature = JSON.stringify([report.hybrid_miss_correction, Object.keys(assets)]);
+  if (showHybridMissCorrection.signature === signature) return;
+  showHybridMissCorrection.signature = signature;
+  const n = value => value === null ? '—' : String(value);
+  const mm = value => value === null ? '—' : (value * 1000).toFixed(1);
+  const p = (parent, content, cls = 'fine') => { const el = document.createElement('p'); el.className = cls; el.textContent = content; parent.append(el); return el; };
+  const table = (parent, headers, rows) => {
+    const el = document.createElement('table'), head = document.createElement('thead'), body = document.createElement('tbody'), heading = document.createElement('tr');
+    headers.forEach(label => { const cell = document.createElement('th'); cell.scope = 'col'; cell.textContent = label; heading.append(cell); }); head.append(heading);
+    rows.forEach(values => { const tr = document.createElement('tr'); values.forEach((value, i) => { const cell = document.createElement(i ? 'td' : 'th'); if (!i) cell.scope = 'row'; cell.textContent = value; tr.append(cell); }); body.append(tr); });
+    el.append(head, body); parent.append(el);
+  };
+  const phases = { diagnosing: 'Inspecting saved original flights', preparing: 'Checking the targeted correction', prepared: 'Correction choices frozen · drops not yet run', waiting_for_4090: 'Waiting for the shared 4090 · other workloads remain untouched', running: 'Running matched original and corrected drops', native_completed: 'Drops complete · independent verification pending', auditing: 'Verifying saved native results' };
+  $('hybridMissStatus').textContent = view.complete ? 'Correction test complete · independent audit passed'
+    : view.status === 'failed' ? 'Test stopped · completed evidence preserved'
+    : view.status === 'completed' && !view.accounting ? 'Results need verification · final totals withheld'
+    : phases[view.phase] || 'Correction test pending · final results withheld';
+  $('hybridMissProgress').textContent = `Requested checks completed: ${n(view.completed)} / ${n(view.planned)} · Physics: ${n(view.substeps)} substeps`;
+  $('hybridMissRule').textContent = [view.correction.label, view.correction.description].filter(Boolean).join(' · ');
+  $('hybridMissResults').replaceChildren();
+  if (view.complete) table($('hybridMissResults'), ['Bucket X, Y (mm)', 'Original captures / requests', 'Corrected captures / requests', 'Setup declines · original / corrected', 'Robot contacts · original / corrected'], view.cases.map(row => {
+    const a = row.results.original, b = row.results.corrected;
+    return [row.bucket_xy_m.map(mm).join(', '), `${a.captures} / ${a.requested}`, `${b.captures} / ${b.requested}`, `${a.rejected} / ${b.rejected}`, `${a.robot_contacts} / ${b.robot_contacts}`];
+  }));
+  $('hybridMissCases').replaceChildren();
+  for (const row of view.cases) {
+    const card = document.createElement('article'); card.className = 'hybrid-miss-case';
+    const h = document.createElement('h3'); h.textContent = `Bucket (${row.bucket_xy_m.map(mm).join(', ')}) mm`; card.append(h);
+    p(card, row.diagnosis?.summary || 'Saved-flight diagnosis is not yet verified.');
+    if (row.diagnosis?.events.length) p(card, row.diagnosis.events.map(event => `${event.time_s.toFixed(3)} s: ${event.label}`).join(' → '));
+    if (row.modification) p(card, row.modification, 'scope-note');
+    const details = document.createElement('details'), summary = document.createElement('summary'); summary.textContent = 'Exact shot and arm settings'; details.append(summary);
+    const wrap = document.createElement('div'); wrap.className = 'table-wrap';
+    const keys = ['original', 'corrected'];
+    const setting = (key, format) => keys.map(method => row.settings[method] ? format(row.settings[method][key]) : 'Not prepared');
+    table(wrap, ['Setting', 'Original', 'Corrected'], [
+      ['Board center X, Y (mm)', ...setting('board_xy_m', value => value ? value.map(mm).join(', ') : '—')],
+      ['Board center height (mm)', ...setting('board_height_m', mm)],
+      ['Tilt from horizontal (°)', ...setting('tilt_deg', value => value === null ? '—' : value.toFixed(2))],
+      ['Drop gap (mm)', ...setting('drop_gap_m', mm)],
+      ['Dropper joints (rad)', ...setting('q10', value => value ? value.map(x => x.toFixed(5)).join(', ') : '—')],
+      ['Board-arm joints (rad)', ...setting('q14', value => value ? value.map(x => x.toFixed(5)).join(', ') : '—')],
+      ['Setup note', ...setting('description', value => value || '—')],
+    ]); details.append(wrap); card.append(details);
+    const films = document.createElement('div'); films.className = 'hybrid-miss-videos';
+    for (const method of keys) {
+      const figure = document.createElement('figure'), label = document.createElement('figcaption'), video = row.videos[method];
+      label.textContent = method === 'original' ? 'Original saved flight' : 'Targeted correction'; figure.append(label);
+      if (video && (method === 'original' || view.complete)) {
+        const player = document.createElement('video'); player.controls = true; player.preload = 'none'; player.playsInline = true; player.src = video.url;
+        player.setAttribute('aria-label', `${label.textContent} at bucket ${row.bucket_xy_m.map(mm).join(', ')} mm`); figure.append(player);
+        if (video.label) p(figure, video.label);
+        p(figure, `Saved trace SHA-256: ${video.trace_sha256.slice(0, 12)}…`, 'fine evidence-id');
+      } else p(figure, method === 'corrected' && !view.complete ? 'Corrected footage awaits an executed, verified drop.' : 'Video is not published yet.');
+      films.append(figure);
+    }
+    card.append(films); $('hybridMissCases').append(card);
+  }
+  $('hybridMissControls').textContent = `Simulator controls: ${view.controls.status || 'not run'} · ${n(view.controls.completed)} / ${n(view.controls.planned)} · Independent audit: ${view.audit || 'pending'}.`;
+  $('hybridMissNext').textContent = view.error || view.next;
 }
 function showStalledReference() {
   if (!stalledReferenceSummary) return;
@@ -1598,6 +1668,7 @@ async function initializePhysics() {
     armCheckSpeedSummary = module.armCheckSpeedSummary;
     directPathFirstSummary = module.directPathFirstSummary;
     stalledReferenceSummary = module.stalledReferenceSummary;
+    hybridMissCorrectionSummary = module.hybridMissCorrectionSummary;
     physics = new module.InteractivePhysics({ onChange: updatePhysics });
     await physics.initialize();
     showSavedPhysicsReplays();
@@ -1609,6 +1680,7 @@ async function initializePhysics() {
     showArmCheckSpeed();
     showDirectPathFirst();
     showStalledReference();
+    showHybridMissCorrection();
   } catch { /* Historical viewing stays available without this optional API. */ }
 }
 for (const id of ['physicsDrop', 'physicsDropTop']) {
