@@ -624,3 +624,65 @@ export function hybridMissCorrectionSummary(study, videoAssets = {}) {
     cases, next: text(section.next), error: text(section.error), substeps: number(section.physics_substeps),
   };
 }
+
+/** Development search: preparation, first tries and fresh repeats stay separate. */
+export function boardPoseRecoverySummary(study, videoAssets = {}) {
+  const section = study?.board_pose_recovery;
+  if (section?.version !== 'sircus-board-pose-recovery-v1') return null;
+  const number = value => Number.isFinite(value) ? value : null;
+  const count = value => Number.isInteger(value) && value >= 0 ? value : null;
+  const text = value => typeof value === 'string' ? value : '';
+  const hash = value => /^[a-f0-9]{64}$/i.test(value || '');
+  const methods = ['original', 'search', 'repeat'];
+  const allowed = new Set(['direct', 'table', 'flight_miss', 'setup_rejected', 'invalid_physics', 'arm_assisted_capture']);
+  const result = raw => {
+    if (!raw) return null;
+    const row = Object.fromEntries(['requested', 'completed', 'released', 'captures', 'direct', 'table', 'arm_assisted', 'robot_contacts'].map(k => [k, count(raw[k])]));
+    const outcomes = Array.isArray(raw.outcomes) ? raw.outcomes : [];
+    row.valid = Object.values(row).every(x => x !== null) && row.completed === row.requested && row.released <= row.completed
+      && row.robot_contacts <= row.released && row.captures === row.direct + row.table && row.captures <= row.released
+      && outcomes.length === row.completed && outcomes.every(x => allowed.has(x))
+      && outcomes.filter(x => x === 'direct').length === row.direct && outcomes.filter(x => x === 'table').length === row.table
+      && outcomes.filter(x => x === 'arm_assisted_capture').length === row.arm_assisted
+      && outcomes.filter(x => x !== 'setup_rejected').length === row.released;
+    return row;
+  };
+  const settings = raw => raw ? { board_xy_m: vector(raw.board_xy_m, 2) ? raw.board_xy_m : null,
+    board_height_m: number(raw.board_height_m), tilt_deg: number(raw.tilt_deg), drop_gap_m: number(raw.drop_gap_m),
+    heading_offset_deg: number(raw.heading_offset_deg), twist_deg: number(raw.twist_deg),
+    q10: vector(raw.q10, 6) ? raw.q10 : null, q14: vector(raw.q14, 6) ? raw.q14 : null } : null;
+  const video = raw => {
+    const asset = videoAssets?.[raw?.asset_id];
+    return hash(raw?.trace_sha256) && asset?.trace_sha256 === raw.trace_sha256 && typeof asset.url === 'string'
+      && asset.url.length <= 14 * 1024 * 1024 && /^data:video\/mp4;base64,[A-Za-z0-9+/]+={0,2}$/.test(asset.url)
+      ? { url: asset.url, trace_sha256: raw.trace_sha256, label: text(raw.label) } : null;
+  };
+  const seen = new Set(), coordinates = new Set(); let valid = true;
+  const cases = (Array.isArray(section.cases) ? section.cases : []).flatMap(raw => {
+    if (!text(raw?.id) || !vector(raw.bucket_xy_m, 2)) { valid = false; return []; }
+    const xy = JSON.stringify(raw.bucket_xy_m);
+    if (seen.has(raw.id) || coordinates.has(xy)) valid = false;
+    seen.add(raw.id); coordinates.add(xy);
+    const preparation = Object.fromEntries(['proposed', 'checked', 'admitted', 'selected'].map(k => [k, count(raw.preparation?.[k])]));
+    if (Object.values(preparation).some(x => x === null) || preparation.selected > preparation.admitted || preparation.selected > preparation.proposed) valid = false;
+    const confirmed = (Array.isArray(raw.confirmed_settings) ? raw.confirmed_settings : []).map(r => ({
+      candidate_id: text(r.candidate_id), captures: count(r.repeat_captures), completed: count(r.repeat_completed), settings: settings(r.settings),
+    }));
+    if (confirmed.some(r => !r.candidate_id || r.completed !== 3 || r.captures !== 3)
+        || new Set(confirmed.map(r => r.candidate_id)).size !== confirmed.length) valid = false;
+    return [{ id: raw.id, bucket_xy_m: raw.bucket_xy_m, preparation, confirmed,
+      results: Object.fromEntries(methods.map(k => [k, result(raw.results?.[k])])),
+      settings: Object.fromEntries(['original', 'selected'].map(k => [k, settings(raw.settings?.[k])])),
+      videos: Object.fromEntries(['original', 'selected', 'closest'].map(k => [k, video(raw.videos?.[k])])),
+    }];
+  });
+  const controls = { status: text(section.controls?.status), completed: count(section.controls?.completed), planned: count(section.controls?.planned) };
+  const accounting = valid && cases.length === 3 && cases.every(r => methods.every(k => r.results[k]?.valid)
+    && r.results.original.requested === 3 && r.results.search.requested === r.preparation.selected
+    && r.confirmed.length * 3 <= r.results.repeat.captures);
+  const complete = section.status === 'completed' && section.audit_status === 'passed' && section.physics_substeps === 64
+    && controls.status === 'passed' && controls.completed === 18 && controls.planned === 18 && accounting;
+  return { complete, accounting, cases, controls, status: text(section.status), phase: text(section.phase), audit: text(section.audit_status),
+    completed: count(section.progress?.completed), planned: count(section.progress?.planned), substeps: number(section.physics_substeps),
+    next: text(section.next), error: text(section.error) };
+}

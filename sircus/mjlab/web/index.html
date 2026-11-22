@@ -8,6 +8,16 @@
 <p id="savedReplayExplanation" class="fine">Recorded native simulation. Playback runs in your browser.</p><div id="savedReplayMarkers" class="saved-replay-markers" aria-label="Jump to a measured event"></div>
 </section>
 <div class="result" role="status" aria-live="polite"><span class="status-dot" id="resultDot"></span><div><strong id="resultTitle">Waiting for the learning study</strong><p id="resultText">Manual solves unlock after the completed study and frozen-checkpoint evaluation.</p></div></div>
+<section id="boardPoseRecovery" class="results-section fast-planning-section hybrid-miss-section" hidden>
+<p class="eyebrow">THREE MISSED TARGETS · BOARD POSITION AND ORIENTATION SEARCH</p><h2>Move the board to open the rebound path</h2>
+<p class="fine">The earlier three missed shots struck the bouncer arm’s middle segment. This search changes board position and orientation, then varies tilt and drop height where needed. The bucket stays fixed. Existing successful settings are preserved.</p>
+<p id="boardPoseStatus" class="subtle" role="status"></p><p id="boardPoseProgress" class="fine"></p>
+<div id="boardPoseResults" class="table-wrap" tabindex="0" role="region" aria-label="Board-pose search and separate fresh-repeat captures"></div>
+<div id="boardPoseCases"></div>
+<p id="boardPoseControls" class="fine"></p><p id="boardPoseNext" class="scope-note"></p>
+<p class="fine">Search tries and fresh repeats are separate. A confirmed setting captures in all three fresh repeats. Capture requires a board rebound followed by one continuous second fully inside the bucket. Direct and table-assisted captures count; robot-assisted outcomes remain separate. This is local development search, not a new policy score. Videos replay recorded native ball samples at 64 substeps with arms held at their endpoints; no new physics, camera perception or moving-arm validation is implied.</p>
+<script id="boardPoseVideoAssets" type="application/json">{}</script>
+</section>
 <section id="hybridMissCorrection" class="results-section fast-planning-section hybrid-miss-section" hidden>
 <p class="eyebrow">THREE RECORDED MISSES · ONE TARGETED CORRECTION</p><h2>What blocked the ball after release?</h2>
 <p class="fine">These are the three missed positions from the 20-position planner comparison. We inspect their saved flights, change one specified part of the shot, and compare matched repeats with the original settings. This is a local correction test, not a new unseen-position score.</p>

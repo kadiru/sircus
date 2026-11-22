@@ -1,0 +1,679 @@
+{
+  "version": "sircus-board-pose-recovery-published-summary-v1",
+  "status": "completed",
+  "audit_status": "passed",
+  "producer_commit": "8d5a6aaca793b4975772672bc09d62cfb85ae974",
+  "physics_substeps": 64,
+  "independent_checks": 204584,
+  "native_releases": 168,
+  "initial_requests": 129,
+  "confirmation_requests": 21,
+  "gpu_lease_s": 640.7665968759975,
+  "controls": {
+    "controls_pre": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "controls_post": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "cases": [
+    {
+      "id": "stalled-reference-test-03",
+      "bucket_xy_m": [
+        0.9484147227579094,
+        -0.03507502760574792
+      ],
+      "preparation": {
+        "proposals": 4805,
+        "unique_geometry_proposals": 4781,
+        "multistart_retries": 24,
+        "checked": 216,
+        "admitted_joint_records": 79,
+        "selected_unique_geometries": 40,
+        "checked_reason_counts": {
+          "None": 79,
+          "strict_endpoint_clearance_or_pose_rejected": 91,
+          "finite_ik_unresolved": 46
+        },
+        "preparation_s": 336.5092225280023,
+        "necessary_reach_passed_including_retry_records": 552
+      },
+      "results": {
+        "original": {
+          "requested": 3,
+          "completed": 3,
+          "released": 3,
+          "setup_rejected": 0,
+          "captures": 0,
+          "direct": 0,
+          "table": 0,
+          "robot_contacts": 3,
+          "outcome_counts": {
+            "flight_miss": 3
+          }
+        },
+        "search": {
+          "requested": 40,
+          "completed": 40,
+          "released": 40,
+          "setup_rejected": 0,
+          "captures": 6,
+          "direct": 6,
+          "table": 0,
+          "robot_contacts": 17,
+          "outcome_counts": {
+            "direct": 6,
+            "arm_assisted_capture": 2,
+            "flight_miss": 32
+          }
+        },
+        "repeat": {
+          "requested": 18,
+          "completed": 18,
+          "released": 18,
+          "setup_rejected": 0,
+          "captures": 18,
+          "direct": 18,
+          "table": 0,
+          "robot_contacts": 0,
+          "outcome_counts": {
+            "direct": 18
+          }
+        }
+      },
+      "original": {
+        "id": "stalled-reference-test-03-hybrid",
+        "values": [
+          0.6058345576138615,
+          0.06491429859424128,
+          0.4976091239666261,
+          22.330081755597877,
+          0.1870037033253607
+        ],
+        "board_heading_offset_deg": 0.0,
+        "board_twist_deg": 0.0,
+        "selected_q10": [
+          0.10673338294044141,
+          -0.577262304148258,
+          -2.3089514500021973,
+          1.3230004492727771e-06,
+          -1.7316891449400786,
+          0.39071673628512
+        ],
+        "selected_q14": [
+          3.03566734996011,
+          1.3098868523276035,
+          -3.385522924298206,
+          -0.07214634690866178,
+          -1.937109593835687,
+          4.521550487090588
+        ]
+      },
+      "selected": {
+        "id": "stalled-reference-test-03-pose-03142-b0",
+        "values": [
+          0.6368954774161214,
+          0.20716672250036106,
+          0.44956155156637473,
+          15.731091586926151,
+          0.11635167856416205
+        ],
+        "board_heading_offset_deg": -3.943475762751124,
+        "board_twist_deg": 180.0,
+        "selected_q10": [
+          0.31447436923199706,
+          -0.6368664837699956,
+          -2.1171194106987823,
+          2.9092289758677634e-06,
+          -1.4802529268247762,
+          0.9754159937499485
+        ],
+        "selected_q14": [
+          2.8256497741527253,
+          1.2910919650246448,
+          -3.553854754274586,
+          -0.11779686519238347,
+          -1.9533370838947381,
+          1.1266946157286493
+        ]
+      },
+      "confirmed_settings": [
+        {
+          "id": "stalled-reference-test-03-pose-03142-b0",
+          "values": [
+            0.6368954774161214,
+            0.20716672250036106,
+            0.44956155156637473,
+            15.731091586926151,
+            0.11635167856416205
+          ],
+          "board_heading_offset_deg": -3.943475762751124,
+          "board_twist_deg": 180.0,
+          "selected_q10": [
+            0.31447436923199706,
+            -0.6368664837699956,
+            -2.1171194106987823,
+            2.9092289758677634e-06,
+            -1.4802529268247762,
+            0.9754159937499485
+          ],
+          "selected_q14": [
+            2.8256497741527253,
+            1.2910919650246448,
+            -3.553854754274586,
+            -0.11779686519238347,
+            -1.9533370838947381,
+            1.1266946157286493
+          ],
+          "repeat_captures": 3,
+          "repeat_completed": 3
+        },
+        {
+          "id": "stalled-reference-test-03-pose-00354-b0",
+          "values": [
+            0.619843610229394,
+            0.11291165732173006,
+            0.4976091239666261,
+            22.330081755597877,
+            0.1870037033253607
+          ],
+          "board_heading_offset_deg": -8.0,
+          "board_twist_deg": 180.0,
+          "selected_q10": [
+            0.180177666809328,
+            -0.6947623726488962,
+            -2.4964608419140273,
+            2.9697666709218374e-07,
+            -1.8016984692167726,
+            0.6033610633249397
+          ],
+          "selected_q14": [
+            2.9494819466277633,
+            1.2599490835134022,
+            -3.479399597878744,
+            -0.14929413477729503,
+            -1.9594474456817592,
+            1.1687266734785813
+          ],
+          "repeat_captures": 3,
+          "repeat_completed": 3
+        },
+        {
+          "id": "stalled-reference-test-03-pose-00327-b0",
+          "values": [
+            0.591825504998329,
+            0.016916939866752502,
+            0.4976091239666261,
+            22.330081755597877,
+            0.1870037033253607
+          ],
+          "board_heading_offset_deg": -8.0,
+          "board_twist_deg": 180.0,
+          "selected_q10": [
+            0.02856883684862987,
+            -0.5023160179597136,
+            -2.1964985612599324,
+            1.8758287757560038e-06,
+            -1.6941825432689168,
+            0.1733523048534831
+          ],
+          "selected_q14": [
+            3.0960006679619876,
+            1.359472660117066,
+            -3.2923640688587916,
+            -0.09476364221920693,
+            -1.8886249496985117,
+            1.3195877429520348
+          ],
+          "repeat_captures": 3,
+          "repeat_completed": 3
+        },
+        {
+          "id": "stalled-reference-test-03-pose-00326-b0",
+          "values": [
+            0.591825504998329,
+            0.016916939866752502,
+            0.4976091239666261,
+            22.330081755597877,
+            0.1870037033253607
+          ],
+          "board_heading_offset_deg": -8.0,
+          "board_twist_deg": 0.0,
+          "selected_q10": [
+            0.02856883684862987,
+            -0.5023160179597136,
+            -2.1964985612599324,
+            1.8758287757560038e-06,
+            -1.6941825432689168,
+            0.1733523048534831
+          ],
+          "selected_q14": [
+            3.0960006679595353,
+            1.3594726579211758,
+            -3.2923640729515626,
+            -0.09476364229784626,
+            -1.888624951251034,
+            4.461180396328068
+          ],
+          "repeat_captures": 3,
+          "repeat_completed": 3
+        },
+        {
+          "id": "stalled-reference-test-03-pose-02830-b0",
+          "values": [
+            0.6076189356241707,
+            0.16750755931950687,
+            0.3884415515663747,
+            22.187449057027894,
+            0.2162840602320809
+          ],
+          "board_heading_offset_deg": -2.5380627870149794,
+          "board_twist_deg": 180.0,
+          "selected_q10": [
+            0.2689900531513166,
+            -0.5286970994836917,
+            -2.044766838109137,
+            3.076625887488741e-06,
+            -1.516069738634927,
+            0.8053110315324934
+          ],
+          "selected_q14": [
+            2.8853888046887466,
+            1.5770783386683966,
+            -3.133053641673489,
+            -0.12916888975391788,
+            -1.9346182766462288,
+            1.2227263282340208
+          ],
+          "repeat_captures": 3,
+          "repeat_completed": 3
+        },
+        {
+          "id": "stalled-reference-test-03-pose-02446-b0",
+          "values": [
+            0.6036649959371403,
+            0.15108518794407383,
+            0.46050555156637474,
+            28.63809462137608,
+            0.16331636676851968
+          ],
+          "board_heading_offset_deg": 2.8966208725207565,
+          "board_twist_deg": 0.0,
+          "selected_q10": [
+            0.24523490455107266,
+            -0.5214433157158217,
+            -2.078543991602614,
+            2.7977620348878564e-06,
+            -1.557100675905048,
+            0.7403577030599428
+          ],
+          "selected_q14": [
+            2.9124980374397644,
+            1.6032444228499738,
+            -2.898465840339416,
+            -0.10676734016685077,
+            -1.8486579650464512,
+            4.49321243493084
+          ],
+          "repeat_captures": 3,
+          "repeat_completed": 3
+        }
+      ]
+    },
+    {
+      "id": "stalled-reference-test-09",
+      "bucket_xy_m": [
+        1.1950241751674764,
+        0.1605393061423136
+      ],
+      "preparation": {
+        "proposals": 4805,
+        "unique_geometry_proposals": 4781,
+        "multistart_retries": 24,
+        "checked": 216,
+        "admitted_joint_records": 86,
+        "selected_unique_geometries": 40,
+        "checked_reason_counts": {
+          "finite_ik_unresolved": 45,
+          "strict_endpoint_clearance_or_pose_rejected": 115,
+          "None": 55,
+          "finite_requested_setup_path_unresolved": 1
+        },
+        "preparation_s": 501.4763710029947,
+        "necessary_reach_passed_including_retry_records": 830
+      },
+      "results": {
+        "original": {
+          "requested": 3,
+          "completed": 3,
+          "released": 3,
+          "setup_rejected": 0,
+          "captures": 0,
+          "direct": 0,
+          "table": 0,
+          "robot_contacts": 3,
+          "outcome_counts": {
+            "flight_miss": 3
+          }
+        },
+        "search": {
+          "requested": 40,
+          "completed": 40,
+          "released": 40,
+          "setup_rejected": 0,
+          "captures": 1,
+          "direct": 0,
+          "table": 1,
+          "robot_contacts": 31,
+          "outcome_counts": {
+            "flight_miss": 39,
+            "table": 1
+          }
+        },
+        "repeat": {
+          "requested": 3,
+          "completed": 3,
+          "released": 3,
+          "setup_rejected": 0,
+          "captures": 3,
+          "direct": 0,
+          "table": 3,
+          "robot_contacts": 0,
+          "outcome_counts": {
+            "table": 3
+          }
+        }
+      },
+      "original": {
+        "id": "stalled-reference-test-09-hybrid",
+        "values": [
+          0.5931071150524352,
+          -0.03775942765415213,
+          0.47319475985245624,
+          21.41333748084996,
+          0.11465902723272303
+        ],
+        "board_heading_offset_deg": 0.0,
+        "board_twist_deg": 0.0,
+        "selected_q10": [
+          -0.06358418358556066,
+          -0.39783138988584993,
+          -1.823489683519036,
+          4.206087056895393e-06,
+          -1.4256582849812889,
+          -0.38183277475663896
+        ],
+        "selected_q14": [
+          3.2148660979748183,
+          1.3824781546281033,
+          -3.3081592711692203,
+          0.09406848380999673,
+          -1.9111929066247757,
+          4.972541377697875
+        ]
+      },
+      "selected": {
+        "id": "stalled-reference-test-09-pose-00899-multistart-b1",
+        "values": [
+          0.6823728130194977,
+          0.0020715126002439008,
+          0.4618683735173024,
+          25.4687518028256,
+          0.1094386406066069
+        ],
+        "board_heading_offset_deg": 6.9477438887308125,
+        "board_twist_deg": 180.0,
+        "selected_q10": [
+          0.0030284889419490532,
+          -0.6958196486100078,
+          -2.2211194791681774,
+          2.3018905784131313e-06,
+          -1.5252998305772634,
+          -0.296767862529411
+        ],
+        "selected_q14": [
+          3.184502655436974,
+          2.225675134383372,
+          -1.7768529065989844,
+          3.3080156415950674,
+          1.2814913463152695,
+          -1.2743114919655696
+        ]
+      },
+      "confirmed_settings": [
+        {
+          "id": "stalled-reference-test-09-pose-00899-multistart-b1",
+          "values": [
+            0.6823728130194977,
+            0.0020715126002439008,
+            0.4618683735173024,
+            25.4687518028256,
+            0.1094386406066069
+          ],
+          "board_heading_offset_deg": 6.9477438887308125,
+          "board_twist_deg": 180.0,
+          "selected_q10": [
+            0.0030284889419490532,
+            -0.6958196486100078,
+            -2.2211194791681774,
+            2.3018905784131313e-06,
+            -1.5252998305772634,
+            -0.296767862529411
+          ],
+          "selected_q14": [
+            3.184502655436974,
+            2.225675134383372,
+            -1.7768529065989844,
+            3.3080156415950674,
+            1.2814913463152695,
+            -1.2743114919655696
+          ],
+          "repeat_captures": 3,
+          "repeat_completed": 3
+        }
+      ]
+    },
+    {
+      "id": "stalled-reference-test-19",
+      "bucket_xy_m": [
+        1.2260114071809864,
+        0.18342521713426418
+      ],
+      "preparation": {
+        "proposals": 4806,
+        "unique_geometry_proposals": 4782,
+        "multistart_retries": 24,
+        "checked": 216,
+        "admitted_joint_records": 51,
+        "selected_unique_geometries": 40,
+        "checked_reason_counts": {
+          "finite_ik_unresolved": 63,
+          "None": 45,
+          "strict_endpoint_clearance_or_pose_rejected": 107,
+          "finite_requested_setup_path_unresolved": 1
+        },
+        "preparation_s": 367.3923915380001,
+        "necessary_reach_passed_including_retry_records": 861
+      },
+      "results": {
+        "original": {
+          "requested": 3,
+          "completed": 3,
+          "released": 3,
+          "setup_rejected": 0,
+          "captures": 0,
+          "direct": 0,
+          "table": 0,
+          "robot_contacts": 3,
+          "outcome_counts": {
+            "flight_miss": 3
+          }
+        },
+        "search": {
+          "requested": 40,
+          "completed": 40,
+          "released": 40,
+          "setup_rejected": 0,
+          "captures": 0,
+          "direct": 0,
+          "table": 0,
+          "robot_contacts": 26,
+          "outcome_counts": {
+            "flight_miss": 40
+          }
+        },
+        "repeat": {
+          "requested": 0,
+          "completed": 0,
+          "released": 0,
+          "setup_rejected": 0,
+          "captures": 0,
+          "direct": 0,
+          "table": 0,
+          "robot_contacts": 0,
+          "outcome_counts": {}
+        }
+      },
+      "original": {
+        "id": "stalled-reference-test-19-hybrid",
+        "values": [
+          0.5878007242909605,
+          -0.14398666406199986,
+          0.3736925543705354,
+          16.016394669101363,
+          0.25346928437628946
+        ],
+        "board_heading_offset_deg": 1.2725508691282243,
+        "board_twist_deg": 12.0,
+        "selected_q10": [
+          -0.2402348863944404,
+          -0.46486783922339797,
+          -2.005416107005491,
+          3.117312720255737e-06,
+          -1.5405482677974591,
+          -0.7142409541601279
+        ],
+        "selected_q14": [
+          3.3508315950127994,
+          1.6132589310649936,
+          -3.1141358205654943,
+          0.08141335805759356,
+          -1.8535714557335825,
+          -1.0621915846010446
+        ]
+      },
+      "selected": {
+        "id": "stalled-reference-test-19-pose-01404-b0",
+        "values": [
+          0.6173387765337229,
+          -0.213202257958999,
+          0.4119638233170162,
+          26.41986664267383,
+          0.21664147488210878
+        ],
+        "board_heading_offset_deg": 3.09208622574711,
+        "board_twist_deg": 180.0,
+        "selected_q10": [
+          -0.3325401342093182,
+          -0.656868081141845,
+          -2.294847481806562,
+          1.655044045969489e-06,
+          -1.6379793997438117,
+          -0.9100572729871684
+        ],
+        "selected_q14": [
+          3.4637699846823993,
+          1.647601122125407,
+          -2.931973617182303,
+          0.14252973344845393,
+          -1.877066609435209,
+          1.8927701107694717
+        ]
+      },
+      "confirmed_settings": []
+    }
+  ],
+  "artifact_sha256": {
+    "report.json": "37a630386e4e2ee4b46a362174eb70de6666414b7a3010bc15b1b0a883b1b764",
+    "preparation.json": "cf3b558dc98368e45e679b51e89f4e3d2f007ed7645fe55abf8cd5afe5fae0a1",
+    "contract.json": "a94aa6a8978e54137f0b66448deef26320bb84b01eed986059c7fc4fd9c04bd8",
+    "slots.json": "c2434ac6ffc953c9f9496ba4941f70646f85100bae5590f2cb1c774ca0c0300b",
+    "repeat-slots.json": "f7e655ad95a75dffd7fde4881bec05b93fc979c5b601c7898da8c5785b1facde",
+    "rows.jsonl": "c747e119b2ee1520a18044e1434a39fe48ca38fbf8eff33e62242346fe3328a7",
+    "evidence-manifest.json": "2e74bd8f04f8f1ad75768a5f5a1c37e5b3839e6bd23f24070553b31267f9501c",
+    "audit": "2961456b0b7b5d314a533af04cef8b6e40eaa5a7dcb38734ce3465335bf28563",
+    "case19_diagnosis": "5a7a92510ab01943693bbe2b8506eb36f8191783b633db37f1cad86083bbc4d2"
+  },
+  "evidence_date": "2026-11-22",
+  "ui_section": "#boardPoseRecovery",
+  "shot_value_order": [
+    "board_center_x_m",
+    "board_center_y_m",
+    "board_center_z_m",
+    "board_tilt_from_horizontal_deg",
+    "drop_gap_m"
+  ],
+  "drop_gap_definition": "Released ball bottom Z minus board-center Z; ball center release Z adds the ball radius.",
+  "joint_units": "radians, simulated UF850 joints; not physical host calibration",
+  "aggregate": {
+    "unique_geometry_proposals": 14344,
+    "multistart_retries": 72,
+    "setup_checks": 648,
+    "admitted_joint_records": 216,
+    "search_releases": 120,
+    "search_direct_captures": 6,
+    "search_table_captures": 1,
+    "search_arm_assisted_captures": 2,
+    "original_releases": 9,
+    "original_captures": 0,
+    "confirmation_releases": 21,
+    "confirmation_captures": 21,
+    "confirmed_settings": 7,
+    "recovered_positions": 2,
+    "diagnosed_positions": 3,
+    "control_releases": 18
+  },
+  "evidence_paths": {
+    "runtime": "/home/kadir/sircus-mjlab/studies/board-pose-recovery-v2",
+    "output": "/home/kadir/sircus-mjlab/output/board-pose-recovery-v2",
+    "audit": "/home/kadir/sircus-mjlab/output/board-pose-recovery-v2-audit.json",
+    "media": "/home/kadir/sircus-mjlab/output/board-pose-recovery-media-v2"
+  },
+  "remaining_case": {
+    "id": "stalled-reference-test-19",
+    "robot_contact_releases": 26,
+    "robot_free_releases": 14,
+    "robot_free_whole_entries": 0,
+    "robot_free_table_releases": 14,
+    "closest_robot_free_record_id": "stalled-reference-test-19-pose-00755-b0-search-0",
+    "closest_opening_offset_mm": [
+      -1.8620608293629104,
+      82.96084477255039,
+      52.415607690811164
+    ],
+    "interpretation": "Closest robot-free shot has sufficient forward range but passes on positive-Y side of the bucket, then strikes its outside/rim. Smaller positive heading offsets are a useful next local test, retaining the translated board center and rechecking the middle-link clearance.",
+    "metric": "closest_opening_sample minimizes Euclidean distance between recorded ball center and bucket center at rim height over recorded ticks; it does not assert entry or ignore intervening contacts."
+  },
+  "limitations": [
+    "Selected development search at three previously observed misses; not a new unseen-position policy score",
+    "Six direct and one table-assisted settings each captured three fresh nominal repeats; no noise or timestep generalization claim",
+    "Two arm-assisted search captures remain preserved separately and were not eligible for confirmations under the predeclared clear-path protocol",
+    "IK solution record counts may include angle wraps or numerical duplicates; they are not counts of distinct geometric postures",
+    "Privileged simulator geometry, held arm endpoints, sampled geometric transit checks; no perception or driven-arm native validation",
+    "No model retraining or live planner change; original 17/20 comparison unchanged",
+    "4070 workload and Isaac setup untouched"
+  ],
+  "validation": {
+    "focused_python_tests": 19,
+    "ci_producer": "passed",
+    "broad_pinned_ubuntu_suite": "incomplete: unchanged mock physical-trials test stalled and only the task-owned process was terminated",
+    "focused_ui_tests": 11
+  }
+}
