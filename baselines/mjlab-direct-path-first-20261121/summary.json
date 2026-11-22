@@ -1,0 +1,356 @@
+{
+  "version": "sircus-direct-path-first-published-summary-v1",
+  "date": "2026-11-21",
+  "status": "completed",
+  "audit_status": "passed",
+  "scope": "Privileged simulator geometry; endpoint-held native64; not driven arm trajectories or hardware",
+  "executed_source_commit": "c44b2a601b2b5b1ca91e9583d04b62ac0314c4df",
+  "physics_substeps": 64,
+  "planning_budget_s": 30,
+  "training_performed": false,
+  "live_default_changed": false,
+  "comparison": {
+    "methods": {
+      "baseline": {
+        "attempts": 20,
+        "releases": 20,
+        "setup_rate": 1.0,
+        "captures": 16,
+        "capture_rate": 0.8,
+        "outcomes": {
+          "direct": 12,
+          "flight_miss": 4,
+          "table": 4
+        },
+        "selected_routes": {
+          "direct": 13,
+          "table": 7
+        },
+        "requested_route_captures": 15,
+        "positions": 20,
+        "admitted": 20,
+        "no_candidate": 0,
+        "flight_misses": 4
+      },
+      "direct_first": {
+        "attempts": 20,
+        "releases": 20,
+        "setup_rate": 1.0,
+        "captures": 16,
+        "capture_rate": 0.8,
+        "outcomes": {
+          "direct": 12,
+          "flight_miss": 4,
+          "table": 4
+        },
+        "selected_routes": {
+          "direct": 13,
+          "table": 7
+        },
+        "requested_route_captures": 15,
+        "positions": 20,
+        "admitted": 20,
+        "no_candidate": 0,
+        "flight_misses": 4
+      }
+    },
+    "latency": {
+      "baseline": {
+        "positions": 20,
+        "mean_s": 11.87306761635,
+        "median_s": 7.127797661999921,
+        "p90_s": 30.07172141999945,
+        "max_s": 31.913833952999994,
+        "aggregate_s": 237.461352327
+      },
+      "direct_first": {
+        "positions": 20,
+        "mean_s": 14.0551227048501,
+        "median_s": 9.220376026500162,
+        "p90_s": 30.04518042499967,
+        "max_s": 31.370626205000008,
+        "aggregate_s": 281.102454097002
+      }
+    },
+    "decision_latency": {
+      "baseline": {
+        "positions": 20,
+        "mean_s": 11.530361564149961,
+        "median_s": 6.549218660499719,
+        "p90_s": 30.0,
+        "max_s": 30.0,
+        "aggregate_s": 230.60723128299924
+      },
+      "direct_first": {
+        "positions": 20,
+        "mean_s": 13.688454140800058,
+        "median_s": 9.175570277000134,
+        "p90_s": 30.0,
+        "max_s": 30.0,
+        "aggregate_s": 273.7690828160012
+      }
+    },
+    "paired": {
+      "both": 16,
+      "gained": 0,
+      "lost": 0,
+      "neither": 4
+    },
+    "positions": [
+      {
+        "id": "direct-path-first-test-00",
+        "bucket_xy_m": [
+          0.3382470233731812,
+          -0.3208889354027866
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "direct_first": "direct"
+        }
+      },
+      {
+        "id": "direct-path-first-test-01",
+        "bucket_xy_m": [
+          0.9337375300132207,
+          -0.28261059156142165
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "direct_first": "direct"
+        }
+      },
+      {
+        "id": "direct-path-first-test-02",
+        "bucket_xy_m": [
+          0.39682402870403305,
+          0.10231325289796389
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "direct_first": "direct"
+        }
+      },
+      {
+        "id": "direct-path-first-test-03",
+        "bucket_xy_m": [
+          0.9817779881617744,
+          -0.07173035830890384
+        ],
+        "outcomes": {
+          "baseline": "flight_miss",
+          "direct_first": "flight_miss"
+        }
+      },
+      {
+        "id": "direct-path-first-test-04",
+        "bucket_xy_m": [
+          0.1279942604883063,
+          -0.17036230330016047
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "direct_first": "direct"
+        }
+      },
+      {
+        "id": "direct-path-first-test-05",
+        "bucket_xy_m": [
+          1.2345134698734168,
+          -0.23051578346966134
+        ],
+        "outcomes": {
+          "baseline": "table",
+          "direct_first": "table"
+        }
+      },
+      {
+        "id": "direct-path-first-test-06",
+        "bucket_xy_m": [
+          0.6132135008682459,
+          -0.6337200754894742
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "direct_first": "direct"
+        }
+      },
+      {
+        "id": "direct-path-first-test-07",
+        "bucket_xy_m": [
+          0.6644208214612657,
+          0.22662268091316554
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "direct_first": "direct"
+        }
+      },
+      {
+        "id": "direct-path-first-test-08",
+        "bucket_xy_m": [
+          0.20490441669372994,
+          -0.04781405894479174
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "direct_first": "direct"
+        }
+      },
+      {
+        "id": "direct-path-first-test-09",
+        "bucket_xy_m": [
+          1.10742243812799,
+          -0.003679514883590307
+        ],
+        "outcomes": {
+          "baseline": "flight_miss",
+          "direct_first": "flight_miss"
+        }
+      },
+      {
+        "id": "direct-path-first-test-10",
+        "bucket_xy_m": [
+          0.3775680427507975,
+          -0.28651164283589253
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "direct_first": "direct"
+        }
+      },
+      {
+        "id": "direct-path-first-test-11",
+        "bucket_xy_m": [
+          0.9691991365850027,
+          -0.35196789401156114
+        ],
+        "outcomes": {
+          "baseline": "table",
+          "direct_first": "table"
+        }
+      },
+      {
+        "id": "direct-path-first-test-12",
+        "bucket_xy_m": [
+          0.3908037480528092,
+          -0.05600204014803596
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "direct_first": "direct"
+        }
+      },
+      {
+        "id": "direct-path-first-test-13",
+        "bucket_xy_m": [
+          0.9812378390946329,
+          -0.06130872927197922
+        ],
+        "outcomes": {
+          "baseline": "flight_miss",
+          "direct_first": "flight_miss"
+        }
+      },
+      {
+        "id": "direct-path-first-test-14",
+        "bucket_xy_m": [
+          0.14510414566135288,
+          -0.16098703852915994
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "direct_first": "direct"
+        }
+      },
+      {
+        "id": "direct-path-first-test-15",
+        "bucket_xy_m": [
+          1.1894620010392158,
+          -0.17752437766691712
+        ],
+        "outcomes": {
+          "baseline": "table",
+          "direct_first": "table"
+        }
+      },
+      {
+        "id": "direct-path-first-test-16",
+        "bucket_xy_m": [
+          0.7862668497434182,
+          -0.6407456542727801
+        ],
+        "outcomes": {
+          "baseline": "table",
+          "direct_first": "table"
+        }
+      },
+      {
+        "id": "direct-path-first-test-17",
+        "bucket_xy_m": [
+          0.5710002609173447,
+          0.20299102827071555
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "direct_first": "direct"
+        }
+      },
+      {
+        "id": "direct-path-first-test-18",
+        "bucket_xy_m": [
+          0.20481472221056787,
+          0.05232245276998848
+        ],
+        "outcomes": {
+          "baseline": "direct",
+          "direct_first": "direct"
+        }
+      },
+      {
+        "id": "direct-path-first-test-19",
+        "bucket_xy_m": [
+          1.1404262302274106,
+          -0.08763232142351873
+        ],
+        "outcomes": {
+          "baseline": "flight_miss",
+          "direct_first": "flight_miss"
+        }
+      }
+    ]
+  },
+  "diagnostic": {
+    "bucket_xy_m": [
+      0.9712010092480674,
+      -0.2853881822068356
+    ],
+    "methods": {
+      "baseline": {
+        "planning_s": 31.295583277999867,
+        "checked_shot": false,
+        "outcome": "setup_rejected"
+      },
+      "direct_first": {
+        "planning_s": 15.959147927000231,
+        "checked_shot": true,
+        "outcome": "table"
+      }
+    }
+  },
+  "gpu_lease_s": 215.94498073199975,
+  "evidence": {
+    "version": "sircus-direct-path-first-independent-audit-v2",
+    "checks_count": 54351,
+    "test_releases": 40,
+    "diagnostic_releases": 1,
+    "controls": 18,
+    "report_sha256": "a4dce424945906b1d84005e40ed1c7c599e9ddad9b517d3f77ce029cc7c9034b",
+    "choices_sha256": "5111f6f9b26a697b64a0263aaf302fdb1a81e62fe8472f9483b973d5d96463e4",
+    "evidence_manifest_sha256": "8f8a8a1e2f8a8c74a014a927c8bee592ed718087304a315bff94a35a0bb912f4",
+    "verifier_source_sha256": "b99cd03075845ed0e17b25a32538d751b8b029d7420df6ae3917108d8d4338be"
+  },
+  "independent_audit_sha256": "4ef646a7a673bb0a456275383634f2749f3efa1a4b51e22bf61def568660411c",
+  "contract_sha256": "2cf766f285c9b47c9c060201479ef19e9590a36a0355a1da8be73265a0c2fbe4",
+  "interpretation": "Recovered the development timeout, but identical fresh-position captures and slower average planning do not justify replacing the default.",
+  "audit_note": "Verifier v2 corrected a diagnostic no-release label mismatch. Original producer sources, frozen choices and all native observations were preserved."
+}
