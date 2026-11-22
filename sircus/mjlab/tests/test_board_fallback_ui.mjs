@@ -40,7 +40,7 @@ test('pending audit, failed controls, wrong substeps and inconsistent totals wit
 test('known aiming target is separate from fresh comparison and may have failed confirmations',()=>{
   const r=fixture();r.board_fallback_study.heading_diagnostic={status:'completed',audit_status:'passed',physics_substeps:64,bucket_xy_m:[1.226,.1834],
     original:{released:3,captures:0,arm_assisted:0},search:{released:20,captures:2,arm_assisted:1},repeat:{released:6,captures:5,arm_assisted:0},confirmed_settings:1};
-  const $=render(r);assert.match($('boardFallbackDiagnostic').text,/fresh confirmations 5\/6/);assert.match($('boardFallbackDiagnostic').text,/excluded from the 50-position comparison/);
+  const $=render(r);assert.match($('boardFallbackDiagnostic').text,/Fresh confirmations captured 5\/6/);assert.match($('boardFallbackDiagnostic').text,/excluded from the 50-position comparison/);
   assert.equal(boardFallbackSummary(r).total,50);
   r.board_fallback_study.heading_diagnostic.audit_status='pending';assert.equal(render(r)('boardFallbackDiagnostic').text,'');
 });
