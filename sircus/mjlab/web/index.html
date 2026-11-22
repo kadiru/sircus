@@ -12,6 +12,7 @@
 <p class="eyebrow">BOARD CLEARANCE FALLBACK · FIFTY NEW BUCKET POSITIONS</p><h2>Can moving the board improve the first drop?</h2>
 <p class="fine">Both planners use the same frozen learned selector and one 30-second decision limit. The candidate tries alternate board positions and directions when its checked shot predicts poor or unavailable ball-to-arm clearance. It keeps the checked choice if no better fully checked shot is found.</p>
 <p class="fine">The fallback may end the original candidate search early to reserve time for different board poses. The comparison measures that tradeoff; it does not assume every new choice will be better.</p>
+<p class="fine">The 50 new targets include 20 interior, 20 edge and 10 near-base positions. This deliberately samples different parts of the table; it is not a uniform table-wide success estimate.</p>
 <p id="boardFallbackStatus" class="subtle" role="status"></p><p id="boardFallbackProgress" class="fine"></p>
 <div id="boardFallbackDiagnostic" class="scope-note"></div>
 <div id="boardFallbackTable" class="table-wrap" tabindex="0" role="region" aria-label="Current planner and board-pose fallback capture rates and planning times"></div>

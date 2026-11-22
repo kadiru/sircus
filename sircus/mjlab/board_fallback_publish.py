@@ -48,11 +48,15 @@ def publish(study, audit, display_report, heading_study=None, heading_audit=None
         raise ValueError('Pair each study with its audit receipt')
     if not study and not heading_study:
         raise ValueError('At least one audited result required')
-    protected = [Path(p).resolve() for p in (audit,heading_audit) if p]
-    protected += [(Path(p)/n).resolve() for p in (study,heading_study) if p
-                  for n in ('report.json','evidence-manifest.json','contract.json','preparation.json')]
-    if display_report.resolve() in protected:
-        raise ValueError('Display must be separate from original evidence')
+    evidence_roots = [Path(p).resolve() for p in (study, heading_study) if p]
+    protected_audits = {Path(p).resolve() for p in (audit, heading_audit) if p}
+    temporary = display_report.with_suffix(display_report.suffix+'.tmp')
+    # Resolve both the final destination and its write-through temporary path:
+    # an existing symlink must not make a derived display overwrite raw evidence.
+    for destination in (display_report, temporary):
+        resolved = destination.resolve()
+        if resolved in protected_audits or any(resolved.is_relative_to(root) for root in evidence_roots):
+            raise ValueError('Display must be separate from original evidence')
     display = read(display_report) if display_report.exists() else {}
     prior = display.get('board_fallback_study', {})
     if study:
@@ -71,7 +75,6 @@ def publish(study, audit, display_report, heading_study=None, heading_audit=None
         raw, provenance = audited_report(heading_study,heading_audit)
         section['heading_diagnostic'] = heading_summary(raw,provenance)
     display['board_fallback_study'] = section
-    temporary = display_report.with_suffix(display_report.suffix+'.tmp')
     temporary.write_text(json.dumps(display,indent=2,allow_nan=False)+'\n')
     os.replace(temporary,display_report)
     return dict(status=section['status'],audit_status=section['audit_status'],heading=bool(section.get('heading_diagnostic')))

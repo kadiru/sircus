@@ -98,6 +98,88 @@ simulation or physical safety. The seven existing successful settings and all
 historical results are preserved. The live planner default remains unchanged
 while comparison results are reviewed. The 4070 and Isaac are untouched.
 
-The 50-position planner comparison is pending; the completed heading diagnostic
-above is separate development evidence. Comparison results will be added after
-independent validation. Raw traces and runtime configuration remain outside Git.
+## Completed comparison
+
+The fallback did not improve this sample. Keep the current interactive planner.
+
+| Measurement | Current planner | Board-pose fallback |
+|---|---:|---:|
+| First-drop captures | 41/50 (82%) | 40/50 (80%) |
+| Direct captures | 30 | 29 |
+| Table-assisted captures | 11 | 11 |
+| Checked shots released | 49 | 49 |
+| No checked shot | 1 | 1 |
+| Released misses | 8 | 9 |
+| Mean full planning request | 12.867 s | 14.387 s |
+| Median full planning request | 7.819 s | 9.076 s |
+| 90th-percentile request | 30.114 s | 30.432 s |
+| Mean decision time | 12.537 s | 13.916 s |
+
+Both captured at 40 positions; the fallback gained none and lost one. Nine
+positions captured with neither method. There were no arm-assisted retentions
+or invalid-physics outcomes. The fallback activated at 11 positions and changed
+six choices. This single stratified sample does not establish a universal
+performance difference; it gives no reason to replace the live default.
+
+The lost capture was at **(948.252, −97.816) mm**. The current planner found a
+clear shot after 16.64 seconds, with predicted arm clearance +6.30 mm. The
+fallback diverted from its initial search after 12.47 seconds, checked five
+board alternatives and reached its deadline. Its selected alternative improved
+the combined predicted score from −27.07 to −24.50 mm, but arm clearance
+worsened from −9.16 to −24.50 mm. The native ball then contacted the robot at
+0.4944 seconds and never entered the bucket completely. Negative predicted
+clearance means predicted overlap with the ball path, not a safe margin.
+The next planner revision should address interruption of a productive search
+and selection of still-obstructed alternatives before another broad test.
+
+All **98 test releases + 18 controls** completed at 64 substeps. Both control
+blocks passed; independent verification passed **152,638 checks**, including
+selection/deadline bindings, path certificates and saved native scoring.
+The run used **973.419 leased GPU seconds (16.2 minutes)**, then released the
+4090. The 30-second limit governs decisions; full request measurements include
+worker startup and cleanup, so their maxima were 31.745 and 31.691 seconds.
+They exclude GPU waiting, browser/network transport and drop simulation.
+
+[Sanitized results and provenance](../../baselines/mjlab-board-fallback-20261122/summary.json)
+include every paired target, source hashes and the separate heading diagnostic.
+Raw traces and runtime configuration remain outside Git. Producer:
+`fe41a30f58daffced7bd67f5d12e803636eccddf`.
+
+- Report SHA-256: `5b3a4d6f55c079ef740f1dd8021898fbced8fbce7bd586a98d6e5675f9e2f937`
+- Choices SHA-256: `51aaf7e917013b5cc72a8592ed91af2e13b8f837257e69ab0be02de233b8fd37`
+- Evidence manifest SHA-256: `50a1c41fcc234dd7531f88b1928a962d7b611391cd6f79aee747b886b5285f63`
+- Audit SHA-256: `7a7b13a3d18c64d7777bd7c5433ee3c75e5ed4d67a280a4f97a3cc9fda75a2d2`
+
+## Reproduction and display
+
+The pinned Ubuntu runtime is `/home/kadir/sircus-mjlab/studies/board-fallback-v1`;
+its `.producer-commit` and `.study-args.json` preserve source and exact input
+arguments. The complete evidence lives at
+`/home/kadir/sircus-mjlab/output/board-fallback-v1`, with independent receipt
+`/home/kadir/sircus-mjlab/output/board-fallback-v1-audit.json`.
+Dependencies: mjlab 1.6.0, MuJoCo 3.11.0, mujoco-warp 3.11.0, Warp 1.14.0,
+Torch 2.7.0, NumPy 1.26.4 and SciPy 1.15.3.
+
+For an audit-only recheck, use a new receipt path outside the evidence:
+
+```python
+import json
+import subprocess
+from pathlib import Path
+
+runtime = Path('/home/kadir/sircus-mjlab/studies/board-fallback-v1')
+args = json.loads((runtime / '.study-args.json').read_text())
+subprocess.run([
+    '/home/kadir/sircus-mjlab/venv/bin/python', '-m',
+    'sircus.mjlab.board_fallback_study', *args, '--stage', 'audit',
+    '--audit-output', '/home/kadir/sircus-mjlab/output/board-fallback-v1-recheck.json',
+], cwd=runtime, check=True)
+```
+
+A new experiment must use a separate output directory and execute `initialize`,
+`prepare`, `run`, `finalize`, then `audit` in order, preserving the original
+evidence. Set `CUDA_VISIBLE_DEVICES` to the 4090 UUID
+`GPU-ab1950b0-01dd-0fab-407f-2d17936b27f4`; retain the shared lease at
+`/home/kadir/sircus-isaac/scene.lock`. The completed display is
+`http://127.0.0.1:18781/#boardFallbackStudy`. Only derived display data/static
+copy changed; no running service or planner default was restarted or replaced.
