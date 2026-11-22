@@ -68,7 +68,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, directPathFirstSummary, stalledReferenceSummary, hybridMissCorrectionSummary, boardPoseRecoverySummary, physicsSceneActive = false, physicsViewKey = '';
+let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, directPathFirstSummary, stalledReferenceSummary, hybridMissCorrectionSummary, boardPoseRecoverySummary, boardFallbackSummary, physicsSceneActive = false, physicsViewKey = '';
 let savedReplayRows = [], savedReplaySignature = '';
 const physicsSelected = () => $('mode').value === 'physics' && physics?.available === true;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
@@ -1047,6 +1047,7 @@ async function loadStatus() {
     showStalledReference();
     showHybridMissCorrection();
     showBoardPoseRecovery();
+    showBoardFallbackStudy();
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
@@ -1068,6 +1069,57 @@ function showSavedPhysicsReplays() {
       ? report.interactive_recordings.title : 'Saved first-drop replays';
   }
   syncSolveButtons();
+}
+function showBoardFallbackStudy() {
+  if (!boardFallbackSummary) return;
+  const view = boardFallbackSummary(report);
+  $('boardFallbackStudy').hidden = !view;
+  if (!view) return;
+  const n = value => value === null || value === undefined ? '—' : String(value);
+  const seconds = value => value === null ? '—' : `${value.toFixed(1)} s`;
+  $('boardFallbackStatus').textContent = view.complete ? 'Comparison complete · independent audit passed'
+    : view.status === 'failed' ? 'Study stopped · completed evidence preserved'
+    : `Comparison in progress · ${String(view.phase || 'initializing').replaceAll('_', ' ')} · final scores pending`;
+  $('boardFallbackProgress').textContent = `Plans checked: ${n(view.prepared)} / ${n(view.planned)} · Native drops completed: ${n(view.releases)} / ${n(view.planned_releases)}`;
+  const diagnostic = view.diagnostic;
+  const confirmations = diagnostic?.repeat.released
+    ? `Fresh confirmations captured ${diagnostic.repeat.captures}/${diagnostic.repeat.released}; ${diagnostic.confirmed_settings} settings passed all three repeats.`
+    : 'No new setting captured, so none qualified for fresh confirmation drops.';
+  $('boardFallbackDiagnostic').textContent = diagnostic
+    ? `Separate aiming experiment at (${diagnostic.bucket_xy_m.map(v => (1000*v).toFixed(1)).join(', ')}) mm: unchanged shot captured ${diagnostic.original.captures}/${diagnostic.original.released}; changed settings captured ${diagnostic.search.captures}/${diagnostic.search.released}. ${confirmations} Arm-assisted search retentions: ${diagnostic.search.arm_assisted}, reported separately. This known target is excluded from the 50-position comparison.` : '';
+  $('boardFallbackTable').replaceChildren(); $('boardFallbackPositions').replaceChildren();
+  $('boardFallbackPair').textContent = ''; $('boardFallbackUse').textContent = '';
+  $('boardFallbackDetails').hidden = !view.complete;
+  const table = (id, headings, rows) => {
+    const t = document.createElement('table'), head = document.createElement('thead'), body = document.createElement('tbody'), hr = document.createElement('tr');
+    for (const heading of headings) { const cell = document.createElement('th'); cell.scope = 'col'; cell.textContent = heading; hr.append(cell); }
+    head.append(hr);
+    for (const values of rows) { const tr = document.createElement('tr'); values.forEach((value,index) => {
+      const cell = document.createElement(index ? 'td' : 'th'); if (!index) cell.scope = 'row'; cell.textContent = value; tr.append(cell);
+    }); body.append(tr); }
+    t.append(head,body); $(id).append(t);
+  };
+  if (view.complete) {
+    const routeCount = (method, route) => view.positions.filter(row => row.outcomes[method.id] === route).length;
+    table('boardFallbackTable', ['Measurement', ...view.methods.map(m => m.label)], [
+      ['First-drop captures', ...view.methods.map(m => `${m.captures} / ${m.positions}`)],
+      ['Direct captures', ...view.methods.map(m => String(routeCount(m, 'direct')))],
+      ['Table-assisted captures', ...view.methods.map(m => String(routeCount(m, 'table')))],
+      ['Arm-assisted retentions · separate', ...view.methods.map(m => String(routeCount(m, 'arm_assisted_capture')))],
+      ['Checked shots released', ...view.methods.map(m => String(m.admitted))],
+      ['No checked shot', ...view.methods.map(m => String(m.no_candidate))],
+      ['Released misses', ...view.methods.map(m => String(m.flight_misses))],
+      ['Mean planning time', ...view.methods.map(m => seconds(m.timing.mean_s))],
+      ['Median planning time', ...view.methods.map(m => seconds(m.timing.median_s))],
+      ['90th-percentile planning time', ...view.methods.map(m => seconds(m.timing.p90_s))],
+    ]);
+    $('boardFallbackPair').textContent = `The fallback gained ${view.paired.gained} captures and lost ${view.paired.lost}; both captured at ${view.paired.both} positions. All ${view.total} targets remain in each denominator. Planning time includes worker startup and result handling; it excludes GPU waiting and drop simulation.`;
+    $('boardFallbackUse').textContent = `Fallback activated at ${n(view.fallback.activated)} positions and changed the selected shot at ${n(view.fallback.changed_choice)}. Both simulator control blocks passed. The live default is unchanged.`;
+    const labels = {direct:'Direct capture',table:'Table-assisted capture',unclassified_capture:'Capture · route unclassified',arm_assisted_capture:'Arm-assisted · separate',flight_miss:'Released · missed',setup_rejected:'No checked shot',invalid_physics:'Invalid physics'};
+    table('boardFallbackPositions', ['Bucket X, Y (mm)', ...view.methods.map(m => m.label)], view.positions.map(row => [
+      row.bucket_xy_m.map(v => (1000*v).toFixed(1)).join(', '), ...view.methods.map(m => labels[row.outcomes[m.id]])]));
+  }
+  $('boardFallbackNext').textContent = view.error || view.next || 'Keep the current interactive default until the completed comparison is reviewed.';
 }
 function showBoardPoseRecovery() {
   if (!boardPoseRecoverySummary) return;
@@ -1741,6 +1793,7 @@ async function initializePhysics() {
     stalledReferenceSummary = module.stalledReferenceSummary;
     hybridMissCorrectionSummary = module.hybridMissCorrectionSummary;
     boardPoseRecoverySummary = module.boardPoseRecoverySummary;
+    boardFallbackSummary = module.boardFallbackSummary;
     physics = new module.InteractivePhysics({ onChange: updatePhysics });
     await physics.initialize();
     showSavedPhysicsReplays();
@@ -1754,6 +1807,7 @@ async function initializePhysics() {
     showStalledReference();
     showHybridMissCorrection();
     showBoardPoseRecovery();
+    showBoardFallbackStudy();
   } catch { /* Historical viewing stays available without this optional API. */ }
 }
 for (const id of ['physicsDrop', 'physicsDropTop']) {

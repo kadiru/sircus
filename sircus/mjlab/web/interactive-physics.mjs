@@ -450,6 +450,37 @@ export function stalledReferenceSummary(study) {
     next: typeof section.next === 'string' ? section.next : '', error: typeof section.error === 'string' ? section.error : '' };
 }
 /** Capability-gated choice: older servers keep their exact original request shape. */
+export function boardFallbackSummary(study) {
+  const raw = study?.board_fallback_study;
+  if (raw?.version !== 'sircus-board-fallback-study-v1') return null;
+  const c = raw.comparison || {};
+  const translated = { ...raw, version: 'sircus-stalled-reference-study-v1', comparison: { ...c,
+    methods: { baseline: c.methods?.baseline, hybrid: c.methods?.fallback },
+    latency: { baseline: c.latency?.baseline, hybrid: c.latency?.fallback },
+    positions: Array.isArray(c.positions) ? c.positions.map(row => ({ ...row,
+      outcomes: { baseline: row.outcomes?.baseline, hybrid: row.outcomes?.fallback } })) : [],
+  } };
+  const view = stalledReferenceSummary({ stalled_reference_study: translated });
+  view.methods[0].label = 'Current planner'; view.methods[1].label = 'Board-pose fallback';
+  view.complete = view.complete && raw.physics_substeps === 64 && view.total === 50
+    && ['controls_pre', 'controls_post'].every(key => raw.controls?.[key]?.status === 'passed');
+  view.complete = Boolean(view.complete);
+  view.promotion_eligible = false;
+  view.controls_passed = ['controls_pre', 'controls_post'].every(key => raw.controls?.[key]?.status === 'passed');
+  const n = value => Number.isInteger(value) && value >= 0 ? value : null;
+  view.fallback = Object.fromEntries(['activated', 'changed_choice'].map(key => [key,
+    n(raw.fallback?.[key]) !== null && raw.fallback[key] <= view.total ? raw.fallback[key] : null]));
+  const d = raw.heading_diagnostic;
+  const result = value => value && ['released', 'captures', 'arm_assisted'].every(key => n(value[key]) !== null)
+    && value.captures + value.arm_assisted <= value.released;
+  view.diagnostic = d?.status === 'completed' && d.audit_status === 'passed' && d.physics_substeps === 64
+    && vector(d.bucket_xy_m, 2) && ['original', 'search', 'repeat'].every(key => result(d[key]))
+    && n(d.confirmed_settings) !== null && d.confirmed_settings <= d.search.captures
+    && d.confirmed_settings * 3 <= d.repeat.captures
+    && d.search.captures * 3 === d.repeat.released ? d : null;
+  return view;
+}
+
 export function physicsPlanners(capabilities) {
   const labels = { hybrid: 'Checked planner · stalled-search fallback', fast: 'Faster planner · ~30 s decision budget', classic: 'Original planner · explicit fallback' };
   const ids = Array.isArray(capabilities?.planners)
