@@ -19,6 +19,18 @@
 <details id="armCheckSpeedPositionDetails" hidden><summary>Results at each new bucket position</summary><div id="armCheckSpeedPositions" class="table-wrap" tabindex="0" role="region" aria-label="Per-position results for both arm checkers"></div></details>
 <p class="fine">Capture means a board rebound followed by one continuous second fully inside the bucket. Direct and table-assisted routes count. A position without a checked shot stays in the denominator. These are native MuJoCo drops at 64 substeps with the arms held at planned poses; camera perception and moving-arm execution are separate work.</p>
 <p id="armCheckSpeedNext" class="fine"></p></section>
+<section id="directPathFirst" class="results-section fast-planning-section" hidden>
+<p class="eyebrow">CHECK THE ACTUAL SHOT FIRST · KEEP THE SAME CLEARANCE CHECKS</p><h2>Can we skip a reference path the shot does not need?</h2>
+<p class="fine">A reference path is a route from the arms’ home pose to a previously known shot pose. The earlier planner searches for that route before checking the new candidate. The revised order checks a direct home-to-candidate path first, then searches for a reference path if needed.</p>
+<p class="fine">Both versions use the faster arm checks. Every accepted path retains the same 5 mm clearance requirement, detailed collision checks and 0.5° motion samples in both directions. “Direct path” describes arm movement; the ball may still bounce from the board directly into the bucket or via the table.</p>
+<p id="directPathFirstStatus" class="subtle" role="status"></p><p id="directPathFirstProgress" class="fine"></p>
+<p id="directPathFirstScope" class="scope-note"></p>
+<div id="directPathFirstTable" class="table-wrap" tabindex="0" role="region" aria-label="Reference-first and candidate-first planning: capture counts and time"></div>
+<p id="directPathFirstPair" class="fine"></p>
+<div id="directPathFirstDiagnostic" class="table-wrap" tabindex="0" role="region" aria-label="Separate replay of the previously timed-out bucket position"></div><p id="directPathFirstDiagnosticNote" class="fine"></p>
+<details id="directPathFirstPositionDetails" hidden><summary>Results at each new bucket position</summary><div id="directPathFirstPositions" class="table-wrap" tabindex="0" role="region" aria-label="Per-position results for both planning orders"></div></details>
+<p class="fine">Capture requires a board rebound and one continuous second fully inside the bucket. Direct and table-assisted captures count; robot-assisted outcomes stay separate. These are native MuJoCo drops at 64 substeps with the arms held at planned poses. This does not test camera perception or moving-arm execution, and does not switch the live planner.</p>
+<p id="directPathFirstNext" class="fine"></p></section>
 <section id="interactiveFastAcceptance" class="results-section fast-planning-section" hidden>
 <p class="eyebrow">DRAG BUCKET → PLAN → PREVIEW → ONE DROP</p><h2>Live planner check on fresh placements</h2>
 <p id="interactiveFastAcceptanceStatus" class="subtle" role="status"></p><p id="interactiveFastAcceptanceScope" class="fine"></p>
