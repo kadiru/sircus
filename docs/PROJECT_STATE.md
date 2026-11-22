@@ -1,5 +1,15 @@
 # Project state
 
+## Delayed reference-path fallback comparison completed — November 22, 2026
+
+- [Results and reproduction](../sircus/mjlab/STALLED_REFERENCE_STUDY.md): optimized reference-first checks, switching to candidate-first only after **5 seconds of actual reference-path search**, within the same **30-second decision deadline**. Models and scoring stayed frozen; accepted paths retain every 5 mm clearance and 0.5° forward/reverse check.
+- **20 fresh positions: both captured at the same 17/20** (14 direct, three table-assisted), with no gains or losses. Mean full planning **11.437 → 11.518 seconds**, median **6.520 → 6.582 seconds**. Baseline released 19 and missed two; hybrid released 20 and missed three. The fallback triggered at **1/20**, (1195.024, 160.539) mm, where it recovered the baseline's only missing setup but not a capture.
+- Separate old timeout **(971.201, −285.388) mm** also triggered the fallback: baseline returned no checked shot in **31.267 seconds**; hybrid produced a **table-assisted capture after 21.535 seconds**. This one diagnostic drop is excluded from the fresh-position denominator and does not establish repeatability.
+- All **39 fresh releases + one diagnostic release + 18 controls** completed at 64 substeps, using **293.412 leased GPU seconds**. Both control blocks and the independent **57,230-check audit passed**. All rollout gates passed: captures preserved, mean time within the 1.10 ratio, and old target captured.
+- Frozen producer **`be97c2ab6c62bb36a93b90a224024aa4c1814789`**; only optional-Torch tests changed afterward. [Compact aggregate](../baselines/mjlab-stalled-reference-20261122/summary.json) records exact results, hashes and evidence paths. Raw observations and logs remain outside Git.
+- UI report section: `#stalledReference`. The server on **port 18781 now defaults to `hybrid`**, with `fast` and `classic` still selectable. A separate functional API check captured **3/3** (one known diagnostic, two new placements); all three native flights were independently rescored, three duplicate-release requests and two stale-job requests were rejected. These three cases are outside the 20-position comparison.
+- Deployment uses the frozen producer above. Only the previous idle simulation server and this task's staging server were gracefully stopped; rollback arguments and the verified launch/acceptance receipts are preserved outside Git. No retraining, 4070 workload or Isaac setup changes. Remaining scope: three fresh flight misses, broader/repeated evaluation, and later perception/moving-arm validation.
+
 ## Candidate-first arm path comparison completed — November 21, 2026
 
 - [Results and reproduction](../sircus/mjlab/DIRECT_PATH_FIRST_STUDY.md): same frozen neural shot ordering and 30-second decision budget, with existing optimized geometry/path checks in both lanes. New order checks each candidate's serialized home path before searching for a reference path. Every accepted path retains the 5 mm margin and complete 0.5° forward/reverse samples. Deferred-reference IK hints are recorded explicitly; resulting joint branches may differ.
