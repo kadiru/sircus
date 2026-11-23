@@ -1,10 +1,14 @@
 # Project state
 
-## Concurrent alternate-board search in progress — November 23, 2026
+## Concurrent alternate-board search completed — November 23, 2026
 
-- The preceding guarded test preserved 15/20 captures but could not try alternate geometry at its five misses because the original search consumed all 30 seconds. The new experiment starts a separate CPU search from the first risky checked shot while the original search continues. Both share the original decision deadline; any replacement must satisfy the existing 5 mm predicted ball-to-arm clearance and better-score rule against the final checked original.
-- Development targets are the five recorded misses, plus the previously regressed successful target. Each method chooses one shot per target before any native evaluation; each checked command is repeated three times at 64 substeps. At most 36 diagnostic releases plus 18 matched controls. These are known targets, not a fresh generalization score.
-- Implementation and mock checks are in progress. No native result, new model training or live promotion yet. Use the 4090 under the shared lease; preserve the 4070 workload, Isaac setup, old evidence and successful settings. Results destination: `#parallelBoardStudy`.
+- [Results, diagnosis and reproduction](../baselines/mjlab-parallel-board-20261123/README.md): a second CPU worker starts from the first risky checked shot while the original search continues, within the same 30-second decision window. Both methods retain full arm-pose/path checks. A replacement needs at least 5 mm predicted ball-to-arm clearance and a strictly better score than the final original.
+- **None of the five previous misses recovered:** each remained **0/3 with both methods**. The separate known successful target remained **3/3 direct with both**. All six selected commands matched their independent baselines. These are selected development repeats, not a new generalization or table-wide capture score.
+- Parallel search triggered at all six targets, completed **69 setup checks** and admitted **23 arm configurations**, but selected **zero replacements**. All 23 predicted negative ball-to-arm clearance (−74.09 to −20.74 mm). A feasible arm setup does not imply a clear ball rebound. Mean full planning request increased **28.192 → 31.522 seconds**. **Keep the current live planner.**
+- **36 comparison releases + 18 controls** completed at 64 substeps; both control blocks passed. The preparation audit passed 34,924 checks and final audit **45,635**, using **484.495 leased 4090 seconds**. [Sanitized results](../baselines/mjlab-parallel-board-20261123/summary.json) and [planning diagnosis](../baselines/mjlab-parallel-board-20261123/planning-diagnosis.json) preserve exact source/evidence hashes.
+- Frozen v2 producer **`de3ecec18cb7d7c491ef152a43c4cafcffc8871e`**, draft [PR #160](https://github.com/kadiru/sircus/pull/160), stacked on #159. All 55 focused pinned-Ubuntu tests and producer CI passed. V1 caught an auditor subset-adapter bug before any native release; its evidence remains untouched. V2 uses corrected lifecycle verification and freshly prepared decisions.
+- Results published at **`#parallelBoardStudy`**. Static UI update preserved historical video assets; live default remains `hybrid`. No training, perception, driven-arm validation, service restart, 4070 or Isaac change. Native arms were held at checked endpoints.
+- Next: seed candidate generation with nearby verified successful board poses and joint configurations, preserving height/tilt/gap diversity. Recheck every transformed setup and test its drops; nearby success is not evidence of transfer. No further experiment or live promotion has started.
 
 ## Guarded board fallback comparison completed — November 23, 2026
 

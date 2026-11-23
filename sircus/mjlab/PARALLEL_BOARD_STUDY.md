@@ -2,6 +2,10 @@
 
 This is a **development experiment**, not training or a fresh-position score. It asks whether a second CPU search can find a better checked shot while the current planner continues working. The live planner and historical successful recipes are unchanged.
 
+**Completed November 23:** none of the five missed targets recovered (0/3 each with both planners); the successful control stayed 3/3 with both. The alternate search admitted 23 of 69 checked configurations, but every admitted alternative predicted arm obstruction and no shot was replaced. Mean request time increased 28.192 → 31.522 seconds. All 54 native releases completed; the independent audit passed 45,635 checks. [Per-target results, diagnosis and provenance](../../baselines/mjlab-parallel-board-20261123/README.md). Keep the existing live planner.
+
+The accepted immutable study is `parallel-board-v2`, producer `de3ecec18cb7d7c491ef152a43c4cafcffc8871e`. Its 55 focused tests and CI passed. V1 stopped before any native release when its verifier passed a two-method declaration to a baseline-only lifecycle check. V2 corrects that subset adapter, independently checks both fresh parallel processes, and uses newly prepared decisions. V1 source and evidence remain preserved; no physics or scoring change was involved.
+
 ## Why this test
 
 The previous guarded comparison captured 15/20 with both methods. The guarded method waited for its original search to finish before trying another board position. At all five guarded-method misses, that original search used the full 30 seconds, so the extension never started. This statement concerns the original lane **inside the guarded method**; independently run baseline timings were not identical.
