@@ -81,3 +81,31 @@ class ConcurrentSelectionTests(unittest.TestCase):
         with self.assertRaises((ValueError,AssertionError)):audit.verify_shared_timing(value,Checks())
         value['lanes']['original']['accepted_receipts'][0]['validated_elapsed_s']=29.99
         audit.verify_shared_timing(value,Checks())
+
+
+class WorkerSubsetTests(unittest.TestCase):
+    def fixture(self):
+        layout=dict(id='one',bucket_xy_m=[.4,-.1])
+        baseline=dict(layout=layout,worker_generation=0,worker_job_index=0,worker_pid=101,worker_reused=False,
+            job_id='baseline-pool-0-0',worker_pool_id='baseline-pool',readiness_receipt=dict(kind='ready',pid=101),prior_worker_status=None,status='completed')
+        original=dict(layout=layout,worker_generation=0,worker_job_index=0,worker_pid=202,worker_reused=False,
+            job_id='fresh-original',worker_pool_id='fresh-original',readiness_receipt=dict(kind='ready',pid=202,cpu_s=.1),
+            prior_worker_status=None,status='completed',lifecycle='fresh_worker_per_request')
+        return [layout],[dict(variant='baseline',site=baseline),dict(variant='parallel',site=original)],dict(methods=['baseline','parallel'],processing_seed=1,processing_order=['one'])
+
+    def test_baseline_subset_keeps_protocol_immutable_and_audits_parallel_separately(self):
+        layouts,wrappers,spec=self.fixture();before=copy.deepcopy((wrappers,spec))
+        audit.verify_worker_lifecycles(wrappers,layouts,spec,Checks())
+        self.assertEqual((wrappers,spec),before)
+        for mutation in ('reused','wrong_ready_pid','wrong_job'):
+            altered=copy.deepcopy(wrappers);site=altered[1]['site']
+            if mutation=='reused':site['worker_reused']=True
+            elif mutation=='wrong_ready_pid':site['readiness_receipt']['pid']=999
+            else:site['worker_pool_id']='different-job'
+            with self.assertRaises((ValueError,AssertionError)):
+                audit.verify_worker_lifecycles(altered,layouts,spec,Checks())
+
+    def test_baseline_lifecycle_errors_still_fail(self):
+        layouts,wrappers,spec=self.fixture();wrappers[0]['site']['worker_reused']=True
+        with self.assertRaises((ValueError,AssertionError)):
+            audit.verify_worker_lifecycles(wrappers,layouts,spec,Checks())

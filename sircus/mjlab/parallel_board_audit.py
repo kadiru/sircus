@@ -150,13 +150,7 @@ def verify_original_plans(study, layouts, spec, assets, prior, home, manifest, c
         verify_early_rule(site, snapshots, checks, spec["early_score_m"])
         audit_branches(plan["branches"], layout, {row["id"]: row for row in plan["neural"]["admitted"]},
                            directory, prior, home, resolutions, checks)
-    baseline=[w for w in wrappers if w["variant"]=="baseline"]
-    verify_workers(baseline,layouts,spec,checks,variants=("baseline",))
-    original=[w["site"] for w in wrappers if w["variant"]=="parallel"]
-    checks.equal(len({s["worker_pid"] for s in original}),len(original),"Fresh original process per parallel target")
-    for site in original:
-        checks.equal((site["worker_generation"],site["worker_job_index"],site["worker_reused"],site["prior_worker_status"]),
-                     (0,0,False,None),"Declared fresh original worker lifecycle")
+    verify_worker_lifecycles(wrappers,layouts,spec,checks)
     return outer,snapshot_sets,ranker
 
 
@@ -464,8 +458,7 @@ def verify_parallel_site(site,original_snapshots,directory,manifest,prior,home,r
             checks.require(alternative['launch_offset_s']<=alternative['readiness_offset_s']<=decision,label+'/alternate initialization inside decision budget')
             checks.numeric(alternative['startup_s'],alternative['readiness_offset_s']-alternative['launch_offset_s'],label+'/alternate startup charged honestly',1e-6)
         checks.require(alternative['worker_pid']!=original['worker_pid'],label+'/independent process and engine state')
-        checks.equal((alternative['worker_generation'],alternative['worker_job_index'],alternative['worker_reused'],alternative['prior_worker_status']),
-                     (0,0,False,None),label+'/fresh alternate lifecycle')
+        verify_fresh_lifecycle(alternative,checks,ready_required=False)
         submanifest={k[len('native-parallel/'):]:v for k,v in manifest.items() if k.startswith('native-parallel/')}
         alternate_snapshots=verify_alternate_receipts(alternative,directory/'alternative',submanifest,checks,30.)
         resolutions={};previous=None;copy_receipt=None
@@ -651,3 +644,28 @@ def verify_alternative_early_rule(site,snapshots,checks):
                          (first['completed_proposal_ids'],first['choice']),'No alternate checks after first new eligible shot')
     if first is None:checks.require(site['return_reason']!='early_good_shot','Alternate early return requires newly admitted eligible shot')
     else:checks.equal(site['return_reason'],'deadline' if site['deadline_reached'] else 'early_good_shot','Alternate honors own early-return rule')
+
+
+def verify_fresh_lifecycle(site,checks,*,ready_required=True):
+    checks.equal((site['worker_generation'],site['worker_job_index'],site['worker_reused'],site['prior_worker_status'],site['lifecycle']),
+                 (0,0,False,None,'fresh_worker_per_request'),'Explicit fresh parallel worker lifecycle')
+    checks.require(type(site['worker_pid']) is int and site['worker_pid']>0,'Fresh worker process identity')
+    checks.require(isinstance(site['job_id'],str) and bool(site['job_id']),'Fresh worker job identity')
+    checks.equal(site['worker_pool_id'],site['job_id'],'Fresh process owns exactly one job')
+    ready=site['readiness_receipt']
+    if ready_required:checks.require(isinstance(ready,dict),'Original process initialized before shared clock')
+    if ready is not None:
+        checks.equal(set(ready),{'kind','pid','cpu_s'},'Exact fresh worker initialization receipt')
+        checks.equal((ready['kind'],ready['pid']),('ready',site['worker_pid']),'Initialization binds correct process')
+        seconds(ready['cpu_s'])
+
+
+def verify_worker_lifecycles(wrappers,layouts,spec,checks):
+    """Validate two lifecycle contracts without mutating the declared protocol."""
+    baseline=[w for w in wrappers if w['variant']=='baseline']
+    verify_workers(baseline,layouts,dict(spec,methods=['baseline']),checks,variants=('baseline',))
+    original=[w['site'] for w in wrappers if w['variant']=='parallel']
+    checks.equal(len(original),len(layouts),'One original process per parallel decision')
+    checks.equal(len({s['worker_pid'] for s in original}),len(original),'Fresh original process per parallel target')
+    checks.equal(len({s['job_id'] for s in original}),len(original),'Distinct fresh original jobs')
+    for site in original:verify_fresh_lifecycle(site,checks)
