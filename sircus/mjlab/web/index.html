@@ -8,6 +8,17 @@
 <p id="savedReplayExplanation" class="fine">Recorded native simulation. Playback runs in your browser.</p><div id="savedReplayMarkers" class="saved-replay-markers" aria-label="Jump to a measured event"></div>
 </section>
 <div class="result" role="status" aria-live="polite"><span class="status-dot" id="resultDot"></span><div><strong id="resultTitle">Waiting for the learning study</strong><p id="resultText">Manual solves unlock after the completed study and frozen-checkpoint evaluation.</p></div></div>
+<section id="guardedBoardFallback" class="results-section fast-planning-section" hidden>
+<p class="eyebrow">GUARDED BOARD FALLBACK · TWENTY NEW BUCKET POSITIONS</p><h2>Keep the current search, then improve a risky shot</h2>
+<p class="fine">The current planner finishes its search without early interruption. If time remains within the same 30-second decision limit, the guarded fallback may try other board poses. A replacement must pass the same arm pose and path checks, predict at least 5 mm of ball-to-arm clearance, and have a better predicted flight score. A prediction is not proof of capture.</p>
+<p id="guardedBoardFallbackStatus" class="subtle" role="status"></p><p id="guardedBoardFallbackProgress" class="fine"></p>
+<div id="guardedBoardFallbackTable" class="table-wrap" tabindex="0" role="region" aria-label="Current and guarded planners: first-drop capture and full planning request time"></div>
+<p id="guardedBoardFallbackPair" class="fine"></p><p id="guardedBoardFallbackUse" class="fine"></p>
+<details id="guardedBoardFallbackDetails" hidden><summary>Results at each new bucket position</summary><div id="guardedBoardFallbackPositions" class="table-wrap" tabindex="0" role="region" aria-label="Twenty paired first-drop outcomes"></div></details>
+<div id="guardedBoardFallbackDiagnostic" class="table-wrap" tabindex="0" role="region" aria-label="Separate known regression target: three repeats per planner"></div><p id="guardedBoardFallbackDiagnosticNote" class="fine"></p>
+<p class="fine">All choices freeze before testing. Each planner gets at most one drop at each of the 20 fresh positions; missing setups remain in that denominator. The known regression target is tested separately with three repeats of each planner’s selected shot. Native MuJoCo uses 64 substeps with both arms held at checked endpoints. Direct and table-assisted captures require a board rebound and one continuous second fully inside the bucket; arm-assisted retentions remain separate.</p>
+<p id="guardedBoardFallbackNext" class="scope-note"></p><p class="fine">This is a planner comparison, not new model training or camera perception. The live planner is unchanged.</p>
+</section>
 <section id="boardFallbackStudy" class="results-section fast-planning-section" hidden>
 <p class="eyebrow">BOARD CLEARANCE FALLBACK · FIFTY NEW BUCKET POSITIONS</p><h2>Can moving the board improve the first drop?</h2>
 <p class="fine">Both planners use the same frozen learned selector and one 30-second decision limit. The candidate tries alternate board positions and directions when its checked shot predicts poor or unavailable ball-to-arm clearance. It keeps the checked choice if no better fully checked shot is found.</p>
