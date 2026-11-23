@@ -1,0 +1,541 @@
+{
+  "method_notes": {
+    "commands": "Equality compares only the enumerated physical command fields, not proof paths, request IDs or metadata.",
+    "counts": "Checked and admitted counts describe published CPU setup evidence, not native drops or captures. Incomplete or late setup work is excluded.",
+    "learning": "No model training, retraining or native-outcome feedback into these frozen decisions.",
+    "null_alternate_reason": "Raw unknown_arm_clearance final reason refers to absence of a qualified alternate candidate. The actual admitted candidates have finite negative predicted clearance and were rejected as insufficient_arm_clearance.",
+    "replacement": "Alternate selected-route arm clearance must be finite and at least 5 mm, with finite score strictly higher than the final original.",
+    "score": "Predicted geometric distance margin in millimetres, not capture probability. Highest unchanged flight score defines best_alternate_by_score.",
+    "targets": "Five previously missed bucket positions and one known successful development control; not unseen generalization.",
+    "timing": "Both decisions have 30 s shared deadlines. Baseline may reuse CPU workers; parallel starts fresh original and alternate workers. Request latency includes initialization and shutdown. CPU contention can change progress, but no selected-command difference was observed here."
+  },
+  "native_evidence": {
+    "capture_conclusions_allowed": false,
+    "included": false,
+    "requirement": "Wait for completed native64 drops, passing matched controls and independent final audit; this file contains no capture results."
+  },
+  "producer_commit": "de3ecec18cb7d7c491ef152a43c4cafcffc8871e",
+  "schema_version": "sircus-parallel-board-planning-diagnosis-v1",
+  "scope": "planning_only_development",
+  "source": {
+    "artifact": "parallel-board-v2/plans.json",
+    "frozen_decisions": 12,
+    "plans_sha256": "ce604d919542d24c74d9ab7009fdc476c4b6f05eba82daa96c639ce741bf6a35"
+  },
+  "study": "parallel-board-v2",
+  "summary": {
+    "all_admitted_clearances_negative": true,
+    "alternate_admitted_candidates": 23,
+    "alternate_checked_candidates": 69,
+    "alternate_launched": 6,
+    "candidate_rejection_reasons": {
+      "insufficient_arm_clearance": 23
+    },
+    "clearance_max_mm": -20.74378979026322,
+    "clearance_min_mm": -74.08538714554477,
+    "positions": 6,
+    "selected_alternate": 0,
+    "selected_commands_equal_to_baseline": 6,
+    "triggered": 6
+  },
+  "targets": [
+    {
+      "alternate_admitted_candidates": 3,
+      "alternate_arm_clearance": {
+        "at_least_5mm": 0,
+        "best_candidate_id": "parallel-board-miss-03-board-fallback-00426-b0",
+        "finite": 3,
+        "maximum_mm": -55.123750497179344,
+        "minimum_mm": -73.08619961748272,
+        "negative": 3,
+        "unknown": 0,
+        "zero_to_less_than_5mm": 0
+      },
+      "alternate_checked_candidates": 4,
+      "alternate_launched": true,
+      "alternate_ready_s": 10.533333126004436,
+      "alternate_selected_candidate_id": null,
+      "baseline_prediction": {
+        "arm_clearance_mm": -25.253637625128455,
+        "rim_clearance_mm": -9.888288097193415,
+        "route": "direct",
+        "score_mm": -25.253637625128455
+      },
+      "best_alternate_by_score": {
+        "arm_clearance_mm": -55.123750497179344,
+        "candidate_id": "parallel-board-miss-03-board-fallback-00426-b0",
+        "rim_clearance_mm": 18.83715575565126,
+        "route": "direct",
+        "score_mm": -55.123750497179344
+      },
+      "bucket_xy_mm": [
+        942.5987509126437,
+        -31.69011945004932
+      ],
+      "candidate_rejection_reasons": {
+        "insufficient_arm_clearance": 3
+      },
+      "command_comparison": {
+        "baseline_sha256": "6e19d173276dc497b3769c20325307c2cf1f32bf105e6fb1561d36ba901dae4a",
+        "checked_fields": [
+          "values",
+          "command_values",
+          "selected_q10",
+          "selected_q14",
+          "board_heading_offset_deg",
+          "board_twist_deg",
+          "bucket_xy_m"
+        ],
+        "different_original_fields": [],
+        "original_sha256": "6e19d173276dc497b3769c20325307c2cf1f32bf105e6fb1561d36ba901dae4a",
+        "original_vs_baseline_equal": true,
+        "selected_sha256": "6e19d173276dc497b3769c20325307c2cf1f32bf105e6fb1561d36ba901dae4a",
+        "selected_vs_baseline_equal": true
+      },
+      "id": "parallel-board-miss-03",
+      "original_lane_prediction": {
+        "arm_clearance_mm": -25.253637625128455,
+        "rim_clearance_mm": -9.888288097193415,
+        "route": "direct",
+        "score_mm": -25.253637625128455
+      },
+      "raw_final_replacement_decision": {
+        "accepted": false,
+        "arm_clearance_m": null,
+        "candidate_score_m": null,
+        "incumbent_score_m": -0.025253637625128455,
+        "minimum_arm_clearance_m": 0.005,
+        "predicted_route": null,
+        "reason": "unknown_arm_clearance"
+      },
+      "role": "previous_miss",
+      "selected_lane": "original",
+      "selection_changed": false,
+      "source_id": "guarded-board-test-03",
+      "timing_s": {
+        "baseline_decision": 30,
+        "baseline_request": 31.689910237997537,
+        "original_lane_decision": 30,
+        "parallel_decision": 30,
+        "parallel_request": 31.544059339998057
+      },
+      "trigger_s": 9.335901077996823,
+      "triggered": true
+    },
+    {
+      "alternate_admitted_candidates": 1,
+      "alternate_arm_clearance": {
+        "at_least_5mm": 0,
+        "best_candidate_id": "parallel-board-miss-09-board-fallback-00716-b0",
+        "finite": 1,
+        "maximum_mm": -20.74378979026322,
+        "minimum_mm": -20.74378979026322,
+        "negative": 1,
+        "unknown": 0,
+        "zero_to_less_than_5mm": 0
+      },
+      "alternate_checked_candidates": 18,
+      "alternate_launched": true,
+      "alternate_ready_s": 9.608029406997957,
+      "alternate_selected_candidate_id": null,
+      "baseline_prediction": {
+        "arm_clearance_mm": -26.90284034766682,
+        "rim_clearance_mm": -116.15762904371485,
+        "route": "table",
+        "score_mm": -116.15762904371485
+      },
+      "best_alternate_by_score": {
+        "arm_clearance_mm": -20.74378979026322,
+        "candidate_id": "parallel-board-miss-09-board-fallback-00716-b0",
+        "rim_clearance_mm": -33.058325778887834,
+        "route": "table",
+        "score_mm": -33.058325778887834
+      },
+      "bucket_xy_mm": [
+        1192.9942869527974,
+        147.42349109856434
+      ],
+      "candidate_rejection_reasons": {
+        "insufficient_arm_clearance": 1
+      },
+      "command_comparison": {
+        "baseline_sha256": "4250cb895700f365bb38c1eb42efc069693e4454d8a59c4a05dc41ca09da89a7",
+        "checked_fields": [
+          "values",
+          "command_values",
+          "selected_q10",
+          "selected_q14",
+          "board_heading_offset_deg",
+          "board_twist_deg",
+          "bucket_xy_m"
+        ],
+        "different_original_fields": [],
+        "original_sha256": "4250cb895700f365bb38c1eb42efc069693e4454d8a59c4a05dc41ca09da89a7",
+        "original_vs_baseline_equal": true,
+        "selected_sha256": "4250cb895700f365bb38c1eb42efc069693e4454d8a59c4a05dc41ca09da89a7",
+        "selected_vs_baseline_equal": true
+      },
+      "id": "parallel-board-miss-09",
+      "original_lane_prediction": {
+        "arm_clearance_mm": -26.90284034766682,
+        "rim_clearance_mm": -116.15762904371485,
+        "route": "table",
+        "score_mm": -116.15762904371485
+      },
+      "raw_final_replacement_decision": {
+        "accepted": false,
+        "arm_clearance_m": null,
+        "candidate_score_m": null,
+        "incumbent_score_m": -0.11615762904371485,
+        "minimum_arm_clearance_m": 0.005,
+        "predicted_route": null,
+        "reason": "unknown_arm_clearance"
+      },
+      "role": "previous_miss",
+      "selected_lane": "original",
+      "selection_changed": false,
+      "source_id": "guarded-board-test-09",
+      "timing_s": {
+        "baseline_decision": 30,
+        "baseline_request": 31.509179574000882,
+        "original_lane_decision": 30,
+        "parallel_decision": 30,
+        "parallel_request": 31.41070958400087
+      },
+      "trigger_s": 8.372306739998749,
+      "triggered": true
+    },
+    {
+      "alternate_admitted_candidates": 6,
+      "alternate_arm_clearance": {
+        "at_least_5mm": 0,
+        "best_candidate_id": "parallel-board-miss-13-board-fallback-00342-b0",
+        "finite": 6,
+        "maximum_mm": -31.305898511394155,
+        "minimum_mm": -68.58809534064487,
+        "negative": 6,
+        "unknown": 0,
+        "zero_to_less_than_5mm": 0
+      },
+      "alternate_checked_candidates": 8,
+      "alternate_launched": true,
+      "alternate_ready_s": 8.00838119299442,
+      "alternate_selected_candidate_id": null,
+      "baseline_prediction": {
+        "arm_clearance_mm": -31.305898123553533,
+        "rim_clearance_mm": -27.06809108011244,
+        "route": "direct",
+        "score_mm": -31.305898123553533
+      },
+      "best_alternate_by_score": {
+        "arm_clearance_mm": -31.305898511394155,
+        "candidate_id": "parallel-board-miss-13-board-fallback-00342-b0",
+        "rim_clearance_mm": -27.068092020640666,
+        "route": "direct",
+        "score_mm": -31.305898511394155
+      },
+      "bucket_xy_mm": [
+        966.7326055650807,
+        -40.91039262604272
+      ],
+      "candidate_rejection_reasons": {
+        "insufficient_arm_clearance": 6
+      },
+      "command_comparison": {
+        "baseline_sha256": "d8a2a2a11dba40b66ce8407a9b9b92dae638026634dc4aa50b8def624a5f925c",
+        "checked_fields": [
+          "values",
+          "command_values",
+          "selected_q10",
+          "selected_q14",
+          "board_heading_offset_deg",
+          "board_twist_deg",
+          "bucket_xy_m"
+        ],
+        "different_original_fields": [],
+        "original_sha256": "d8a2a2a11dba40b66ce8407a9b9b92dae638026634dc4aa50b8def624a5f925c",
+        "original_vs_baseline_equal": true,
+        "selected_sha256": "d8a2a2a11dba40b66ce8407a9b9b92dae638026634dc4aa50b8def624a5f925c",
+        "selected_vs_baseline_equal": true
+      },
+      "id": "parallel-board-miss-13",
+      "original_lane_prediction": {
+        "arm_clearance_mm": -31.305898123553533,
+        "rim_clearance_mm": -27.06809108011244,
+        "route": "direct",
+        "score_mm": -31.305898123553533
+      },
+      "raw_final_replacement_decision": {
+        "accepted": false,
+        "arm_clearance_m": null,
+        "candidate_score_m": null,
+        "incumbent_score_m": -0.031305898123553534,
+        "minimum_arm_clearance_m": 0.005,
+        "predicted_route": null,
+        "reason": "unknown_arm_clearance"
+      },
+      "role": "previous_miss",
+      "selected_lane": "original",
+      "selection_changed": false,
+      "source_id": "guarded-board-test-13",
+      "timing_s": {
+        "baseline_decision": 25.502458158007357,
+        "baseline_request": 26.86483159699128,
+        "original_lane_decision": 25.791588706997572,
+        "parallel_decision": 30,
+        "parallel_request": 31.69102956399729
+      },
+      "trigger_s": 6.841165140998783,
+      "triggered": true
+    },
+    {
+      "alternate_admitted_candidates": 2,
+      "alternate_arm_clearance": {
+        "at_least_5mm": 0,
+        "best_candidate_id": "parallel-board-miss-15-board-fallback-00398-b0",
+        "finite": 2,
+        "maximum_mm": -22.703423672806217,
+        "minimum_mm": -22.703423673232475,
+        "negative": 2,
+        "unknown": 0,
+        "zero_to_less_than_5mm": 0
+      },
+      "alternate_checked_candidates": 18,
+      "alternate_launched": true,
+      "alternate_ready_s": 4.888353496004129,
+      "alternate_selected_candidate_id": null,
+      "baseline_prediction": {
+        "arm_clearance_mm": -3.1839510024528463,
+        "rim_clearance_mm": -3.705842710292409,
+        "route": "table",
+        "score_mm": -3.705842710292409
+      },
+      "best_alternate_by_score": {
+        "arm_clearance_mm": -22.703423672806217,
+        "candidate_id": "parallel-board-miss-15-board-fallback-00398-b0",
+        "rim_clearance_mm": -1.677529922211457,
+        "route": "table",
+        "score_mm": -22.703423672806217
+      },
+      "bucket_xy_mm": [
+        1209.5887213590388,
+        -160.59263682347344
+      ],
+      "candidate_rejection_reasons": {
+        "insufficient_arm_clearance": 2
+      },
+      "command_comparison": {
+        "baseline_sha256": "40caba2afae197a1d68470fcbb88d83f10e0fbdabc9e929b69edc0754e7deca0",
+        "checked_fields": [
+          "values",
+          "command_values",
+          "selected_q10",
+          "selected_q14",
+          "board_heading_offset_deg",
+          "board_twist_deg",
+          "bucket_xy_m"
+        ],
+        "different_original_fields": [],
+        "original_sha256": "40caba2afae197a1d68470fcbb88d83f10e0fbdabc9e929b69edc0754e7deca0",
+        "original_vs_baseline_equal": true,
+        "selected_sha256": "40caba2afae197a1d68470fcbb88d83f10e0fbdabc9e929b69edc0754e7deca0",
+        "selected_vs_baseline_equal": true
+      },
+      "id": "parallel-board-miss-15",
+      "original_lane_prediction": {
+        "arm_clearance_mm": -3.1839510024528463,
+        "rim_clearance_mm": -3.705842710292409,
+        "route": "table",
+        "score_mm": -3.705842710292409
+      },
+      "raw_final_replacement_decision": {
+        "accepted": false,
+        "arm_clearance_m": null,
+        "candidate_score_m": null,
+        "incumbent_score_m": -0.003705842710292409,
+        "minimum_arm_clearance_m": 0.005,
+        "predicted_route": null,
+        "reason": "unknown_arm_clearance"
+      },
+      "role": "previous_miss",
+      "selected_lane": "original",
+      "selection_changed": false,
+      "source_id": "guarded-board-test-15",
+      "timing_s": {
+        "baseline_decision": 30,
+        "baseline_request": 30.119101075004437,
+        "original_lane_decision": 30,
+        "parallel_decision": 30,
+        "parallel_request": 31.429591188003542
+      },
+      "trigger_s": 3.7378593489993364,
+      "triggered": true
+    },
+    {
+      "alternate_admitted_candidates": 8,
+      "alternate_arm_clearance": {
+        "at_least_5mm": 0,
+        "best_candidate_id": "parallel-board-miss-19-board-fallback-00325-b0",
+        "finite": 8,
+        "maximum_mm": -66.86736076023514,
+        "minimum_mm": -71.05739998793824,
+        "negative": 8,
+        "unknown": 0,
+        "zero_to_less_than_5mm": 0
+      },
+      "alternate_checked_candidates": 16,
+      "alternate_launched": true,
+      "alternate_ready_s": 9.566409204999218,
+      "alternate_selected_candidate_id": null,
+      "baseline_prediction": {
+        "arm_clearance_mm": -46.362393688211306,
+        "rim_clearance_mm": -38.16966538773018,
+        "route": "table",
+        "score_mm": -46.362393688211306
+      },
+      "best_alternate_by_score": {
+        "arm_clearance_mm": -66.86736076023514,
+        "candidate_id": "parallel-board-miss-19-board-fallback-00325-b0",
+        "rim_clearance_mm": 5.173978092613912,
+        "route": "table",
+        "score_mm": -66.86736076023514
+      },
+      "bucket_xy_mm": [
+        1127.5553924334597,
+        -38.347936433139274
+      ],
+      "candidate_rejection_reasons": {
+        "insufficient_arm_clearance": 8
+      },
+      "command_comparison": {
+        "baseline_sha256": "529b716ee84b8d57505f5a9fb05c071b223e2d9273776123b4af8f0b5f00baf3",
+        "checked_fields": [
+          "values",
+          "command_values",
+          "selected_q10",
+          "selected_q14",
+          "board_heading_offset_deg",
+          "board_twist_deg",
+          "bucket_xy_m"
+        ],
+        "different_original_fields": [],
+        "original_sha256": "529b716ee84b8d57505f5a9fb05c071b223e2d9273776123b4af8f0b5f00baf3",
+        "original_vs_baseline_equal": true,
+        "selected_sha256": "529b716ee84b8d57505f5a9fb05c071b223e2d9273776123b4af8f0b5f00baf3",
+        "selected_vs_baseline_equal": true
+      },
+      "id": "parallel-board-miss-19",
+      "original_lane_prediction": {
+        "arm_clearance_mm": -46.362393688211306,
+        "rim_clearance_mm": -38.16966538773018,
+        "route": "table",
+        "score_mm": -46.362393688211306
+      },
+      "raw_final_replacement_decision": {
+        "accepted": false,
+        "arm_clearance_m": null,
+        "candidate_score_m": null,
+        "incumbent_score_m": -0.0463623936882113,
+        "minimum_arm_clearance_m": 0.005,
+        "predicted_route": null,
+        "reason": "unknown_arm_clearance"
+      },
+      "role": "previous_miss",
+      "selected_lane": "original",
+      "selection_changed": false,
+      "source_id": "guarded-board-test-19",
+      "timing_s": {
+        "baseline_decision": 30,
+        "baseline_request": 31.50643528100045,
+        "original_lane_decision": 30,
+        "parallel_decision": 30,
+        "parallel_request": 31.511979849994532
+      },
+      "trigger_s": 8.301143213990144,
+      "triggered": true
+    },
+    {
+      "alternate_admitted_candidates": 3,
+      "alternate_arm_clearance": {
+        "at_least_5mm": 0,
+        "best_candidate_id": "parallel-board-known-regression-board-fallback-00733-b0",
+        "finite": 3,
+        "maximum_mm": -24.495289061051242,
+        "minimum_mm": -74.08538714554477,
+        "negative": 3,
+        "unknown": 0,
+        "zero_to_less_than_5mm": 0
+      },
+      "alternate_checked_candidates": 5,
+      "alternate_launched": true,
+      "alternate_ready_s": 11.869423290001578,
+      "alternate_selected_candidate_id": null,
+      "baseline_prediction": {
+        "arm_clearance_mm": 6.304399767882073,
+        "rim_clearance_mm": 20.830876884137997,
+        "route": "direct",
+        "score_mm": 6.304399767882073
+      },
+      "best_alternate_by_score": {
+        "arm_clearance_mm": -24.495289061051242,
+        "candidate_id": "parallel-board-known-regression-board-fallback-00733-b0",
+        "rim_clearance_mm": -0.00232103243979348,
+        "route": "direct",
+        "score_mm": -24.495289061051242
+      },
+      "bucket_xy_mm": [
+        948.2521961663341,
+        -97.8157437973038
+      ],
+      "candidate_rejection_reasons": {
+        "insufficient_arm_clearance": 3
+      },
+      "command_comparison": {
+        "baseline_sha256": "6625c812a4679ef7bdff6ac67ef8da4e040520e097e58e752db5c18f31cf94cf",
+        "checked_fields": [
+          "values",
+          "command_values",
+          "selected_q10",
+          "selected_q14",
+          "board_heading_offset_deg",
+          "board_twist_deg",
+          "bucket_xy_m"
+        ],
+        "different_original_fields": [],
+        "original_sha256": "6625c812a4679ef7bdff6ac67ef8da4e040520e097e58e752db5c18f31cf94cf",
+        "original_vs_baseline_equal": true,
+        "selected_sha256": "6625c812a4679ef7bdff6ac67ef8da4e040520e097e58e752db5c18f31cf94cf",
+        "selected_vs_baseline_equal": true
+      },
+      "id": "parallel-board-known-regression",
+      "original_lane_prediction": {
+        "arm_clearance_mm": 6.304399767882073,
+        "rim_clearance_mm": 20.830876884137997,
+        "route": "direct",
+        "score_mm": 6.304399767882073
+      },
+      "raw_final_replacement_decision": {
+        "accepted": false,
+        "arm_clearance_m": null,
+        "candidate_score_m": null,
+        "incumbent_score_m": 0.006304399767882073,
+        "minimum_arm_clearance_m": 0.005,
+        "predicted_route": null,
+        "reason": "unknown_arm_clearance"
+      },
+      "role": "known_regression",
+      "selected_lane": "original",
+      "selection_changed": false,
+      "source_id": "guarded-board-known-regression",
+      "timing_s": {
+        "baseline_decision": 15.9630177099898,
+        "baseline_request": 17.461043955991045,
+        "original_lane_decision": 16.517905746004544,
+        "parallel_decision": 30,
+        "parallel_request": 31.544018824002706
+      },
+      "trigger_s": 10.71256417001132,
+      "triggered": true
+    }
+  ]
+}
