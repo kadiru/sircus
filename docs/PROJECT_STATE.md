@@ -1,5 +1,11 @@
 # Project state
 
+## Concurrent alternate-board search in progress — November 23, 2026
+
+- The preceding guarded test preserved 15/20 captures but could not try alternate geometry at its five misses because the original search consumed all 30 seconds. The new experiment starts a separate CPU search from the first risky checked shot while the original search continues. Both share the original decision deadline; any replacement must satisfy the existing 5 mm predicted ball-to-arm clearance and better-score rule against the final checked original.
+- Development targets are the five recorded misses, plus the previously regressed successful target. Each method chooses one shot per target before any native evaluation; each checked command is repeated three times at 64 substeps. At most 36 diagnostic releases plus 18 matched controls. These are known targets, not a fresh generalization score.
+- Implementation and mock checks are in progress. No native result, new model training or live promotion yet. Use the 4090 under the shared lease; preserve the 4070 workload, Isaac setup, old evidence and successful settings. Results destination: `#parallelBoardStudy`.
+
 ## Guarded board fallback comparison completed — November 23, 2026
 
 - [Frozen test design](../sircus/mjlab/GUARDED_BOARD_FALLBACK_STUDY.md): allow the current hybrid search to finish naturally, then use only remaining time within the same 30-second decision budget. A replacement must predict at least 5 mm ball-to-arm clearance and a strictly better finite flight score. V1 source and historical results remain unchanged.
