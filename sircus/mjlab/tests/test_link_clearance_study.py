@@ -5,12 +5,13 @@ from argparse import Namespace
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 from sircus.mjlab.benchmark_verify import sha
 from sircus.mjlab.sweep_worker import atomic
 from sircus.mjlab.link_clearance_plan import (CASE_IDS,SEARCH_RULE,proposal_menu,
     preparation_selection,candidate_selection,equivalent_commands,joint_change,branch_solver)
 from sircus.mjlab.link_clearance_study import (schedule,preservation_schedule,
-    preservation_summary,repeat_schedule,verify_preflight)
+    preservation_summary,repeat_schedule,verify_preflight,rebuild_preparation_engine)
 
 
 def request(identity='old'):
@@ -120,6 +121,28 @@ class LinkClearanceTests(unittest.TestCase):
         self.assertTrue(preservation_summary(measured)['passed'])
         measured[-1]['invalid_physics']=True;self.assertFalse(preservation_summary(measured)['passed'])
         self.assertFalse(preservation_summary(measured[:-1])['passed'])
+
+    def test_rebuild_hydrates_completed_fallback_proof_before_any_new_checks(self):
+        gate=object();planner=Namespace(gate=gate)
+        engine=Namespace(adapter=Namespace(resolver=Namespace(planner=planner)))
+        source=request();events=[]
+        with patch('sircus.mjlab.link_clearance_study.engine_for',return_value=engine), \
+             patch('sircus.mjlab.parallel_capture_grid_workers.load_resolution',side_effect=lambda e,xy:events.append(('hydrate',e,xy))) as load, \
+             patch('sircus.mjlab.arm_check_speed.install_vectorized_gate',side_effect=lambda g:events.append(('gate',g))), \
+             patch('sircus.mjlab.arm_path_speed.install_path_short_circuit',side_effect=lambda p:events.append(('path',p))):
+            self.assertIs(rebuild_preparation_engine(None,source,Path('/unused'),{}),engine)
+            load.assert_called_once_with(engine,source['bucket_xy_m'])
+            self.assertEqual([e[0] for e in events],['hydrate','gate','path'])
+
+    def test_rebuild_rejects_unverifiable_saved_resolution(self):
+        engine=Namespace(adapter=Namespace(resolver=Namespace(planner=Namespace(gate=object()))))
+        with patch('sircus.mjlab.link_clearance_study.engine_for',return_value=engine), \
+             patch('sircus.mjlab.parallel_capture_grid_workers.load_resolution',side_effect=ValueError('source bytes changed')), \
+             patch('sircus.mjlab.arm_check_speed.install_vectorized_gate') as gate, \
+             patch('sircus.mjlab.arm_path_speed.install_path_short_circuit') as path:
+            with self.assertRaisesRegex(ValueError,'source bytes changed'):
+                rebuild_preparation_engine(None,request(),Path('/unused'),{})
+            gate.assert_not_called();path.assert_not_called()
 
     def test_preflight_receipt_must_bind_current_inputs(self):
         with TemporaryDirectory() as folder:

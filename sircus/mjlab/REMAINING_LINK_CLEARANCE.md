@@ -113,3 +113,10 @@ the new candidate solve. The new preparation interleaves joint-only and
 geometry changes, bounds each proposal to 30 seconds, and rebuilds the checking
 engine after a timed-out proposal. Timed-out checks are unresolved, not evidence
 that a pose is impossible. Complete endpoint/path proofs remain required.
+
+A second CPU-only attempt exposed another recovery issue: after a timeout, the
+rebuilt direct-path checker did not reload a completed fallback resolution. It
+tried to save the same immutable evidence key again. That failed attempt and its
+partial checks remain separate, with no native drops. Engine reconstruction now
+reloads the exact saved resolution through the existing source/hash validator.
+Unverifiable evidence still fails closed; no old evidence is overwritten.

@@ -46,22 +46,32 @@ def verify_preflight(a):
     return audit
 
 
+def rebuild_preparation_engine(a,original,directory,ref):
+    """Rebuild transient state and hydrate only verified immutable resolutions."""
+    from .arm_check_speed import install_vectorized_gate
+    from .arm_path_speed import install_path_short_circuit
+    from .parallel_capture_grid_workers import load_resolution
+    rebuilt=engine_for(a,original,directory,ref)
+    # Direct-first hydrates its deferred context, but a completed fallback
+    # resolution may also have been saved before a proposal timed out. Reuse
+    # its exact verified bytes rather than re-running and overwriting its key.
+    load_resolution(rebuilt,original['bucket_xy_m'])
+    install_vectorized_gate(rebuilt.adapter.resolver.planner.gate)
+    install_path_short_circuit(rebuilt.adapter.resolver.planner)
+    return rebuilt
+
+
 def _prepare_case(args,case,source_contract,ref):
     import torch
     torch.set_num_threads(1)
     from .cell1050_rebound_study import preparation_time_limit,SearchPreparationExpired
     from .interactive_stalled_planner import copy_prepared_proofs
     from .intergrid_flight_ranker import FlightRanker
-    from .arm_check_speed import install_vectorized_gate
-    from .arm_path_speed import install_path_short_circuit
     a=argparse.Namespace(**args);original=case['original'];directory=a.output/('native-'+case['id'][-2:])
     begin=time.monotonic()
     copy_prepared_proofs(a.source_study/case['source_directory'],directory,original)
     def fresh_engine():
-        rebuilt=engine_for(a,original,directory,ref)
-        install_vectorized_gate(rebuilt.adapter.resolver.planner.gate)
-        install_path_short_circuit(rebuilt.adapter.resolver.planner)
-        return rebuilt
+        return rebuild_preparation_engine(a,original,directory,ref)
     engine=fresh_engine()
     # The parent source uses the same frozen flight-ranker rule as its source.
     rule=source_contract['flight_ranking']['rule']
