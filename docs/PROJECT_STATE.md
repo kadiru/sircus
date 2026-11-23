@@ -1,5 +1,15 @@
 # Project state
 
+## Concurrent alternate-board search completed — November 23, 2026
+
+- [Results, diagnosis and reproduction](../baselines/mjlab-parallel-board-20261123/README.md): a second CPU worker starts from the first risky checked shot while the original search continues, within the same 30-second decision window. Both methods retain full arm-pose/path checks. A replacement needs at least 5 mm predicted ball-to-arm clearance and a strictly better score than the final original.
+- **None of the five previous misses recovered:** each remained **0/3 with both methods**. The separate known successful target remained **3/3 direct with both**. All six selected commands matched their independent baselines. These are selected development repeats, not a new generalization or table-wide capture score.
+- Parallel search triggered at all six targets, completed **69 setup checks** and admitted **23 arm configurations**, but selected **zero replacements**. All 23 predicted negative ball-to-arm clearance (−74.09 to −20.74 mm). A feasible arm setup does not imply a clear ball rebound. Mean full planning request increased **28.192 → 31.522 seconds**. **Keep the current live planner.**
+- **36 comparison releases + 18 controls** completed at 64 substeps; both control blocks passed. The preparation audit passed 34,924 checks and final audit **45,635**, using **484.495 leased 4090 seconds**. [Sanitized results](../baselines/mjlab-parallel-board-20261123/summary.json) and [planning diagnosis](../baselines/mjlab-parallel-board-20261123/planning-diagnosis.json) preserve exact source/evidence hashes.
+- Frozen v2 producer **`de3ecec18cb7d7c491ef152a43c4cafcffc8871e`**, draft [PR #160](https://github.com/kadiru/sircus/pull/160), stacked on #159. All 55 focused pinned-Ubuntu tests and producer CI passed. V1 caught an auditor subset-adapter bug before any native release; its evidence remains untouched. V2 uses corrected lifecycle verification and freshly prepared decisions.
+- Results published at **`#parallelBoardStudy`**. Static UI update preserved historical video assets; live default remains `hybrid`. No training, perception, driven-arm validation, service restart, 4070 or Isaac change. Native arms were held at checked endpoints.
+- Next: seed candidate generation with nearby verified successful board poses and joint configurations, preserving height/tilt/gap diversity. Recheck every transformed setup and test its drops; nearby success is not evidence of transfer. No further experiment or live promotion has started.
+
 ## Guarded board fallback comparison completed — November 23, 2026
 
 - [Frozen test design](../sircus/mjlab/GUARDED_BOARD_FALLBACK_STUDY.md): allow the current hybrid search to finish naturally, then use only remaining time within the same 30-second decision budget. A replacement must predict at least 5 mm ball-to-arm clearance and a strictly better finite flight score. V1 source and historical results remain unchanged.

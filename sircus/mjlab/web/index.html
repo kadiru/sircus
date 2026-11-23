@@ -8,6 +8,20 @@
 <p id="savedReplayExplanation" class="fine">Recorded native simulation. Playback runs in your browser.</p><div id="savedReplayMarkers" class="saved-replay-markers" aria-label="Jump to a measured event"></div>
 </section>
 <div class="result" role="status" aria-live="polite"><span class="status-dot" id="resultDot"></span><div><strong id="resultTitle">Waiting for the learning study</strong><p id="resultText">Manual solves unlock after the completed study and frozen-checkpoint evaluation.</p></div></div>
+<section id="parallelBoardStudy" class="results-section fast-planning-section" hidden>
+<p class="eyebrow">PARALLEL BOARD SEARCH · SIX DEVELOPMENT TARGETS</p><h2>Try other board poses while the original search continues</h2>
+<p class="fine">The original planner keeps its full 30-second decision allowance. From its first risky checked shot, a separate CPU worker can check other board poses at the same time. A replacement must pass the arm pose and path checks, predict at least 5 mm of ball-to-arm clearance, and improve the finite predicted flight score. The original checked choice remains available.</p>
+<p class="scope-note">Selected development cases: five previously missed positions and one previously successful control. These are not new evaluation positions, and their repeat counts are not a table-wide success rate.</p>
+<p id="parallelBoardStatus" class="subtle" role="status"></p><p id="parallelBoardProgress" class="fine"></p>
+<div id="parallelBoardPositions" class="table-wrap" tabindex="0" role="region" aria-label="Five previously missed development targets: capture repeats and planning times"></div>
+<p class="fine">Separate preservation check: the previously successful target must keep working. It is not one of the five recovery targets.</p>
+<div id="parallelBoardControl" class="table-wrap" tabindex="0" role="region" aria-label="Separate previously successful target: matched capture repeats"></div>
+<div id="parallelBoardTotals" class="table-wrap" tabindex="0" role="region" aria-label="Development repeat totals and full planning request times"></div>
+<p id="parallelBoardActivity" class="fine"></p>
+<details id="parallelBoardLaneDetails" hidden><summary>Alternate worker activity at each target</summary><div id="parallelBoardLanes" class="table-wrap" tabindex="0" role="region" aria-label="Alternate board checks and selected-shot changes"></div></details>
+<p class="fine">Each planner chooses one shot per target before any drops; that exact command is repeated three times if setup passes. Missing setups remain 0/3 requested repeats. Native MuJoCo uses 64 substeps with arms held at checked endpoints. Captures require a board rebound and one continuous second fully inside the bucket; table-assisted captures count and arm-assisted retentions remain separate. Eighteen simulator controls bracket the test.</p>
+<p id="parallelBoardNext" class="scope-note"></p><p class="fine">No new model training, perception or driven-arm validation. This experiment does not change the live planner.</p>
+</section>
 <section id="guardedBoardFallback" class="results-section fast-planning-section" hidden>
 <p class="eyebrow">GUARDED BOARD FALLBACK · TWENTY NEW BUCKET POSITIONS</p><h2>Keep the current search, then improve a risky shot</h2>
 <p class="fine">The current planner finishes its search without early interruption. If time remains within the same 30-second decision limit, the guarded fallback may try other board poses. A replacement must pass the same arm pose and path checks, predict at least 5 mm of ball-to-arm clearance, and have a better predicted flight score. A prediction is not proof of capture.</p>

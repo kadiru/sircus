@@ -532,6 +532,95 @@ export function guardedBoardFallbackSummary(study) {
   return view;
 }
 
+/** Selected development targets and repeated frozen commands, never a fresh-position policy score. */
+export function parallelBoardSummary(study) {
+  const raw = study?.parallel_board_study;
+  if (raw?.version !== 'sircus-parallel-board-study-v1') return null;
+  const count = value => Number.isInteger(value) && value >= 0 ? value : null;
+  const seconds = value => Number.isFinite(value) && value >= 0 ? value : null;
+  const near = (a, b) => Number.isFinite(a) && Number.isFinite(b) && Math.abs(a - b) <= 1e-7 * Math.max(1, Math.abs(a), Math.abs(b));
+  const methodNames = { baseline: 'Current planner', parallel: 'Parallel board search' };
+  const captures = new Set(['direct', 'table', 'unclassified_capture']);
+  const outcomes = new Set([...captures, 'flight_miss', 'invalid_physics', 'arm_assisted_capture']);
+  const source = raw.comparison || {}, positions = Array.isArray(source.positions) ? source.positions : [];
+  const rows = positions.map(row => {
+    const methods = Object.entries(methodNames).map(([id, label]) => {
+      const value = row?.methods?.[id] || {}, labels = Array.isArray(value.outcomes) ? value.outcomes : [];
+      const requested = count(value.requested), released = count(value.released), captured = count(value.captures);
+      const wall = seconds(value.request_wall_s), decision = seconds(value.decision_latency_s);
+      return { id, label, requested, released, captures: captured, checked_shot: value.checked_shot,
+        outcomes: labels, request_wall_s: wall, decision_latency_s: decision,
+        direct: labels.filter(v => v === 'direct').length, table: labels.filter(v => v === 'table').length,
+        arm_assisted: labels.filter(v => v === 'arm_assisted_capture').length,
+        valid: requested === 3 && typeof value.checked_shot === 'boolean'
+          && released === (value.checked_shot ? 3 : 0) && Array.isArray(value.outcomes)
+          && labels.length === released && labels.every(v => outcomes.has(v))
+          && captured !== null && captured === labels.filter(v => captures.has(v)).length
+          && wall !== null && decision !== null && decision <= 30 && decision <= wall + 1e-7 };
+    });
+    const lane = row?.parallel_lane || {};
+    const checked = count(lane.checked_candidates), admitted = count(lane.admitted_candidates);
+    const laneValid = typeof lane.triggered === 'boolean' && typeof lane.changed_choice === 'boolean'
+      && checked !== null && admitted !== null && admitted <= checked
+      && (!lane.changed_choice || (lane.triggered && admitted > 0 && methods[1].checked_shot))
+      && (lane.triggered || (checked === 0 && admitted === 0 && !lane.changed_choice));
+    return { id: row?.id, source_id: row?.source_id, bucket_xy_m: row?.bucket_xy_m, role: row?.role, methods,
+      lane: { triggered: lane.triggered, changed_choice: lane.changed_choice, checked_candidates: checked, admitted_candidates: admitted },
+      valid: typeof row?.id === 'string' && Boolean(row.id) && typeof row?.source_id === 'string' && Boolean(row.source_id)
+        && vector(row.bucket_xy_m, 2) && ['previous_miss', 'known_regression'].includes(row.role)
+        && methods.every(method => method.valid) && laneValid };
+  });
+  const positionsValid = rows.length === 6 && rows.every(row => row.valid)
+    && new Set(rows.map(row => row.id)).size === 6 && new Set(rows.map(row => row.source_id)).size === 6
+    && new Set(rows.map(row => JSON.stringify(row.bucket_xy_m))).size === 6
+    && rows.filter(row => row.role === 'previous_miss').length === 5
+    && rows.filter(row => row.role === 'known_regression').length === 1;
+  const methods = Object.entries(methodNames).map(([id, label], index) => {
+    const value = source.methods?.[id] || {};
+    const totals = Object.fromEntries(['positions', 'requested', 'checked_positions', 'releases', 'captures', 'reliable_positions']
+      .map(key => [key, count(value[key])]));
+    const observed = rows.map(row => row.methods[index]);
+    const timing = Object.fromEntries(['mean_s', 'median_s', 'p90_s', 'max_s', 'aggregate_s'].map(key => [key, seconds(source.latency?.[id]?.[key])]));
+    const times = observed.map(row => row.request_wall_s).sort((a, b) => a - b);
+    const aggregate = times.reduce((a, b) => a + b, 0);
+    const timingValid = observed.length === 6 && observed.every(row => row.request_wall_s !== null)
+      && source.latency?.[id]?.positions === 6 && Object.values(timing).every(value => value !== null)
+      && near(timing.aggregate_s, aggregate) && near(timing.mean_s, aggregate / 6)
+      && near(timing.median_s, (times[2] + times[3]) / 2) && near(timing.p90_s, times[5]) && near(timing.max_s, times[5]);
+    return { id, label, ...totals, timing, direct: observed.reduce((n, row) => n + row.direct, 0),
+      table: observed.reduce((n, row) => n + row.table, 0), arm_assisted: observed.reduce((n, row) => n + row.arm_assisted, 0),
+      valid: totals.positions === 6 && totals.requested === 18 && Object.values(totals).every(n => n !== null)
+        && totals.checked_positions === observed.filter(row => row.checked_shot).length
+        && totals.releases === observed.reduce((n, row) => n + row.released, 0)
+        && totals.captures === observed.reduce((n, row) => n + row.captures, 0)
+        && totals.reliable_positions === observed.filter(row => row.captures === 3).length && timingValid };
+  });
+  const progress = raw.progress || {};
+  const bounded = (value, limit) => { const n = count(value); return n !== null && n <= limit ? n : null; };
+  const prepared = bounded(progress.prepared, 12), planned = bounded(progress.planned, 12);
+  const released = bounded(progress.completed_releases, 36), plannedReleases = bounded(progress.planned_releases, 36);
+  const lane = { activated: count(raw.parallel?.activated), changed_choice: count(raw.parallel?.changed_choice) };
+  const laneValid = lane.activated !== null && lane.changed_choice !== null
+    && lane.activated === rows.filter(row => row.lane.triggered).length
+    && lane.changed_choice === rows.filter(row => row.lane.changed_choice).length;
+  const controlsPassed = ['controls_pre', 'controls_post'].every(key => raw.controls?.[key]?.status === 'passed'
+    && raw.controls[key].direct_captures === 3 && raw.controls[key].table_assisted_captures === 3 && raw.controls[key].negative_captures === 0);
+  const provenance = raw.published_provenance || {};
+  const hashesValid = ['report_sha256', 'audit_sha256', 'evidence_manifest_sha256']
+    .every(key => /^[a-f0-9]{64}$/.test(provenance[key] || ''))
+    && provenance.evidence_manifest_sha256 === raw.evidence_manifest_sha256;
+  const accountingValid = positionsValid && methods.every(method => method.valid) && laneValid
+    && prepared === 12 && planned === 12 && released === plannedReleases
+    && released === methods.reduce((sum, method) => sum + method.releases, 0);
+  const complete = Boolean(raw.status === 'completed' && raw.phase === 'completed' && raw.audit_status === 'passed'
+    && raw.scope === 'development' && raw.physics_substeps === 64 && raw.budgets?.positions === 6
+    && raw.budgets?.repeats === 3 && raw.budgets?.planning_s === 30 && controlsPassed && hashesValid && accountingValid);
+  return { complete, promotion_eligible: false, accounting_valid: accountingValid, status: raw.status, phase: raw.phase,
+    prepared, planned, released, planned_releases: plannedReleases, methods: complete ? methods : [],
+    positions: complete ? rows : [], parallel: complete ? lane : null,
+    next: typeof raw.next === 'string' ? raw.next : '', error: typeof raw.error === 'string' ? raw.error : '' };
+}
+
 export function physicsPlanners(capabilities) {
   const labels = { hybrid: 'Checked planner · stalled-search fallback', fast: 'Faster planner · ~30 s decision budget', classic: 'Original planner · explicit fallback' };
   const ids = Array.isArray(capabilities?.planners)

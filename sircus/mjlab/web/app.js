@@ -68,7 +68,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, directPathFirstSummary, stalledReferenceSummary, hybridMissCorrectionSummary, boardPoseRecoverySummary, boardFallbackSummary, guardedBoardFallbackSummary, physicsSceneActive = false, physicsViewKey = '';
+let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, directPathFirstSummary, stalledReferenceSummary, hybridMissCorrectionSummary, boardPoseRecoverySummary, boardFallbackSummary, guardedBoardFallbackSummary, parallelBoardSummary, physicsSceneActive = false, physicsViewKey = '';
 let savedReplayRows = [], savedReplaySignature = '';
 const physicsSelected = () => $('mode').value === 'physics' && physics?.available === true;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
@@ -1049,6 +1049,7 @@ async function loadStatus() {
     showBoardPoseRecovery();
     showBoardFallbackStudy();
     showGuardedBoardFallback();
+    showParallelBoardStudy();
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
@@ -1070,6 +1071,57 @@ function showSavedPhysicsReplays() {
       ? report.interactive_recordings.title : 'Saved first-drop replays';
   }
   syncSolveButtons();
+}
+function showParallelBoardStudy() {
+  if (!parallelBoardSummary) return;
+  const view = parallelBoardSummary(report);
+  $('parallelBoardStudy').hidden = !view;
+  if (!view) return;
+  const number = value => value === null || value === undefined ? '—' : String(value);
+  const seconds = value => `${value.toFixed(2)} s`;
+  $('parallelBoardStatus').textContent = view.complete ? 'Development test complete · independent audit passed'
+    : view.status === 'failed' ? 'Development test stopped · final results withheld'
+    : view.status === 'completed' ? 'Drops finished · complete audited accounting pending'
+    : `Development test in progress · ${String(view.phase || 'initializing').replaceAll('_', ' ')} · final results pending`;
+  $('parallelBoardProgress').textContent = `Frozen choices: ${number(view.prepared)} / ${number(view.planned)} · Development drops: ${number(view.released)} / ${number(view.planned_releases)}`;
+  for (const id of ['parallelBoardPositions', 'parallelBoardControl', 'parallelBoardTotals', 'parallelBoardLanes']) $(id).replaceChildren();
+  $('parallelBoardActivity').textContent = '';
+  $('parallelBoardLaneDetails').hidden = !view.complete;
+  const table = (id, headings, rows) => {
+    const element = document.createElement('table'), head = document.createElement('thead'), body = document.createElement('tbody'), hr = document.createElement('tr');
+    for (const heading of headings) { const cell = document.createElement('th'); cell.scope = 'col'; cell.textContent = heading; hr.append(cell); }
+    head.append(hr);
+    for (const row of rows) { const tr = document.createElement('tr'); row.forEach((value, index) => {
+      const cell = document.createElement(index ? 'td' : 'th'); if (!index) cell.scope = 'row'; cell.textContent = value; tr.append(cell);
+    }); body.append(tr); }
+    element.append(head, body); $(id).append(element);
+  };
+  if (view.complete) {
+    const target = row => `(${row.bucket_xy_m.map(value => (1000 * value).toFixed(1)).join(', ')})`;
+    const capture = method => method.checked_shot ? `${method.captures} / 3` : '0 / 3 · no checked shot';
+    const positionRows = role => view.positions.filter(row => row.role === role).map(row => [target(row),
+      ...row.methods.map(capture), ...row.methods.map(method => seconds(method.request_wall_s))]);
+    const headings = ['Bucket X, Y (mm)', 'Current · captures / 3', 'Parallel · captures / 3', 'Current planning', 'Parallel planning'];
+    table('parallelBoardPositions', headings, positionRows('previous_miss'));
+    table('parallelBoardControl', headings, positionRows('known_regression'));
+    table('parallelBoardTotals', ['Selected development targets only', ...view.methods.map(method => method.label)], [
+      ['Captures across requested repeats', ...view.methods.map(method => `${method.captures} / 18`)],
+      ['Targets captured on all three repeats', ...view.methods.map(method => `${method.reliable_positions} / 6`)],
+      ['Targets with a checked shot', ...view.methods.map(method => `${method.checked_positions} / 6`)],
+      ['Actual drops', ...view.methods.map(method => String(method.releases))],
+      ['Direct / table-assisted captures', ...view.methods.map(method => `${method.direct} / ${method.table}`)],
+      ['Arm-assisted retentions · separate', ...view.methods.map(method => String(method.arm_assisted))],
+      ['Mean full planning request', ...view.methods.map(method => seconds(method.timing.mean_s))],
+      ['Median full planning request', ...view.methods.map(method => seconds(method.timing.median_s))],
+      ['90th-percentile full planning request', ...view.methods.map(method => seconds(method.timing.p90_s))],
+    ]);
+    const recoveries = view.positions.filter(row => row.role === 'previous_miss' && row.methods[0].captures < 3 && row.methods[1].captures === 3).length;
+    $('parallelBoardActivity').textContent = `${recoveries} of the five recovery targets captured on all three parallel repeats where the current planner captured fewer than three. Shared captures are not counted as improvements. The alternate worker activated at ${view.parallel.activated} of six targets and changed the selected shot at ${view.parallel.changed_choice}. Each timing measures one planning request, not three repeated planning runs; full request time includes worker startup and cleanup, and excludes GPU waiting and drops. Both simulator control blocks passed. The live planner remains unchanged.`;
+    table('parallelBoardLanes', ['Bucket X, Y (mm)', 'Alternate worker activated', 'Completed setup checks', 'Passed setup checks', 'Selected shot changed'],
+      view.positions.map(row => [target(row), row.lane.triggered ? 'Yes' : 'No', String(row.lane.checked_candidates),
+        String(row.lane.admitted_candidates), row.lane.changed_choice ? 'Yes' : 'No']));
+  }
+  $('parallelBoardNext').textContent = view.error || view.next || 'Review this development test before a fresh-position comparison. Keep the current live planner.';
 }
 function showGuardedBoardFallback() {
   if (!guardedBoardFallbackSummary) return;
@@ -1850,6 +1902,7 @@ async function initializePhysics() {
     boardPoseRecoverySummary = module.boardPoseRecoverySummary;
     boardFallbackSummary = module.boardFallbackSummary;
     guardedBoardFallbackSummary = module.guardedBoardFallbackSummary;
+    parallelBoardSummary = module.parallelBoardSummary;
     physics = new module.InteractivePhysics({ onChange: updatePhysics });
     await physics.initialize();
     showSavedPhysicsReplays();
@@ -1865,6 +1918,7 @@ async function initializePhysics() {
     showBoardPoseRecovery();
     showBoardFallbackStudy();
     showGuardedBoardFallback();
+    showParallelBoardStudy();
   } catch { /* Historical viewing stays available without this optional API. */ }
 }
 for (const id of ['physicsDrop', 'physicsDropTop']) {
