@@ -1,5 +1,11 @@
 # Project state
 
+## Guarded board fallback correction in progress — November 23, 2026
+
+- [Frozen test design](../sircus/mjlab/GUARDED_BOARD_FALLBACK_STUDY.md): allow the current hybrid search to finish naturally, then use only remaining time within the same 30-second decision budget. A replacement must predict at least 5 mm ball-to-arm clearance and a strictly better finite flight score. V1 source and historical results remain unchanged.
+- Prepare a matched comparison on 20 fresh positions (eight interior, eight edge, four near bases), one attempt per method/position at 64 substeps. Separately replan the previously lost target and repeat each method's chosen shot three times. Freeze all decisions before native execution; 18 controls and an independent audit remain required.
+- Implementation and mock checks are underway; no new capture result yet. The live planner, seven previously confirmed settings, 4070 and Isaac remain unchanged. Results destination: `#guardedBoardFallback`.
+
 ## Bounded board-position fallback comparison completed — November 22, 2026
 
 - [Protocol and diagnostic results](../sircus/mjlab/BOARD_FALLBACK_STUDY.md): the new planner tries alternate board centers/headings when a checked shot has poor or unavailable predicted arm clearance. It shares the original **30-second decision budget** and preserves a fully checked choice when no better candidate finishes in time. No model retraining or live default change.

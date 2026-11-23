@@ -481,6 +481,57 @@ export function boardFallbackSummary(study) {
   return view;
 }
 
+/** Separate guarded experiment; historical fallback evidence and live choices stay unchanged. */
+export function guardedBoardFallbackSummary(study) {
+  const raw = study?.guarded_board_fallback_study;
+  if (raw?.version !== 'sircus-guarded-board-fallback-study-v1') return null;
+  const comparison = raw.comparison || {};
+  const translated = { ...raw, version: 'sircus-stalled-reference-study-v1', diagnostic: undefined,
+    comparison: { ...comparison,
+      methods: { baseline: comparison.methods?.baseline, hybrid: comparison.methods?.guarded },
+      latency: { baseline: comparison.latency?.baseline, hybrid: comparison.latency?.guarded },
+      positions: Array.isArray(comparison.positions) ? comparison.positions.map(row => ({ ...row,
+        outcomes: { baseline: row?.outcomes?.baseline, hybrid: row?.outcomes?.guarded } })) : [],
+    } };
+  const view = stalledReferenceSummary({ stalled_reference_study: translated });
+  const count = value => Number.isInteger(value) && value >= 0 ? value : null;
+  const methods = [{ id: 'baseline', label: 'Current planner' }, { id: 'guarded', label: 'Guarded board fallback' }];
+  view.methods = view.methods.map((method, index) => ({ ...method, ...methods[index] }));
+  view.controls_passed = ['controls_pre', 'controls_post'].every(key => {
+    const gate = raw.controls?.[key];
+    return gate?.status === 'passed' && gate.direct_captures === 3
+      && gate.table_assisted_captures === 3 && gate.negative_captures === 0;
+  });
+  view.fallback = Object.fromEntries(['activated', 'changed_choice'].map(key => [key, count(raw.fallback?.[key])]));
+  const fallbackValid = view.fallback.activated !== null && view.fallback.changed_choice !== null
+    && view.fallback.changed_choice <= view.fallback.activated && view.fallback.activated <= 20;
+  const captures = new Set(['direct', 'table', 'unclassified_capture']);
+  const outcomes = new Set([...captures, 'flight_miss', 'invalid_physics', 'arm_assisted_capture']);
+  const diagnostic = raw.diagnostic;
+  const diagnosticMethods = methods.map(method => {
+    const row = diagnostic?.methods?.[method.id] || {};
+    const labels = Array.isArray(row.outcomes) ? row.outcomes : [];
+    const requested = count(row.requested), released = count(row.released), captured = count(row.captures);
+    return { ...method, requested, released, captures: captured,
+      direct: labels.filter(label => label === 'direct').length,
+      table: labels.filter(label => label === 'table').length,
+      arm_assisted: labels.filter(label => label === 'arm_assisted_capture').length,
+      valid: requested === 3 && [0, 3].includes(released) && captured !== null && captured <= released
+        && Array.isArray(row.outcomes) && labels.length === released && labels.every(label => outcomes.has(label))
+        && labels.filter(label => captures.has(label)).length === captured
+        && (row.checked_shot === undefined || row.checked_shot === (released === 3)) };
+  });
+  const diagnosticValid = vector(diagnostic?.bucket_xy_m, 2) && diagnosticMethods.every(method => method.valid)
+    && !view.positions.some(row => row.bucket_xy_m.every((value, index) => value === diagnostic.bucket_xy_m[index]));
+  const timingValid = view.methods.every(method => Object.values(method.timing).every(value => value !== null));
+  view.complete = Boolean(view.complete && raw.phase === 'completed' && raw.physics_substeps === 64
+    && view.total === 20 && view.budget === 30 && view.controls_passed && fallbackValid && diagnosticValid && timingValid);
+  view.promotion_eligible = false;
+  view.positions = view.complete ? comparison.positions : [];
+  view.diagnostic = view.complete ? { bucket_xy_m: diagnostic.bucket_xy_m, methods: diagnosticMethods } : null;
+  return view;
+}
+
 export function physicsPlanners(capabilities) {
   const labels = { hybrid: 'Checked planner · stalled-search fallback', fast: 'Faster planner · ~30 s decision budget', classic: 'Original planner · explicit fallback' };
   const ids = Array.isArray(capabilities?.planners)
