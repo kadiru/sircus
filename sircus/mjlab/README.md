@@ -1,6 +1,6 @@
 # Sircus in mjlab
 
-November 23: [guarded board fallback correction](GUARDED_BOARD_FALLBACK_STUDY.md) is in progress. It preserves the original search's full decision budget and requires positive arm clearance before replacing its checked shot. The planned native64 comparison uses 20 fresh targets plus separate matched repeats at the known regression. No new results or live planner switch yet.
+November 23: [guarded board fallback correction](GUARDED_BOARD_FALLBACK_STUDY.md) completed. **Both planners captured at the same 15/20 fresh positions** (12 direct, three table-assisted); separately, each captured **3/3** at the previously regressed target. Guarded fallback activated once and replaced no shots. Mean full planning request increased **12.94 → 15.05 seconds**. All 64 native releases completed; 71,175 audit checks passed. Audited results: `#guardedBoardFallback`. Keep the existing live planner; this correction showed no capture gain. No retraining, restart, 4070 or Isaac change.
 
 November 22: [bounded board-position fallback comparison](BOARD_FALLBACK_STUDY.md) completed on 50 fresh positions. **Current planner 41/50; fallback 40/50**, with zero gains and one loss. Mean full planning time rose **12.87 → 14.39 seconds**. All 98 test drops, 18 controls and 152,638 audit checks completed at 64 substeps. The separate remaining-target heading sweep captured 0/13. Audited results: `#boardFallbackStudy`. Keep [the checked hybrid planner](STALLED_REFERENCE_STUDY.md) as the live default. No retraining, service restart, 4070 workload or Isaac setup change.
 

@@ -1,10 +1,13 @@
 # Project state
 
-## Guarded board fallback correction in progress — November 23, 2026
+## Guarded board fallback comparison completed — November 23, 2026
 
 - [Frozen test design](../sircus/mjlab/GUARDED_BOARD_FALLBACK_STUDY.md): allow the current hybrid search to finish naturally, then use only remaining time within the same 30-second decision budget. A replacement must predict at least 5 mm ball-to-arm clearance and a strictly better finite flight score. V1 source and historical results remain unchanged.
-- Prepare a matched comparison on 20 fresh positions (eight interior, eight edge, four near bases), one attempt per method/position at 64 substeps. Separately replan the previously lost target and repeat each method's chosen shot three times. Freeze all decisions before native execution; 18 controls and an independent audit remain required.
-- Implementation and mock checks are underway; no new capture result yet. The live planner, seven previously confirmed settings, 4070 and Isaac remain unchanged. Results destination: `#guardedBoardFallback`.
+- **Both planners captured at the same 15/20 fresh positions**: 12 direct and three table-assisted; five released misses, no setup declines, no gains or losses. The sample has eight interior, eight edge and four near-base targets; it is not a uniform table-wide reliability estimate. Every choice was frozen before native testing at 64 substeps.
+- The previously regressed bucket **(948.252, −97.816) mm** captured **3/3 direct repeats with each method**, excluded from the fresh-position denominator. Guarded fallback activated at **1/20** fresh positions and replaced **zero** selected shots. Mean full planning request **12.936 → 15.052 seconds**; median **8.419 → 10.045 seconds**. **Keep the current live planner**: the guard avoided the known regression but added no captures and was slower in this batch.
+- **40 comparison + six diagnostic + 18 control releases** completed; both control blocks passed. The preparation audit passed 57,015 checks and the final independent audit passed **71,175**; **490.827 leased 4090 seconds**. [Sanitized results and source provenance](../baselines/mjlab-guarded-board-fallback-20261123/summary.json) preserve all 20 paired outcomes and the separate diagnostic. Earlier evidence and seven confirmed settings remain unchanged.
+- Saved-plan diagnosis: all five misses exhausted the original 30-second search, so no alternate board geometry was tested there. The only fallback ran at an already successful target; none of its 16 checks qualified for replacement. Next: consider alternate geometry earlier or concurrently while preserving the best checked shot; use these five as development targets before a new fresh comparison. No further experiment is running.
+- Computational producer **`f8206420f23bd7f3fb498b683538284d7fb1fb53`**, draft [PR #159](https://github.com/kadiru/sircus/pull/159), stacked on #158. All 41 targeted tests pass on pinned Ubuntu; producer CI and UI tests pass. Source, choices, native scoring, controls and receipts were independently verified. The UI publishes results at `#guardedBoardFallback`; the existing service still defaults to `hybrid`. No model training, perception, driven-arm validation, service restart, 4070 or Isaac change.
 
 ## Bounded board-position fallback comparison completed — November 22, 2026
 

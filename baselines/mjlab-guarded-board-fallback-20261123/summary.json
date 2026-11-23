@@ -1,0 +1,892 @@
+{
+  "audit_status": "passed",
+  "capture_definition": "Board bounce then whole-ball retention for one second; direct and table-assisted count; arm-assisted reported separately",
+  "planner_comparison": {
+    "audit_status": "passed",
+    "comparison": {
+      "decision_latency": {
+        "baseline": {
+          "aggregate_s": 251.5542454559909,
+          "max_s": 30.0,
+          "mean_s": 12.577712272799545,
+          "median_s": 7.7790735219969065,
+          "p90_s": 30.0,
+          "positions": 20
+        },
+        "guarded": {
+          "aggregate_s": 291.09801360401616,
+          "max_s": 30.0,
+          "mean_s": 14.554900680200808,
+          "median_s": 8.856124143501802,
+          "p90_s": 30.0,
+          "positions": 20
+        }
+      },
+      "latency": {
+        "baseline": {
+          "aggregate_s": 258.71365477499785,
+          "max_s": 30.0485999060038,
+          "mean_s": 12.935682738749893,
+          "median_s": 8.418761216998973,
+          "p90_s": 30.042717951000668,
+          "positions": 20
+        },
+        "guarded": {
+          "aggregate_s": 301.04606728302315,
+          "max_s": 31.220362513995497,
+          "mean_s": 15.052303364151157,
+          "median_s": 10.045303149003303,
+          "p90_s": 30.066876052995212,
+          "positions": 20
+        }
+      },
+      "methods": {
+        "baseline": {
+          "admitted": 20,
+          "attempts": 20,
+          "capture_rate": 0.75,
+          "captures": 15,
+          "flight_misses": 5,
+          "no_candidate": 0,
+          "outcomes": {
+            "direct": 12,
+            "flight_miss": 5,
+            "table": 3
+          },
+          "positions": 20,
+          "releases": 20,
+          "requested_route_captures": 15,
+          "selected_routes": {
+            "direct": 14,
+            "table": 6
+          },
+          "setup_rate": 1.0
+        },
+        "guarded": {
+          "admitted": 20,
+          "attempts": 20,
+          "capture_rate": 0.75,
+          "captures": 15,
+          "flight_misses": 5,
+          "no_candidate": 0,
+          "outcomes": {
+            "direct": 12,
+            "flight_miss": 5,
+            "table": 3
+          },
+          "positions": 20,
+          "releases": 20,
+          "requested_route_captures": 15,
+          "selected_routes": {
+            "direct": 14,
+            "table": 6
+          },
+          "setup_rate": 1.0
+        }
+      },
+      "paired": {
+        "both": 15,
+        "gained": 0,
+        "lost": 0,
+        "neither": 5
+      },
+      "positions": [
+        {
+          "bucket_xy_m": [
+            0.359983535406481,
+            -0.4846596869298166
+          ],
+          "id": "guarded-board-test-00",
+          "outcomes": {
+            "baseline": "direct",
+            "guarded": "direct"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            0.9252643725530525,
+            -0.5530245059473395
+          ],
+          "id": "guarded-board-test-01",
+          "outcomes": {
+            "baseline": "table",
+            "guarded": "table"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            0.39890737092146855,
+            0.12129899008679704
+          ],
+          "id": "guarded-board-test-02",
+          "outcomes": {
+            "baseline": "direct",
+            "guarded": "direct"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            0.9425987509126437,
+            -0.03169011945004932
+          ],
+          "id": "guarded-board-test-03",
+          "outcomes": {
+            "baseline": "flight_miss",
+            "guarded": "flight_miss"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            0.1214641459786835,
+            -0.16761915074011607
+          ],
+          "id": "guarded-board-test-04",
+          "outcomes": {
+            "baseline": "direct",
+            "guarded": "direct"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            1.2246481555612607,
+            -0.1750086305565586
+          ],
+          "id": "guarded-board-test-05",
+          "outcomes": {
+            "baseline": "table",
+            "guarded": "table"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            0.665098412401609,
+            -0.6105252278115237
+          ],
+          "id": "guarded-board-test-06",
+          "outcomes": {
+            "baseline": "direct",
+            "guarded": "direct"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            0.6470237870476118,
+            0.24547870485680376
+          ],
+          "id": "guarded-board-test-07",
+          "outcomes": {
+            "baseline": "direct",
+            "guarded": "direct"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            0.18559844652009277,
+            0.13476737634856073
+          ],
+          "id": "guarded-board-test-08",
+          "outcomes": {
+            "baseline": "direct",
+            "guarded": "direct"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            1.1929942869527974,
+            0.14742349109856434
+          ],
+          "id": "guarded-board-test-09",
+          "outcomes": {
+            "baseline": "flight_miss",
+            "guarded": "flight_miss"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            0.38367586407572235,
+            -0.34295884224891543
+          ],
+          "id": "guarded-board-test-10",
+          "outcomes": {
+            "baseline": "direct",
+            "guarded": "direct"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            0.9425957040783636,
+            -0.5593002413728033
+          ],
+          "id": "guarded-board-test-11",
+          "outcomes": {
+            "baseline": "table",
+            "guarded": "table"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            0.3463771868703982,
+            -0.061585642872393404
+          ],
+          "id": "guarded-board-test-12",
+          "outcomes": {
+            "baseline": "direct",
+            "guarded": "direct"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            0.9667326055650807,
+            -0.04091039262604272
+          ],
+          "id": "guarded-board-test-13",
+          "outcomes": {
+            "baseline": "flight_miss",
+            "guarded": "flight_miss"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            0.12876489339839917,
+            -0.2314452061684032
+          ],
+          "id": "guarded-board-test-14",
+          "outcomes": {
+            "baseline": "direct",
+            "guarded": "direct"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            1.2095887213590388,
+            -0.16059263682347344
+          ],
+          "id": "guarded-board-test-15",
+          "outcomes": {
+            "baseline": "flight_miss",
+            "guarded": "flight_miss"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            0.6003659914616618,
+            -0.6395404762379706
+          ],
+          "id": "guarded-board-test-16",
+          "outcomes": {
+            "baseline": "direct",
+            "guarded": "direct"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            0.7271509400057149,
+            0.19921534156961349
+          ],
+          "id": "guarded-board-test-17",
+          "outcomes": {
+            "baseline": "direct",
+            "guarded": "direct"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            0.16744102262937394,
+            -0.14189171232315623
+          ],
+          "id": "guarded-board-test-18",
+          "outcomes": {
+            "baseline": "direct",
+            "guarded": "direct"
+          }
+        },
+        {
+          "bucket_xy_m": [
+            1.1275553924334596,
+            -0.038347936433139274
+          ],
+          "id": "guarded-board-test-19",
+          "outcomes": {
+            "baseline": "flight_miss",
+            "guarded": "flight_miss"
+          }
+        }
+      ]
+    },
+    "control_releases": 18,
+    "controls": {
+      "controls_post": {
+        "direct_captures": 3,
+        "negative_captures": 0,
+        "status": "passed",
+        "table_assisted_captures": 3
+      },
+      "controls_pre": {
+        "direct_captures": 3,
+        "negative_captures": 0,
+        "status": "passed",
+        "table_assisted_captures": 3
+      }
+    },
+    "diagnostic": {
+      "bucket_xy_m": [
+        0.948252196166334,
+        -0.09781574379730379
+      ],
+      "methods": {
+        "baseline": {
+          "captures": 3,
+          "checked_shot": true,
+          "outcomes": [
+            "direct",
+            "direct",
+            "direct"
+          ],
+          "released": 3,
+          "requested": 3
+        },
+        "guarded": {
+          "captures": 3,
+          "checked_shot": true,
+          "outcomes": [
+            "direct",
+            "direct",
+            "direct"
+          ],
+          "released": 3,
+          "requested": 3
+        }
+      },
+      "repeats": 3
+    },
+    "diagnostic_releases": 6,
+    "fallback": {
+      "activated": 1,
+      "changed_choice": 0
+    },
+    "gpu_cap_s": 1800,
+    "gpu_lease_s": 490.82670080600656,
+    "independent_checks": 71175,
+    "native_releases": 64,
+    "phase": "completed",
+    "physics_substeps": 64,
+    "planning_budget_s": 30,
+    "preflight": {
+      "checks_count": 57015,
+      "diagnostic_plans": 2,
+      "fresh_plans": 40,
+      "fresh_positions": 20,
+      "native_execution_performed": false,
+      "scope": "CPU preparation only; separate from completed-study audit",
+      "status": "passed"
+    },
+    "producer_commit": "f8206420f23bd7f3fb498b683538284d7fb1fb53",
+    "provenance": {
+      "audit_sha256": "0ca45804cac0707210d16c7bdb417277bb67927af29020dd6ae7db3e0e09b08e",
+      "choices_sha256": "6ee04222b7634695882091e0f4036a4881ea5cd1703aabeb7642202fcf08feae",
+      "computational_source_manifest_sha256": "8dd03b634f29e3848ddc2588571d34515a5fc6ebc2e76f269614b89239ff46a1",
+      "computational_source_sha256": {
+        "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+        "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+        "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+        "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+        "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+        "sircus/mjlab/arm_check_speed.py": "65a1dac18e7f417d04f0b9d0bd270f44ca560f3bb221d9bd5f8cda40d73450f1",
+        "sircus/mjlab/arm_check_speed_audit.py": "305237411f461aa61cbd2ae3f28e05ba4249b01c4a1163b51ce16c164cd1f652",
+        "sircus/mjlab/arm_check_speed_equivalence.py": "133a5705f4baef630263e5cd8ceac1de786d6d525c452471ab07ba56cdafe5d2",
+        "sircus/mjlab/arm_check_speed_study.py": "cc8481a010dcf1ee7895922a38811959783d534192c6258bb93275ab457163a8",
+        "sircus/mjlab/arm_clearance_distance.py": "9c929f9dc241607e549189f1673fbb17afd5860a6f9a0f146dc7fb8d057ff734",
+        "sircus/mjlab/arm_clearance_pipeline.py": "d96649232db02058b2df9dbfac8f1a9c9ba8d0b9cdb20e45cd34c3addda576aa",
+        "sircus/mjlab/arm_clearance_selector.py": "500fafd2bc25b97314b645c83701290ba01cdb3046d166769d75d0be8906a9eb",
+        "sircus/mjlab/arm_clearance_study.py": "e19dc4f484cf665affedf781acab83534a549d0bad500189b11ecc91478ddca0",
+        "sircus/mjlab/arm_clearance_verify.py": "172d7ea453a28962fab5c4b8c86087b95da4008ba00a90da7589a2710142221a",
+        "sircus/mjlab/arm_path_speed.py": "7f611c2791f468ca2262d077cf0d31e4e6a73c6dcf72c680112d003e2793eb88",
+        "sircus/mjlab/audit_grid_study.py": "35c52ae32a36c272e21d67b8411267533df41dd9cbd8311b57a45dab693c272c",
+        "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+        "sircus/mjlab/bank_policy.py": "0773471ab8327e822b7c6676b02c2beaf1185e90d72a3ab10fddaf8cd1595ae8",
+        "sircus/mjlab/bank_solve.py": "457166a796492f66e29b9a52dd944a57119f180f12c89a6aface4d5d2f1ad001",
+        "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+        "sircus/mjlab/benchmark_adapter.py": "85e3cee8b2714707772bb871f1a13f0f25bb8ce1f6c207a33c3f4efa946cf3c2",
+        "sircus/mjlab/benchmark_contract.py": "720394dafbdde1b56507a0abd6b64f82b29843037bce56e559f671995b62c63c",
+        "sircus/mjlab/benchmark_policy.py": "35cc605d17b7cdf02fcc1cf73b018bcefb98b172260a3a5ddc6856ac7d3779dc",
+        "sircus/mjlab/benchmark_resources.py": "4a535e1a1d91248d208dd44286c215439924a27e81b62ab7fce71284c94f14ba",
+        "sircus/mjlab/benchmark_run.py": "4c5c10efb2f42d8fa09198aa960796149b74f80915741b83f9463264409fd944",
+        "sircus/mjlab/benchmark_server.py": "211be73a1e0fde6eb61df2024a2dbf936f934a30d9604fa5c360bb29bcf95e6a",
+        "sircus/mjlab/benchmark_smoke.py": "7c7d89f9c8d4425d55a38a7732960cec4bdf8d615c025c273775b0e6bab132a1",
+        "sircus/mjlab/benchmark_study.py": "f097258e6d30d84b4f0b862172cf1a443e404148b74a60e93699e096129bf8ad",
+        "sircus/mjlab/benchmark_verify.py": "3c66930551d675db092a2a23e43bdfe0e9587a4f3e739cb10dfd283a95ca961e",
+        "sircus/mjlab/benchmark_wall_diagnostic.py": "aab5a0f93d79275b06a49af71eec796e0d1321b7d5a5e697e086506f3ecb0a5a",
+        "sircus/mjlab/board_fallback_audit.py": "0de9238d3c05bcfe7e0d63a131ed48c72e3f2d4781e0df9d06a0c4ec1b8365b9",
+        "sircus/mjlab/board_fallback_plan.py": "da95275cf97decbdadf5bb5f246cec2b81cdea824b57fcb5d9173bcec3174648",
+        "sircus/mjlab/board_fallback_publish.py": "a86a93d4f8488904c6acbec2827eeea7c19b913a5e2621ce49d0fdc8e55f946f",
+        "sircus/mjlab/board_fallback_study.py": "e7603b71172b235f8dc9523d65ee883ff9fd8060361c4620ac1bf73bd9ccd2ba",
+        "sircus/mjlab/board_pose_recovery_audit.py": "7b31e49e85b3028ebd337956f63af64842afc23237d3f37078a552bf179e3866",
+        "sircus/mjlab/board_pose_recovery_publish.py": "e8208f2cf47557937a18a758e610f6c17603e9f1858fe72d4c12f28fe19c7d3a",
+        "sircus/mjlab/board_pose_recovery_study.py": "501261a4853e6a37def7c34edec7d333803dcb028a3813e9420ea71dd0ac9046",
+        "sircus/mjlab/bouncer_clearance_contract.py": "a8d8e0330ae603284b3d1e293275082ad45ae35cdd05884524e869a68c8a4a04",
+        "sircus/mjlab/bouncer_clearance_native.py": "e13028fb48e3f9d85f5e0a2e66c9b9b385608a94cea1e31cb214dfd351b8858a",
+        "sircus/mjlab/bouncer_clearance_pipeline.py": "e5828340e671aaed21f0639465e81999b2aef9a40f4873f7db0665514ff9f53b",
+        "sircus/mjlab/bouncer_clearance_study.py": "c3dc5d0c35f646502dd2ddfb7f9925b7762ac34f6ee3ca5b055e82c2ca524b87",
+        "sircus/mjlab/bouncer_clearance_verify.py": "f923b01e60dca077e06024b44fcfc891973b646ff2af0d30529ef0b2259da755",
+        "sircus/mjlab/bouncer_clearance_video.py": "97d4b4be8a8da435bd9ce341a250863c0656275eba8f47268d35ca11431493e1",
+        "sircus/mjlab/calibrate.py": "e2da7c22355899f35e7f9f28e8a3ae35001e29cc2e10e7a490c470809bd548fb",
+        "sircus/mjlab/calibrated_adapter.py": "58789fcbb7549a6d7ff0513de3e2878651d1aa72e4022c8b17f269c71e1c35f1",
+        "sircus/mjlab/calibrated_admission.py": "37d43d8503c4e0a9835d8ae8fe6793ee09938bc746f1a513af3e4aa2b6f295a8",
+        "sircus/mjlab/calibrated_benchmark_contract.py": "7d0964249d0f18604d9f17ef9662b5cd7878500e674f30f4f6eb55ae766491be",
+        "sircus/mjlab/calibrated_benchmark_export.py": "e24bf7870fdf711ac58e1a0daf2e49bab5cdc99ddc36998b1e181deee4998893",
+        "sircus/mjlab/calibrated_benchmark_run.py": "cfd92d6dc988167fc2ed055bf7a2770a9f39f293224189c521a1d55bde1454a8",
+        "sircus/mjlab/calibrated_benchmark_server.py": "fbfa7e1c86f8ecb1000c0e1e13a4986f2755e3af9ccb0c9162e8fc12a1f49678",
+        "sircus/mjlab/calibrated_benchmark_smoke.py": "1312bf58912de62c239094fe51d4ee60dacdf795137a4b1951740488a78852a7",
+        "sircus/mjlab/calibrated_benchmark_study.py": "352a5a867fecfe3a6bc53821a61860075807d12c81cdc30e0900ecbc118c9c3e",
+        "sircus/mjlab/calibrated_benchmark_verify.py": "4f7af7da8789311769579ab87096d251e75455d4e146018c388c9a4a3812b5a9",
+        "sircus/mjlab/calibrated_env.py": "928a8a0d8cd3fcabbb541c3fe54a6ead14c8ee17a79016a5dd3e84517f6a963e",
+        "sircus/mjlab/calibrated_native_log.py": "c555bc762116a18da2802321ba40248a7d2bbe7b9590e176853547e8a4c8272c",
+        "sircus/mjlab/calibrated_score.py": "b90fb4886f2297534b81b399620c647952eb2e486217289c65548713977e3539",
+        "sircus/mjlab/calibrated_score_oracle.py": "74ff1b43d342a28e7b4af6d3ec757f577aec076ac286535f4c16e053e31a00df",
+        "sircus/mjlab/capture_calibration.py": "3d508db4b25ee7daef2a862353650645b2479cba645259fa9627c85c6cbb8499",
+        "sircus/mjlab/case00_tilt_gap_contract.py": "65f3719eb0219066f74bec663f3409d3bc02b41fe4604bd23739c118485d4b0b",
+        "sircus/mjlab/case00_tilt_gap_native.py": "ea067cbf1d47b347587d23bc9834416c32f0a65b602dc3d62082cd1c6ca9f0f9",
+        "sircus/mjlab/case00_tilt_gap_pipeline.py": "e5e62fdcc852d2ec3ff01b14151fae24a120602770c7e8b25d9615edbed7fa13",
+        "sircus/mjlab/case00_tilt_gap_study.py": "ff56bbf02dfd99c2f8fe9b768049cf9dc6b4aa7a650b8022bd2564361b8e3248",
+        "sircus/mjlab/case00_tilt_gap_verify.py": "d515f90c73ca304a2b93840073eb24769a97662f506b6a9f1a08ebb24f94c258",
+        "sircus/mjlab/case00_tilt_gap_video.py": "52e7533e84a8eedc6d058accc1e1e80257d5ac85397950fff68f9a548feddb94",
+        "sircus/mjlab/cell1050_followup_plan.py": "843e7883fa7631871c16b47888c10850d9d3cdca0631cc2f3e5a3aeb408429e5",
+        "sircus/mjlab/cell1050_heading_native.py": "3540ef96038bfdeba7969ef34896d248764e2bde241c32693aa9851540a3a264",
+        "sircus/mjlab/cell1050_plan.py": "72f467905aa47d3a9d1632632b04f0db77bc0bec8a84cc0c1f2e0d94b340d99b",
+        "sircus/mjlab/cell1050_rebound_audit.py": "24447f1be6e23ab7263271d70a6d104e228123208c5d52620dc60918ec47bec0",
+        "sircus/mjlab/cell1050_rebound_score.py": "c0f255b63288ef6f0f05456fee640f8bcf557172284f7bdcdb69b7e2343a48ef",
+        "sircus/mjlab/cell1050_rebound_study.py": "98f53c0a6969d35767e2f9f915fcedafc33c80101977df5b031e5dcf04219b6e",
+        "sircus/mjlab/certificate_roundoff_verify.py": "a3c29a2708a216052da9db9bbeb55882968b63a907cb2993f9740b997da99070",
+        "sircus/mjlab/clean650_contract.py": "ca8182a5d5d8cbed444eabdbe278bc512ec7d83d7783f2c4e492576034e355ef",
+        "sircus/mjlab/clean650_geometry.py": "4b010d2e566fe99c90f5d87545c4b0e5117b432e07f6469d4d95ad108cb0f061",
+        "sircus/mjlab/clean650_native.py": "af2d1e2cb34a1f55bb49bc2b541155add339ec4c9aea8ac25eca004aef438da1",
+        "sircus/mjlab/clean650_pipeline.py": "75b3a1d8bb91ffc3737a01c6fa6861c3e05cb3325011796346b55b3cbf0bc25e",
+        "sircus/mjlab/clean650_study.py": "c0cb04387f00aa7bad2ff32ace6209bcfb244d00788ab295c78957eb256c2432",
+        "sircus/mjlab/clean650_verify.py": "cbdb74a7bc6eb72d65a29a802e9641f88570670a9b53ce552f6ae511daa35889",
+        "sircus/mjlab/clearance_correction_pipeline.py": "fd533e23fbdb7e6762e07ba9de5a0542579f3cd7b4ee139193be8f3c4f801257",
+        "sircus/mjlab/clearance_correction_study.py": "668b29e418f822822561e063688ce6c196fd37e90c0cbc1bc668d6e739216659",
+        "sircus/mjlab/clearance_correction_verify.py": "676e1e37448dd84095e4d7357a965f2f2f7943adfb1a33432fe5b653552227cc",
+        "sircus/mjlab/clearance_expansion_audit.py": "8a89adb1276a54b8801fab906066b8ff0716142a2240e86657412813e4a4c483",
+        "sircus/mjlab/clearance_expansion_plan.py": "1136ddcfa2cef1eccc08bc4e7a4c595fccaccf042d7c19a6756965a36f27cffc",
+        "sircus/mjlab/clearance_expansion_study.py": "aa0c24b49c41a6810278aefac684a134e586788fa876e217f295fc85cd0db101",
+        "sircus/mjlab/clearance_horizon_diagnosis.py": "684c2ae52416d41ef775352b8255259d4398c1005927b9cb94cc446ed883c2f1",
+        "sircus/mjlab/clearance_horizon_selector.py": "9de73fd6765ad37212ddcca05b00e747af509bd77d384a2d4daf0ea1cf26ff7b",
+        "sircus/mjlab/clearance_prediction_diagnosis.py": "46859e36b9f6630b5728fd46dc99b8d37f84f112892a873af964c956c062cbcf",
+        "sircus/mjlab/combine_expansions.py": "08bd8381c2feb7f4616c6ab52178c335274601efe8111c0ea5a07327575efe93",
+        "sircus/mjlab/compare.py": "3df8ca25a182377f28a9babf8743a4bd4789c4ad4b66ac193f180eb4defa8017",
+        "sircus/mjlab/consistent_flight_diagnosis.py": "2dc9b98b2982571db0707218a74b56d3525880bc09fb3c5fa8ca7008bdb8d8ef",
+        "sircus/mjlab/consistent_flight_pipeline.py": "c6921075c45e0062bb5b8d4750d8ffacdb72c3d146d4ae6d641ff28f7b1a7c31",
+        "sircus/mjlab/consistent_flight_selector.py": "646a904aa397289aed95f203f6ed260dcca0210fcef3cb4101917096fe136920",
+        "sircus/mjlab/consistent_flight_study.py": "8446a6dbcf07ecfddc0eba936b1178a20a71b590428b5fd1499b818dfc67f286",
+        "sircus/mjlab/consistent_flight_verify.py": "f9631eefd0b3c4080c71c943c34e3efc50ab1975278a70b07b97fc9ef694acf9",
+        "sircus/mjlab/contact_confirm.py": "c80716c6a0353f5ba637c01d171114aee429b14c11b21f5400ec3dc9792fc1ac",
+        "sircus/mjlab/contact_env.py": "19fbc4f044ca3ab3a1621f68d369290f6952a451686a4db0194a508138caaed8",
+        "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+        "sircus/mjlab/contact_study.py": "fed3be5310ed6fdfd3e7e3631a9a58ab08508c304e929b16558f8c50ee305fd2",
+        "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+        "sircus/mjlab/corner_sweep.py": "a393a58a85c7858b955738e9d5a76f15420df63366ffefa0776f96bafac8ef5e",
+        "sircus/mjlab/corner_sweep_verify.py": "d24453a3f87a3f595b91c61b6afe40a69fa705351e3895f334e6baea97e72b0e",
+        "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+        "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+        "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+        "sircus/mjlab/corrected_grid.py": "ff312f08a595ff0ff877305cea591ea5d0b7c5f327e5fa9079e526e22d972596",
+        "sircus/mjlab/corrected_imitation_contract.py": "66e8aa544704734374d2e1b0231e4c6ddebc16782106c328afa861830fe5ff84",
+        "sircus/mjlab/corrected_imitation_pipeline.py": "149da7bbaab71180719c8ca38198677f5533e57834b43bcd738f102604d64e09",
+        "sircus/mjlab/corrected_imitation_study.py": "b6ea6b354012b597ad8d68e50951ba0670667847704a9917c8a65d59d8003b38",
+        "sircus/mjlab/corrected_imitation_verify.py": "ae4900ee0e52ffba179e79bb272d29ec2271510816b4e8ff7e42556d9db21604",
+        "sircus/mjlab/corrected_pipeline.py": "4b439b08a8988ccba53c4c5e83a5d7e32e2068d9bbf54a140f4237540c930ea9",
+        "sircus/mjlab/corrected_verify.py": "b16796dff78eb23310247492dee7da40d4f6d9cc7a3fc7d9024062d4dfd4e5b4",
+        "sircus/mjlab/coverage_recovery_contract.py": "a2c040ffbe5a6b1af134acae21ad13db2dd82c8ab1a19e66e0100fbc3056083d",
+        "sircus/mjlab/coverage_recovery_pipeline.py": "8867dcebfe70962fb0e8732427d45754ee6ccb8662ac6df92541ed5c60c3eaec",
+        "sircus/mjlab/coverage_recovery_study.py": "8bb7e7128357d3e2bffce89adb134e17c60481a76ded9bb1bc2a76f420850fb3",
+        "sircus/mjlab/coverage_recovery_verify.py": "d1bc276476f014fd14500655ed62e58f68ac1efadfcad8c54f74a6c5305bdd1b",
+        "sircus/mjlab/coverage_training_contract.py": "5270b412e7e157a5f90f2234ca49ce1e4d5133076e9242afc34fd0bae6bd3718",
+        "sircus/mjlab/coverage_training_pipeline.py": "61a4aacc2c58e020b3ed9de2583debaa99921450d624b0adad9536ab181135e4",
+        "sircus/mjlab/coverage_training_study.py": "81b433f6a38a65492943ddfe52de0abda4cf15ac39b849bd19be0af8f22c77c7",
+        "sircus/mjlab/coverage_training_verify.py": "80e63a5c8ecc83afefd0882594a1c82d77ebae0de4d76c82ef217fc6474c5177",
+        "sircus/mjlab/coverage_training_video.py": "7b3091429a6a79e9cb121cc0b6bf3cf1fe1057691455a667d46c6a8b213abda6",
+        "sircus/mjlab/curate_clean650.py": "1ccfde31a278b2983a4cffdc8bb0099c69e5f10557c22f98bcc7752169722f94",
+        "sircus/mjlab/curate_impact650.py": "14cfbf84cdb83ab78b188aa953fcf1426852bf7720ca666b3c303bf046cce727",
+        "sircus/mjlab/curate_physics_ensemble.py": "edbf99044fb9bab6b1e1601b0e807244ac03d8667f47c29e296aa7c8606d7d47",
+        "sircus/mjlab/curate_policy64.py": "68f0579aacf85eaf69bf275aa741a1e7fa69571d019dee44c9590876c0abb0e9",
+        "sircus/mjlab/curate_policy64_diagnosis.py": "63d3aef36194d56f2b4cba4f1325f73af254da9faefd792c6b39d345aa6de592",
+        "sircus/mjlab/curate_replay650.py": "7eb4852f0606d32c5d6d7c96dcb6d974e24e46c71cfdf8fe1e2ff4a5567fb040",
+        "sircus/mjlab/curate_tilt650.py": "277b6ed0e47dbd9a103243ad7d7f30b0a258d66d00cb81ae6c9d47f68014ac2d",
+        "sircus/mjlab/curate_xy650.py": "bccbbded22733b6b670b2c2e4823305cca2dfe1ff55b26c1598dd7d4cfc0584c",
+        "sircus/mjlab/direct_path_first.py": "0a53f90e3772476e240050ebabe65c2c6e8e82fdeffe908b69f0208f6ee83b39",
+        "sircus/mjlab/direct_path_first_audit.py": "ff62eea553b71f28d3ae571821e64105463e3ba16501a7fb19a5adcae3ab3d91",
+        "sircus/mjlab/direct_path_first_study.py": "ac32f8278094d213fc2b247343accf56942906502a272c430f20fd709ad462f8",
+        "sircus/mjlab/embed_recovery_regression_video.py": "0daecc703872d990a68f1c70177a123c424898b50c82435b71b5800aa640215e",
+        "sircus/mjlab/ensemble_flight_diagnosis.py": "1b481a6b94102eb19c811ba5df53f4f9e8d4c68f602674fe59bd30f9ca3b5be3",
+        "sircus/mjlab/expand_bank.py": "c65110b9afa9c30658b99f0c11ae6e2aefbdf88442fc876dbc8b03e0888a320b",
+        "sircus/mjlab/expand_far.py": "374aa54f7b24c8f6f598f75ed33881050fb06fcc496a6a6466fe20625763e167",
+        "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+        "sircus/mjlab/expand_refine.py": "bd55749d6fe0e16a2bf942efcca933a9bf2e579209760eecf89cfe1b6131f60a",
+        "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+        "sircus/mjlab/expanded_env.py": "b0e9744d1e82b9e575126e0c6d58e524372b75287713cfdf14d010cb2812df8b",
+        "sircus/mjlab/expanded_study.py": "4a271fe5b1b0d3df20c2c53ce7ef0be87a1d0a681c980708a62df29a6d1bef06",
+        "sircus/mjlab/fast_planning_audit.py": "5c0ed7e81bbf69a84e6155dddc675662678db03f5f841154d0f1ec0e1ec2714f",
+        "sircus/mjlab/fast_planning_plan.py": "0d193daa5899492a2cfe44693eaccdb4678895a9a9d8ad3eee86aa722721d3ad",
+        "sircus/mjlab/fast_planning_study.py": "436cc45bbb43b3aae1f1529de30e4ee92cd4efce941e414d954d6fcb35e2bdd0",
+        "sircus/mjlab/fixed35_bouncer_audit_v2.py": "f90c78912abb6e64a9d670d3e36f15357922b3b3e4d26814ea777e44aa9254b7",
+        "sircus/mjlab/fixed35_bouncer_audit_v3.py": "8043a7afb79be12a41b0539a4d3cb491c4e8511017714bec867d810515a37e2d",
+        "sircus/mjlab/fixed35_bouncer_contract.py": "c9826fbd3cb54d6aa098c3c4215a9110b76cdee81c2288c9cafbec06cb9fdc9b",
+        "sircus/mjlab/fixed35_bouncer_native.py": "0c06469403ababf0d763cf09a449a3e4c3c0192ea6b46e3cc8922f6741cf2d0b",
+        "sircus/mjlab/fixed35_bouncer_pipeline.py": "6b1d6b8b50a6174327609d860ae67df202a604e457b033731d84f40553ccb69c",
+        "sircus/mjlab/fixed35_bouncer_schedule_verify.py": "7f6993e8e1800b24a1e2e01bff25d68cba8c1fd7b1e3540b09f6b26dd4851397",
+        "sircus/mjlab/fixed35_bouncer_study.py": "634335c3f24474b6c0637692d45b1d380b42d832b16bfb10b1d3cabfbb33a55b",
+        "sircus/mjlab/fixed35_bouncer_verify.py": "245b8ae8bf572ac21a83f45ff2639825d8112b1852d8cddb4eb7319e884b36e9",
+        "sircus/mjlab/fixed35_broad_audit_v2.py": "db793dc3a32beb44e77f76b8a32d6c54bd9c15bc984c58b211b151676a227855",
+        "sircus/mjlab/fixed35_broad_audit_v3.py": "35a10b76b3f35deda3b045e4be71407f8ee96d63099282a0408c8ab6ea7c5329",
+        "sircus/mjlab/fixed35_broad_contract.py": "e4d028f90dbba91a626b9ebf7721bb9a702b004b87fd31abaaa5eee7584fbeb1",
+        "sircus/mjlab/fixed35_broad_native.py": "219e82e29a5ee202bf45040ec2de1a75b1b4f27ec7f13ada4d75805a17768949",
+        "sircus/mjlab/fixed35_broad_pipeline.py": "f4aa6d5dc5335191bc166de994c2a6793bd4a8cbe55a2983b54dca17a2bad435",
+        "sircus/mjlab/fixed35_broad_schedule_verify.py": "464acddc2f69306625cd2c282e25d47808de0f0b732dd8c0edabaf181896f018",
+        "sircus/mjlab/fixed35_broad_study.py": "87a58ca3b4b5cb0d296ac06aee6ca5f2fbc5cd0fec64ffbc489b81bc84fd3692",
+        "sircus/mjlab/fixed35_broad_verify.py": "1c5e2722f7fff1d55a5a5e2d79dd42d41b49cff614ede13f3578e8916dd9e759",
+        "sircus/mjlab/fixed35_imitation_contract.py": "598497216f7a79e9a8cb78ded51a0830030901ee7753d0981e7a1274342de621",
+        "sircus/mjlab/fixed35_imitation_native.py": "bb2f5f7114837da39578721494e233131af38e6bbd653b4ef7c1888acd89e968",
+        "sircus/mjlab/fixed35_imitation_pipeline.py": "e7cee20023e9d03cd0cdf175e74d51a6615734f7482a43abf2d5730b54f28f79",
+        "sircus/mjlab/fixed35_imitation_study.py": "2a1dbc58c19ca6df3dba0fc602ab976543738285851c7609764d285b4f2198ea",
+        "sircus/mjlab/fixed35_imitation_verify.py": "72603cef426d5e8d15aee4623944c33fcaafb2628103021e9f7f6f7fb0b3a95b",
+        "sircus/mjlab/fixed35_recovery_contract.py": "86d4c3b4914ca803faa5593e710f70a9eec8497fb6b3bca6f0d053f748900642",
+        "sircus/mjlab/fixed35_recovery_native.py": "1483a83401c97443475a270b175505df8c9ae975ddf886a9e51ab8273be841b8",
+        "sircus/mjlab/fixed35_recovery_pipeline.py": "1dce267afbe0a99904ab4e3323d328e0fa9abae42fe10dc5bf95b845264d72b0",
+        "sircus/mjlab/fixed35_recovery_study.py": "0ff936db77b7d00e1777bbdd31f5d80e5af4f0b07266aa2e85af4f6ffc192d55",
+        "sircus/mjlab/fixed35_recovery_verify.py": "fa85145e0d1ae495df031c63871ca204aabddd0746ed2ad473a20d1ab8071ac9",
+        "sircus/mjlab/fixed35_six_contract.py": "56446819cefa398e1249e5bb9e6fd1af8c43d687f605a842fc7bdfbbc68c76ce",
+        "sircus/mjlab/fixed35_six_geometry.py": "c85df78dbab740ad937ca8ddbdbe38e7a3eed4af3c98220ea5eaf604af0b725c",
+        "sircus/mjlab/fixed35_six_native.py": "d9e6f2742ec54bff5dbafec4083cd15108d3d0072c491c2ecb8c81a663478513",
+        "sircus/mjlab/fixed35_six_pipeline.py": "bad43d6d0673effa275ea26f4f0353090cebfaa1ea048dce85b6076fcc322e3c",
+        "sircus/mjlab/fixed35_six_schedule_verify.py": "c48b4dbe5aef07ad8fe696f5bf24ac5e85362d9a076e8f6d1a86009e25b38023",
+        "sircus/mjlab/fixed35_six_study.py": "17a41a4b2bca820038add41488385ed426aa50a610f03dee1b6d36fc5c02b568",
+        "sircus/mjlab/fixed35_six_verify.py": "d93965877f458f045c810547daec1df0948aadc7a71af8c493f6571bb2e46afe",
+        "sircus/mjlab/fixed35_sixhour_contract.py": "a07f502afaa7be265d18b4eb8d1ec0bbf288d1cab724877e1933167509f033e7",
+        "sircus/mjlab/fixed35_sixhour_native.py": "2b940bc472c78bfa2ecee3ecdc5551dfe83be7b20b7f4c38136a983b26fa7e98",
+        "sircus/mjlab/fixed35_sixhour_pipeline.py": "09452b9d0dd8d571ad256b2c19ba9e28f94d99fdb16cf597d33437374e11e415",
+        "sircus/mjlab/fixed35_sixhour_schedule_verify.py": "43950e40f4cbdfa052f688e70c8f8c32173fd3df9ba24f48a67e7d6f9dd9fd3f",
+        "sircus/mjlab/fixed35_sixhour_study.py": "a00c4ee2fb5895a2320542f4221813e815100c7f235444dd24be7439da1e9190",
+        "sircus/mjlab/fixed35_sixhour_verify.py": "c097be3befa0f5231a5dfaf32545b3b0377d0758701be7168d6ee610d16e4245",
+        "sircus/mjlab/fixed35_trial_video.py": "1ebb36975812f7151ef7a98f9febc938f9fea8cb376b53e3b01fb4ffdcb9bc96",
+        "sircus/mjlab/gap_coverage_candidates.py": "fb1d54a59b7346590cdcc3ea61de42e6ce2ba8c147089e1ce86a53a6badafa0c",
+        "sircus/mjlab/gap_coverage_pipeline.py": "812bf5bee61f8473d114e0e76b98d4cb1db57d272efe81625b7f8bec1209bf10",
+        "sircus/mjlab/gap_coverage_study.py": "015fe76ae8d4e0463c3bd3db5a36252889b1fe9a7de1425f550f1f3069eb30bc",
+        "sircus/mjlab/gap_coverage_verify.py": "afb06acd8560e6ab833618f09f5d0b177e686373cd3f65bca4e926210209e23a",
+        "sircus/mjlab/gap_flight_correction.py": "f4f23a7fad6276dfba420baf932f38c93c17e42e444642827ac71243475afc7f",
+        "sircus/mjlab/gap_flight_correction_verify.py": "268632f386ee0e25b2a449124b8e81f7f8ed05ab20e750d823008f0381cf7141",
+        "sircus/mjlab/gap_flight_diagnosis.py": "2bcd429016d8f5fc96e93e0ad87b02008242e7cb26e6fad1ba59a6541c3ff5fd",
+        "sircus/mjlab/gap_flight_pipeline.py": "bbb386e57cde337c41c1a9ea0bf3be8ad709c0745e37e99b435d06415a5b8116",
+        "sircus/mjlab/gap_flight_results.py": "5f059dfa98c939a3d801520cae94ae5fe2cfe14a1b4d2bfd5836e63648540861",
+        "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+        "sircus/mjlab/gravity_audit.py": "d4d250396c537b4701631d3e170c35fe40534607d57efaca7164edf4d5581339",
+        "sircus/mjlab/grid_diverse_study.py": "8eb5d56b2489d270de16845388318bb2c57f9aba1767bb9935ab4f9af1d1f28c",
+        "sircus/mjlab/grid_study.py": "e358b728cd450fb2cd6f7444bbc8d3f5c3cf968da5412372c5f523bbb12249fe",
+        "sircus/mjlab/grid_study_contract.py": "45b5c46a19d9db5bdead5b336dedd8222496a0fc3cf1f59d263fba745fbb0efe",
+        "sircus/mjlab/grid_study_server.py": "c53a5605229122e047b6e90d2a2e0db45c3d2b7283c4f373500c0ef8f2efbc3a",
+        "sircus/mjlab/gripper_yaw_contract.py": "5b8ef74b3213d8e0be013d49900eb4c5d78530d56902d976c4c4181a06c86987",
+        "sircus/mjlab/gripper_yaw_geometry.py": "8a91e786650c8acc2edb2a214e72e1817a44304d8ca6ecf8b57ee816d737369f",
+        "sircus/mjlab/gripper_yaw_native.py": "187afae5d642c68f93e445d48068f3a58f5cded6a4b0686ee0479d5682a367ae",
+        "sircus/mjlab/gripper_yaw_pipeline.py": "bb5006115dc608c725d71d939ac4725861403df14a6f3f394666c438865723fe",
+        "sircus/mjlab/gripper_yaw_study.py": "b7d98f6ed172b8e0d0d22bb58ad453c0d7ed436ad0868e818855d96c0089e5a7",
+        "sircus/mjlab/gripper_yaw_verify.py": "295b40ce70106bbae3a720b2f597edf510e650c43d83466dd8412dc273afe8e5",
+        "sircus/mjlab/gripper_yaw_video.py": "cfd0bd8c169091c844b16f4b6fda64dde423ceb62c115747afa70db90f9ee864",
+        "sircus/mjlab/guarded_board_fallback_audit.py": "8ca2340c22a77e7f4036e99fc68e540d7abc4ffa04847fa1575ba7391fb098f3",
+        "sircus/mjlab/guarded_board_fallback_plan.py": "35a3d18012893af3969be94903342f0528ce4e43eccfd2872cf88995d32c44c1",
+        "sircus/mjlab/guarded_board_fallback_publish.py": "f210cdf85d472a66b537869d072fd5bef7419e78b5503d4370ab2b5da33e198b",
+        "sircus/mjlab/guarded_board_fallback_study.py": "2f2cda1d17cffde694f1d5d844fb20277c02cf1dd37fac4af64fd540d5682df2",
+        "sircus/mjlab/height_tilt_contract.py": "a91ca992d755764b8d22620e567096256521216d29eafeed94d51c2c899b5eb8",
+        "sircus/mjlab/height_tilt_native.py": "d74cc7cfa91ee44c89291af7b0380212316dc35260121622cabf5cd4efa82480",
+        "sircus/mjlab/height_tilt_pipeline.py": "a4767908aba1628f9ab0754f65a2f4269f4e21cf1ddc0b3c922af20b8bc67946",
+        "sircus/mjlab/height_tilt_study.py": "ed463fe093d3991ac8d23606d0dfacf64e96952eae64d37c469b4bcd1b2ce771",
+        "sircus/mjlab/height_tilt_verify.py": "59ff75d2b8e78f9c028d1bbbb73756d75913a302da78c0cb33fb0fb2b8aaa59b",
+        "sircus/mjlab/height_tilt_video.py": "606d815e30ed20ffeae0e8b522b21847795b7650ba32ca5fa2e2855e6b52fc6d",
+        "sircus/mjlab/horizon_window_pipeline.py": "feef34e4f33dfaff574a49ac180f6798363022abe5937f3c02410aaf4abfce1b",
+        "sircus/mjlab/horizon_window_study.py": "f11a995609d72d5c6300d363431402d0c95daf260721882c1afd6453a77b49df",
+        "sircus/mjlab/horizon_window_verify.py": "80a2634aebb458b75c394512f425b04a933f8c787d8b2b44345cc539dd3c4645",
+        "sircus/mjlab/hybrid_miss_audit.py": "5bbca3f8a45f06d9028708566417dcd6c9b6aa4c523204ecceb5d4f04bbd3840",
+        "sircus/mjlab/hybrid_miss_diagnosis.py": "4cf8c884fb6ad8014fac85faca31b83fa56476ee1016f9e65e7aca62288e404f",
+        "sircus/mjlab/hybrid_miss_publish.py": "05b7e8cfbf492552c1597c7f67e6f54c32082ec668cd3c99a61ec9ced2266104",
+        "sircus/mjlab/hybrid_miss_study.py": "a020709f799f944d316e9b4f513c428ec24adfd83d02ae5436ff20abab067de3",
+        "sircus/mjlab/hybrid_miss_video.py": "1419fe19c49c6c054fc2e2d921fd8bf4863c6b298dccebb6065b023a32d1128e",
+        "sircus/mjlab/imitation_regression_contract.py": "3be7c48e6c980a0558f76a7f5b72cac37fbde5a0141e3b783fdbd7e61bca8815",
+        "sircus/mjlab/imitation_regression_diagnosis.py": "55dd0dcddd7c6403fba4c815143b446af3998c913f84fe766c0e23452f28db37",
+        "sircus/mjlab/imitation_regression_history_video.py": "8b774c2a408ab84812d33a1065c38723d692c3879403ba33e0e5f160a17debf2",
+        "sircus/mjlab/imitation_regression_native.py": "8bf50fa5ec8965b5a6888e746466daa1456c668b920ff074d0dfac7650fe7d23",
+        "sircus/mjlab/imitation_regression_pipeline.py": "af19cb5b164113dd0ba64760d07fb03c359579b061efd7154f2b3487cea6d9f7",
+        "sircus/mjlab/imitation_regression_study.py": "3715e4bbe4e1f2c51ba688c78f4a0224f686633284a5d5a1ae8825f7fb057d13",
+        "sircus/mjlab/imitation_regression_verify.py": "3a1c077d5be48407ae9e965467e035cb017d814672ddcfed371d7afe3c42f2c4",
+        "sircus/mjlab/imitation_regression_video.py": "ee3334a044e107333cb6a0e2ec1db4e67d59ca9830481296ff4edaac2046e565",
+        "sircus/mjlab/impact650_contract.py": "6ba7c6dca28c50513bdb6485c9e4e7df26beb2fe3305ccb49820cb0c0c09d854",
+        "sircus/mjlab/impact650_geometry.py": "b3c584760a8287ccdc7b7f9c4e381d962963df751f49a4beb374c9c903129ebb",
+        "sircus/mjlab/impact650_native.py": "490d12a886eff415ad309868102b6295c4681c6e9b58f65a04e834c79d222f27",
+        "sircus/mjlab/impact650_pipeline.py": "dd08aad50d2651f9fe27bd43609a34c8b7529b8da009484ec690d4001df71615",
+        "sircus/mjlab/impact650_study.py": "ad9ba4e940f8feb55ca26047af261875dfb20cbfca3c850d814e2564f9368083",
+        "sircus/mjlab/impact650_verify.py": "89584050ab0cba98ab61e98fe923ed966a80baab56d1d8f7d2855408ca3ac699",
+        "sircus/mjlab/interactive_fast_check.py": "bbfbca7f3cf6cd90d807f7467e1199e925614330cfdfa15d7f3dfbf2d5b45404",
+        "sircus/mjlab/interactive_fast_planner.py": "87af4e7f84061f87f33e31a7fa2ad5631f398e716f39740206c07e1db6f6d045",
+        "sircus/mjlab/interactive_physics.py": "976d1287bec539773f3323820e100cf723f6f2fddd169950ee0277216ff136de",
+        "sircus/mjlab/interactive_physics_check.py": "a048434deed6bf2b9dfd249dbbb8e781efd55cd9edecfcb050fade878952fbce",
+        "sircus/mjlab/interactive_physics_server.py": "08e710a95dacb9bfabc8521d980d7f8c6f76e450a01ed050ba9c9b2996b51759",
+        "sircus/mjlab/interactive_stalled_planner.py": "17869d9374b4516e220763e0c49a8bcc14b3c0a92dadf701bda484bdeaef464d",
+        "sircus/mjlab/interactive_stalled_server.py": "46c1e62b3eb82407b234ec9218e975200fba25bc81b7c98a9539fe0cb2327e0f",
+        "sircus/mjlab/interface.py": "d09ba2a6b444bfd461485edc42ad732a2e590b7d7561cb15e0c16798a999263a",
+        "sircus/mjlab/intergrid_audit.py": "e0aa350a7567ba4c963007d08b886f442f28949afcb8216fda3fa10d6174891f",
+        "sircus/mjlab/intergrid_candidate_replay_audit.py": "3685707b118505b67b7779160ae7afcb79fc319def6a9bbdba74b9651dc88ab4",
+        "sircus/mjlab/intergrid_candidate_replay_plan.py": "210100fee6d028500f0e90c42f452f845188d6e5ca461bc529c14a4a5543a8fe",
+        "sircus/mjlab/intergrid_candidate_replay_study.py": "17cb6b3c09945de3dabee5bc99bf8ec0dbdf4cd732fb6d8c766bb13554c7b538",
+        "sircus/mjlab/intergrid_candidate_replay_summary.py": "a40e7274a6b7e3d15a55458908145f5b1c236d4e37b73df2201941e64fed27f5",
+        "sircus/mjlab/intergrid_case33_tilt_audit.py": "33cd9e6dd94738160e86e0604c6cade2c01d5cdf16f84528c5a270035a1d4c9d",
+        "sircus/mjlab/intergrid_case33_tilt_plan.py": "e9f675aaf316903deee3debb1b03298d7a4a1a6dc361adc85b1cb40a406dceaa",
+        "sircus/mjlab/intergrid_case33_tilt_study.py": "f59fa77b52282803841c9e8714c41aea02d5b22178aa25dd9fc74066ad40bc7e",
+        "sircus/mjlab/intergrid_dataset.py": "bd0eaaa79705234d434369365316c94ddeca501a83fe251ebc3e8e683517665f",
+        "sircus/mjlab/intergrid_flight_ranker.py": "ec26f0c555d354afaf1b5a6f36fe2af2a4a6a23c5dcea350fae046ca6635a8b9",
+        "sircus/mjlab/intergrid_flight_ranking_screen.py": "e7bb86a16eced237a8d87bbf3ede929fb659d627619ce3da205961989f36b5a7",
+        "sircus/mjlab/intergrid_flight_ranking_study.py": "6eb91d8166d39d1337a1b1378aaeaeb91bebdd8616832347b4dbda66f8c7fc5f",
+        "sircus/mjlab/intergrid_joint_branch_audit.py": "94aefcc9ee9c521ee620bafbdf68ea2515fb70d6fbd1eadc812cb361d610a6d2",
+        "sircus/mjlab/intergrid_joint_branch_search.py": "cfaff5d41f5b75cf1260e4e77fbe9b5c606c3b14aa385013ffa0391b48639348",
+        "sircus/mjlab/intergrid_joint_branch_study.py": "3a4d97dd02c6da58165362fdac2669e8dd63a6530fa45c36153a859809d9a3e2",
+        "sircus/mjlab/intergrid_layouts.py": "d02d868be6cdd08629b5488043f32ff2a84ed712070870b150ea30f74a26d075",
+        "sircus/mjlab/intergrid_library_audit.py": "ff0f5c40ea9a7fff4c82659be2afad832d921285b9724128f031439818c10e38",
+        "sircus/mjlab/intergrid_library_inputs.py": "7e561c6a74a351159758fa12e194d89b0e4219409985eb2853966ddbf30e7274",
+        "sircus/mjlab/intergrid_library_plan.py": "6d3ee963fd96b952eec35e4ee0a608abfc3641ff6bc429deca5ae7baae6a1468",
+        "sircus/mjlab/intergrid_library_study.py": "26470c9cd2c05b9da4f4da572b9212fe4f94fc63bc1873d52f6b005547081f51",
+        "sircus/mjlab/intergrid_matched_route_audit.py": "ae97d9cf28677fe6743ae6ece023639008a4da58133a30366b1d53cdd049a8fa",
+        "sircus/mjlab/intergrid_matched_route_plan.py": "57258c4c96b4297030b28c090e5714b24b46d907172b0b9682070f7ab1c459d3",
+        "sircus/mjlab/intergrid_matched_route_study.py": "5c9032927fd07c526bfa2f0681ccbd1a3ab6bce9929aa48eff75c72eb8ef4838",
+        "sircus/mjlab/intergrid_paired_collection_audit.py": "fba39f1948b7f089b23161dd4ab4eb0ad3bd97318fb37890e20edb4d8463352c",
+        "sircus/mjlab/intergrid_paired_collection_plan.py": "a60c81054f5f38a7240fd8aab38c581e4be474ef7f71ff2c240f786b961fd272",
+        "sircus/mjlab/intergrid_paired_collection_study.py": "9ca4fbf85505c1c7f4f601b0a13ff90d0d3543cd73c05180a0d548be12ec0ed0",
+        "sircus/mjlab/intergrid_paired_route_diagnosis.py": "79d4f11129f5aa3291aa3e65edc97a110d8339dbcec459a305c54176b6347235",
+        "sircus/mjlab/intergrid_proposer.py": "f8cd4b1a067bf5befa994221fb4264dfebe4578801faa88f5111746edc2cfde6",
+        "sircus/mjlab/intergrid_proposer_audit.py": "9cbc3dcee34a92f1f7f611c22b607619e816a2cf8e98bb31856a601d8a7970a9",
+        "sircus/mjlab/intergrid_proposer_plan.py": "63b5b43ffb07056e7c159805fc0aafd6cbc347820b72872824aa888a344aefa1",
+        "sircus/mjlab/intergrid_proposer_study.py": "611f1e7e16080199e8d299f929964e5923c6a8485233073e651f1f9990430186",
+        "sircus/mjlab/intergrid_ranker.py": "a3305465fdc811773da28f4d2832718ebe8b3d59a5aa1f999d893645b213a274",
+        "sircus/mjlab/intergrid_rebound_calibration.py": "3b53437787c8f8cf50b87a732871e7df44a6eba3e6db26948678cd605983372c",
+        "sircus/mjlab/intergrid_route_audit.py": "fe69005cfc83de7fc021ddb13350cf8e5c2d9b86dba33c8b239e7d41f8d47a0f",
+        "sircus/mjlab/intergrid_route_fallback_audit.py": "790aed7ff87edd516b28c5f4c5a60c80e3857b00add700e79e9467cb1c0250a6",
+        "sircus/mjlab/intergrid_route_fallback_inputs.py": "aaafddbf90f68a5baeb329f5535009ed0f24b2b0e5f5644ad25df981b7da626e",
+        "sircus/mjlab/intergrid_route_fallback_study.py": "515f027963474198f87dc1509b042057bd70e251dcad5330c7989662e0fde00c",
+        "sircus/mjlab/intergrid_route_labels.py": "0aaa14efb1b3708880898be875685c219cc003e395a70b1d01e02bf1ca9b3807",
+        "sircus/mjlab/intergrid_route_models.py": "bd93fcca06abb8eb7d57552a6ef65c66aebc57453c64e78f4bc0ab65a4e28244",
+        "sircus/mjlab/intergrid_route_plan.py": "65123aeb023994dffe90c032e73ad611bbd3ce1be9d714428600cb2c5e403df7",
+        "sircus/mjlab/intergrid_route_refit_audit.py": "9cfbe8d3fff9162400c1bbeb61ddf20c92924a77a2b2e87ee82d18f90fe7dc3d",
+        "sircus/mjlab/intergrid_route_refit_inputs.py": "0621167511a547ddbdd7cdabaaff6c9c14d43f8855f9cd84c08cb71e2e984740",
+        "sircus/mjlab/intergrid_route_refit_plan.py": "7bbb83618513aee14c6165f55c9bcbb282a559b50d26787125ead747f1ed80e1",
+        "sircus/mjlab/intergrid_route_refit_study.py": "f57c798151d0054f78519e313133d67b895729913cc14e5aad2e2f5369ffc869",
+        "sircus/mjlab/intergrid_route_selector_audit.py": "5ccbbc22eac15b94588ac10b7997feb5dcee6dcc29144456155edcb655920df4",
+        "sircus/mjlab/intergrid_route_selector_inputs.py": "543b567d5f2627ebdf57e81e8cd886a7b249b1bd5e590c7a7952643e16b84eda",
+        "sircus/mjlab/intergrid_route_selector_plan.py": "4f33fd1f50c1494364a2b3c47e75050f3a0508cdfb4af54af3930a622b20e013",
+        "sircus/mjlab/intergrid_route_selector_study.py": "86e3a27ab7fae1422b98646d6eb9c489bbf46f16128b648464fc52be4537f618",
+        "sircus/mjlab/intergrid_route_study.py": "a73800be73c07dd8a027176f81bc96728247017b39f3f5baced2f809681ccf2b",
+        "sircus/mjlab/intergrid_setup_contact_diagnosis.py": "5a0566f8381a67a787f70a537716a1a858205e727974f32fd0c62b7e851fc283",
+        "sircus/mjlab/intergrid_setup_drop_audit.py": "2dc6291c35634c7dfc63340a2626648471b29ca4181b34f019d22cc329c39454",
+        "sircus/mjlab/intergrid_setup_drop_plan.py": "2306a61e89ef7780afb64662d4829fd55d74b9ec9d8abf8cbf8cc323e53908ee",
+        "sircus/mjlab/intergrid_setup_drop_study.py": "69800bb6ca395f89d08feebfc5400916d59a0e32a9740164bf5641ae1d8ec9e9",
+        "sircus/mjlab/intergrid_setup_recovery.py": "36e29cfd2a6b8fb77095c4c66c243114979863e589436154eb544116c97d907b",
+        "sircus/mjlab/intergrid_study.py": "7b47907c4b7b9aeb759a1d6a98fe8f4f3a9360779750a94b513a353d404b8272",
+        "sircus/mjlab/intergrid_system_audit.py": "5c4d471302caa8594818e35f4a440cb8969729a030445c94ebc9c3f30184adc8",
+        "sircus/mjlab/intergrid_system_learn.py": "3f7dea6b96fefeae18af27fba5e0b1877149d902fbf95b6ba29d8b4967eae4e5",
+        "sircus/mjlab/intergrid_system_plan.py": "90f5620fba192563cd18ce8527ffe1bb252372f9a41d977986521b1ca517f809",
+        "sircus/mjlab/intergrid_system_study.py": "809f86acbec2bcbb5b16171bc18a430c4f983b62e0e642759e5b714d782ae21e",
+        "sircus/mjlab/isaac_pair.py": "4ab44904a2c966d6a8bf1567d4882a8bcfdf3c1dd3d2ea8d9e1bbeba6093d983",
+        "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+        "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+        "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+        "sircus/mjlab/learning_interface.py": "73f9bfcdb95bacfb7bc904853c26b7233a635c566930c1e51040a9473af9a29a",
+        "sircus/mjlab/learning_policy.py": "5c37a248a0a44280f0f82fe3327973299ec6a4bbfccaaae9f750a898180c7792",
+        "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+        "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+        "sircus/mjlab/learning_search.py": "7e37412363aa5263f0d71b76fe8b79af003ed81e92706beeb9e0f3706512e40a",
+        "sircus/mjlab/learning_solve.py": "836ae6db1172f8a9b43de20dbe0132cd1bc2095fe52cc4f923ebbf739f1c41e5",
+        "sircus/mjlab/learning_study.py": "1d9b358fe11007c7edfbeb607c6f769e9d4dae6e6832768e16cc0df98480f8df",
+        "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+        "sircus/mjlab/neural_shot_audit.py": "96a9966af5ae8e4c25b1e9cca0023e309a0720b7bf05069d09f6ca6cfa35bb56",
+        "sircus/mjlab/neural_shot_model.py": "6a81d166aa82dd22bfd1c2490f2d130be6c1c15d3318b9a43c018a6a49d54f77",
+        "sircus/mjlab/neural_shot_plan.py": "d6061603090626eb4d2e3ec318d88094dba7c1bfc19849d13dc3face0265af2f",
+        "sircus/mjlab/neural_shot_study.py": "d46aa9998488bc52b32a85df6f7149f6afff6562cc6f1a43e2c0f9ff580097db",
+        "sircus/mjlab/packet_timing_verify.py": "985390ba45e436b240d737d08dd6bb5cca2bc28a3d9127cb42063480f1512e44",
+        "sircus/mjlab/parallel_capture_grid_audit.py": "f699dbcf792af904cc47315ee60baddd62ac73db5f71aafcc72e76c7c07e62d2",
+        "sircus/mjlab/parallel_capture_grid_plan.py": "aaf288b49cfb35b27e33872a2c2a3779e5b097b257a9a1140de5e7637a586f2f",
+        "sircus/mjlab/parallel_capture_grid_resume.py": "52bb0f67c8f6770f3da9a62061b6fa1a203b9ab354f6b38dcfe295a22db66560",
+        "sircus/mjlab/parallel_capture_grid_study.py": "8903c0bda45514d7d43b91a4db0dd49c68a93826feb4fb79855791a425e1131c",
+        "sircus/mjlab/parallel_capture_grid_workers.py": "47708e3083729975087348371ce1b9a79f83404aad5c4b4f44f89532ebcc981c",
+        "sircus/mjlab/physics_ensemble_contract.py": "4a625a1e19c2f60667464b2187f995c3d256a419f8f7a9849c4f7105e922a669",
+        "sircus/mjlab/physics_ensemble_model.py": "6690288ce22496b9fa43cdef20057c7c79fd7cef379796c5acdcfca5cde3292a",
+        "sircus/mjlab/physics_ensemble_pipeline.py": "b23f93ae993c03543422f9bea66e3e4c68099ebb14789f0bd3759fd685e75d5e",
+        "sircus/mjlab/physics_ensemble_statistics.py": "bfe735bf730a1a6574f04128790302f4b63ac3b963ec4505ebefc0f495721b74",
+        "sircus/mjlab/physics_ensemble_study.py": "9ec41c8a0a5fd8cabfc63b61ad29bdd6fbf74f390f05c414e3039ad265d25c1a",
+        "sircus/mjlab/physics_ensemble_verify.py": "5feab02454843765abe590b843bc85744db58f27496d7b72f4571aecf4577ad1",
+        "sircus/mjlab/planning_budget_audit.py": "25ca20c8289f36929c3ddb1de2f921b0e7850c93b1e9facf9cbb747bddb9b4cd",
+        "sircus/mjlab/planning_budget_plan.py": "2be2c8e7ab25452ff82c7cd9d5fd4699320d6d5b40468e803a155f4c26c42ff5",
+        "sircus/mjlab/planning_budget_study.py": "06babdeea11bdcd2d2ab27be34d88ba4305cce8ed226ed61dca1dcef0906656b",
+        "sircus/mjlab/policy64_contract.py": "a5faace1b18e36dd0d15e60d168916096000105a010132ef8cd5f8a09b65159d",
+        "sircus/mjlab/policy64_diagnosis.py": "64f13f9b26132772a90e863ca751ea18155e48c15d313f0cf257e78b758640da",
+        "sircus/mjlab/policy64_diagnosis_native.py": "d8b119330106c356e919efc5a61150705a450c5ea7a2097b013e273806cf4ed4",
+        "sircus/mjlab/policy64_diagnosis_verify.py": "869f79819e4b0c15b314eab61510408a2be9443b7bbc460506fc0bbba66d6a06",
+        "sircus/mjlab/policy64_model.py": "8f0f229cd34b542878e40592bb3c49d0b4f944cea260bc6dc3281ccea3623d8b",
+        "sircus/mjlab/policy64_native.py": "a6cc59c5f02222529c63559868120a150bd7450fb7e1c61f534561cdf09fa5c0",
+        "sircus/mjlab/policy64_pipeline.py": "9a10c42e2d7e25a36acbd9a8cdc3789f6678ede537f240e5fb46515fc4f96632",
+        "sircus/mjlab/policy64_study.py": "f66fc0c766bea02a4dfb885fb7afe96470997a3d7d820711e1a5273539c71fb2",
+        "sircus/mjlab/policy64_verify.py": "84db4f05a6f210a0ed482014b9609d8eb57dd94cb642f1b000d2d5a12f7e23d0",
+        "sircus/mjlab/prepare_arm_clearance_report.py": "dae883b5a49a1961a0cecd2676f98cb7a8e73a664a46eecbe5dee2223af0db31",
+        "sircus/mjlab/prepare_bouncer_clearance.py": "f13c8cbf799e64bf3f6108b68f67cd116600b8702d74fc313191baa933a41270",
+        "sircus/mjlab/prepare_case00_tilt_gap.py": "22b24f2a5383d8f78e127e4dbb1d5154ccfd3d219142a2377e24529674cdc171",
+        "sircus/mjlab/prepare_clean650_report.py": "dfa1fc9c1848034af78899d28888ffce083a8657b1951540cb35dd331c6368fd",
+        "sircus/mjlab/prepare_clearance_diagnosis_report.py": "174ca5ba451f7edddfb00200261875d5f3a347844caf1234155e46ece9c8820c",
+        "sircus/mjlab/prepare_clearance_horizon_report.py": "c25df2156f727e15e6430ac0191c7f05b0f13604c502576f29c1f1326355ad9e",
+        "sircus/mjlab/prepare_consistent_flight_report.py": "d977917256b4aa30d58f1c695825d8615b2392107cd2be3f105f8c13fce66092",
+        "sircus/mjlab/prepare_contact_report.py": "c90afae3b0d8b20ac0646c97427944d45a0d13419188ecba9348fa264b4461c9",
+        "sircus/mjlab/prepare_corrected_imitation.py": "56c222c4e1472b4bdbccc8778fac2ce1037bc35e6cd74d02164764e969bc1716",
+        "sircus/mjlab/prepare_corrected_report.py": "d91849cad5fa36d7a701d0b8c832953717e33e6d3818bd1b5dc268bb49bd1a3c",
+        "sircus/mjlab/prepare_coverage_recovery.py": "a235c18b1d621a2a39c4245b03aaf61da7adc12b61e6302bba2d99a58a9a7918",
+        "sircus/mjlab/prepare_coverage_training.py": "a931c13d3a21030f5f2f9e6924e19241b2455d4dcbad6264442b190298c944f0",
+        "sircus/mjlab/prepare_ensemble_flight_diagnosis_report.py": "0a6b4d327c71c179c4d15cd52bed448e81bdfecc1b95d582ae5b7b252fd384cc",
+        "sircus/mjlab/prepare_expanded_report.py": "a3fa99cae4b6327658b2471986acac8b5f1b1aa0cc5ced0fb0c0ec0bc37e3ecd",
+        "sircus/mjlab/prepare_fixed35_imitation.py": "eecb4eaddd4168d1297a0a0b7a1a67b01a29e58e1cca3681915c88c268be7d12",
+        "sircus/mjlab/prepare_fixed35_recovery.py": "61c09c54c7dbd7a2ebca1bbc6d8e3a3d80871c515f4fb0383c89ef632ad7bae2",
+        "sircus/mjlab/prepare_flight_residual_report.py": "9363b9784238143a9ffd08e50e7952b46476e9b0909f98eb29f1b34d2b208940",
+        "sircus/mjlab/prepare_gap_coverage_report.py": "53d0bec66e5ccfcca70507117f155e1d4a7edfd52245511140d716005f0e4ea6",
+        "sircus/mjlab/prepare_gap_flight_report.py": "0b7184b5d93ad523e270d086fd4e6c2067dbb98b0f815fe03d5bc0c0db0335b8",
+        "sircus/mjlab/prepare_gripper_yaw.py": "cc9fe4eccb86e0a716e46f3453fe4322637d41f7e778cf18dae2da9c34ce2920",
+        "sircus/mjlab/prepare_height_tilt_replay.py": "51cbedd0afaf408ae3671e84274ee8811a0535e10a6e3527e1ad94e83cc9a77c",
+        "sircus/mjlab/prepare_imitation_regression.py": "d32d90126b4b943b975a23ee46e3d573e2bdccf0444792f58d5a6e7e5a847498",
+        "sircus/mjlab/prepare_impact650_report.py": "d0b879a176c67c5c8c778f3e32ae499863efe1e26d38cb4b31e7e62bd1f3562f",
+        "sircus/mjlab/prepare_interface.py": "3783ad300b73808fe9424a960b791afe7addbf28e8a4fab9b61be6ffaf1afbe8",
+        "sircus/mjlab/prepare_physics_ensemble_report.py": "3108d59104ea8dfed9f22cfefee131a14a9a0b9893d127da921c4d4cf7faef82",
+        "sircus/mjlab/prepare_policy64_diagnosis_report.py": "7cc735c1321adc1f809995051d87f7c58769b93007c39b391fdcefacdc77fdbc",
+        "sircus/mjlab/prepare_policy64_report.py": "b6153ef90129a643d56552a1e9282f597abcf9ea1d83406270164d71c9908609",
+        "sircus/mjlab/prepare_recovery_regression.py": "4466b1f5b970cac15ee3ed2ba2c81baec55ebc992e19a28460145036d305531d",
+        "sircus/mjlab/prepare_regression_drop_gap.py": "23717b008c8576a304b586f4ec9f02978c4d8a8d230e3d49bb8811711af53817",
+        "sircus/mjlab/prepare_regression_ik.py": "ac84b8b2b03004bc6226052a597d25e3739f43acdd3bbdc2fa8d1ca614a7dda7",
+        "sircus/mjlab/prepare_replay650_report.py": "1afee034e64473d7cf94a4ee87048cec2888a9a038e942f451cbe69684c77e67",
+        "sircus/mjlab/prepare_stable_report.py": "50ebf337210c94c60ecf081f1caf6cd8854f73646737000fcbe8dd1dd8a423c7",
+        "sircus/mjlab/prepare_table_assisted_scoring.py": "cd23aac0fe2aa193c72eb2d571ba849d549fc2e43788321409edb9daa6408722",
+        "sircus/mjlab/prepare_table_height_tilt.py": "5f3c1e2646da5813659acc55a9f83e01d81d7d1d103652f18253e8eaa5ec16d9",
+        "sircus/mjlab/prepare_table_training.py": "ba71a18602a33b1250fa5287679013bbe5ffeaf9fcee4b7874e0739c3aeaaf28",
+        "sircus/mjlab/prepare_table_training_diagnosis.py": "7bbffca5e6096e329f173d5b7df684822d93781aac1463a6c861d298fd1c5ead",
+        "sircus/mjlab/prepare_tilt650_report.py": "881883b8808a33644f1fbe8ed3f518fb53d63153d9d2a04b77b4cce1ea270719",
+        "sircus/mjlab/prepare_window_report.py": "3d2fd46a0a12aea3d66d7f78301b9eeea9192f68c7955918a0806d20cfbc2bca",
+        "sircus/mjlab/prepare_xy650_report.py": "dadc44d475087e8bfdfd5f6e1de95ebb788034a024d5dac72c80e6700bbac02e",
+        "sircus/mjlab/prepare_yaw_tilt_gap.py": "c90a110a9bbdb944bec7804b900bc8e634f7059244063c63495dcfce506a1ba4",
+        "sircus/mjlab/recovery_regression_diagnosis.py": "21daab0f6378900b24b4e9082bcc072afc3b0f44a52262a342d281b7e987dc5a",
+        "sircus/mjlab/recovery_regression_native.py": "82043b0ecc3ed3fba72178a800c15230c9630751737b72876b0e089ba6f47b5e",
+        "sircus/mjlab/recovery_regression_pipeline.py": "ebbc48e5a462c998b2aaf62e0cc0d0da2104675fcb693a418b1ad28318192838",
+        "sircus/mjlab/recovery_regression_study.py": "2e7029fe5efffc5bbfed76030f33b7afdc8f84dfcbb3cbf7e52e0d4d64b7690b",
+        "sircus/mjlab/recovery_regression_verify.py": "f7beca6f1e345ef9f02d60300fc2dc80dcddeba15edd000f3774db818634ea4a",
+        "sircus/mjlab/recovery_regression_video.py": "ed1eadd2129e4352f55cc6111b16ec4e89551dcddbd6b16bbb3e6e392c8323e5",
+        "sircus/mjlab/regression_drop_gap_native.py": "8edeecdda7c4d278753b8c9c53d3f2ef3572bfda6958fee46dfffb4ce5352641",
+        "sircus/mjlab/regression_drop_gap_pipeline.py": "7de9cd3fb7c39a0218e9e619889d3ed0c3678819bf32a261115fd3970982397f",
+        "sircus/mjlab/regression_drop_gap_study.py": "eabd8ce164f8a70ea61a060d0b90733cc889d4cb7345f86a294ac6e788a9378b",
+        "sircus/mjlab/regression_drop_gap_verify.py": "ff9b82aade5e9a7540cf0c7b1529e312e74a9d06a8d81d451db546456a15cb58",
+        "sircus/mjlab/regression_ik_native.py": "511224a37ae354f02a98ce94c6624f2e189dd0a01b9956f8dd7d33a7279d6ebe",
+        "sircus/mjlab/regression_ik_pipeline.py": "6e1787c6a3c2fd773d9c466f6e5e9ad9c6058be7958f33e8c41cae254443b31e",
+        "sircus/mjlab/regression_ik_study.py": "3c02ebd6da23ee49f2a54ecb0fcadfca1834780efc0a5246c23e6f963ada287e",
+        "sircus/mjlab/regression_ik_verify.py": "3cb029f10021f68afbbcd6404eb9c172debf533db83c99ab8abd609a3e64701b",
+        "sircus/mjlab/remaining_heading_study.py": "e114d73e35ca948745192c98c2644f873380ac56e3974186b1bcf9d12946ca3b",
+        "sircus/mjlab/render_replay.py": "27a562466bc45f5615a95f6c7824ee96bb60e1e51556cedae59bf6982f5a5f50",
+        "sircus/mjlab/repeat_diagnostic.py": "2a91c87c2234466dc1528464630f24856b7a3358f3a98862a1d7916ebac563e8",
+        "sircus/mjlab/replay650_contract.py": "a062e8a0bbff50b4bb41b95f0c742c7c7d8aa8c2db1c00e5c424df8e66eb9dd0",
+        "sircus/mjlab/replay650_geometry.py": "3147779dee45795597a0524301b86671897f843f8502acfedb34bf0bb11f5ea8",
+        "sircus/mjlab/replay650_pipeline.py": "b57d16ad6750303256a7802d707242c8b35dc8d3cef2ab8ab94c921fc34ab572",
+        "sircus/mjlab/replay650_study.py": "9e5a69bd247c5a96c7cafb77fbdbc88d5272682a31193edb91131635df1968c2",
+        "sircus/mjlab/replay650_verify.py": "7e58a4c186229774690a2ea4409036aaeedc81a454535abbcf8b57b86d7fdef6",
+        "sircus/mjlab/requirements.txt": "73b2a5642fb3558bf48da6ce3ee48c8645b9f37f26d28d9580f448928b43aa19",
+        "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+        "sircus/mjlab/saved_shot_video.py": "1d1e76e41fca3a150c10450bbcc2b21329cfb53e916d7dbd6b3e8bdb19943f43",
+        "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+        "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+        "sircus/mjlab/stable_study.py": "c9fe1cc71103e1eda5dbd7f9869627c1b09555dca4242e376b7f239198a19ea9",
+        "sircus/mjlab/stalled_reference_audit.py": "c048a0b7b319f4bc95ab270071847a3bfab663f7355113f87907db91d73657e5",
+        "sircus/mjlab/stalled_reference_plan.py": "a1bdd4e5c5f43d78f59dda1f871dc692a004bd9bdca831dfbe045509f922237c",
+        "sircus/mjlab/stalled_reference_study.py": "584bc3ee2130cccbb1426ce3a10d4207e2d1db472d69ef726349dffffcf0a585",
+        "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a",
+        "sircus/mjlab/sweep_interface.py": "eb81a11b696c214055da890cb907ec0f531be43ead9c91e2887ee07c2d73a4c3",
+        "sircus/mjlab/sweep_server.py": "2f5563d8de4167680110c59f08f6160cf8ae41568164f96306ef6aea2bfa437a",
+        "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+        "sircus/mjlab/table_assisted_env.py": "ca68aa989d89d9b3da39ee60d7188b249ddd8359502e8366e06b07ad86d419d2",
+        "sircus/mjlab/table_assisted_groups.py": "4b5932720e4a6a839c77023fd7c148ca1be8a9102a3322ed3fa204ffdbe75a94",
+        "sircus/mjlab/table_assisted_rescore.py": "8cb6a214db74181a36d7e7d25c1544a149b497db8315d636e21fdab9c2a14020",
+        "sircus/mjlab/table_assisted_score.py": "69be15e7c014b6b4d8126fc7113f2a5f122b8d8714bd19025f53582b5267f737",
+        "sircus/mjlab/table_assisted_score_oracle.py": "090fa68ee5763e369637bf0eb5dbaadba5a02992737af91a1a637bdad26f9121",
+        "sircus/mjlab/table_correction_native.py": "cb00d79a209e3a6a5efc689893bc9ba4677ce1ae16a3a5e3a6cc990b8fffd8f6",
+        "sircus/mjlab/table_correction_pipeline.py": "f6e60fdcd8b55d889c5991fa0833d1ebc95fca6021be53c374767ec4608c38db",
+        "sircus/mjlab/table_correction_study.py": "06449f67a15e0d4a4d023cc1c4cec07e50722d877f8546b0af1972f7ed5dc73d",
+        "sircus/mjlab/table_correction_verify.py": "d5cc02ec70e46461206146a3b28e565fc738800a5902c220dfc803ddcc04d7a2",
+        "sircus/mjlab/table_training_contract.py": "cc834c0ec54e9ba141bc1e72468b626b664a672653ca80e0a5c27d4b43568c02",
+        "sircus/mjlab/table_training_diagnosis.py": "084c596fd36c9da6e7582ad46dc9516d356bc217f47168a3be5c87f7d745bea7",
+        "sircus/mjlab/table_training_native.py": "83d9449dee06edf73713cddc7318dd9997495c4286fea589773171f671e6cbc0",
+        "sircus/mjlab/table_training_pipeline.py": "366d1a251706547858a6d49761a6ea3de9a6cac236634e0d775b87165da7802b",
+        "sircus/mjlab/table_training_publish_watch.py": "9450e205d235ea3bfaa71079bad34a8e848aa13e1c14c9ec6f55a5c664d28470",
+        "sircus/mjlab/table_training_study.py": "243020edc6f3a3e7c085f6bf88bd725d02d659ebafadc87e0524cbfae3886b96",
+        "sircus/mjlab/table_training_verify.py": "1f99a95232e0994dbe52004209aae0dfb52a584c90f024fce28d2af85a80b2aa",
+        "sircus/mjlab/tilt650_contract.py": "b402ef850fa64be46078a910233649e0f586132334c8881896f6ba81df11eff7",
+        "sircus/mjlab/tilt650_pipeline.py": "6c922493584a41b443460c43c66f14d3855dfd3feeca9ced42564b590a9ccdcd",
+        "sircus/mjlab/tilt650_study.py": "e52ff864816743f906e20c1b469f715c5ed2c03115bf6f374cbbebe7effda5cc",
+        "sircus/mjlab/tilt650_verify.py": "d94bb6c58111edbbfbd22bcc3b3d3d54b4863c863466749b4901bd3b122dd326",
+        "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+        "sircus/mjlab/transit_detour.py": "700980ef138c281fec2e569d398c54fbfbf2647ac0cc7060e450875e2976e126",
+        "sircus/mjlab/verify_bank.py": "d8f3e0ce75533dd9aacc5018c2dacef2212de8f9e3d63fa50013e1080566fe9b",
+        "sircus/mjlab/verify_capture_calibration.py": "98f905394c0e7f2b082d7b60b51baedd95fd6984b5265f6e7673c56b963f9afe",
+        "sircus/mjlab/verify_combined.py": "c3de2bd00cdff61f5a848ae572a8e3caa3ec5b7ab84465d493d7c907b7b851e2",
+        "sircus/mjlab/verify_contact.py": "17f3b735b98006a9b948444b6262e09de8f6d544b7f0b2228e5bc14ab1d5a182",
+        "sircus/mjlab/verify_contact_confirm.py": "098956227ca8d05bce29ea591b9ade12518d82148526e1787cbfe611fd6a0486",
+        "sircus/mjlab/verify_expanded.py": "f08de30a4c7c9db94bcd9f483e42f925c69f213c60f37ef9dd57049aedfd618d",
+        "sircus/mjlab/verify_expansion.py": "541f2a6e8b58dcc6b07cbb94780474b49f5c785fc3012f92e327de97bc5ca8d1",
+        "sircus/mjlab/verify_far.py": "bd20cb8410657ae39562581b1a0157f3eaa4a4ba519aa1532bc051c6da1b5611",
+        "sircus/mjlab/verify_learning.py": "2ac3124e0a5443d7d572eefe9b73d7711f67a2cdffb9a1198da9fdfac202e874",
+        "sircus/mjlab/verify_refinement.py": "d979ecd5a29e33fc7351283455ace3ab58bc544efee305a5f77f5b6341af1d53",
+        "sircus/mjlab/verify_stable.py": "4cefb89c5cbcc81d1b25e7ace53e9493ce90c19904d7e8c39ca30726ddc1e29c",
+        "sircus/mjlab/window_confirmation.py": "f0023d8da28f433f48dee96fc9aa40e6f1aa19c0340f7a6a5cff34c0de8fdfc2",
+        "sircus/mjlab/window_contract.py": "89c2afb9e4c6665b54e02231d0dc39a4f43b02203ba18586a8526fa9bd22cd75",
+        "sircus/mjlab/window_geometry.py": "27d16ebae82a53a7f9b948cfc0a67bc25618dcd2b11462b6969ac62dbbb779cf",
+        "sircus/mjlab/window_learning.py": "458c90b2d19043463b6f4a9e6abf68166476a92208209ef61e66bc8de5a7fe78",
+        "sircus/mjlab/window_pipeline.py": "e783027066da8823255d3111548d09383bc3f5d86606c85a3f9e02f8e3e41456",
+        "sircus/mjlab/window_study.py": "5af400512287cb85a1ee58b15811fdb1dfe38034f54ba94cc6d8752310832a9d",
+        "sircus/mjlab/window_verify.py": "c1d9c65e7b8a48aed40c30d243aaf55cb9b99df8dc3e2cc2164848b7e68765d4",
+        "sircus/mjlab/xy650_contract.py": "3553a0a77db2f995c552e9fee167bf4d4e6a533eb82f1ec840f385b8b67cbf96",
+        "sircus/mjlab/xy650_metrics.py": "325fa030345970facee7c55d07102fd33c9812e422b89ba4718c3f22498e5512",
+        "sircus/mjlab/xy650_native.py": "1af13b25517c0e5fb028381380b777c474c7b4c68e657eb15104b9d0c3fd0b3a",
+        "sircus/mjlab/xy650_pipeline.py": "cd1bb813a707a51a18b22a66f641acec1454aa58a387618c1e4f074da4a8656a",
+        "sircus/mjlab/xy650_study.py": "24b9d999b405a44c45210e9dea05a078063c8baa8c06d3d4bc07070925871b73",
+        "sircus/mjlab/xy650_verify.py": "010212fa1d452f7667a92fd7963ddc1c87e5938527610d6dfd0aae7411c8daeb",
+        "sircus/mjlab/yaw_tilt_gap_contract.py": "1f1d532d5bb83a826709121d8a9d6798aa82eae766b22fb784e1657d9cdbf029",
+        "sircus/mjlab/yaw_tilt_gap_geometry.py": "078d0c740f8977c096b652eb6b5f85a979d044d0979404d709c13ebfbe228826",
+        "sircus/mjlab/yaw_tilt_gap_native.py": "1eb733c13b4a74398f502cb8cfea3800fecad7c7555d7d180627fa2d80de1e3b",
+        "sircus/mjlab/yaw_tilt_gap_pipeline.py": "aca69ff89c3ad283835abe0ebcf4ea4ba26e163e2d458db9f25ba52af31e4e29",
+        "sircus/mjlab/yaw_tilt_gap_study.py": "dd0bc200b9a8a42c3421ab413cda2a61f42582fd7981c0157f781705ff7a919e",
+        "sircus/mjlab/yaw_tilt_gap_verify.py": "3c1236c482e03862e5615c01db812c2f6b09a19419ff2da830e6b47618b45d82",
+        "sircus/mjlab/yaw_tilt_gap_video.py": "496f3eccc2cf2ed1944f09083bacf286e5af58306f8fda7582b2ab912e678f1f"
+      },
+      "contract_sha256": "b57e3cef3fdd77780723ba30d8cad61c9fd76e525606dffba6f68e2f72a95aee",
+      "evidence_manifest_sha256": "80f7a72f1675055de5adf042604afdca5e54bdb30dd9775a985a09ee6992283c",
+      "frozen_planning_artifact_sha256": {
+        "choices.json": "6ee04222b7634695882091e0f4036a4881ea5cd1703aabeb7642202fcf08feae",
+        "contract.json": "b57e3cef3fdd77780723ba30d8cad61c9fd76e525606dffba6f68e2f72a95aee",
+        "diagnostic-layout.json": "6257d197ff6944d6034abb4b3703ead0c928ad73da39646401c20c6e97135b1f",
+        "diagnostic/choices.json": "9a2789696fae23b24139d07279e632849cee38099e57bc828fb2a58d579c2dbc",
+        "diagnostic/plans.json": "e620bda6d04bf43ee256c83dc146ff331ab028558250cfb5981a4abe193209a1",
+        "layouts.json": "9190bab1b8b848892f4c80c0882d95cd2f006e6b920e62344fc916a89e34b77d",
+        "plans.json": "377fc3e3b846c1aa535a5f7203744d18abefb046e180d23f5fa0cad8a7a3096b"
+      },
+      "preflight_sha256": "a053579f092c2220e795076c44c4a9a8d55a6b6a47fd0cf4fab3a0370ae0592e",
+      "producer_marker_sha256": "746b55c6e024799a97d2130abb33bceb33d6edfa85df96ad9c90a5bdbba3a7ba",
+      "producer_sources_verified_against_local_git": true,
+      "report_sha256": "527da80e3a5fac116f55bbd1333fae29f003b65d48a66308e1bcd9a880f041dc",
+      "verifier_source_sha256": "8ca2340c22a77e7f4036e99fc68e540d7abc4ffa04847fa1575ba7391fb098f3"
+    },
+    "sampling": {
+      "grid_edge": 8,
+      "interior": 8,
+      "kind": "stratified, not uniform",
+      "near_fixed_base": 4
+    },
+    "status": "completed",
+    "study_name": "guarded-board-fallback-v1",
+    "test_releases": 40,
+    "version": "sircus-guarded-board-fallback-study-v1"
+  },
+  "scope": "Simulation-only held-endpoint native64; no retraining or automatic live promotion",
+  "status": "completed",
+  "version": "sircus-guarded-board-fallback-published-summary-v1"
+}
