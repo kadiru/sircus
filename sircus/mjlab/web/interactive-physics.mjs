@@ -533,6 +533,107 @@ export function guardedBoardFallbackSummary(study) {
 }
 
 /** Selected development targets and repeated frozen commands, never a fresh-position policy score. */
+export function nearbyShotTransferSummary(study) {
+  const raw = study?.nearby_shot_transfer;
+  if (raw?.version !== 'sircus-nearby-transfer-study-v1') return null;
+  const count = value => Number.isInteger(value) && value >= 0 ? value : null;
+  const number = value => Number.isFinite(value) && value >= 0 ? value : null;
+  const text = value => typeof value === 'string' ? value : '';
+  const hash = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value);
+  const same = (a, b) => Number.isFinite(a) && Number.isFinite(b) && Math.abs(a - b) <= 1e-8 * Math.max(1, Math.abs(a), Math.abs(b));
+  const expected = ['03', '09', '13', '15', '19'].map(id => `parallel-board-miss-${id}`);
+  const allowed = new Set(['direct', 'table', 'flight_miss', 'invalid_physics', 'arm_assisted_capture']);
+  const result = source => {
+    const row = Object.fromEntries(['requested', 'completed', 'released', 'captures', 'direct', 'table', 'robot_contacts'].map(key => [key, count(source?.[key])]));
+    const outcomes = Array.isArray(source?.outcomes) ? source.outcomes : [];
+    row.arm_assisted = outcomes.filter(value => value === 'arm_assisted_capture').length;
+    row.valid = Object.values(row).every(value => value !== null) && row.completed === row.requested
+      && row.released === row.completed && row.robot_contacts <= row.released
+      && row.captures === row.direct + row.table && row.captures <= row.released
+      && Array.isArray(source?.outcomes) && outcomes.length === row.completed && outcomes.every(value => allowed.has(value))
+      && row.direct === outcomes.filter(value => value === 'direct').length && row.table === outcomes.filter(value => value === 'table').length;
+    return row;
+  };
+  const bank = raw.source_bank_summary || {};
+  const studyNames = { recovery: 'Board-position recovery', parallel: 'Parallel-search control', guarded: 'Guarded-search comparison' };
+  const sources = (Array.isArray(bank.sources) ? bank.sources : []).map((source, index) => ({
+    id: text(source?.id), label: `S${String(index + 1).padStart(2, '0')}`, bucket_xy_m: source?.bucket_xy_m,
+    study: studyNames[source?.study_key] || '', study_key: source?.study_key,
+    strength: source?.strength === 'confirmed_3_of_3' ? '3 / 3 prior repeats' : 'One prior capture · not repeated',
+    report_sha256: source?.report_sha256, audit_sha256: source?.audit_sha256,
+    valid: Boolean(text(source?.id)) && vector(source?.bucket_xy_m, 2) && Object.hasOwn(studyNames, source?.study_key)
+      && hash(source?.report_sha256) && hash(source?.audit_sha256) && vector(source?.values, 5)
+      && Number.isFinite(source?.board_heading_offset_deg) && Number.isFinite(source?.board_twist_deg)
+      && (source?.strength === 'confirmed_3_of_3' ? source.repeat_captures === 3 && source.repeat_completed === 3
+        : source?.strength === 'single_capture' && source.repeat_captures === 1 && source.repeat_completed === 1),
+  }));
+  const bankValid = bank.settings === sources.length && bank.confirmed_settings === 8 && bank.single_capture_settings === 15
+    && sources.length === 23 && sources.filter(row => row.study_key === 'recovery').length === 7
+    && sources.filter(row => row.study_key === 'parallel').length === 1 && sources.filter(row => row.study_key === 'guarded').length === 15
+    && bank.sources.filter(row => row.strength === 'confirmed_3_of_3').length === bank.confirmed_settings
+    && bank.sources.filter(row => row.strength === 'single_capture').length === bank.single_capture_settings;
+  const bySource = new Map(sources.map(row => [row.id, row]));
+  const cases = (Array.isArray(raw.cases) ? raw.cases : []).map(source => {
+    const preparation = Object.fromEntries(['proposed', 'checked', 'admitted', 'selected'].map(key => [key, count(source?.[key])]));
+    const results = Object.fromEntries(['original', 'search', 'repeat'].map(key => [key, result(source?.results?.[key])]));
+    const repeatRows = Array.isArray(source?.repeated_settings) ? source.repeated_settings : [];
+    const repeated = repeatRows.map(row => {
+      const request = row?.request || {}, seed = bySource.get(request.source_bank_id);
+      const distance = vector(source?.bucket_xy_m, 2) && seed ? Math.hypot(...source.bucket_xy_m.map((value, i) => value - seed.bucket_xy_m[i])) : null;
+      const captures = count(row?.repeat_captures), completed = count(row?.repeat_completed);
+      return { candidate_id: text(row?.candidate_id), source_id: text(request.source_bank_id), source_label: seed?.label || '', captures, completed,
+        values: request.values, heading: request.board_heading_offset_deg, twist: request.board_twist_deg,
+        valid: Boolean(text(row?.candidate_id)) && row.candidate_id === request.id && request.context_id === source.id && Boolean(seed?.valid)
+          && same(request.source_distance_m, distance) && captures !== null && captures <= 3 && completed === 3
+          && vector(request.values, 5) && request.values[4] > 0 && sameXY(request.bucket_xy_m, source.bucket_xy_m)
+          && vector(request.selected_q10, 6) && vector(request.selected_q14, 6)
+          && Number.isFinite(request.board_heading_offset_deg) && Number.isFinite(request.board_twist_deg) };
+    });
+    const confirmed = repeated.filter(row => row.captures === 3);
+    const suppliedConfirmed = Array.isArray(source?.confirmed_settings) ? source.confirmed_settings : [];
+    const expectedConfirmed = repeatRows.filter(row => row?.repeat_captures === 3 && row?.repeat_completed === 3);
+    const confirmationsValid = Array.isArray(source?.repeated_settings) && repeated.length === results.search.captures
+      && repeated.every(row => row.valid) && new Set(repeated.map(row => row.candidate_id)).size === repeated.length
+      && results.repeat.requested === 3 * repeated.length && results.repeat.captures === repeated.reduce((sum, row) => sum + row.captures, 0)
+      && Array.isArray(source?.confirmed_settings) && JSON.stringify(suppliedConfirmed) === JSON.stringify(expectedConfirmed);
+    const distances = vector(source?.bucket_xy_m, 2) ? sources.map(seed => ({ seed, distance: Math.hypot(...source.bucket_xy_m.map((value, i) => value - seed.bucket_xy_m[i])) })) : [];
+    distances.sort((a, b) => a.distance - b.distance || a.seed.id.localeCompare(b.seed.id));
+    const nearest = distances[0];
+    const sourceCounts = source?.source_counts || {};
+    const selectedSources = Object.keys(sourceCounts).filter(key => count(sourceCounts[key]) > 0);
+    const sourceCountsValid = typeof sourceCounts === 'object' && !Array.isArray(sourceCounts)
+      && Object.entries(sourceCounts).every(([id, value]) => bySource.has(id) && count(value) !== null)
+      && Object.values(sourceCounts).reduce((sum, value) => sum + value, 0) === preparation.selected
+      && repeated.every(row => sourceCounts[row.source_id] > 0);
+    return { id: source?.id, bucket_xy_m: source?.bucket_xy_m, preparation, results, confirmed,
+      nearest_source_id: nearest?.seed.id || '', nearest_source_label: nearest?.seed.label || '', nearest_seed_distance_m: number(source?.nearest_seed_distance_m),
+      selected_sources: selectedSources, selected_source_labels: selectedSources.map(id => bySource.get(id)?.label || id),
+      valid: expected.includes(source?.id) && vector(source.bucket_xy_m, 2)
+        && Object.values(preparation).every(value => value !== null)
+        && preparation.selected <= preparation.admitted && preparation.selected <= preparation.proposed && preparation.selected <= 20
+        && Object.values(results).every(row => row.valid) && results.original.requested === 3 && results.search.requested === preparation.selected
+        && confirmationsValid && sourceCountsValid && Boolean(nearest) && same(source.nearest_seed_distance_m, nearest.distance) };
+  });
+  const progress = raw.progress || {}, completed = count(progress.completed), planned = count(progress.planned);
+  const nativeReleases = count(raw.native_releases), initial = count(raw.initial_requests), confirmations = count(raw.confirmation_requests);
+  const controlsPassed = ['controls_pre', 'controls_post'].every(key => raw.controls?.[key]?.status === 'passed'
+    && raw.controls[key].direct_captures === 3 && raw.controls[key].table_assisted_captures === 3 && raw.controls[key].negative_captures === 0);
+  const provenance = raw.published_provenance || {};
+  const provenanceValid = ['report_sha256', 'audit_sha256', 'evidence_manifest_sha256', 'plan_sha256', 'source_bank_sha256', 'contract_sha256'].every(key => hash(provenance[key]))
+    && provenance.evidence_manifest_sha256 === raw.evidence_manifest_sha256;
+  const accounting = cases.length === 5 && cases.every(row => row.valid) && expected.every((id, index) => cases[index].id === id)
+    && new Set(cases.map(row => JSON.stringify(row.bucket_xy_m))).size === 5 && bankValid && sources.every(row => row.valid)
+    && new Set(sources.map(row => row.id)).size === sources.length
+    && initial === cases.reduce((sum, row) => sum + row.results.original.released + row.results.search.released, 0)
+    && confirmations === cases.reduce((sum, row) => sum + row.results.repeat.released, 0)
+    && completed === planned && completed === initial + confirmations && nativeReleases === completed + 18 && nativeReleases <= 433;
+  const complete = Boolean(raw.status === 'completed' && raw.phase === 'completed' && raw.audit_status === 'passed'
+    && raw.scope === 'development' && raw.physics_substeps === 64 && controlsPassed && provenanceValid && accounting);
+  return { complete, accounting_valid: accounting, promotion_eligible: false, status: raw.status, phase: raw.phase, audit: raw.audit_status,
+    completed, planned, native_releases: complete ? nativeReleases : null, cases: complete ? cases : [], sources: complete ? sources : [],
+    next: text(raw.next), error: text(raw.error) };
+}
+
 export function parallelBoardSummary(study) {
   const raw = study?.parallel_board_study;
   if (raw?.version !== 'sircus-parallel-board-study-v1') return null;

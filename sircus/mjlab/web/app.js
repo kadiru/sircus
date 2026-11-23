@@ -68,7 +68,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, directPathFirstSummary, stalledReferenceSummary, hybridMissCorrectionSummary, boardPoseRecoverySummary, boardFallbackSummary, guardedBoardFallbackSummary, parallelBoardSummary, physicsSceneActive = false, physicsViewKey = '';
+let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, directPathFirstSummary, stalledReferenceSummary, hybridMissCorrectionSummary, boardPoseRecoverySummary, boardFallbackSummary, guardedBoardFallbackSummary, parallelBoardSummary, nearbyShotTransferSummary, physicsSceneActive = false, physicsViewKey = '';
 let savedReplayRows = [], savedReplaySignature = '';
 const physicsSelected = () => $('mode').value === 'physics' && physics?.available === true;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
@@ -1050,6 +1050,7 @@ async function loadStatus() {
     showBoardFallbackStudy();
     showGuardedBoardFallback();
     showParallelBoardStudy();
+    showNearbyShotTransfer();
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
@@ -1071,6 +1072,55 @@ function showSavedPhysicsReplays() {
       ? report.interactive_recordings.title : 'Saved first-drop replays';
   }
   syncSolveButtons();
+}
+function showNearbyShotTransfer() {
+  if (!nearbyShotTransferSummary) return;
+  const view = nearbyShotTransferSummary(report);
+  $('nearbyShotTransfer').hidden = !view;
+  if (!view) return;
+  const number = value => value === null || value === undefined ? '—' : String(value);
+  const xy = value => `(${value.map(v => (1000 * v).toFixed(1)).join(', ')})`;
+  $('nearbyTransferStatus').textContent = view.complete ? 'Development search complete · independent audit passed'
+    : view.status === 'failed' || view.audit === 'failed' ? 'Study stopped or audit failed · final results withheld'
+    : view.status === 'completed' ? 'Drops finished · complete audited accounting pending'
+    : `Development search in progress · ${String(view.phase || 'initializing').replaceAll('_', ' ')} · final results pending`;
+  $('nearbyTransferProgress').textContent = `Recorded development drops: ${number(view.completed)} / ${number(view.planned)} · Final capture counts appear after both control blocks and the independent audit pass.`;
+  for (const id of ['nearbyTransferResults', 'nearbyTransferSearch', 'nearbyTransferSources', 'nearbyTransferDistances', 'nearbyTransferConfirmed']) $(id).replaceChildren();
+  for (const id of ['nearbyTransferOutcome', 'nearbyTransferControls', 'nearbyTransferSourceNote']) $(id).textContent = '';
+  for (const id of ['nearbyTransferSearchDetails', 'nearbyTransferSourceDetails', 'nearbyTransferConfirmedDetails']) $(id).hidden = !view.complete;
+  const table = (id, headings, rows) => {
+    const element = document.createElement('table'), head = document.createElement('thead'), body = document.createElement('tbody'), hr = document.createElement('tr');
+    for (const heading of headings) { const cell = document.createElement('th'); cell.scope = 'col'; cell.textContent = heading; hr.append(cell); }
+    head.append(hr);
+    for (const row of rows) { const tr = document.createElement('tr'); row.forEach((value, index) => {
+      const cell = document.createElement(index ? 'td' : 'th'); if (!index) cell.scope = 'row'; cell.textContent = value; tr.append(cell);
+    }); body.append(tr); }
+    element.append(head, body); $(id).append(element);
+  };
+  if (view.complete) {
+    table('nearbyTransferResults', ['Target bucket X, Y (mm)', 'Original · captures / 3', 'New search · captures / drops', 'Fresh repeats · captures / drops', 'New settings confirmed 3/3'],
+      view.cases.map(row => [xy(row.bucket_xy_m), `${row.results.original.captures} / 3`,
+        `${row.results.search.captures} / ${row.results.search.released}`, `${row.results.repeat.captures} / ${row.results.repeat.released}`, String(row.confirmed.length)]));
+    const recovered = view.cases.filter(row => row.confirmed.length > 0).length;
+    const confirmed = view.cases.reduce((sum, row) => sum + row.confirmed.length, 0);
+    const searchCaptures = view.cases.reduce((sum, row) => sum + row.results.search.captures, 0);
+    const assisted = view.cases.reduce((sum, row) => sum + row.results.search.arm_assisted, 0);
+    $('nearbyTransferOutcome').textContent = `${recovered} of the five known missed positions now have a setting that captured on all three fresh repeats. Search found ${searchCaptures} capturing settings; ${confirmed} passed all three confirmations. ${assisted} arm-assisted search retentions are separate from these captures. This does not change the earlier policy scores or the live planner.`;
+    table('nearbyTransferSearch', ['Target bucket X, Y (mm)', 'Proposals', 'CPU proposal checks', 'Admitted arm poses', 'Selected settings', 'Actual search drops'],
+      view.cases.map(row => [xy(row.bucket_xy_m), ...['proposed', 'checked', 'admitted', 'selected'].map(key => String(row.preparation[key])), String(row.results.search.released)]));
+    $('nearbyTransferSourceNote').textContent = `${view.sources.length} saved source records supplied starting points; records from different studies may share the same physical settings. Prior confirmation strength belongs to the source bucket only; it does not prove success at the new target. Distance is measured between source and target bucket centers.`;
+    table('nearbyTransferSources', ['Source setting', 'Source bucket X, Y (mm)', 'Original evidence', 'Audited source study', 'Source report / audit SHA-256'],
+      view.sources.map(row => [row.label, xy(row.bucket_xy_m), row.strength, row.study, `${row.report_sha256.slice(0, 12)} / ${row.audit_sha256.slice(0, 12)}`]));
+    table('nearbyTransferDistances', ['Target bucket X, Y (mm)', 'Nearest source setting', 'Bucket-to-bucket distance', 'Sources contributing selected settings'],
+      view.cases.map(row => [xy(row.bucket_xy_m), row.nearest_source_label, `${(1000 * row.nearest_seed_distance_m).toFixed(1)} mm`, row.selected_source_labels.join(', ') || 'None']));
+    const settingRows = view.cases.flatMap(row => row.confirmed.map(setting => [xy(row.bucket_xy_m), setting.candidate_id, setting.source_label,
+      xy(setting.values.slice(0, 2)), `${(1000 * setting.values[2]).toFixed(1)} mm`, `${setting.values[3].toFixed(2)}°`,
+      `${(1000 * setting.values[4]).toFixed(1)} mm`, `${setting.heading.toFixed(2)}°`, `${setting.twist.toFixed(2)}°`, '3 / 3']));
+    table('nearbyTransferConfirmed', ['Target bucket X, Y (mm)', 'New setting', 'Source setting', 'Board X, Y (mm)', 'Board height', 'Tilt', 'Drop gap', 'Heading offset', 'Board twist', 'Fresh captures'], settingRows);
+    $('nearbyTransferConfirmedDetails').hidden = confirmed === 0;
+    $('nearbyTransferControls').textContent = `Native simulation: ${view.native_releases} total releases, including 18 control drops. Both nine-drop control blocks passed. Search and repeat counts above exclude those controls. All selected new settings froze before any test drops; predictions are not measured captures.`;
+  }
+  $('nearbyTransferNext').textContent = view.error || view.next || 'Review confirmed settings before any planner change. Keep existing successful shots.';
 }
 function showParallelBoardStudy() {
   if (!parallelBoardSummary) return;
@@ -1903,6 +1953,7 @@ async function initializePhysics() {
     boardFallbackSummary = module.boardFallbackSummary;
     guardedBoardFallbackSummary = module.guardedBoardFallbackSummary;
     parallelBoardSummary = module.parallelBoardSummary;
+    nearbyShotTransferSummary = module.nearbyShotTransferSummary;
     physics = new module.InteractivePhysics({ onChange: updatePhysics });
     await physics.initialize();
     showSavedPhysicsReplays();
@@ -1919,6 +1970,7 @@ async function initializePhysics() {
     showBoardFallbackStudy();
     showGuardedBoardFallback();
     showParallelBoardStudy();
+    showNearbyShotTransfer();
   } catch { /* Historical viewing stays available without this optional API. */ }
 }
 for (const id of ['physicsDrop', 'physicsDropTop']) {

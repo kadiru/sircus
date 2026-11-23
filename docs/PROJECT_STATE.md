@@ -1,5 +1,13 @@
 # Project state
 
+## Nearby successful-shot transfer in progress — November 23, 2026
+
+- Use successful native64 configurations from the audited board-pose recovery, guarded comparison and parallel comparison as starting points for the five prior missed targets. Preserve source commands, original evidence and repetition strength; a one-shot capture is not labelled confirmed 3/3.
+- Try retaining the board position and re-aiming, translating board/release XY with the bucket, and a halfway translation. Adjust board height, tilt, gap and heading locally. Source joints are only solver hints: each new target must receive full pose/path checks and its own evidence.
+- Bound CPU preparation to 96 checks plus eight multistart retries and ten minutes per target. Freeze at most 20 distinct shot settings per target before any new drop. Test those settings at 64 substeps, repeat every qualifying direct/table capture three additional times, and retest the five unchanged failed shots three times each. Eighteen simulator controls bracket the run; maximum 433 native releases and one hour of leased 4090 time.
+- This is development search, not model retraining or a new policy evaluation. No live planner promotion, service restart, 4070, Isaac or physical-hardware change. Independent preflight and final native evidence audits precede accepted results. UI destination: `#nearbyShotTransfer`.
+
+
 ## Concurrent alternate-board search completed — November 23, 2026
 
 - [Results, diagnosis and reproduction](../baselines/mjlab-parallel-board-20261123/README.md): a second CPU worker starts from the first risky checked shot while the original search continues, within the same 30-second decision window. Both methods retain full arm-pose/path checks. A replacement needs at least 5 mm predicted ball-to-arm clearance and a strictly better score than the final original.
