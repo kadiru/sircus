@@ -101,7 +101,18 @@ receipt via `--preflight-audit` for native execution. Only the authorized 4090 U
 may be exposed. A final audit is required before publication.
 
 
-Results will be appended after the independent audit.
+## Completed result
+
+[Full result and exact commands](../../baselines/mjlab-remaining-link-clearance-20261123/README.md):
+both targets remained **0/32 captures**. Robot-contact counts were **30/32** and
+**32/32**; the first target had two arm-free misses. Unchanged originals remained
+0/6. All nine preservation captures and 18 control checks passed. There were
+97 native releases, 493.481 leased 4090 seconds, 7,317 preflight checks and 26,471
+final audit checks. No new setting qualified for capture confirmation repeats.
+
+Computational producer: `48f41dd66be3efaa24823eb68d0e2816e84521c0`.
+UI: `#remainingLinkClearance`. The existing planner and successful-shot archive
+remain unchanged. This finite search does not establish impossibility.
 
 ## Preparation correction
 
