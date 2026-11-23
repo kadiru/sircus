@@ -533,6 +533,81 @@ export function guardedBoardFallbackSummary(study) {
 }
 
 /** Selected development targets and repeated frozen commands, never a fresh-position policy score. */
+export function remainingLinkClearanceSummary(study) {
+  const raw = study?.remaining_link_clearance;
+  if (raw?.version !== 'sircus-link-clearance-study-v1') return null;
+  const count = value => Number.isInteger(value) && value >= 0 ? value : null;
+  const text = value => typeof value === 'string' ? value : '';
+  const hash = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value);
+  const expected = ['parallel-board-miss-09', 'parallel-board-miss-19'];
+  const allowed = new Set(['direct', 'table', 'flight_miss', 'invalid_physics', 'arm_assisted_capture']);
+  const result = source => {
+    const row = Object.fromEntries(['requested', 'completed', 'released', 'captures', 'direct', 'table', 'robot_contacts'].map(key => [key, count(source?.[key])]));
+    const outcomes = Array.isArray(source?.outcomes) ? source.outcomes : [];
+    row.arm_assisted = outcomes.filter(value => value === 'arm_assisted_capture').length;
+    row.valid = Object.values(row).every(value => value !== null) && row.completed === row.requested
+      && row.released === row.completed && row.robot_contacts <= row.released && row.arm_assisted <= row.robot_contacts
+      && row.captures === row.direct + row.table && row.captures <= row.released
+      && Array.isArray(source?.outcomes) && outcomes.length === row.completed && outcomes.every(value => allowed.has(value))
+      && row.direct === outcomes.filter(value => value === 'direct').length && row.table === outcomes.filter(value => value === 'table').length;
+    return row;
+  };
+  const cases = (Array.isArray(raw.cases) ? raw.cases : []).map(source => {
+    const preparation = Object.fromEntries(['proposed', 'checked', 'admitted', 'selected'].map(key => [key, count(source?.[key])]));
+    const results = Object.fromEntries(['original', 'search', 'repeat'].map(key => [key, result(source?.results?.[key])]));
+    const supplied = Array.isArray(source?.repeated_settings) ? source.repeated_settings : [];
+    const repeated = supplied.map(row => {
+      const request = row?.request || {}, captures = count(row?.repeat_captures), completed = count(row?.repeat_completed);
+      return {candidate_id:text(row?.candidate_id), values:request.values, heading:request.board_heading_offset_deg,
+        twist:request.board_twist_deg, q10:request.selected_q10, q14:request.selected_q14, captures, completed,
+        valid:Boolean(text(row?.candidate_id)) && row.candidate_id === request.id && request.context_id === source.id
+          && captures !== null && captures <= 3 && completed === 3 && vector(request.values, 5) && request.values[4] > 0
+          && sameXY(request.bucket_xy_m, source.bucket_xy_m) && vector(request.selected_q10, 6) && vector(request.selected_q14, 6)
+          && Number.isFinite(request.board_heading_offset_deg) && Number.isFinite(request.board_twist_deg)};
+    });
+    const confirmed = repeated.filter(row => row.captures === 3);
+    const confirmationsValid = Array.isArray(source?.repeated_settings) && repeated.length === results.search.captures
+      && repeated.every(row => row.valid) && new Set(repeated.map(row => row.candidate_id)).size === repeated.length
+      && results.repeat.requested === 3 * repeated.length && results.repeat.captures === repeated.reduce((sum,row) => sum + row.captures, 0)
+      && Array.isArray(source?.confirmed_settings) && JSON.stringify(source.confirmed_settings) === JSON.stringify(supplied.filter(row => row.repeat_captures === 3 && row.repeat_completed === 3));
+    return {id:source?.id,bucket_xy_m:source?.bucket_xy_m,preparation,results,confirmed,
+      valid:expected.includes(source?.id) && vector(source.bucket_xy_m,2) && Object.values(preparation).every(value => value !== null)
+        && preparation.selected <= preparation.admitted && preparation.selected <= preparation.proposed && preparation.selected <= 32
+        && Object.values(results).every(row => row.valid) && results.original.requested === 3
+        && results.search.requested === preparation.selected && confirmationsValid};
+  });
+  const diagnosis = (Array.isArray(raw.diagnosis_rows) ? raw.diagnosis_rows : []).map(row => {
+    const counts = row?.first_contact_link_counts || {}, times = row?.first_contact_time_s || {};
+    return {id:row?.id,bucket_xy_m:row?.bucket_xy_m,trials:count(row?.trials),robot_contacts:count(row?.robot_contacts),
+      links:Object.entries(counts).map(([name,total]) => ({name,total})),time_min:times.min,time_max:times.max,
+      valid:expected.includes(row?.id) && vector(row?.bucket_xy_m,2) && row.trials === 20 && row.robot_contacts === 20
+        && row.method === 'native_force_cpu_reconstruction' && typeof counts === 'object' && !Array.isArray(counts)
+        && Object.entries(counts).every(([name,total]) => Boolean(text(name)) && count(total) !== null)
+        && Object.values(counts).reduce((sum,total) => sum + total,0) === row.robot_contacts
+        && Number.isFinite(times.min) && times.min >= 0 && Number.isFinite(times.max) && times.max >= times.min};
+  });
+  const progress = raw.progress || {}, completed=count(progress.completed), planned=count(progress.planned);
+  const initial=count(raw.initial_requests), confirmations=count(raw.confirmation_requests), releases=count(raw.native_releases);
+  const preserved=raw.preserved_shots || {};
+  const preservationValid=preserved.requested === 9 && preserved.completed === 9 && preserved.captures === 9 && preserved.passed === true;
+  const controlsPassed=['controls_pre','controls_post'].every(key => raw.controls?.[key]?.status === 'passed'
+    && raw.controls[key].direct_captures === 3 && raw.controls[key].table_assisted_captures === 3 && raw.controls[key].negative_captures === 0);
+  const provenance=raw.published_provenance || {};
+  const provenanceValid=['report_sha256','audit_sha256','evidence_manifest_sha256','plan_sha256','source_bank_sha256','contract_sha256','diagnosis_sha256'].every(key => hash(provenance[key]))
+    && provenance.evidence_manifest_sha256 === raw.evidence_manifest_sha256;
+  const accounting=cases.length === 2 && cases.every(row => row.valid) && expected.every((id,i) => cases[i].id === id)
+    && new Set(cases.map(row => JSON.stringify(row.bucket_xy_m))).size === 2
+    && initial === cases.reduce((sum,row) => sum + row.results.original.released + row.results.search.released,0)
+    && confirmations === cases.reduce((sum,row) => sum + row.results.repeat.released,0)
+    && completed === planned && completed === initial + confirmations && releases === completed + 27 && releases <= 289
+    && diagnosis.length === 2 && diagnosis.every((row,i) => row.valid && row.id === cases[i].id && sameXY(row.bucket_xy_m,cases[i].bucket_xy_m));
+  const complete=Boolean(raw.status === 'completed' && raw.phase === 'completed' && raw.audit_status === 'passed'
+    && raw.scope === 'development' && raw.physics_substeps === 64 && controlsPassed && preservationValid && provenanceValid && accounting);
+  return {complete,accounting_valid:accounting,promotion_eligible:false,status:raw.status,phase:raw.phase,audit:raw.audit_status,
+    completed,planned,native_releases:complete?releases:null,cases:complete?cases:[],diagnosis:complete?diagnosis:[],
+    next:text(raw.next),error:text(raw.error)};
+}
+
 export function nearbyShotTransferSummary(study) {
   const raw = study?.nearby_shot_transfer;
   if (raw?.version !== 'sircus-nearby-transfer-study-v1') return null;

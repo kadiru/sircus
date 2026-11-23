@@ -1,0 +1,350 @@
+{
+  "version": "sircus-remaining-link-followup-v1",
+  "status": "completed",
+  "cpu_only": true,
+  "physics_substeps": 64,
+  "scope": "Post-hoc diagnosis of the audited fixed64 development study; no new rollout, retraining or planner change.",
+  "study_evidence": {
+    "report.json": "39e074019faa58971337275efe476ee6165527f755aad46585d80b5cc1ec024e",
+    "final_audit": "671e7b577a75417eb86d18fbc8a0f227241b5799a360e9787910ddd8352654c6",
+    "contract.json": "511e62d699fe65159b8061c675817801881567a92783fc9928fe35e91a024e91",
+    "evidence-manifest.json": "7385949b7d4bbd7bfcf2098cdee8fd94e5c890002b36d00010e2bd127596c2e2",
+    "preparation.json": "c4c84abf415c3625d226670c2e691b05c8a011e02641899cce0372227a96a474"
+  },
+  "producer_commit": "48f41dd66be3efaa24823eb68d0e2816e84521c0",
+  "source_diagnostics": {
+    "contact_diagnosis_sha256": "f69b860e10030453f171473c27cb06e906d37b5de191f8c2625e655f9990c983",
+    "armfree_analysis_sha256": "85095d47d41b23dba54bc0cb8eecf36ce7b67e314230349a51f8113335049406",
+    "contact_diagnostic_source_sha256": "283fbc2d96883e66e7b370328e3843c9e09316d6812826dff77cadad1628276b",
+    "contact_reconstruction_checks": 983,
+    "armfree_analysis_source_sha256": "27a24ed9538dc214853428ec7388d64f4a4ab47a48e8bd3a6ee2f8250d2c0da2"
+  },
+  "aggregate": {
+    "search_drops": 64,
+    "captures": 0,
+    "robot_contact_shots": 62,
+    "arm_free_misses": 2,
+    "preserved_successes": 9,
+    "preserved_attempts": 9
+  },
+  "diagnosis_rows": [
+    {
+      "id": "parallel-board-miss-09",
+      "bucket_xy_m": [
+        1.1929942869527974,
+        0.14742349109856434
+      ],
+      "trials": 32,
+      "robot_contacts": 30,
+      "first_contact_link_counts": {
+        "Arm14/link3/collision/0": 30,
+        "no_robot_force": 2
+      },
+      "first_contact_time_s": {
+        "min": 0.3983072916666667,
+        "max": 0.5673177083333333
+      },
+      "method": "native_force_cpu_reconstruction"
+    },
+    {
+      "id": "parallel-board-miss-19",
+      "bucket_xy_m": [
+        1.1275553924334596,
+        -0.038347936433139274
+      ],
+      "trials": 32,
+      "robot_contacts": 32,
+      "first_contact_link_counts": {
+        "Arm14/link2/collision/0": 3,
+        "Arm14/link3/collision/0": 27,
+        "Arm14/link4/collision/0": 2
+      },
+      "first_contact_time_s": {
+        "min": 0.3809895833333333,
+        "max": 0.6518880208333333
+      },
+      "method": "native_force_cpu_reconstruction"
+    }
+  ],
+  "arm_free_misses": [
+    {
+      "candidate_id": "parallel-board-miss-09-clearance-0016-b0",
+      "native_release_id": "parallel-board-miss-09-clearance-0016-b0-search-0",
+      "context_id": "parallel-board-miss-09",
+      "request": {
+        "board_heading_offset_deg": 6.9477438887308125,
+        "board_twist_deg": 135.0,
+        "branch_seed": 2026113207,
+        "bucket_xy_m": [
+          1.1929942869527974,
+          0.14742349109856434
+        ],
+        "context_id": "parallel-board-miss-09",
+        "fixed_cartesian": false,
+        "id": "parallel-board-miss-09-clearance-0016-b0",
+        "intended_route": "table",
+        "joint_change": {
+          "maximum_rad": 3.141587501897968,
+          "per_arm_rad": {
+            "q10": [
+              1.6653345369377348e-16,
+              4.419131727217973e-12,
+              7.999378937029178e-12,
+              2.3778798279917336e-16,
+              5.236922007156863e-12,
+              0.0
+            ],
+            "q14": [
+              8.908462896251024e-07,
+              1.0476961698202558e-07,
+              3.7063518076863033e-07,
+              3.141587501897968,
+              2.5783937498875416,
+              2.356199271035698
+            ]
+          },
+          "proximal_rad": 8.908462896251024e-07
+        },
+        "lateral_offset_m": 0.0,
+        "proof_sha256": {
+          "context_resolution": "1aa1510ca3c6cc3f3da35e37962530829e2df349b187a4bdc97d870528dde935",
+          "prepared_connection": "c0b96be2a5368824ef326f22dcf9aa68451459f99c33bc2768b5201362ac9e6a"
+        },
+        "proposal_family": "board_twist",
+        "radial_offset_m": 0.0,
+        "selected_q10": [
+          -0.016239233270225924,
+          -0.6872217743357377,
+          -2.207579791372531,
+          2.3790768118114246e-06,
+          -1.5203580170583504,
+          5.967149660271598
+        ],
+        "selected_q14": [
+          -3.080920771673224,
+          2.218076420956739,
+          -1.7900465743182983,
+          -2.983062888222352,
+          1.289196797262201,
+          -2.0726543544900555
+        ],
+        "source_bank_id": "parallel-board-miss-09-transfer-0028-multistart-b0",
+        "source_request_id": "parallel-board-miss-09-transfer-0028-multistart-b0",
+        "source_strength": "prior_robot_contact",
+        "twist_delta_deg": -45.0,
+        "values": [
+          0.6803429248048187,
+          -0.011044302443505356,
+          0.4618683735173024,
+          25.4687518028256,
+          0.1094386406066069
+        ]
+      },
+      "recorded_capture": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0,
+      "robot_contacts": 0,
+      "board_contact_count_before_first_bucket_contact": 2,
+      "board_contact_times_s": [
+        0.14466145833333333,
+        0.33665364583333335
+      ],
+      "vertical_velocity_after_board_contacts_m_s": [
+        0.5378544330596924,
+        -0.4422779679298401
+      ],
+      "descending_center_rim_crossings_before_first_bucket_contact": [
+        {
+          "time_s": 0.5219049100910934,
+          "position_m": [
+            1.0489000082015991,
+            0.13097459077835083,
+            0.18299999833106995
+          ],
+          "forward_error_mm": -142.52494540073963,
+          "lateral_error_mm": 26.83966149355344,
+          "necessary_aperture_clearance_mm": -94.0548356236888
+        }
+      ],
+      "first_bucket_contact": {
+        "time_s": 0.5292317708333333,
+        "ball_center_height_above_table_mm": 166.3229912519455,
+        "ball_center_below_rim_mm": 16.6770087480545
+      },
+      "closest_recorded_approach_before_first_bucket_contact": {
+        "time_s": 0.5292317708333333,
+        "position_m": [
+          1.0578618049621582,
+          0.1339864581823349,
+          0.1663229912519455
+        ],
+        "velocity_m_s": [
+          1.2230972051620483,
+          0.4110560715198517,
+          -2.3117692470550537
+        ],
+        "distance_mm": 136.81909300408213,
+        "world_offset_mm": [
+          -135.1324819906392,
+          -13.437032916229441,
+          -16.67701016121925
+        ],
+        "forward_offset_mm": -133.0733928495773,
+        "lateral_offset_mm": 27.070531174033803
+      },
+      "first_free_flight_cutoff": [
+        "board"
+      ],
+      "trace_sha256": "f634f5937cb6fc23a552d39680ebb198a7edd75796fbde3e2e7accbed0ac4004",
+      "row_sha256": "a7b2d5e11c899d5ea93695781964ec8189bbb064c817ac1daecc0601b8fe8a0a"
+    },
+    {
+      "candidate_id": "parallel-board-miss-09-clearance-0017-b0",
+      "native_release_id": "parallel-board-miss-09-clearance-0017-b0-search-0",
+      "context_id": "parallel-board-miss-09",
+      "request": {
+        "board_heading_offset_deg": 6.9477438887308125,
+        "board_twist_deg": -135.0,
+        "branch_seed": 2026113207,
+        "bucket_xy_m": [
+          1.1929942869527974,
+          0.14742349109856434
+        ],
+        "context_id": "parallel-board-miss-09",
+        "fixed_cartesian": false,
+        "id": "parallel-board-miss-09-clearance-0017-b0",
+        "intended_route": "table",
+        "joint_change": {
+          "maximum_rad": 0.785358234333922,
+          "per_arm_rad": {
+            "q10": [
+              1.6653345369377348e-16,
+              4.419131727217973e-12,
+              7.999378937029178e-12,
+              2.3778798279917336e-16,
+              5.236922007156863e-12,
+              0.0
+            ],
+            "q14": [
+              4.293563313773063e-06,
+              3.494552736960088e-06,
+              7.003578270436961e-06,
+              9.842972965246055e-06,
+              9.937712106777852e-06,
+              0.785358234333922
+            ]
+          },
+          "proximal_rad": 7.003578270436961e-06
+        },
+        "lateral_offset_m": 0.0,
+        "proof_sha256": {
+          "context_resolution": "1aa1510ca3c6cc3f3da35e37962530829e2df349b187a4bdc97d870528dde935",
+          "prepared_connection": "a581fe5bde9b1056424822fb3a0c282331052645301a22ff3f288e28d0c0ebda"
+        },
+        "proposal_family": "board_twist",
+        "radial_offset_m": 0.0,
+        "selected_q10": [
+          -0.016239233270225924,
+          -0.6872217743357377,
+          -2.207579791372531,
+          2.3790768118114246e-06,
+          -1.5203580170583504,
+          5.967149660271598
+        ],
+        "selected_q14": [
+          -3.0809173689561997,
+          2.218079810739859,
+          -1.7900399413752086,
+          0.1585344566485812,
+          -1.289187014913234,
+          2.6396899159877547
+        ],
+        "source_bank_id": "parallel-board-miss-09-transfer-0028-multistart-b0",
+        "source_request_id": "parallel-board-miss-09-transfer-0028-multistart-b0",
+        "source_strength": "prior_robot_contact",
+        "twist_delta_deg": 45.0,
+        "values": [
+          0.6803429248048187,
+          -0.011044302443505356,
+          0.4618683735173024,
+          25.4687518028256,
+          0.1094386406066069
+        ]
+      },
+      "recorded_capture": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0,
+      "robot_contacts": 0,
+      "board_contact_count_before_first_bucket_contact": 2,
+      "board_contact_times_s": [
+        0.14466145833333333,
+        0.33665364583333335
+      ],
+      "vertical_velocity_after_board_contacts_m_s": [
+        0.5407174229621887,
+        -0.42108583450317383
+      ],
+      "descending_center_rim_crossings_before_first_bucket_contact": [
+        {
+          "time_s": 0.5239013674747791,
+          "position_m": [
+            1.0331289768218994,
+            0.17000040411949158,
+            0.18299999833106995
+          ],
+          "forward_error_mm": -146.0670264399068,
+          "lateral_error_mm": 68.78268802399538,
+          "necessary_aperture_clearance_mm": -110.5543353674859
+        }
+      ],
+      "first_bucket_contact": {
+        "time_s": 0.56015625,
+        "ball_center_height_above_table_mm": 95.3921228647232,
+        "ball_center_below_rim_mm": 87.6078771352768
+      },
+      "closest_recorded_approach_before_first_bucket_contact": {
+        "time_s": 0.54609375,
+        "position_m": [
+          1.0580384731292725,
+          0.1841110736131668,
+          0.13090424239635468
+        ],
+        "velocity_m_s": [
+          1.1215347051620483,
+          0.6358745098114014,
+          -2.4560043811798096
+        ],
+        "distance_mm": 149.24147715388386,
+        "world_offset_mm": [
+          -134.95581382352495,
+          36.68758251460247,
+          -52.09575901681007
+        ],
+        "forward_offset_mm": -118.10131540340319,
+        "lateral_offset_mm": 74.90747423002311
+      },
+      "first_free_flight_cutoff": [
+        "board"
+      ],
+      "trace_sha256": "9dee1f3c16d1aea1803f09c94cafc2570e6c3ec50056587f28c8661d8a6eed4f",
+      "row_sha256": "8a09bb5757bd41fe69748264c94765b183dcc1e1c94b431f5759446f9bb7c9a7"
+    }
+  ],
+  "measurement_definitions": {
+    "contact_identity": "Native robot-force samples establish impact occurrence and time. Named links are inferred by CPU MuJoCo signed-distance queries at recorded ball centers and held initial joints. These are not native logged robot geometry IDs.",
+    "rim_height_mm": 183.0,
+    "rim_crossing": "Interpolate the descending ball CENTER through the 183 mm rim plane. This is not whole-ball entry or capture.",
+    "forward_error": "Horizontal error projected along board-center-to-bucket-center direction. Negative means short of the bucket center.",
+    "lateral_error": "Horizontal error perpendicular to board-to-bucket direction, positive counterclockwise.",
+    "aperture_clearance": "Minimum projected clearance to compiled inner rim planes minus full ball radius at the center-rim crossing. Negative excludes a clean aperture passage at that crossing.",
+    "closest_approach": "Minimum saved 3D ball-center distance to the opening center after the first board rebound and through the start state of first bucket contact. This includes the second board bounce and is not a continuous closest point or a success score.",
+    "bucket_contact_height": "Height of the ball center when aggregate native bucket force first begins; not a reconstructed contact-point height or identification of a specific bucket wall/rim geometry."
+  },
+  "interpretation": "Two board-twist settings cleared both arms, but both contacted the board a second time. After that contact their vertical velocity was already downward (\u22120.44 and \u22120.42 m/s). At rim height the ball centers were 142.5 and 146.1 mm short of the bucket center, then contacted the outside of the bucket without whole-ball entry. All other selected settings still contacted the bouncer arm.",
+  "next_test": {
+    "status": "proposed_not_run",
+    "starting_candidate_id": "parallel-board-miss-09-clearance-0016-b0",
+    "change": "Keep the 135-degree board twist and checked joint branch as the starting configuration. Sweep larger release gaps first; add modest tilt changes only with renewed endpoint/path and flight-clearance checks.",
+    "reason": "The clearer 135-degree shot has less lateral error. In this shot the ball contacted the board twice and arrived short and descending. More release energy may clear the board and extend range, but it can also reintroduce the middle-link collision; this is a hypothesis to test, not a promised capture."
+  }
+}

@@ -1,5 +1,16 @@
 # Project state
 
+## Two remaining arm-contact targets retested — November 23, 2026
+
+- [Audited results and exact settings](../baselines/mjlab-remaining-link-clearance-20261123/README.md): at bucket **(1192.994, 147.423) mm**, 32 alternatives produced **0 captures, 30 robot-contact misses and two arm-free misses**. At **(1127.555, −38.348) mm**, all **32 missed with robot contact**. Three unchanged originals per target also missed with contact. No new captures qualified for confirmation repeats.
+- Prior-contact reconstruction identified board-arm link 3 in all 20 first-target flights; second-target contacts matched link 3 in 16, link 4 in three and link 2 in one. Native forces establish contact/timing; exact CPU geometry reconstruction supplies the inferred link name.
+- The bounded search prioritized alternate proximal joint configurations and small board/release translations, with board twist alternatives. It attempted **50/78 CPU checks**, admitted **115/213 joint-solution records**, and selected **32 distinct configurations each**. Preparation records are not simulated drops. Height, tilt and gap stayed fixed for each source command.
+- **97 native64 releases** completed: 64 search, six unchanged originals, nine preservation and 18 controls. All nine preservation captures and both control blocks passed. Preflight **7,317 checks**; final audit **26,471 checks**; **493.481 seconds of leased RTX 4090 time**.
+- Frozen computational producer **`48f41dd66be3efaa24823eb68d0e2816e84521c0`**, draft [PR #162](https://github.com/kadiru/sircus/pull/162), stacked on #161. Two CPU-only failed attempts remain archived separately; no native drops ran in them. Tests cover nested IK options and recovery of immutable fallback-path proofs after a timeout.
+- Post-run CPU reconstruction passed **983 checks**: new first-target impacts matched link 3 in 30 flights; second-target impacts matched link 3 in 27, link 2 in three and link 4 in two. Both arm-free shots hit the board twice and crossed rim height **142.5/146.1 mm short of the bucket center**. [Bound measurements and exact commands](../baselines/mjlab-remaining-link-clearance-20261123/followup-diagnosis.json). Next proposed experiment: keep the clearer **135° board twist**, increase drop gap and then vary tilt, with renewed clearance checks. No extra drops were run.
+- Published results at **`#remainingLinkClearance`**. All 13 historical video entries and existing successful settings are preserved. No model retraining, live planner promotion, service restart, 4070 workload or Isaac change. Neither target is proven impossible; this is development evidence, not a new unseen-position score. Arms remain held at checked endpoints during native flight.
+
+
 ## Nearby successful settings recovered three missed positions — November 23, 2026
 
 - [Results and exact commands](../baselines/mjlab-nearby-shot-transfer-20261123/README.md): transfer audited successful nearby settings to the five prior development misses. Retain/re-aim, translate or half-translate board/release XY, then adjust height, tilt, gap and heading locally. Each new command receives full arm-pose and path checks; source joints are only solver hints. All original source commands remain intact.
