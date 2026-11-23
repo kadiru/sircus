@@ -6,6 +6,21 @@ starting configurations: use settings that actually captured at nearby bucket
 positions, transfer them to each missed target, check both arms, and test the
 resulting ball flights. It does not train or promote a new policy.
 
+## Completed result — November 23, 2026
+
+[Results and exact commands](../../baselines/mjlab-nearby-shot-transfer-20261123/README.md):
+**three of five known missed positions recovered.** Search captures from 20
+settings per target were **16 / 0 / 10 / 16 / 0** in the target order below.
+All 42 qualifying settings passed **3/3 fresh repeats (126/126)**; unchanged
+originals remained **0/15**. The third recovered target used the table-assisted
+route. Both unresolved targets had robot contact in every tested flight.
+
+All **259 native releases**, both control blocks and the **56,065-check final
+audit** completed; **973.070 seconds** of leased 4090 time. One arm-assisted
+retained-ball outcome remains explicitly unconfirmed and one invalid-physics
+outcome remains in the search denominator. The UI publishes the audited result
+at `#nearbyShotTransfer`. No live planner switch, retraining or service restart.
+
 ## Sources and fixed targets
 
 The source bank binds raw commands, actual native joint vectors, trajectories,
