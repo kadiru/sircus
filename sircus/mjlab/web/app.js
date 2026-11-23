@@ -68,7 +68,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, directPathFirstSummary, stalledReferenceSummary, hybridMissCorrectionSummary, boardPoseRecoverySummary, boardFallbackSummary, guardedBoardFallbackSummary, parallelBoardSummary, nearbyShotTransferSummary, physicsSceneActive = false, physicsViewKey = '';
+let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, directPathFirstSummary, stalledReferenceSummary, hybridMissCorrectionSummary, boardPoseRecoverySummary, boardFallbackSummary, guardedBoardFallbackSummary, parallelBoardSummary, nearbyShotTransferSummary, remainingLinkClearanceSummary, physicsSceneActive = false, physicsViewKey = '';
 let savedReplayRows = [], savedReplaySignature = '';
 const physicsSelected = () => $('mode').value === 'physics' && physics?.available === true;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
@@ -1051,6 +1051,7 @@ async function loadStatus() {
     showGuardedBoardFallback();
     showParallelBoardStudy();
     showNearbyShotTransfer();
+    showRemainingLinkClearance();
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
@@ -1072,6 +1073,55 @@ function showSavedPhysicsReplays() {
       ? report.interactive_recordings.title : 'Saved first-drop replays';
   }
   syncSolveButtons();
+}
+function showRemainingLinkClearance() {
+  if (!remainingLinkClearanceSummary) return;
+  const view=remainingLinkClearanceSummary(report);
+  $('remainingLinkClearance').hidden=!view;
+  if (!view) return;
+  const number=value => value === null || value === undefined ? '—' : String(value);
+  const xy=value => `(${value.map(v => (1000*v).toFixed(1)).join(', ')})`;
+  $('remainingLinkStatus').textContent=view.complete ? 'Development search complete · independent audit passed'
+    : view.status === 'failed' || view.audit === 'failed' ? 'Study stopped or audit failed · final results withheld'
+    : view.status === 'completed' ? 'Drops finished · complete audited accounting pending'
+    : `Development search in progress · ${String(view.phase || 'initializing').replaceAll('_',' ')} · final results pending`;
+  $('remainingLinkProgress').textContent=`Recorded development drops: ${number(view.completed)} / ${number(view.planned)} · Final counts appear after the independent audit, controls and preservation checks pass.`;
+  for (const id of ['remainingLinkDiagnosis','remainingLinkResults','remainingLinkChecks','remainingLinkSettings']) $(id).replaceChildren();
+  for (const id of ['remainingLinkDiagnosisNote','remainingLinkOutcome','remainingLinkPreservation','remainingLinkControls']) $(id).textContent='';
+  for (const id of ['remainingLinkCheckDetails','remainingLinkSettingDetails']) $(id).hidden=!view.complete;
+  const table=(id,headings,rows) => {
+    const element=document.createElement('table'),head=document.createElement('thead'),body=document.createElement('tbody'),hr=document.createElement('tr');
+    for (const heading of headings) {const cell=document.createElement('th');cell.scope='col';cell.textContent=heading;hr.append(cell);}
+    head.append(hr);
+    for (const row of rows) {const tr=document.createElement('tr');row.forEach((value,index) => {
+      const cell=document.createElement(index?'td':'th');if(!index)cell.scope='row';cell.textContent=value;tr.append(cell);
+    });body.append(tr);}
+    element.append(head,body);$(id).append(element);
+  };
+  if(view.complete) {
+    table('remainingLinkDiagnosis',['Bucket X, Y (mm)','Prior drops with robot contact','First struck link · CPU reconstruction','First contact after release'],
+      view.diagnosis.map(row => [xy(row.bucket_xy_m),`${row.robot_contacts} / ${row.trials}`,
+        row.links.map(link => `${link.name} · ${link.total} flights`).join('; '),`${row.time_min.toFixed(3)}–${row.time_max.toFixed(3)} s`]));
+    $('remainingLinkDiagnosisNote').textContent='Robot contact and timing come from recorded native forces. The link name is inferred by reconstructing exact collision geometry at the saved ball position and arm joints; it is not a link label reported by the native force sensor.';
+    table('remainingLinkResults',['Bucket X, Y (mm)','Original captures / 3','New captures / drops','New flights hitting a robot','Fresh repeat captures / drops','Settings confirmed 3/3'],
+      view.cases.map(row => [xy(row.bucket_xy_m),`${row.results.original.captures} / 3`,`${row.results.search.captures} / ${row.results.search.released}`,
+        `${row.results.search.robot_contacts} / ${row.results.search.released}`,`${row.results.repeat.captures} / ${row.results.repeat.released}`,String(row.confirmed.length)]));
+    const confirmed=view.cases.reduce((sum,row) => sum+row.confirmed.length,0);
+    const recovered=view.cases.filter(row => row.confirmed.length>0).length;
+    const assisted=view.cases.reduce((sum,row) => sum+row.results.search.arm_assisted,0);
+    $('remainingLinkOutcome').textContent=`${recovered} of the two remaining positions now have a setting that captured in all three fresh repeats. ${confirmed} new settings passed 3/3 confirmations. ${assisted} arm-assisted search retentions are saved separately. This is a local search result, not a new policy score.`;
+    table('remainingLinkChecks',['Bucket X, Y (mm)','Proposals','CPU checks','Admitted arm poses','Selected settings','Search drops'],
+      view.cases.map(row => [xy(row.bucket_xy_m),...['proposed','checked','admitted','selected'].map(key => String(row.preparation[key])),String(row.results.search.released)]));
+    const degrees=values => values.map(value => (value*180/Math.PI).toFixed(2)).join(', ');
+    table('remainingLinkSettings',['Bucket X, Y (mm)','Setting ID','Board X, Y (mm)','Board height','Tilt','Drop gap','Heading offset','Board twist','Dropper joints 1–6 (°)','Board-arm joints 1–6 (°)'],
+      view.cases.flatMap(row => row.confirmed.map(setting => [xy(row.bucket_xy_m),setting.candidate_id,xy(setting.values.slice(0,2)),
+        `${(1000*setting.values[2]).toFixed(1)} mm`,`${setting.values[3].toFixed(2)}°`,`${(1000*setting.values[4]).toFixed(1)} mm`,
+        `${setting.heading.toFixed(2)}°`,`${setting.twist.toFixed(2)}°`,degrees(setting.q10),degrees(setting.q14)])));
+    $('remainingLinkSettingDetails').hidden=confirmed===0;
+    $('remainingLinkPreservation').textContent='Preservation check: one successful setting from each of the three previously recovered targets was repeated three times. All nine captures passed; the full earlier successful-shot archive remains unchanged.';
+    $('remainingLinkControls').textContent=`${view.native_releases} total native releases, including nine preservation checks and 18 simulator controls. Both nine-drop control blocks passed. Those checks are separate from the two-target results above.`;
+  }
+  $('remainingLinkNext').textContent=view.error || view.next || 'Review repeated settings before changing the live planner. Preserve existing successful shots.';
 }
 function showNearbyShotTransfer() {
   if (!nearbyShotTransferSummary) return;
@@ -1954,6 +2004,7 @@ async function initializePhysics() {
     guardedBoardFallbackSummary = module.guardedBoardFallbackSummary;
     parallelBoardSummary = module.parallelBoardSummary;
     nearbyShotTransferSummary = module.nearbyShotTransferSummary;
+    remainingLinkClearanceSummary = module.remainingLinkClearanceSummary;
     physics = new module.InteractivePhysics({ onChange: updatePhysics });
     await physics.initialize();
     showSavedPhysicsReplays();
@@ -1971,6 +2022,7 @@ async function initializePhysics() {
     showGuardedBoardFallback();
     showParallelBoardStudy();
     showNearbyShotTransfer();
+    showRemainingLinkClearance();
   } catch { /* Historical viewing stays available without this optional API. */ }
 }
 for (const id of ['physicsDrop', 'physicsDropTop']) {
