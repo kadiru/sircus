@@ -1367,7 +1367,12 @@ export const {bucketApproachReady, renderBucketApproach} = (() => {
       || new Set(x.preservation.map(p=>p.id)).size!==4
       || !integer(x.native_releases) || !['controls_pre','controls_post'].every(p=>x.controls?.[p]?.status==='passed' && x.controls[p].requested===9))return false;
     for(const c of x.cases){
-      if(!vector(c.bucket_xy_m,2) || !['current','expanded'].includes(c.original_method))return false;
+      if(!vector(c.bucket_xy_m,2) || !['current','expanded'].includes(c.original_method)
+        || typeof c.selection_comparison?.changed!=='boolean' || typeof c.selection_comparison.statement!=='string'
+        || typeof c.selection_comparison.without_check_id!=='string' || !vector(c.selection_comparison.without_check_values,5)
+        || !integer(c.selection_comparison.checked_proposals) || !integer(c.selection_comparison.admitted_candidates)
+        || (c.selection_comparison.with_check_id!==null && typeof c.selection_comparison.with_check_id!=='string')
+        || (c.selection_comparison.with_check_values!==null && !vector(c.selection_comparison.with_check_values,5)))return false;
       for(const key of METHODS){const m=c.methods?.[key];if(!counts(m)||!settings(m.settings)||!forecast(m.forecast)
         || (m.settings===null)!==(m.setup_rejections===3))return false;}
     }
@@ -1392,6 +1397,8 @@ export const {bucketApproachReady, renderBucketApproach} = (() => {
       const card=el(find('cases'),'article',undefined,'hybrid-miss-case');card.id=`bucket-approach-${c.id.slice(-2)}`;
       el(card,'h3',`Case ${c.id.slice(-2)} · bucket (${vec(c.bucket_xy_m)}) mm`);
       el(card,'p',`Original shot came from the ${c.original_method==='current'?'current planner':'expanded selector'} in the earlier comparison.`,'fine');
+      const comparison=c.selection_comparison;
+      el(card,'p',`${comparison.statement} (${comparison.admitted_candidates} admitted candidates from ${comparison.checked_proposals} setup checks.)`,'scope-note');
       const pair=METHODS.map(k=>c.methods[k]);
       const wrap=el(card,'div',undefined,'table-wrap');
       table(wrap,['Result / setting','Unchanged missed shot','Approach-checked choice'],[
@@ -1408,6 +1415,11 @@ export const {bucketApproachReady, renderBucketApproach} = (() => {
         ['Predicted minimum wall margin (mm)',...pair.map(m=>number(m.forecast.minimum_margin_m,mm))],
         ['Predicted opening margin (mm)',...pair.map(m=>number(m.forecast.opening_margin_m,mm))],
       ]);
+      const rankDetail=el(card,'details');el(rankDetail,'summary','What would ranking without the new check choose?');
+      el(rankDetail,'p',`Without full-path checking: ${comparison.without_check_id}. With checking: ${comparison.with_check_id??'no selection'}.`,'fine');
+      const recipe=v=>v?`board (${vec(v.slice(0,3))}) mm; tilt ${v[3].toFixed(2)}°; gap ${mm(v[4])} mm`:'No selection';
+      el(rankDetail,'p',`Without: ${recipe(comparison.without_check_values)}. With: ${recipe(comparison.with_check_values)}.`,'fine');
+      el(rankDetail,'p','This compares ranking on exactly the same admitted candidates. Only the selected correction and unchanged original were dropped; a different counterfactual choice was not tested. More candidate search can itself improve the result.','fine');
       const detail=el(card,'details');el(detail,'summary','Arm joints, orientation and forecast limits');
       table(el(detail,'div',undefined,'table-wrap'),['Setting','Unchanged missed shot','Approach-checked choice'],[
         ['Heading offset / board twist (°)',...pair.map(m=>m.settings?`${m.settings.heading_offset_deg.toFixed(2)} / ${m.settings.twist_deg.toFixed(2)}`:'—')],
@@ -1419,7 +1431,8 @@ export const {bucketApproachReady, renderBucketApproach} = (() => {
     table(find('diagnostic'),['Unchanged shot','Bucket X, Y (mm)','Captures','Robot contact repeats'],raw.diagnostic_controls.map(p=>[p.id,vec(p.bucket_xy_m),`${p.captures} / 3`,`${p.robot_contacts} / 3`]));
     table(find('preservation'),['Saved successful shot','Bucket X, Y (mm)','Captures','Forecast approach'],raw.preservation.map(p=>[p.id,vec(p.bucket_xy_m),`${p.captures} / 3`,p.forecast.summary]));
     const preserved=raw.preservation.reduce((n,p)=>n+p.captures,0);
-    find('controls').textContent=`Unchanged successful shots: ${preserved}/12 captures. All 18 positive/negative control checks passed. ${raw.native_releases} native releases; ${raw.checks_count.toLocaleString()} independent evidence checks.`;
+    const warnings=raw.preservation.filter(p=>p.captures>0 && p.forecast.collision===true).length;
+    find('controls').textContent=`${warnings?`${warnings} previously successful setting(s) captured despite a nominal bucket-collision warning. `:''}Unchanged successful shots: ${preserved}/12 captures. All 18 positive/negative control checks passed. ${raw.native_releases} native releases; ${raw.checks_count.toLocaleString()} independent evidence checks.`;
     find('conclusion').textContent=raw.conclusion;
     find('limits').textContent=raw.limits;
     find('proof').textContent=`Report: ${raw.provenance.report_sha256}. Independent audit: ${raw.provenance.audit_sha256}. Frozen preparation: ${raw.provenance.preparation_sha256}.`;

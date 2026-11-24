@@ -84,6 +84,21 @@ def settings_view(request, native):
                 heading_offset_deg=request['board_heading_offset_deg'], twist_deg=request['board_twist_deg'])
 
 
+
+def selection_view(prepared):
+    without, selected = prepared['selected_without_bucket_check'], prepared.get('corrected')
+    fields = ('values', 'selected_q10', 'selected_q14', 'board_heading_offset_deg', 'board_twist_deg')
+    require(isinstance(without.get('id'), str) and vector(without.get('values'), 5),
+            'Same-menu uncorrected ranking must be recorded')
+    changed = selected is None or any(without.get(key) != selected.get(key) for key in fields)
+    return dict(changed=changed, without_check_id=without['id'], with_check_id=selected['id'] if selected else None,
+                without_check_values=without['values'], with_check_values=selected['values'] if selected else None,
+                checked_proposals=len(prepared.get('checked', [])), admitted_candidates=len(prepared.get('candidates', [])),
+                statement=('The full-path check chose a different setting from the same admitted candidates.' if changed and selected
+                           else 'The full-path check withheld a replacement; no improved setting was selected.' if selected is None
+                           else 'Both rankings chose the same setting from the admitted candidates; this selection did not depend on the new check.'))
+
+
 def count_view(result):
     require(result.get('requested') == 3 and type(result.get('completed')) is int, 'Three matched slots required')
     names = ('released', 'captures', 'setup_rejected', 'invalid_physics', 'robot_contacts', 'bucket_contacts')
@@ -145,7 +160,7 @@ def compose(study, audit_path):
             approach = p.get('original_approach') if method == 'original' else p.get('approaches', {}).get(request['id']) if request else None
             require(request is None or approach is not None, 'Chosen shot needs its frozen approach prediction')
             methods[method] = dict(**count_view(result), settings=settings_view(request, native(result)), forecast=forecast_view(approach))
-        cases.append(dict(id=r['id'], bucket_xy_m=r['bucket_xy_m'], original_method='current' if r['id'].endswith('10') else 'expanded', methods=methods))
+        cases.append(dict(id=r['id'], bucket_xy_m=r['bucket_xy_m'], original_method='current' if r['id'].endswith('10') else 'expanded', methods=methods, selection_comparison=selection_view(p)))
     preserved = report.get('preservation', [])
     prepared_preserved = {p['id']:p for p in plan.get('preserved_cases', [])}
     require(len(preserved) == len(prepared_preserved) == 4, 'Four original successful shots required')
@@ -175,7 +190,7 @@ def compose(study, audit_path):
     new = sum(c['methods']['corrected']['captures'] for c in cases)
     preserved_count = sum(p['captures'] for p in preservation)
     conclusion = (f'Known misses: unchanged {old}/9, approach-checked {new}/9. Unchanged successful settings: {preserved_count}/12. '
-                  'This is a targeted development test, not a new table-wide capture rate. The live planner remains unchanged.')
+                  'Candidate search and ranking both changed. This does not isolate the effect of the new check or establish a new table-wide capture rate. The live planner remains unchanged.')
     return dict(version=VERSION, status='completed', audit_status='passed', scope='development', physics_substeps=64,
         frozen_before_native=True, cases=cases, preservation=preservation, diagnostic_controls=diagnostic, controls=controls,
         native_releases=native_releases, checks_count=audit['checks_count'], conclusion=conclusion, limits=LIMITS,

@@ -38,7 +38,8 @@ class PublishTests(unittest.TestCase):
             original, original_result = group(identity+'-original',bucket,0)
             corrected, corrected_result = group(identity+'-corrected',bucket,3)
             prepared.append(dict(id=identity,original=original,corrected=corrected,
-                                 original_approach=forecast(),approaches={corrected['id']:forecast()}))
+                                 original_approach=forecast(),approaches={corrected['id']:forecast()},
+                                 selected_without_bucket_check=original,checked=[{}],candidates=[corrected]))
             cases.append(dict(id=identity,bucket_xy_m=bucket,results=dict(original=original_result,corrected=corrected_result)))
         for i, identity in enumerate(('04-current','10-expanded','19-current','47-expanded')):
             bucket=[.6+i/10,.1]
@@ -121,6 +122,17 @@ class PublishTests(unittest.TestCase):
         self.assertTrue(result['collision']);self.assertIn('rising',result['summary']);self.assertEqual(result['first_collision_s'],.7)
         self.assertIn('does not forbid',result['limits'])
 
+
+    def test_same_menu_choice_is_distinct_from_native_outcome(self):
+        case=copy.deepcopy(self.preparation['cases'][0])
+        case['selected_without_bucket_check']=copy.deepcopy(case['corrected'])
+        result=pub.selection_view(case)
+        self.assertFalse(result['changed'])
+        self.assertIn('did not depend',result['statement'])
+        case['selected_without_bucket_check']['values'][3]+=1
+        self.assertTrue(pub.selection_view(case)['changed'])
+        case['corrected']=None
+        self.assertIn('withheld',pub.selection_view(case)['statement'])
 
     def test_declined_correction_stays_in_attempt_denominator(self):
         result=dict(requested=3,completed=0,released=0,captures=0,setup_rejected=3,invalid_physics=0,

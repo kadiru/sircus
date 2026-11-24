@@ -9,7 +9,7 @@ const counts=(captures=0)=>({requested:3,completed:3,released:3,captures,flight_
 const example=()=>({version:'sircus-bucket-approach-display-v1',status:'completed',audit_status:'passed',scope:'development',physics_substeps:64,frozen_before_native:true,
  provenance:{report_sha256:hash,audit_sha256:hash,preparation_sha256:hash},checks_count:500,native_releases:51,
  controls:{controls_pre:{status:'passed',requested:9},controls_post:{status:'passed',requested:9}},
- cases:['04','10','19'].map((id,i)=>({id:`expanded-selector-test-${id}`,bucket_xy_m:[.6+i/10,0],original_method:i===1?'current':'expanded',methods:{original:counts(),corrected:counts(3)}})),
+ cases:['04','10','19'].map((id,i)=>({id:`expanded-selector-test-${id}`,bucket_xy_m:[.6+i/10,0],original_method:i===1?'current':'expanded',selection_comparison:{changed:false,statement:'Same candidate selected',without_check_id:'old',with_check_id:'new',without_check_values:[.5,0,.35,28,.2],with_check_values:[.5,0,.35,28,.2],checked_proposals:10,admitted_candidates:4},methods:{original:counts(),corrected:counts(3)}})),
  diagnostic_controls:[{id:'47-current',bucket_xy_m:[1.17,.21],...counts(0)}],
  preservation:['04-current','10-expanded','19-current','47-expanded'].map(id=>({id,bucket_xy_m:[.5,0],...counts(3)})),
  conclusion:'Known-case improvement; no live promotion.',limits:'Held endpoints; no new policy accuracy.'});
@@ -20,6 +20,7 @@ test('only audited complete matched native64 drops produce final rates',()=>{
 });
 test('withheld corrections count as attempted failures; preservation regressions remain visible',()=>{
  const x=example(),m=x.cases[0].methods.corrected;
+ x.cases[0].selection_comparison.with_check_id=null;x.cases[0].selection_comparison.with_check_values=null;
  Object.assign(m,{released:0,captures:0,flight_misses:0,setup_rejections:3,robot_contacts:0,bucket_contacts:0,settings:null});x.native_releases-=3;
  assert.equal(bucketApproachReady(x),true);
  x.preservation[0].captures=2;x.preservation[0].flight_misses=1;assert.equal(bucketApproachReady(x),true);
@@ -28,9 +29,9 @@ class Node {constructor(tag,doc){this.tagName=tag;this.ownerDocument=doc;this.ch
 function root(){const d={createElement:t=>new Node(t,d)},r=new Node('section',d);r.slots=Object.fromEntries(['status','summary','cases','preservation','diagnostic','controls','conclusion','proof','limits'].map(k=>[k,new Node('div',d)]));return r;}
 function walk(n){return [n,...n.children.flatMap(walk)];}
 test('read-only rendering separates forecast and native outcomes and preserves open details during polls',()=>{
- const r=root(),x=example();x.cases[0].methods.corrected.forecast.summary='<script>untrusted</script>';
+ const r=root(),x=example();x.preservation[0].forecast.collision=true;x.cases[0].methods.corrected.forecast.summary='<script>untrusted</script>';
  renderBucketApproach(r,x);assert.match(r.slots.summary.textContent,/unchanged shots 0\/9.*selection 9\/9/);
- assert.match(r.slots.controls.textContent,/12\/12.*18.*51.*500/);
+ assert.match(r.slots.controls.textContent,/12\/12.*18.*51.*500/);assert.match(r.slots.controls.textContent,/captured despite a nominal/);
  assert.ok(walk(r.slots.cases).some(n=>n.textContent==='<script>untrusted</script>'));
  assert.equal(walk(r.slots.cases).filter(n=>n.tagName==='button').length,0);
  const first=r.slots.cases.children[0];renderBucketApproach(r,structuredClone(x));assert.equal(r.slots.cases.children[0],first);
