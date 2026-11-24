@@ -1,0 +1,1860 @@
+{
+  "version": "sircus-board-first-rescore-public-summary-v1",
+  "scope": "Counts of saved attempts, including original study controls/repeats. Not unique settings or fresh accuracy. v2-to-v4 table-only gains repeat the already-established table allowance; v3-to-v4 gains isolate the new rule. Contact presence is not proof of a causal rebound. Original immutable artifacts unchanged.",
+  "source_count": 60,
+  "totals": {
+    "requested": 40799,
+    "scorable_native": 37111,
+    "rejected": 3688,
+    "unscorable": 0,
+    "evidence_errors": 0,
+    "invalid_native": 284,
+    "old_captures": 19620,
+    "new_captures": 19985,
+    "gained_captures": 365,
+    "lost_captures": 0,
+    "unchanged_captures": 19620,
+    "unchanged_misses": 16842
+  },
+  "metadata": {
+    "files": 147,
+    "indexed_rows": 41463,
+    "duplicate_rows": 664,
+    "unique_requests": 40799,
+    "skipped_derivative_files": 0
+  },
+  "exclusions": {},
+  "by_original_version": {
+    "not_recorded": {
+      "requested": 3688,
+      "rejected": 3688
+    },
+    "sircus-table-assisted-native-capture-v3": {
+      "requested": 29797,
+      "scorable_native": 29797,
+      "invalid_native": 273,
+      "old_captures": 15378,
+      "new_captures": 15502,
+      "unchanged_captures": 15378,
+      "unchanged_misses": 14022,
+      "gained_captures": 124
+    },
+    "sircus-calibrated-native-capture-v2": {
+      "requested": 7314,
+      "scorable_native": 7314,
+      "invalid_native": 11,
+      "old_captures": 4242,
+      "new_captures": 4483,
+      "unchanged_captures": 4242,
+      "unchanged_misses": 2820,
+      "gained_captures": 241
+    }
+  },
+  "by_substeps": {
+    "unknown": {
+      "requested": 3589,
+      "rejected": 3589
+    },
+    "64": {
+      "requested": 37156,
+      "rejected": 99,
+      "scorable_native": 37057,
+      "invalid_native": 284,
+      "old_captures": 19608,
+      "new_captures": 19973,
+      "unchanged_captures": 19608,
+      "unchanged_misses": 16800,
+      "gained_captures": 365
+    },
+    "128": {
+      "requested": 54,
+      "scorable_native": 54,
+      "invalid_native": 0,
+      "old_captures": 12,
+      "new_captures": 12,
+      "unchanged_captures": 12,
+      "unchanged_misses": 42
+    }
+  },
+  "gained_contact_groups": [
+    {
+      "original_scoring_version": "sircus-calibrated-native-capture-v2",
+      "assistance_surfaces": [
+        "robot"
+      ],
+      "gained_captures": 118
+    },
+    {
+      "original_scoring_version": "sircus-calibrated-native-capture-v2",
+      "assistance_surfaces": [
+        "table"
+      ],
+      "gained_captures": 123
+    },
+    {
+      "original_scoring_version": "sircus-table-assisted-native-capture-v3",
+      "assistance_surfaces": [
+        "robot"
+      ],
+      "gained_captures": 99
+    },
+    {
+      "original_scoring_version": "sircus-table-assisted-native-capture-v3",
+      "assistance_surfaces": [
+        "table",
+        "robot"
+      ],
+      "gained_captures": 25
+    }
+  ],
+  "changed_positions": [
+    {
+      "bucket_xy_m": [
+        0.1720507018056842,
+        -0.11299332240059727
+      ],
+      "counts": {
+        "requested": 12,
+        "scorable_native": 12,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 6,
+        "new_captures": 8,
+        "gained_captures": 2,
+        "lost_captures": 0,
+        "unchanged_captures": 6,
+        "unchanged_misses": 4
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.17399772205337252,
+        0.11851507794588279
+      ],
+      "counts": {
+        "requested": 16,
+        "scorable_native": 16,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 9,
+        "new_captures": 10,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 9,
+        "unchanged_misses": 6
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.18437996584198002,
+        0.15921454177816852
+      ],
+      "counts": {
+        "requested": 36,
+        "scorable_native": 36,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 21,
+        "new_captures": 24,
+        "gained_captures": 3,
+        "lost_captures": 0,
+        "unchanged_captures": 21,
+        "unchanged_misses": 12
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.19143820003776513,
+        0.10485702452907897
+      ],
+      "counts": {
+        "requested": 36,
+        "scorable_native": 36,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 18,
+        "new_captures": 20,
+        "gained_captures": 2,
+        "lost_captures": 0,
+        "unchanged_captures": 18,
+        "unchanged_misses": 16
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.1993909520431938,
+        -0.019499256354764127
+      ],
+      "counts": {
+        "requested": 36,
+        "scorable_native": 36,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 21,
+        "new_captures": 23,
+        "gained_captures": 2,
+        "lost_captures": 0,
+        "unchanged_captures": 21,
+        "unchanged_misses": 13
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.21767264977528772,
+        -0.13197572538968771
+      ],
+      "counts": {
+        "requested": 18,
+        "scorable_native": 15,
+        "rejected": 3,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 7,
+        "new_captures": 9,
+        "gained_captures": 2,
+        "lost_captures": 0,
+        "unchanged_captures": 7,
+        "unchanged_misses": 6
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.3864558493843614,
+        -0.5325542591765426
+      ],
+      "counts": {
+        "requested": 18,
+        "scorable_native": 18,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 0,
+        "new_captures": 2,
+        "gained_captures": 2,
+        "lost_captures": 0,
+        "unchanged_captures": 0,
+        "unchanged_misses": 16
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.4793161405283194,
+        0.1604055667597981
+      ],
+      "counts": {
+        "requested": 3,
+        "scorable_native": 3,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 2,
+        "new_captures": 3,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 2,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.48,
+        -0.42500000000000004
+      ],
+      "counts": {
+        "requested": 223,
+        "scorable_native": 191,
+        "rejected": 32,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 179,
+        "new_captures": 187,
+        "gained_captures": 8,
+        "lost_captures": 0,
+        "unchanged_captures": 179,
+        "unchanged_misses": 4
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.48,
+        -0.2
+      ],
+      "counts": {
+        "requested": 223,
+        "scorable_native": 188,
+        "rejected": 35,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 168,
+        "new_captures": 177,
+        "gained_captures": 9,
+        "lost_captures": 0,
+        "unchanged_captures": 168,
+        "unchanged_misses": 11
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.48,
+        0.025000000000000022
+      ],
+      "counts": {
+        "requested": 226,
+        "scorable_native": 189,
+        "rejected": 37,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 179,
+        "new_captures": 185,
+        "gained_captures": 6,
+        "lost_captures": 0,
+        "unchanged_captures": 179,
+        "unchanged_misses": 4
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.48,
+        0.25
+      ],
+      "counts": {
+        "requested": 223,
+        "scorable_native": 188,
+        "rejected": 35,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 162,
+        "new_captures": 176,
+        "gained_captures": 14,
+        "lost_captures": 0,
+        "unchanged_captures": 162,
+        "unchanged_misses": 12
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.4963906433102536,
+        -0.4146911716255921
+      ],
+      "counts": {
+        "requested": 14,
+        "scorable_native": 14,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 10,
+        "new_captures": 14,
+        "gained_captures": 4,
+        "lost_captures": 0,
+        "unchanged_captures": 10,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.5016806069481691,
+        -0.2802874893161515
+      ],
+      "counts": {
+        "requested": 4,
+        "scorable_native": 4,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 3,
+        "new_captures": 4,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 3,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.506739722247167,
+        0.2470934350880174
+      ],
+      "counts": {
+        "requested": 72,
+        "scorable_native": 57,
+        "rejected": 15,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 48,
+        "new_captures": 57,
+        "gained_captures": 9,
+        "lost_captures": 0,
+        "unchanged_captures": 48,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.5140772767848966,
+        0.044774900453494304
+      ],
+      "counts": {
+        "requested": 6,
+        "scorable_native": 6,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 3,
+        "new_captures": 6,
+        "gained_captures": 3,
+        "lost_captures": 0,
+        "unchanged_captures": 3,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.5193422205472049,
+        -0.22830083590693634
+      ],
+      "counts": {
+        "requested": 4,
+        "scorable_native": 4,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 3,
+        "new_captures": 4,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 3,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.5314868021906451,
+        -0.5440163402564865
+      ],
+      "counts": {
+        "requested": 4,
+        "scorable_native": 4,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 2,
+        "new_captures": 4,
+        "gained_captures": 2,
+        "lost_captures": 0,
+        "unchanged_captures": 2,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.5434636091139585,
+        0.13995469692125462
+      ],
+      "counts": {
+        "requested": 18,
+        "scorable_native": 9,
+        "rejected": 9,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 8,
+        "new_captures": 9,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 8,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.5566728512418989,
+        0.13771271488467784
+      ],
+      "counts": {
+        "requested": 18,
+        "scorable_native": 18,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 13,
+        "new_captures": 18,
+        "gained_captures": 5,
+        "lost_captures": 0,
+        "unchanged_captures": 13,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.5627845003239265,
+        -0.2336282028501738
+      ],
+      "counts": {
+        "requested": 3,
+        "scorable_native": 3,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 0,
+        "new_captures": 1,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 0,
+        "unchanged_misses": 2
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.5891680201200773,
+        -0.1556582735923397
+      ],
+      "counts": {
+        "requested": 4,
+        "scorable_native": 4,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 1,
+        "new_captures": 2,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 1,
+        "unchanged_misses": 2
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.5926698085992197,
+        -0.21703083541484147
+      ],
+      "counts": {
+        "requested": 4,
+        "scorable_native": 4,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 3,
+        "new_captures": 4,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 3,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.5940475694734566,
+        0.18147144563578665
+      ],
+      "counts": {
+        "requested": 6,
+        "scorable_native": 6,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 3,
+        "new_captures": 6,
+        "gained_captures": 3,
+        "lost_captures": 0,
+        "unchanged_captures": 3,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.5983744104243619,
+        -0.23725714328298897
+      ],
+      "counts": {
+        "requested": 4,
+        "scorable_native": 4,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 3,
+        "new_captures": 4,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 3,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6050979937603692,
+        -0.12460439248470656
+      ],
+      "counts": {
+        "requested": 18,
+        "scorable_native": 15,
+        "rejected": 3,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 6,
+        "new_captures": 13,
+        "gained_captures": 7,
+        "lost_captures": 0,
+        "unchanged_captures": 6,
+        "unchanged_misses": 2
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6059743771782918,
+        -0.09586277059626602
+      ],
+      "counts": {
+        "requested": 4,
+        "scorable_native": 4,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 2,
+        "new_captures": 4,
+        "gained_captures": 2,
+        "lost_captures": 0,
+        "unchanged_captures": 2,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6110414453741435,
+        -0.314035480807942
+      ],
+      "counts": {
+        "requested": 4,
+        "scorable_native": 4,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 2,
+        "new_captures": 4,
+        "gained_captures": 2,
+        "lost_captures": 0,
+        "unchanged_captures": 2,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6164802199411287,
+        -0.06615227159335424
+      ],
+      "counts": {
+        "requested": 18,
+        "scorable_native": 12,
+        "rejected": 6,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 6,
+        "new_captures": 12,
+        "gained_captures": 6,
+        "lost_captures": 0,
+        "unchanged_captures": 6,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6175596685328808,
+        -0.13804752166394152
+      ],
+      "counts": {
+        "requested": 18,
+        "scorable_native": 16,
+        "rejected": 2,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 9,
+        "new_captures": 12,
+        "gained_captures": 3,
+        "lost_captures": 0,
+        "unchanged_captures": 9,
+        "unchanged_misses": 4
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6284935139364621,
+        0.12743093838157926
+      ],
+      "counts": {
+        "requested": 4,
+        "scorable_native": 4,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 2,
+        "new_captures": 3,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 2,
+        "unchanged_misses": 1
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6358062864530419,
+        0.15743999075812642
+      ],
+      "counts": {
+        "requested": 6,
+        "scorable_native": 6,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 3,
+        "new_captures": 6,
+        "gained_captures": 3,
+        "lost_captures": 0,
+        "unchanged_captures": 3,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6455788154678018,
+        -0.10294705539431748
+      ],
+      "counts": {
+        "requested": 18,
+        "scorable_native": 11,
+        "rejected": 7,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 7,
+        "new_captures": 11,
+        "gained_captures": 4,
+        "lost_captures": 0,
+        "unchanged_captures": 7,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6471967826083916,
+        0.10276913756996009
+      ],
+      "counts": {
+        "requested": 4,
+        "scorable_native": 3,
+        "rejected": 1,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 0,
+        "new_captures": 1,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 0,
+        "unchanged_misses": 2
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6472217153512785,
+        -0.2159952767525124
+      ],
+      "counts": {
+        "requested": 2,
+        "scorable_native": 1,
+        "rejected": 1,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 0,
+        "new_captures": 1,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 0,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6552786932467111,
+        -0.26187916470174055
+      ],
+      "counts": {
+        "requested": 3,
+        "scorable_native": 3,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 2,
+        "new_captures": 3,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 2,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6639912022103023,
+        -0.4966496987244469
+      ],
+      "counts": {
+        "requested": 18,
+        "scorable_native": 17,
+        "rejected": 1,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 11,
+        "new_captures": 12,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 11,
+        "unchanged_misses": 5
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.65
+      ],
+      "counts": {
+        "requested": 224,
+        "scorable_native": 153,
+        "rejected": 71,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 136,
+        "new_captures": 141,
+        "gained_captures": 5,
+        "lost_captures": 0,
+        "unchanged_captures": 136,
+        "unchanged_misses": 12
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.42500000000000004
+      ],
+      "counts": {
+        "requested": 226,
+        "scorable_native": 226,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 206,
+        "new_captures": 216,
+        "gained_captures": 10,
+        "lost_captures": 0,
+        "unchanged_captures": 206,
+        "unchanged_misses": 10
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.2
+      ],
+      "counts": {
+        "requested": 1271,
+        "scorable_native": 1239,
+        "rejected": 32,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 5,
+        "old_captures": 869,
+        "new_captures": 879,
+        "gained_captures": 10,
+        "lost_captures": 0,
+        "unchanged_captures": 869,
+        "unchanged_misses": 355
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.025000000000000022
+      ],
+      "counts": {
+        "requested": 222,
+        "scorable_native": 160,
+        "rejected": 62,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 130,
+        "new_captures": 138,
+        "gained_captures": 8,
+        "lost_captures": 0,
+        "unchanged_captures": 130,
+        "unchanged_misses": 22
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.25
+      ],
+      "counts": {
+        "requested": 225,
+        "scorable_native": 219,
+        "rejected": 6,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 6,
+        "old_captures": 193,
+        "new_captures": 195,
+        "gained_captures": 2,
+        "lost_captures": 0,
+        "unchanged_captures": 193,
+        "unchanged_misses": 18
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6788439088178282,
+        0.11211150309244122
+      ],
+      "counts": {
+        "requested": 4,
+        "scorable_native": 4,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 0,
+        "new_captures": 1,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 0,
+        "unchanged_misses": 3
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6810286730636789,
+        -0.08704599285254466
+      ],
+      "counts": {
+        "requested": 4,
+        "scorable_native": 1,
+        "rejected": 3,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 0,
+        "new_captures": 1,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 0,
+        "unchanged_misses": 0
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.7107591811813267,
+        0.0027885033338865273
+      ],
+      "counts": {
+        "requested": 14,
+        "scorable_native": 14,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 8,
+        "new_captures": 9,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 8,
+        "unchanged_misses": 5
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.7185636529056336,
+        0.0821918046983727
+      ],
+      "counts": {
+        "requested": 7,
+        "scorable_native": 7,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 2,
+        "new_captures": 3,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 2,
+        "unchanged_misses": 4
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.7837790408511431,
+        -0.10956981547597801
+      ],
+      "counts": {
+        "requested": 10,
+        "scorable_native": 10,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 7,
+        "new_captures": 8,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 7,
+        "unchanged_misses": 2
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.42500000000000004
+      ],
+      "counts": {
+        "requested": 225,
+        "scorable_native": 212,
+        "rejected": 13,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 5,
+        "old_captures": 182,
+        "new_captures": 185,
+        "gained_captures": 3,
+        "lost_captures": 0,
+        "unchanged_captures": 182,
+        "unchanged_misses": 22
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.2
+      ],
+      "counts": {
+        "requested": 1225,
+        "scorable_native": 1108,
+        "rejected": 117,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 4,
+        "old_captures": 967,
+        "new_captures": 968,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 967,
+        "unchanged_misses": 136
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.8793270921926928,
+        -0.06456233882504714
+      ],
+      "counts": {
+        "requested": 18,
+        "scorable_native": 8,
+        "rejected": 10,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 3,
+        "new_captures": 4,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 3,
+        "unchanged_misses": 4
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.8924531753802345,
+        -0.019469376736516497
+      ],
+      "counts": {
+        "requested": 14,
+        "scorable_native": 14,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 5,
+        "new_captures": 6,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 5,
+        "unchanged_misses": 8
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.9166602643716585,
+        -0.050182462556409416
+      ],
+      "counts": {
+        "requested": 17,
+        "scorable_native": 17,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 1,
+        "old_captures": 3,
+        "new_captures": 4,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 3,
+        "unchanged_misses": 12
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.9484147227579094,
+        -0.03507502760574792
+      ],
+      "counts": {
+        "requested": 69,
+        "scorable_native": 69,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 24,
+        "new_captures": 26,
+        "gained_captures": 2,
+        "lost_captures": 0,
+        "unchanged_captures": 24,
+        "unchanged_misses": 43
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.9513895473686685,
+        0.13365499293971828
+      ],
+      "counts": {
+        "requested": 3,
+        "scorable_native": 3,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 0,
+        "new_captures": 1,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 0,
+        "unchanged_misses": 2
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.9522486895797083,
+        -0.056210911632829944
+      ],
+      "counts": {
+        "requested": 11,
+        "scorable_native": 11,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 0,
+        "new_captures": 1,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 0,
+        "unchanged_misses": 10
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.9667326055650807,
+        -0.04091039262604272
+      ],
+      "counts": {
+        "requested": 67,
+        "scorable_native": 67,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 46,
+        "new_captures": 47,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 46,
+        "unchanged_misses": 20
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.65
+      ],
+      "counts": {
+        "requested": 1227,
+        "scorable_native": 1218,
+        "rejected": 9,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 711,
+        "new_captures": 734,
+        "gained_captures": 23,
+        "lost_captures": 0,
+        "unchanged_captures": 711,
+        "unchanged_misses": 484
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.2
+      ],
+      "counts": {
+        "requested": 1524,
+        "scorable_native": 1388,
+        "rejected": 136,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 200,
+        "old_captures": 457,
+        "new_captures": 497,
+        "gained_captures": 40,
+        "lost_captures": 0,
+        "unchanged_captures": 457,
+        "unchanged_misses": 691
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.025000000000000022
+      ],
+      "counts": {
+        "requested": 6240,
+        "scorable_native": 5845,
+        "rejected": 395,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 528,
+        "new_captures": 554,
+        "gained_captures": 26,
+        "lost_captures": 0,
+        "unchanged_captures": 528,
+        "unchanged_misses": 5291
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.25
+      ],
+      "counts": {
+        "requested": 1552,
+        "scorable_native": 1491,
+        "rejected": 61,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 481,
+        "new_captures": 485,
+        "gained_captures": 4,
+        "lost_captures": 0,
+        "unchanged_captures": 481,
+        "unchanged_misses": 1006
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.1096434643829722,
+        -0.5808825398577193
+      ],
+      "counts": {
+        "requested": 72,
+        "scorable_native": 64,
+        "rejected": 8,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 0,
+        "new_captures": 6,
+        "gained_captures": 6,
+        "lost_captures": 0,
+        "unchanged_captures": 0,
+        "unchanged_misses": 58
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.1207437758575365,
+        -0.6248329475569212
+      ],
+      "counts": {
+        "requested": 4,
+        "scorable_native": 4,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 0,
+        "new_captures": 1,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 0,
+        "unchanged_misses": 3
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.1610883622056958,
+        -0.5661511678340979
+      ],
+      "counts": {
+        "requested": 4,
+        "scorable_native": 4,
+        "rejected": 0,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 0,
+        "new_captures": 1,
+        "gained_captures": 1,
+        "lost_captures": 0,
+        "unchanged_captures": 0,
+        "unchanged_misses": 3
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.24,
+        -0.65
+      ],
+      "counts": {
+        "requested": 1222,
+        "scorable_native": 1198,
+        "rejected": 24,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 918,
+        "new_captures": 963,
+        "gained_captures": 45,
+        "lost_captures": 0,
+        "unchanged_captures": 918,
+        "unchanged_misses": 235
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.24,
+        -0.42500000000000004
+      ],
+      "counts": {
+        "requested": 229,
+        "scorable_native": 140,
+        "rejected": 89,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 22,
+        "new_captures": 63,
+        "gained_captures": 41,
+        "lost_captures": 0,
+        "unchanged_captures": 22,
+        "unchanged_misses": 77
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.24,
+        -0.2
+      ],
+      "counts": {
+        "requested": 1234,
+        "scorable_native": 1147,
+        "rejected": 87,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 720,
+        "new_captures": 722,
+        "gained_captures": 2,
+        "lost_captures": 0,
+        "unchanged_captures": 720,
+        "unchanged_misses": 425
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.24,
+        0.25
+      ],
+      "counts": {
+        "requested": 1498,
+        "scorable_native": 1166,
+        "rejected": 332,
+        "unscorable": 0,
+        "evidence_errors": 0,
+        "invalid_native": 0,
+        "old_captures": 690,
+        "new_captures": 697,
+        "gained_captures": 7,
+        "lost_captures": 0,
+        "unchanged_captures": 690,
+        "unchanged_misses": 469
+      }
+    }
+  ],
+  "audit_status": "passed",
+  "audit_checks": 298782,
+  "artifact_sha256": {
+    "summary": "5cf74c2bd3fb10f2444ce477d40b459fbdd66ce5535ee5f4188d36a52f9bdb82",
+    "audit": "2274a4934821edf2a71e47df3080f85cf3f6ef9aea5b487440bc326c6045ce7f",
+    "manifest": "2f962256cdddba94c575ee2bbb1e21f80ecbda750899f60909f8c85ce57915c9",
+    "records": "d0826b2684b39d3ae3ae1c62c778efe0ce6039be912fdbac4ff78ee48cb9c981",
+    "breakdown": "ac11f2e05f4e5b2fcf15a34d8033d206e00e94eff102494c11b5546bce33fc8c",
+    "breakdown_script": "fa46e1fd3dd605781aa9fe938a5c12fb4f17b6cece8dea7b8f3bb1f5a99c3157"
+  },
+  "selected_sources": [
+    {
+      "study": "clear-shot-range-v1",
+      "execution_audit": "clear-shot-range-v1-audit.json",
+      "execution_audit_sha256": "20ca749f368cf720d6123d8a6cce41c4ba872b0b1584d8f3b19775dd8084fdf6",
+      "native_indexes": 5
+    },
+    {
+      "study": "guarded-board-fallback-v1",
+      "execution_audit": "guarded-board-fallback-v1-audit.json",
+      "execution_audit_sha256": "0ca45804cac0707210d16c7bdb417277bb67927af29020dd6ae7db3e0e09b08e",
+      "native_indexes": 5
+    },
+    {
+      "study": "nearby-shot-transfer-v1",
+      "execution_audit": "nearby-shot-transfer-v1-audit.json",
+      "execution_audit_sha256": "b0921b8ba65d22751aeb9e3a6efedfd92bfc4bcd59652d8770b5ac3b1773deb9",
+      "native_indexes": 6
+    },
+    {
+      "study": "parallel-board-v2",
+      "execution_audit": "parallel-board-v2-audit.json",
+      "execution_audit_sha256": "766e5f5f4fe1da37c8e56758221388a4cb7a6020146e6c3cf8ea9bb433fce12c",
+      "native_indexes": 3
+    },
+    {
+      "study": "remaining-link-clearance-v3",
+      "execution_audit": "remaining-link-clearance-v3-audit.json",
+      "execution_audit_sha256": "671e7b577a75417eb86d18fbc8a0f227241b5799a360e9787910ddd8352654c6",
+      "native_indexes": 6
+    },
+    {
+      "study": "arm-check-speed-v2",
+      "execution_audit": "arm-check-speed-v2-audit.json",
+      "execution_audit_sha256": "a25c3a1f57a3cdbd1f66ed2cd9fd3446dc0a1605a8559d83ff8f41bff188dfa9",
+      "native_indexes": 3
+    },
+    {
+      "study": "arm-clearance-v1",
+      "execution_audit": "arm-clearance-v1-audit.json",
+      "execution_audit_sha256": "d3f91a2243483c0aa5deede9e5bf1f5770646c3845fdcab7766730d13420d2bf",
+      "native_indexes": 2
+    },
+    {
+      "study": "board-fallback-v1",
+      "execution_audit": "board-fallback-v1-audit.json",
+      "execution_audit_sha256": "7a7b13a3d18c64d7777bd7c5433ee3c75e5ed4d67a280a4f97a3cc9fda75a2d2",
+      "native_indexes": 3
+    },
+    {
+      "study": "board-pose-recovery-v2",
+      "execution_audit": "board-pose-recovery-v2-audit.json",
+      "execution_audit_sha256": "2961456b0b7b5d314a533af04cef8b6e40eaa5a7dcb38734ce3465335bf28563",
+      "native_indexes": 4
+    },
+    {
+      "study": "bouncer-clearance-v1",
+      "execution_audit": "bouncer-clearance-v1-audit.json",
+      "execution_audit_sha256": "7de9a6222d65aca1f1ac884566459bb30b250348f6c0175abc78177965b5e175",
+      "native_indexes": 1
+    },
+    {
+      "study": "calibrated-benchmark-v2",
+      "execution_audit": "calibrated-benchmark-v2-audit.json",
+      "execution_audit_sha256": "8df7b8f3b48cfc9c1c41f33f02ea0b68ca828909e2c8774d3cbabc0f1a45f530",
+      "native_indexes": 6
+    },
+    {
+      "study": "case00-tilt-gap-v1",
+      "execution_audit": "case00-tilt-gap-v1-audit.json",
+      "execution_audit_sha256": "73bf2ff91b2e0824eaaeee10a0e9df84512800f2b4d5435776f96de5dc074a87",
+      "native_indexes": 1
+    },
+    {
+      "study": "cell1050-followup-v1",
+      "execution_audit": "cell1050-followup-v1-audit.json",
+      "execution_audit_sha256": "e4f412969e11b9d7a450643fc971f615936a286f4a6b7b0e4f7ccddfb8f45f54",
+      "native_indexes": 2
+    },
+    {
+      "study": "cell1050-rebound-v1",
+      "execution_audit": "cell1050-rebound-v1-audit.json",
+      "execution_audit_sha256": "25194655e9b70495114ad823ae65cb9edaa2bf31f0427a9652b5b977cdb91c0f",
+      "native_indexes": 2
+    },
+    {
+      "study": "clearance-correction-v1",
+      "execution_audit": "clearance-correction-v1-audit.json",
+      "execution_audit_sha256": "7f21dcd9af89d19ee4c7b82caf1a2680009ca42b5b37992d426dc3540e846e35",
+      "native_indexes": 2
+    },
+    {
+      "study": "clearance-expansion-v1",
+      "execution_audit": "clearance-expansion-v1-audit.json",
+      "execution_audit_sha256": "2bf16609f5d3e404235a05431908a5d356509c308b0dbf8fdaa3431e54a14eb1",
+      "native_indexes": 2
+    },
+    {
+      "study": "clearance-horizon-v1",
+      "execution_audit": "clearance-horizon-v1-audit.json",
+      "execution_audit_sha256": "820ea2f5a5085ac1b0a89141638633032af174ef5ae806d930cb355c1064895d",
+      "native_indexes": 2
+    },
+    {
+      "study": "consistent-flight-v2",
+      "execution_audit": "consistent-flight-v2-audit.json",
+      "execution_audit_sha256": "43a5c6e2dc0e204e3b646b9da7a74ca09e53a420e3869834d12da255e2029952",
+      "native_indexes": 2
+    },
+    {
+      "study": "corrected-imitation-v1",
+      "execution_audit": "corrected-imitation-v1-audit.json",
+      "execution_audit_sha256": "ea4992828178d9e62ba41c63579ecc3876cb5bffaacf6b590c828d45876a7f63",
+      "native_indexes": 2
+    },
+    {
+      "study": "coverage-recovery-v1",
+      "execution_audit": "coverage-recovery-v1-audit.json",
+      "execution_audit_sha256": "e2ba653792b37d302425ba4af6cb22460c3d5b426274b3c1b3cbce270a857a9b",
+      "native_indexes": 2
+    },
+    {
+      "study": "fast-planning-v2",
+      "execution_audit": "fast-planning-v2-audit.json",
+      "execution_audit_sha256": "f0ef2fa51f1564844cbcb4a19c5a75582712708434b6aff72ad344b57ec489ca",
+      "native_indexes": 4
+    },
+    {
+      "study": "fixed35-imitation-v1",
+      "execution_audit": "fixed35-imitation-v1-audit.json",
+      "execution_audit_sha256": "374eb3ff78b302168622c091aca645283f48d1bee33355a9ac4eec3794e116d6",
+      "native_indexes": 2
+    },
+    {
+      "study": "fixed35-recovery-v1",
+      "execution_audit": "fixed35-recovery-v1-audit.json",
+      "execution_audit_sha256": "460e0e5496b54e9426fb170d64b9c0687813eb28e3b7310d3e8f212eda211569",
+      "native_indexes": 2
+    },
+    {
+      "study": "fixed35-six-v1",
+      "execution_audit": "fixed35-six-v1-audit.json",
+      "execution_audit_sha256": "ef56098a64bbd640a0c2e72aeaea1d10e7da00f853f1b9bb4b373d06c85c28e7",
+      "native_indexes": 2
+    },
+    {
+      "study": "fixed35-sixhour-v2",
+      "execution_audit": "fixed35-sixhour-v2-audit.json",
+      "execution_audit_sha256": "63026a629266a5bac1cb667a558ff07e9dcb64ef6411533bbab364ae68dfc74f",
+      "native_indexes": 2
+    },
+    {
+      "study": "gap-flight-correction-v1",
+      "execution_audit": "gap-flight-correction-v1-audit.json",
+      "execution_audit_sha256": "e6e31c3efbd8d8ce5d6800bde93ec6af0fdc078dde8516882739f6f85f7eb5c4",
+      "native_indexes": 2
+    },
+    {
+      "study": "gripper-yaw-v1",
+      "execution_audit": "gripper-yaw-v1-audit.json",
+      "execution_audit_sha256": "4f044f4c3b4dc3ffd79dcb65f42214ceb3f597d129afb0c79728697137b9ec21",
+      "native_indexes": 3
+    },
+    {
+      "study": "hybrid-miss-correction-v1",
+      "execution_audit": "hybrid-miss-correction-v1-audit.json",
+      "execution_audit_sha256": "b1eda9197f18f1bc581c372da45e402ce3670376c53097bb890b60ac810a81ed",
+      "native_indexes": 4
+    },
+    {
+      "study": "impact650-v1",
+      "execution_audit": "impact650-v1-audit.json",
+      "execution_audit_sha256": "ee7331edec9580fed7cdea0b9b28ab5a40cc6337034fa1f7e8b8d5cae17b4883",
+      "native_indexes": 1
+    },
+    {
+      "study": "intergrid-candidate-replay-v1",
+      "execution_audit": "intergrid-candidate-replay-v1-audit.json",
+      "execution_audit_sha256": "17c2daa3763f46d7d3a3f4a640b6d22e608e28ec727fc0dea9ace1840a6aad0c",
+      "native_indexes": 2
+    },
+    {
+      "study": "intergrid-case33-tilt-v1",
+      "execution_audit": "intergrid-case33-tilt-v1-audit.json",
+      "execution_audit_sha256": "430b027932d13883c643d1440ddbe7d0422970cf6295d74e274ea691489ca21d",
+      "native_indexes": 2
+    },
+    {
+      "study": "intergrid-comparison-v1",
+      "execution_audit": "intergrid-comparison-v1-audit.json",
+      "execution_audit_sha256": "78f16625ccc438ac0155aae80c7a024067212c42ef772e917fd6c69509ab22c1",
+      "native_indexes": 2
+    },
+    {
+      "study": "intergrid-flight-ranking-v1",
+      "execution_audit": "intergrid-flight-ranking-v1-audit.json",
+      "execution_audit_sha256": "48a246f179fcc45d05ee3ecf56c7eeafcff116dcba0cf0f669b9e64309a4df4b",
+      "native_indexes": 2
+    },
+    {
+      "study": "intergrid-joint-branch-v1",
+      "execution_audit": "intergrid-joint-branch-v1-audit.json",
+      "execution_audit_sha256": "c59380b20065798f815204608845f2671ee3d2a368a62b08cacc6d07f172e029",
+      "native_indexes": 2
+    },
+    {
+      "study": "intergrid-matched-routes-v1",
+      "execution_audit": "intergrid-matched-routes-v1-audit.json",
+      "execution_audit_sha256": "4b1757a7b6dda9d8aa1c63d724f708b3f1d34f70d5a5b1a7463e64b5248ea0ae",
+      "native_indexes": 2
+    },
+    {
+      "study": "intergrid-paired-collection-v1",
+      "execution_audit": "intergrid-paired-collection-v1-audit.json",
+      "execution_audit_sha256": "3998515629f938670932400e0c393698cb4991b5fc5089c41997bfaafe63705a",
+      "native_indexes": 2
+    },
+    {
+      "study": "intergrid-proposer-v1",
+      "execution_audit": "intergrid-proposer-v1-audit.json",
+      "execution_audit_sha256": "6cc257e7086782cc651092d9aa68a468d01c0beb2be2d758715adb2749eda2f6",
+      "native_indexes": 2
+    },
+    {
+      "study": "intergrid-route-fallback-v1",
+      "execution_audit": "intergrid-route-fallback-v1-audit.json",
+      "execution_audit_sha256": "0d2aefa62ff81bb2949c8f8f0fc68e85bf26b6aaa14137e6a9b187d0d64a3528",
+      "native_indexes": 2
+    },
+    {
+      "study": "intergrid-route-policies-v1",
+      "execution_audit": "intergrid-route-policies-v1-audit.json",
+      "execution_audit_sha256": "daa911eaddb220a3a51b0e6055feabe4f37d357f11995219795c939542b2ba4b",
+      "native_indexes": 2
+    },
+    {
+      "study": "intergrid-route-refit-v1",
+      "execution_audit": "intergrid-route-refit-v1-audit.json",
+      "execution_audit_sha256": "b28693fd997aa1f4c95a17b15bc4b35e927c9284933b5714d7e943e796c061ef",
+      "native_indexes": 2
+    },
+    {
+      "study": "intergrid-route-selector-v1",
+      "execution_audit": "intergrid-route-selector-v1-audit.json",
+      "execution_audit_sha256": "80f491c47f76bc087f242dc62719c92519cc6c6bb3b08b0d3a26eb7743555fa3",
+      "native_indexes": 2
+    },
+    {
+      "study": "intergrid-setup-drop-v1",
+      "execution_audit": "intergrid-setup-drop-v1-audit.json",
+      "execution_audit_sha256": "64de6a57c730c40249875a4245db3b52549f5071974b3abdb39b8b461965974c",
+      "native_indexes": 2
+    },
+    {
+      "study": "intergrid-system-v1",
+      "execution_audit": "intergrid-system-v1-audit.json",
+      "execution_audit_sha256": "54f503d47c5cad5ded02fb3392678a0351c330cbaf7a5da1577b74be7f37d1a3",
+      "native_indexes": 2
+    },
+    {
+      "study": "intergrid-table-library-v1",
+      "execution_audit": "intergrid-table-library-v1-audit.json",
+      "execution_audit_sha256": "902dc6873988d5d43c4f4cd154ec77d9e7753f3a105070026377795f4606bc28",
+      "native_indexes": 2
+    },
+    {
+      "study": "parallel-capture-grid-cpu-v1",
+      "execution_audit": "parallel-capture-grid-cpu-v1-audit.json",
+      "execution_audit_sha256": "b8f44ff0666f07ebe045293d7518229673a29f86c791c61e5cd5433877756895",
+      "native_indexes": 2
+    },
+    {
+      "study": "physics-ensemble-v1",
+      "execution_audit": "physics-ensemble-v1-audit.json",
+      "execution_audit_sha256": "72e5cc9fd4c424896a0c41588b3eec0bd85317ce931cd76e90bd850474f87ebb",
+      "native_indexes": 2
+    },
+    {
+      "study": "policy64-diagnosis-v1",
+      "execution_audit": "policy64-diagnosis-v1-audit.json",
+      "execution_audit_sha256": "b40d30748b978b0804c8b67f1ae07b8bb32212984510223fe15741ae1276564a",
+      "native_indexes": 2
+    },
+    {
+      "study": "policy64-v1",
+      "execution_audit": "policy64-v1-audit.json",
+      "execution_audit_sha256": "4dc317e0697e426a4708c3c997f8671d97b1f49de6bd4450c56e6487a6e93ac3",
+      "native_indexes": 1
+    },
+    {
+      "study": "recovery-regression-v1",
+      "execution_audit": "recovery-regression-v1-audit.json",
+      "execution_audit_sha256": "81d45d57ea47c0ad558102a0cd8377fbd08caff0ce1952ae8b0ae1d57641f50a",
+      "native_indexes": 2
+    },
+    {
+      "study": "regression-drop-gap-v1",
+      "execution_audit": "regression-drop-gap-v1-audit.json",
+      "execution_audit_sha256": "8c11bc5b12371c128df092725fe1f1e0c62c5ad42defadbb80d699e5cbd1c252",
+      "native_indexes": 2
+    },
+    {
+      "study": "regression-ik-v1",
+      "execution_audit": "regression-ik-v1-audit.json",
+      "execution_audit_sha256": "b5b65c8292147458cc79650638c42d17c63a71b302b228bff57b998234068d60",
+      "native_indexes": 2
+    },
+    {
+      "study": "remaining-heading-v1",
+      "execution_audit": "remaining-heading-v1-audit.json",
+      "execution_audit_sha256": "41acdf5e05cffed2cdd10761813bfbd93ed32a0a2f800470b75745375951e1c8",
+      "native_indexes": 2
+    },
+    {
+      "study": "stalled-reference-v1",
+      "execution_audit": "stalled-reference-v1-audit.json",
+      "execution_audit_sha256": "3e98667dd739ed9a390d54ae0176a8b22bb400edbe0c39f61f9a0e1b8fcb07fe",
+      "native_indexes": 4
+    },
+    {
+      "study": "table-height-tilt-v1",
+      "execution_audit": "table-height-tilt-v1-audit.json",
+      "execution_audit_sha256": "38f0553a0cf8ca3948f8b9624d55e05ce07b2d9c1c0b9934c22d7e0f8e8bbe00",
+      "native_indexes": 1
+    },
+    {
+      "study": "table-training-tilt-correction-v1",
+      "execution_audit": "table-training-tilt-correction-v1-audit.json",
+      "execution_audit_sha256": "2454c4c88f39ce37cf38fe0ea929cca53922da5e5b18ec00d327ac07cf5f7573",
+      "native_indexes": 1
+    },
+    {
+      "study": "table-training-v1",
+      "execution_audit": "table-training-v1-audit.json",
+      "execution_audit_sha256": "6e50d87ddb7b2d4b37debbc2a5ac96507ff40bc236223277121acd385b8ec91b",
+      "native_indexes": 1
+    },
+    {
+      "study": "tilt30-650-v1",
+      "execution_audit": "tilt30-650-v1-audit.json",
+      "execution_audit_sha256": "7a95674a3e6b336d1ca14815f9591f646c23b31af97448a8dd8e5e0b7b20e7d3",
+      "native_indexes": 1
+    },
+    {
+      "study": "yaw-tilt-gap-v1",
+      "execution_audit": "yaw-tilt-gap-v1-audit.json",
+      "execution_audit_sha256": "918f9d6d5cfa5cad93ba6baec2b5e4f46051c253c8459e7c09cf7396be732746",
+      "native_indexes": 3
+    },
+    {
+      "study": "neural-selector-v1",
+      "execution_audit": "neural-selector-v1-audit.json",
+      "execution_audit_sha256": "2ef2b8ab711acc38a6149f027a12c8661a52f88a0dd320dbeb7ef2d3ebd2e96b",
+      "native_indexes": 5
+    },
+    {
+      "study": "planning-budget-v1",
+      "execution_audit": "planning-budget-v1-audit.json",
+      "execution_audit_sha256": "8f0571314350f98fc92b1423f59f91bbeaba04e9921d63893d7f918ad7e7c1b0",
+      "native_indexes": 3
+    }
+  ],
+  "outside_pass": [
+    "coverage-training7h-v2",
+    "fixed35-bouncer-v1",
+    "fixed35-broad1000-v1",
+    "fixed35-corner-sweep-v1",
+    "gap-coverage-v1",
+    "direct-path-first-v1",
+    "xy650-v1"
+  ],
+  "neural_subset": {
+    "totals": {
+      "requested": 5150,
+      "scorable_native": 5150,
+      "rejected": 0,
+      "unscorable": 0,
+      "evidence_errors": 0,
+      "invalid_native": 27,
+      "old_captures": 3331,
+      "new_captures": 3344,
+      "gained_captures": 13,
+      "lost_captures": 0,
+      "unchanged_captures": 3331,
+      "unchanged_misses": 1779
+    },
+    "audit_status": "passed",
+    "audit_checks": 41375,
+    "summary_sha256": "2d5fcbae137a248977b0c907a452b996bb83ec85de4c0830ff625e2d7692437a",
+    "audit_sha256": "4a1765c1f11b3ea4911afa57cfc19ae2455c956c36839d4f67e0a7bb5702fd81",
+    "manifest_sha256": "9024108e24687986daebe0273cd7c27065167366fc3114f0b325bfe0bc888597",
+    "label_changes": {
+      "train": 10,
+      "validation": 2,
+      "historical_test": 1
+    },
+    "note": "Subset of broad totals; do not add it again. Only original TRAIN/VAL used in this refit."
+  }
+}

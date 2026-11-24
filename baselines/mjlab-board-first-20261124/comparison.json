@@ -1,0 +1,644 @@
+{
+  "version": "sircus-board-first-public-summary-v1",
+  "kind": "frozen-supervised-selector-comparison",
+  "simulation_only": true,
+  "physics_substeps": 64,
+  "positions": 50,
+  "attempts_per_method_per_position": 1,
+  "progress": {
+    "prepared": 100,
+    "completed_releases": 83,
+    "planned_releases": 83
+  },
+  "comparison": {
+    "methods": {
+      "original": {
+        "positions": 50,
+        "captures": 38,
+        "releases": 41,
+        "setup_rejections": 9,
+        "invalid_physics": 0,
+        "flight_misses": 3,
+        "capture_rate": 0.76,
+        "mean_planning_s": 26.644384397658868,
+        "median_planning_s": 30.0,
+        "max_planning_s": 30.0
+      },
+      "retrained": {
+        "positions": 50,
+        "captures": 37,
+        "releases": 42,
+        "setup_rejections": 8,
+        "invalid_physics": 0,
+        "flight_misses": 5,
+        "capture_rate": 0.74,
+        "mean_planning_s": 26.943007352061105,
+        "median_planning_s": 30.0,
+        "max_planning_s": 30.0
+      }
+    },
+    "paired": {
+      "both": 37,
+      "original_only": 1,
+      "retrained_only": 0,
+      "neither": 12
+    },
+    "positions": [
+      {
+        "id": "board-first-test-00",
+        "bucket_xy_m": [
+          0.2184704740677156,
+          -0.5088803626972364
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-01",
+        "bucket_xy_m": [
+          0.15528856445806094,
+          -0.5344808631157456
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-02",
+        "bucket_xy_m": [
+          0.4145071203488353,
+          -0.569845292737772
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-03",
+        "bucket_xy_m": [
+          0.4495093051036758,
+          -0.6212886117566985
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-04",
+        "bucket_xy_m": [
+          0.5677829145007562,
+          -0.5925356754354921
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-05",
+        "bucket_xy_m": [
+          0.5642072091312007,
+          -0.6039866846003793
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-06",
+        "bucket_xy_m": [
+          0.721895867867715,
+          -0.5778512161939899
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-07",
+        "bucket_xy_m": [
+          0.7727213074203718,
+          -0.61080595595932
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-08",
+        "bucket_xy_m": [
+          0.9846330196240647,
+          -0.49425201387899803
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-09",
+        "bucket_xy_m": [
+          0.9326434115458841,
+          -0.5962359057253971
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-10",
+        "bucket_xy_m": [
+          1.1762617440328418,
+          -0.5076583486419848
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-11",
+        "bucket_xy_m": [
+          1.2110548927165858,
+          -0.48508778616691983
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-12",
+        "bucket_xy_m": [
+          0.20564216034035854,
+          -0.29602734612696735
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-13",
+        "bucket_xy_m": [
+          0.11226462347199516,
+          -0.3890297248234887
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-14",
+        "bucket_xy_m": [
+          0.34026368387791833,
+          -0.30853226752274454
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-15",
+        "bucket_xy_m": [
+          0.4107021491525154,
+          -0.36878802495283836
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-16",
+        "bucket_xy_m": [
+          0.5757041800138499,
+          -0.27365909909659436
+        ],
+        "captures": {
+          "original": true,
+          "retrained": false
+        }
+      },
+      {
+        "id": "board-first-test-17",
+        "bucket_xy_m": [
+          0.49143869370301957,
+          -0.3500210460771058
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-18",
+        "bucket_xy_m": [
+          0.7202962415763157,
+          -0.3596882963577049
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-19",
+        "bucket_xy_m": [
+          0.8142209167207413,
+          -0.3824799616416812
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-20",
+        "bucket_xy_m": [
+          1.0024503921263377,
+          -0.30411093146193624
+        ],
+        "captures": {
+          "original": false,
+          "retrained": false
+        }
+      },
+      {
+        "id": "board-first-test-21",
+        "bucket_xy_m": [
+          1.0025626322022652,
+          -0.38319131053641553
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-22",
+        "bucket_xy_m": [
+          1.1156832980704179,
+          -0.2564212935236742
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-23",
+        "bucket_xy_m": [
+          1.2311552599779987,
+          -0.23599031648295848
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-24",
+        "bucket_xy_m": [
+          0.1870134321190286,
+          -0.09491189714388176
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-25",
+        "bucket_xy_m": [
+          0.14382980643768997,
+          -0.19386466819362497
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-26",
+        "bucket_xy_m": [
+          0.3953138275716992,
+          -0.1158502998490212
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-27",
+        "bucket_xy_m": [
+          0.4715061306141606,
+          -0.12059577021402888
+        ],
+        "captures": {
+          "original": false,
+          "retrained": false
+        }
+      },
+      {
+        "id": "board-first-test-28",
+        "bucket_xy_m": [
+          0.541568828923691,
+          -0.06471369420696443
+        ],
+        "captures": {
+          "original": false,
+          "retrained": false
+        }
+      },
+      {
+        "id": "board-first-test-29",
+        "bucket_xy_m": [
+          0.5484245855792347,
+          -0.04635047504777451
+        ],
+        "captures": {
+          "original": false,
+          "retrained": false
+        }
+      },
+      {
+        "id": "board-first-test-30",
+        "bucket_xy_m": [
+          0.7348466758968273,
+          -0.11742271585337609
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-31",
+        "bucket_xy_m": [
+          0.8185619404932198,
+          0.00962884582901627
+        ],
+        "captures": {
+          "original": false,
+          "retrained": false
+        }
+      },
+      {
+        "id": "board-first-test-32",
+        "bucket_xy_m": [
+          0.9767126817368883,
+          -0.09730243375355214
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-33",
+        "bucket_xy_m": [
+          1.0195889559536586,
+          -0.06021201455681918
+        ],
+        "captures": {
+          "original": false,
+          "retrained": false
+        }
+      },
+      {
+        "id": "board-first-test-34",
+        "bucket_xy_m": [
+          1.1054908859017494,
+          -0.14259740814107263
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-35",
+        "bucket_xy_m": [
+          1.205572257445782,
+          -0.1810844547401093
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-36",
+        "bucket_xy_m": [
+          0.208524740529362,
+          0.178089132468085
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-37",
+        "bucket_xy_m": [
+          0.12171088622796754,
+          0.19256122020516755
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-38",
+        "bucket_xy_m": [
+          0.36567565481113995,
+          0.10838607013069093
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-39",
+        "bucket_xy_m": [
+          0.42556116003021693,
+          0.1926365081511469
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-40",
+        "bucket_xy_m": [
+          0.5688532435689435,
+          0.130761202273007
+        ],
+        "captures": {
+          "original": false,
+          "retrained": false
+        }
+      },
+      {
+        "id": "board-first-test-41",
+        "bucket_xy_m": [
+          0.5943991952005236,
+          0.19256144263903807
+        ],
+        "captures": {
+          "original": false,
+          "retrained": false
+        }
+      },
+      {
+        "id": "board-first-test-42",
+        "bucket_xy_m": [
+          0.8002970926259955,
+          0.1386651589274149
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-43",
+        "bucket_xy_m": [
+          0.8181629789561845,
+          0.24137795351804123
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-44",
+        "bucket_xy_m": [
+          0.9821944546238106,
+          0.08688852105383273
+        ],
+        "captures": {
+          "original": false,
+          "retrained": false
+        }
+      },
+      {
+        "id": "board-first-test-45",
+        "bucket_xy_m": [
+          0.9483424574521611,
+          0.2454759884171997
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-46",
+        "bucket_xy_m": [
+          1.1625796369767742,
+          0.14500159991976846
+        ],
+        "captures": {
+          "original": false,
+          "retrained": false
+        }
+      },
+      {
+        "id": "board-first-test-47",
+        "bucket_xy_m": [
+          1.1695181620615664,
+          0.21839417079394619
+        ],
+        "captures": {
+          "original": false,
+          "retrained": false
+        }
+      },
+      {
+        "id": "board-first-test-48",
+        "bucket_xy_m": [
+          0.15072702192617063,
+          0.13728197693595745
+        ],
+        "captures": {
+          "original": true,
+          "retrained": true
+        }
+      },
+      {
+        "id": "board-first-test-49",
+        "bucket_xy_m": [
+          1.1310351258441154,
+          0.07448508758273864
+        ],
+        "captures": {
+          "original": false,
+          "retrained": false
+        }
+      }
+    ]
+  },
+  "gpu_lease_s": 311.532556088001,
+  "audit_status": "passed",
+  "audit_checks": 36090,
+  "artifact_sha256": {
+    "report_sha256": "12bde1a044e9bdb15fe5b7edb2fff13eff9138fe83705459100494bb0d0cc0d3",
+    "evidence_manifest_sha256": "af136c499777c4f6265e1699be2aa8f7ab5e5e12a296b859920f48a0cf46db61",
+    "contract_sha256": "a07ecef9d3317c854766b35209e60ed89b8d930511fb7a0edda550b699168571",
+    "choices_sha256": "30fe0bd40b64ea97989df2552f8b82260680ff2e3f3b636829fa2c1e9c34848b",
+    "checkpoint_sha256": {
+      "original": "3ea83197149204bb92782f9efd9a7ee985d6c7bbbfb0823bd068642eebdd1a1e",
+      "retrained": "0191ad1e52d85502c4916d25e1e1ff52297b2b76e4a77197b440a6453286b5af"
+    },
+    "native_started_sha256": "c02eef3196fa1f2d94402b226a771e61ce394e0ea0cab8c76443b53a54720502"
+  },
+  "audit_sha256": "88ef5df84ffe2d95e4fe8da86a9db0dea346ffa5ad94f496c7516777ac4e222b",
+  "execution_recovery_sha256": "3be9a11ab1a46f6cd26d7e51ba91344b16f89ba4fb4fd9d96508bf79b67edc0c",
+  "control_blocks": {
+    "controls_pre": {
+      "status": "passed",
+      "board_first_passed": true,
+      "board_first_captures": 6,
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "controls_post": {
+      "status": "passed",
+      "board_first_passed": true,
+      "board_first_captures": 6,
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "captured_routes": {
+    "original": {
+      "direct": 26,
+      "table_assisted": 12
+    },
+    "retrained": {
+      "direct": 25,
+      "table_assisted": 12
+    }
+  },
+  "boundary": "Both arms held at checked endpoints; common contact-permitting ranker; original/current live planner unchanged."
+}
