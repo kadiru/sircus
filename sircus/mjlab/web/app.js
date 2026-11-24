@@ -1,3 +1,4 @@
+import { renderBoardFirst } from '/board-first.mjs';
 import * as THREE from 'three';
 import { OrbitControls } from '/vendor/OrbitControls.js';
 import { contactStudy, contactGroups, contactConfigurations, transitRoutes, routePreview, configurationsCsv } from '/state.mjs';
@@ -1053,6 +1054,7 @@ async function loadStatus() {
     showNearbyShotTransfer();
     showRemainingLinkClearance();
     showClearShotRange();
+    renderBoardFirst($('boardFirstStudy'), report?.board_first_study);
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
@@ -2065,6 +2067,7 @@ async function initializePhysics() {
     showNearbyShotTransfer();
     showRemainingLinkClearance();
     showClearShotRange();
+    renderBoardFirst($('boardFirstStudy'), report?.board_first_study);
   } catch { /* Historical viewing stays available without this optional API. */ }
 }
 for (const id of ['physicsDrop', 'physicsDropTop']) {

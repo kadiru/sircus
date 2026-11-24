@@ -215,7 +215,13 @@ def select_requests(layout, plan, history, ranker):
 def _ranker(config):
     key = digest(dict(config, assets=str(config["assets"])))
     if key not in _rankers:
-        _rankers[key] = FlightRanker(config["scene"], config["calibration"], Path(config["assets"]), config["rule"])
+        implementation = FlightRanker
+        if config.get("contact_ranking_version") is not None:
+            from .board_first_selector_plan import BoardFirstFlightRanker, VERSION as contact_version
+            if config["contact_ranking_version"] != contact_version:
+                raise ValueError("Unknown explicit contact ranking version")
+            implementation = BoardFirstFlightRanker
+        _rankers[key] = implementation(config["scene"], config["calibration"], Path(config["assets"]), config["rule"])
     return _rankers[key]
 
 

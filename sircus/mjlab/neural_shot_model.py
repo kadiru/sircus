@@ -121,7 +121,7 @@ def outcome(record):
     return "arm_assisted_capture" if robot_capture else "flight_miss"
 
 
-def _encoded(rows, split):
+def _encoded(rows, split, *, labeler=outcome):
     if not rows:
         raise ValueError(f"{split} data cannot be empty")
     data, identifiers = [], set()
@@ -133,7 +133,7 @@ def _encoded(rows, split):
         if not isinstance(identifier, str) or not identifier or identifier in identifiers:
             raise ValueError("Proposal IDs must be nonempty and unique within each split")
         identifiers.add(identifier)
-        label = outcome(record)
+        label = labeler(record)
         setup = record["setup_ok"]
         capture_mask = setup and label not in {"invalid_physics", "setup_only"}
         capture = None if label == "setup_only" else label in {"direct", "table", "unclassified_capture"}
@@ -241,7 +241,8 @@ def _evaluate(checkpoint, data):
                 first_feasible_capture_unknown=sum(row["first_feasible_capture"] is None for row in cases), cases=cases)
 
 
-def fit(training_rows, validation_rows, *, seed=2026111707, epochs=DEFAULT_EPOCHS):
+def fit(training_rows, validation_rows, *, seed=2026111707, epochs=DEFAULT_EPOCHS,
+        labeler=None, label_version=None):
     """Fit two binary heads on TRAIN only; select an epoch by validation loss.
 
     Each record must contain request/original proposal, setup_ok, observation
@@ -251,8 +252,14 @@ def fit(training_rows, validation_rows, *, seed=2026111707, epochs=DEFAULT_EPOCH
     remains a noncapture for this standard direct/table task. No TEST rows are
     accepted. Validation selects an epoch; its labels never enter gradients.
     """
-    training = _encoded(training_rows, "train")
-    validation = _encoded(validation_rows, "validation")
+    # An explicit versioned labeler allows a new task definition without
+    # rewriting archived observations or changing this historical default.
+    if (labeler is None) != (label_version is None):
+        raise ValueError("A custom labeler requires its explicit label version")
+    if label_version is not None and (not callable(labeler) or not isinstance(label_version, str) or not label_version):
+        raise ValueError("Expected a callable versioned labeler")
+    training = _encoded(training_rows, "train", labeler=labeler or outcome)
+    validation = _encoded(validation_rows, "validation", labeler=labeler or outcome)
     positions = [{row["position"] for row in dataset} for dataset in (training, validation)]
     identifiers = [{row["id"] for row in dataset} for dataset in (training, validation)]
     if positions[0] & positions[1] or identifiers[0] & identifiers[1]:
@@ -281,6 +288,8 @@ def fit(training_rows, validation_rows, *, seed=2026111707, epochs=DEFAULT_EPOCH
                     validation_outcomes=dict(sorted(Counter(row["outcome"] for row in validation).items())),
                     selection="Lowest sum of position-balanced validation head losses; earlier epoch on ties",
                     input_scope="Proposed geometry and optional source joint seeds; no solved joints or rollout data")
+    if label_version is not None:
+        metadata["label_version"] = label_version
     # Local CPU generator initialization avoids altering a caller's random state.
     threads = torch.get_num_threads()
     history, best = [], None
