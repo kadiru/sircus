@@ -68,7 +68,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let renderExpandedSelector, renderBoardFirst, physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, directPathFirstSummary, stalledReferenceSummary, hybridMissCorrectionSummary, boardPoseRecoverySummary, boardFallbackSummary, guardedBoardFallbackSummary, parallelBoardSummary, nearbyShotTransferSummary, remainingLinkClearanceSummary, clearShotRangeSummary, physicsSceneActive = false, physicsViewKey = '';
+let renderExpandedSelectorReplays, expandedSelectorReplayAssets, renderExpandedSelector, renderBoardFirst, physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, directPathFirstSummary, stalledReferenceSummary, hybridMissCorrectionSummary, boardPoseRecoverySummary, boardFallbackSummary, guardedBoardFallbackSummary, parallelBoardSummary, nearbyShotTransferSummary, remainingLinkClearanceSummary, clearShotRangeSummary, physicsSceneActive = false, physicsViewKey = '';
 let savedReplayRows = [], savedReplaySignature = '';
 const physicsSelected = () => $('mode').value === 'physics' && physics?.available === true;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
@@ -1055,6 +1055,7 @@ async function loadStatus() {
     showClearShotRange();
     if (renderBoardFirst) renderBoardFirst($('boardFirstStudy'), report?.board_first_study);
     if (renderExpandedSelector) renderExpandedSelector($('expandedSelectorStudy'), report?.expanded_selector_study);
+    showExpandedSelectorReplays();
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
@@ -1439,6 +1440,14 @@ function showBoardPoseRecovery() {
   }
   $('boardPoseControls').textContent = `Simulator controls: ${view.controls.status || 'pending'} · ${n(view.controls.completed)} / ${n(view.controls.planned)} · Independent audit: ${view.audit}.`;
   $('boardPoseNext').textContent = view.error || view.next;
+}
+function showExpandedSelectorReplays() {
+  if (!renderExpandedSelectorReplays) return;
+  if (expandedSelectorReplayAssets === undefined) {
+    try { expandedSelectorReplayAssets = JSON.parse($('expandedSelectorReplayVideoAssets').textContent || '{}'); }
+    catch { expandedSelectorReplayAssets = {}; }
+  }
+  renderExpandedSelectorReplays($('expandedSelectorReplays'), report?.expanded_selector_replays, expandedSelectorReplayAssets);
 }
 function showHybridMissCorrection() {
   if (!hybridMissCorrectionSummary) return;
@@ -2050,6 +2059,7 @@ async function initializePhysics() {
     clearShotRangeSummary = module.clearShotRangeSummary;
     renderBoardFirst = module.renderBoardFirst;
     renderExpandedSelector = module.renderExpandedSelector;
+    renderExpandedSelectorReplays = module.renderExpandedSelectorReplays;
     physics = new module.InteractivePhysics({ onChange: updatePhysics });
     await physics.initialize();
     showSavedPhysicsReplays();
@@ -2071,6 +2081,7 @@ async function initializePhysics() {
     showClearShotRange();
     if (renderBoardFirst) renderBoardFirst($('boardFirstStudy'), report?.board_first_study);
     if (renderExpandedSelector) renderExpandedSelector($('expandedSelectorStudy'), report?.expanded_selector_study);
+    showExpandedSelectorReplays();
   } catch { /* Historical viewing stays available without this optional API. */ }
 }
 for (const id of ['physicsDrop', 'physicsDropTop']) {

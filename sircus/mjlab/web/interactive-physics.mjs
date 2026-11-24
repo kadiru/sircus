@@ -1227,3 +1227,112 @@ function render(root, raw) {
 }
 return {expandedSelectorReady:ready,renderExpandedSelector:render};
 })();
+
+// A read-only view of four audited saved flights. It never calls the planner.
+export const { expandedSelectorReplaysReady, expandedSelectorReplayMovie, renderExpandedSelectorReplays } = (() => {
+  const VERSION = 'sircus-expanded-selector-replays-display-v1';
+  const METHODS = ['current', 'expanded'];
+  const CASES = ['04', '10', '19', '47'].map(n => `expanded-selector-test-${n}`);
+  const hash = h => typeof h === 'string' && /^[a-f0-9]{64}$/.test(h);
+  const vector = (v,n) => Array.isArray(v) && v.length === n && v.every(Number.isFinite);
+  const cache = new WeakMap();
+  function ready(x) {
+    if (x?.version !== VERSION || x.status !== 'completed' || x.audit_status !== 'passed'
+      || x.physics_substeps !== 64 || !['report_sha256','audit_sha256','diagnosis_sha256'].every(k=>hash(x.provenance?.[k]))
+      || x.parent_summary?.positions !== 50 || x.parent_summary.current_captures !== 44 || x.parent_summary.expanded_captures !== 44
+      || !Array.isArray(x.cases) || x.cases.length !== 4 || x.cases.map(c=>c.id).join() !== CASES.join()) return false;
+    return x.cases.every((c,i) => {
+      const lost = i === 0 || i === 2;
+      if (c.change !== (lost?'expanded_lost':'expanded_gained') || !vector(c.bucket_xy_m,2)
+        || !Array.isArray(c.findings) || !c.findings.every(t=>typeof t==='string')
+        || !Array.isArray(c.hypotheses) || !c.hypotheses.every(t=>typeof t==='string')) return false;
+      return METHODS.every(method => {
+        const m=c.methods?.[method], s=m?.settings;
+        return m?.outcome?.capture === (method==='current'?lost:!lost)
+          && typeof m.id==='string' && typeof m.summary==='string' && Number.isFinite(m.outcome.max_retention_s) && m.outcome.max_retention_s>=0
+          && vector(s?.board_center_m,3) && vector(s?.command_board_center_m,3) && vector(s?.release_ball_center_m,3)
+          && ['board_height_m','tilt_deg','drop_gap_m','heading_offset_deg','twist_deg'].every(k=>Number.isFinite(s[k]))
+          && s.drop_gap_m>0 && vector(s.q10_rad,6) && vector(s.q14_rad,6)
+          && hash(m.trace?.sha256) && Number.isInteger(m.trace.column) && m.trace.column>=0;
+      });
+    });
+  }
+  function movie(c,assets) {
+    const v=c.video, a=v && assets?.[v.asset_id];
+    if (!a || !hash(v.video_sha256) || !hash(v.receipt_sha256)
+      || a.video_sha256!==v.video_sha256 || a.receipt_sha256!==v.receipt_sha256
+      || a.case_id!==c.id || a.native_steps_added!==0 || a.held_arm_poses!==true
+      || !METHODS.every(m=>a.methods?.[m]?.record_id===c.methods[m].id
+        && a.methods[m].trace_sha256===c.methods[m].trace.sha256 && a.methods[m].column===c.methods[m].trace.column)
+      || typeof a.url!=='string' || a.url.length>80*1024*1024
+      || !/^data:video\/mp4;base64,[A-Za-z0-9+/]+={0,2}$/.test(a.url)) return null;
+    return a;
+  }
+  function render(root,raw,assets={}) {
+    root.hidden=raw?.version!==VERSION;if(root.hidden)return;
+    const signature=JSON.stringify([raw,Object.entries(assets).map(([k,v])=>[k,v?.video_sha256,v?.receipt_sha256,v?.case_id,v?.url?.length])]);
+    if(cache.get(root)===signature)return;cache.set(root,signature);
+    const doc=root.ownerDocument, find=k=>root.querySelector(`[data-expanded-replay="${k}"]`);
+    const complete=ready(raw), cases=find('cases');cases.replaceChildren();
+    find('status').textContent=complete?'Four paired saved-flight replays · evidence checked':'Saved-flight comparison awaits verified evidence. No final outcomes are shown yet.';
+    find('summary').textContent=complete?'Both methods captured 44 of 50 new bucket positions. The expanded selector gained two positions and lost two. The current interactive planner remains unchanged.':'';
+    find('proof').textContent=complete?`Parent report: ${raw.provenance.report_sha256}. Parent audit: ${raw.provenance.audit_sha256}. Diagnosis: ${raw.provenance.diagnosis_sha256}.`:'';
+    if(!complete)return;
+    const el=(parent,tag,text,cls)=>{const n=doc.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;parent.append(n);return n;};
+    const mm=v=>(v*1000).toFixed(1), deg=v=>v.toFixed(2), vec=v=>v.map(mm).join(', ');
+    const table=(parent,rows)=>{
+      const wrap=el(parent,'div',undefined,'table-wrap'),t=el(wrap,'table'),head=el(t,'thead'),h=el(head,'tr'),body=el(t,'tbody');
+      ['Setting','Current planner','Expanded selector'].forEach(x=>{el(h,'th',x).scope='col';});
+      for(const row of rows){const tr=el(body,'tr');row.forEach((x,i)=>{const cell=el(tr,i?'td':'th',x);if(!i)cell.scope='row';});}
+    };
+    for(const c of raw.cases){
+      const card=el(cases,'article',undefined,'hybrid-miss-case');card.id=`expanded-selector-replay-${c.id.slice(-2)}`;
+      el(card,'h3',`Case ${c.id.slice(-2)} · bucket (${vec(c.bucket_xy_m)}) mm · expanded selector ${c.change==='expanded_lost'?'lost':'gained'} this capture`);
+      const list=el(card,'ul',undefined,'diagnosis-list');for(const m of METHODS)el(list,'li',`${m==='current'?'Current planner':'Expanded selector'}: ${c.methods[m].summary}`);
+      const settings=(key,format)=>METHODS.map(m=>format(c.methods[m].settings[key]));
+      table(card,[
+        ['Recorded outcome',...METHODS.map(m=>c.methods[m].outcome.capture?`Capture · ${c.methods[m].outcome.route_class}`:'Miss')],
+        ['Measured board center X, Y, Z (mm)',...settings('board_center_m',vec)],
+        ['Board tilt from horizontal (°)',...settings('tilt_deg',deg)],
+        ['Drop gap (mm)',...settings('drop_gap_m',mm)],
+        ['Ball release center X, Y, Z (mm)',...settings('release_ball_center_m',vec)],
+        ['Longest continuous whole-ball retention (s)',...METHODS.map(m=>c.methods[m].outcome.max_retention_s.toFixed(3))],
+      ]);
+      const detail=el(card,'details');el(detail,'summary','Orientation, arm joints and source identities');
+      table(detail,[
+        ['Commanded board center X, Y, Z (mm)',...settings('command_board_center_m',vec)],
+        ['Commanded board center height (mm)',...settings('board_height_m',mm)],
+        ['Heading offset / board twist (°)',...METHODS.map(m=>`${deg(c.methods[m].settings.heading_offset_deg)} / ${deg(c.methods[m].settings.twist_deg)}`)],
+        ['Dropper arm joints (rad)',...settings('q10_rad',v=>v.map(n=>n.toFixed(5)).join(', '))],
+        ['Board arm joints (rad)',...settings('q14_rad',v=>v.map(n=>n.toFixed(5)).join(', '))],
+        ['Saved setting used as a starting candidate',...METHODS.map(m=>c.methods[m].selection?.source_id??'Not recorded')],
+        ['Deduplicated source key',...METHODS.map(m=>c.methods[m].selection?.source_setting_key??'No expanded-library key')],
+        ['Source bucket X, Y (mm)',...METHODS.map(m=>vector(c.methods[m].selection?.source_bucket_xy_m,2)?vec(c.methods[m].selection.source_bucket_xy_m):'Not recorded')],
+        ['Source-to-target bucket distance (mm)',...METHODS.map(m=>Number.isFinite(c.methods[m].selection?.source_distance_m)?mm(c.methods[m].selection.source_distance_m):'Not recorded')],
+        ['Intended route / predicted flight route',...METHODS.map(m=>`${c.methods[m].selection?.intended_route??'Not recorded'} / ${c.methods[m].selection?.prediction?.predicted_route??'Not recorded'}`)],
+        ['Learned capture estimate (not a guarantee)',...METHODS.map(m=>Number.isFinite(c.methods[m].selection?.probabilities?.capture_probability)?`${(100*c.methods[m].selection.probabilities.capture_probability).toFixed(1)}%`:'Not recorded')],
+        ['How this estimate was used',...METHODS.map(m=>c.methods[m].selection?.probability_use==='used_for_neural_proposal_order'?'Used to rank proposed shots':c.methods[m].selection?.probability_use==='posthoc_score_of_unranked_joint_alternative'?'Computed after the test for explanation; did not choose this arm alternative':'Not recorded')],
+        ['Recorded shot ID',...METHODS.map(m=>c.methods[m].id)],
+        ['Saved trajectory SHA-256',...METHODS.map(m=>c.methods[m].trace.sha256)],
+      ]);
+      const measured=el(card,'details');el(measured,'summary','Measured contact timing and flight details');
+      const eventList=el(measured,'ul',undefined,'diagnosis-list');for(const fact of c.findings)el(eventList,'li',fact);
+      if(c.hypotheses.length){el(measured,'p','Possible next changes — not yet tested','fine');const l=el(measured,'ul',undefined,'diagnosis-list');for(const h of c.hypotheses)el(l,'li',h);}
+      const clip=movie(c,assets),figure=el(card,'figure');
+      if(clip){
+        el(figure,'figcaption','Current planner (left) · expanded selector (right). Recorded samples replay at ¼ speed; a finished side holds its final recorded frame.');
+        const player=el(figure,'video');player.controls=true;player.preload='none';player.playsInline=true;player.src=clip.url;
+        player.setAttribute('aria-label',`Paired saved flights at bucket ${vec(c.bucket_xy_m)} mm`);
+        const controls=el(figure,'div',undefined,'replay-controls');
+        const replay=el(controls,'button','Replay from start','quiet');replay.type='button';
+        const label=el(controls,'label','Playback speed '),speed=el(label,'select');speed.setAttribute('aria-label','Playback speed relative to simulation');
+        for(const [value,text]of [['1','¼× simulation'],['2','½× simulation'],['4','1× simulation']]){const o=el(speed,'option',text);o.value=value;}
+        const note=el(figure,'p','','fine');
+        replay.onclick=()=>{player.currentTime=0;Promise.resolve(player.play()).catch(()=>{note.textContent='Use the video Play control to start playback.';});};
+        speed.onchange=()=>{player.playbackRate=Number(speed.value);};
+        el(figure,'p',`Video SHA-256: ${c.video.video_sha256}`,'fine evidence-id');
+      }else el(figure,'p','The paired movie will appear after its file and both source traces are verified.','fine');
+    }
+  }
+  return {expandedSelectorReplaysReady:ready,expandedSelectorReplayMovie:movie,renderExpandedSelectorReplays:render};
+})();
