@@ -1,0 +1,762 @@
+{
+  "version": "sircus-bucket-approach-first-repeat-summary-v1",
+  "status": "completed",
+  "cpu_only": true,
+  "new_simulated_drops": 0,
+  "physics_substeps": 64,
+  "source_sha256": {
+    "report.json": "446288079f2b25f41ee70793d3f5d4e25ea3df44d70f3a5fe50685c1eee19283",
+    "contract.json": "2540151271bcfc05797e12673a2185f6329096666f5ac17a450fcf46fb4c8da6",
+    "preparation.json": "57a6d18eee32ac6e6780fbbe6e6360336a4e5586557a1400c961fd4d7d42d56f",
+    "rows.jsonl": "8a57f08d4489036d88e9388e3d2853efcaadf230ce328c30c47e17f096dd2b78",
+    "evidence-manifest.json": "c2c2b52b8ff485eb0adc84b342a2126987eff6325524e1b13422290a2b854341"
+  },
+  "cases": [
+    {
+      "id": "expanded-selector-test-04",
+      "bucket_xy_m": [
+        0.6164732555570717,
+        -0.5043638382666327
+      ],
+      "variants": {
+        "original": {
+          "id": "expanded-selector-test-04-original-0",
+          "trace_sha256": "abc7c22c35700158d3a1d02e7b2c309005539c963d7b91e29cbdc19f77148c7b",
+          "command": {
+            "board_center_m": [
+              0.565195258797559,
+              -0.07921771696136812,
+              0.5025939154683754
+            ],
+            "tilt_deg": 12.144723315058823,
+            "drop_gap_m": 0.17980211771805632,
+            "heading_offset_deg": 0.412710914880937,
+            "board_twist_deg": 0.0,
+            "release_ball_center_m": [
+              0.565195258797559,
+              -0.07921771696136812,
+              0.7198960331864317
+            ]
+          },
+          "score": {
+            "route_success": false,
+            "route_class": "not_captured",
+            "board_first_confirmed": true,
+            "whole_ball_entry_time_s": null,
+            "capture_time_s": null,
+            "max_retention_s": 0.0,
+            "retention_resets": 0,
+            "exited_after_entry": false,
+            "rim_band_contact": true,
+            "bucket_contact_before_entry": true,
+            "board_contact_episodes": 1,
+            "table_contact_steps": 28795,
+            "robot_contact_steps": 0,
+            "floor_contact_steps": 0,
+            "unattributed_contact_steps": 0,
+            "invalid_physics": false,
+            "scoring_version": "sircus-board-first-native-capture-v4"
+          },
+          "first_contact_times_s": {
+            "board": 0.1896484375,
+            "table": 0.6430989583333333,
+            "bucket": 0.7044921875
+          },
+          "board_contact_start_times_s": [
+            0.1896484375
+          ],
+          "first_bucket_contact": {
+            "time_s": 0.7044921875,
+            "ball_center_m": [
+              0.6018802523612976,
+              -0.3714929521083832,
+              0.14802484214305878
+            ],
+            "velocity_before_m_s": [
+              0.06381971389055252,
+              -0.502968430519104,
+              1.5645532608032227
+            ],
+            "velocity_after_m_s": [
+              -0.08773122727870941,
+              0.5889313220977783,
+              1.2333192825317383
+            ],
+            "forward_speed_before_m_s": 0.5069915032495722,
+            "forward_speed_after_m_s": -0.5951991456004405,
+            "geometry": {
+              "radial_center_distance_m": 0.13366984750028846,
+              "along_center_error_m": -0.13366227725429095,
+              "ball_center_above_rim_m": -0.03497515785694122,
+              "ball_top_above_rim_m": 0.0025248421430587864,
+              "vertical_velocity_before_m_s": 1.5645532608032227,
+              "ascending": true,
+              "near_side": true,
+              "scope": "Observed ball center and velocity at first measured bucket-force interval; does not identify a specific bucket wall/rim collider"
+            }
+          },
+          "descending_rim_crossings": [
+            {
+              "time_s": 0.5962189513347131,
+              "interval_start_tick": 9157,
+              "alpha": 0.9230925011940987,
+              "position_m": [
+                0.5945494174957275,
+                -0.3134946823120117,
+                0.18299999833106995
+              ],
+              "along_error_m": -0.1921210617555122,
+              "lateral_error_m": 0.0010894953437837578,
+              "radial_error_m": 0.19212415092894872,
+              "aperture_clearance_m": -0.1411267858260661,
+              "previous_nonboard_contact": null
+            },
+            {
+              "time_s": 0.9276221153553145,
+              "interval_start_tick": 14248,
+              "alpha": 0.2756918576304896,
+              "position_m": [
+                0.5823756456375122,
+                -0.2408067137002945,
+                0.18299999833106995
+              ],
+              "along_error_m": -0.26574376481858797,
+              "lateral_error_m": -0.002292677898383874,
+              "radial_error_m": 0.2657536545598249,
+              "aperture_clearance_m": -0.21481428016416035,
+              "previous_nonboard_contact": "bucket"
+            }
+          ],
+          "forecast": {
+            "route": "table",
+            "score_m": -0.0077355364956935915,
+            "status": "sampled_overlap",
+            "original_rim_margin_m": 0.03385595363748826,
+            "minimum_clearance_lower_bound_m": -0.0077355364956935915,
+            "first_predicted_contact": {
+              "time_s": 0.7165951174380081,
+              "segment_time_s": 0.07598927267201205,
+              "time_bracket_s": [
+                0.7155952585870605,
+                0.7165951174380081
+              ],
+              "center_m": [
+                0.6022111878491451,
+                -0.36856951601034277,
+                0.1733419645076595
+              ],
+              "geom": "bucket/wall16",
+              "vertical_velocity_m_s": 1.4149192120043739,
+              "rising": true,
+              "sampled_surface_clearance_m": -8.836291812753388e-05
+            }
+          }
+        },
+        "corrected": {
+          "id": "expanded-selector-test-04-corrected-0",
+          "trace_sha256": "abc7c22c35700158d3a1d02e7b2c309005539c963d7b91e29cbdc19f77148c7b",
+          "command": {
+            "board_center_m": [
+              0.7067808651800476,
+              -0.37473808026886024,
+              0.29127499261510703
+            ],
+            "tilt_deg": 27.291877704337526,
+            "drop_gap_m": 0.07583586488431047,
+            "heading_offset_deg": 0.0,
+            "board_twist_deg": 0.0,
+            "release_ball_center_m": [
+              0.7067808651800476,
+              -0.37473808026886024,
+              0.4046108574994175
+            ]
+          },
+          "score": {
+            "route_success": true,
+            "route_class": "direct",
+            "board_first_confirmed": true,
+            "whole_ball_entry_time_s": 0.63828125,
+            "capture_time_s": 1.63828125,
+            "max_retention_s": 0.9999999999999999,
+            "retention_resets": 0,
+            "exited_after_entry": false,
+            "rim_band_contact": true,
+            "bucket_contact_before_entry": true,
+            "board_contact_episodes": 2,
+            "table_contact_steps": 0,
+            "robot_contact_steps": 0,
+            "floor_contact_steps": 0,
+            "unattributed_contact_steps": 0,
+            "invalid_physics": false,
+            "scoring_version": "sircus-board-first-native-capture-v4"
+          },
+          "first_contact_times_s": {
+            "board": 0.11803385416666666,
+            "bucket": 0.3724609375
+          },
+          "board_contact_start_times_s": [
+            0.11803385416666666,
+            0.2737630208333333
+          ],
+          "first_bucket_contact": {
+            "time_s": 0.3724609375,
+            "ball_center_m": [
+              0.5829444527626038,
+              -0.5548538565635681,
+              0.20806482434272766
+            ],
+            "velocity_before_m_s": [
+              -0.6328949332237244,
+              -0.914794921875,
+              -1.2045143842697144
+            ],
+            "velocity_after_m_s": [
+              0.4133320748806,
+              0.7018656134605408,
+              0.6577685475349426
+            ],
+            "forward_speed_before_m_s": 1.1123814859780505,
+            "forward_speed_after_m_s": -0.8121616558253694,
+            "geometry": {
+              "radial_center_distance_m": 0.06060876639938479,
+              "along_center_error_m": 0.060593707048928656,
+              "ball_center_above_rim_m": 0.025064824342727665,
+              "ball_top_above_rim_m": 0.06256482434272767,
+              "vertical_velocity_before_m_s": -1.2045143842697144,
+              "ascending": false,
+              "near_side": false,
+              "scope": "Observed ball center and velocity at first measured bucket-force interval; does not identify a specific bucket wall/rim collider"
+            }
+          },
+          "descending_rim_crossings": [
+            {
+              "time_s": 0.5932088767946317,
+              "interval_start_tick": 9111,
+              "alpha": 0.6883475655431717,
+              "position_m": [
+                0.62257319688797,
+                -0.5051121711730957,
+                0.18299999833106995
+              ],
+              "along_error_m": -0.0028729089828848833,
+              "lateral_error_m": 0.00543283354754737,
+              "radial_error_m": 0.0061456721665979555,
+              "aperture_clearance_m": 0.04474967336718955,
+              "previous_nonboard_contact": "bucket"
+            }
+          ],
+          "forecast": {
+            "route": "direct",
+            "score_m": 0.031130730361918886,
+            "status": "clear",
+            "original_rim_margin_m": 0.031130730361918886,
+            "minimum_clearance_lower_bound_m": 0.03705232714540526,
+            "first_predicted_contact": null
+          }
+        }
+      }
+    },
+    {
+      "id": "expanded-selector-test-10",
+      "bucket_xy_m": [
+        1.179222424148156,
+        -0.48813183237862323
+      ],
+      "variants": {
+        "original": {
+          "id": "expanded-selector-test-10-original-0",
+          "trace_sha256": "74362c1d5515f36d557e5736c0766e47cfc47ba1cd21000908075a9afcc5600a",
+          "command": {
+            "board_center_m": [
+              0.6352832396127122,
+              -0.23778013337371418,
+              0.433805880878039
+            ],
+            "tilt_deg": 31.72734340385772,
+            "drop_gap_m": 0.13325404596484747,
+            "heading_offset_deg": 0.38053975571511955,
+            "board_twist_deg": -2.329189348574488,
+            "release_ball_center_m": [
+              0.6352832396127122,
+              -0.23778013337371418,
+              0.6045599268428865
+            ]
+          },
+          "score": {
+            "route_success": false,
+            "route_class": "not_captured",
+            "board_first_confirmed": true,
+            "whole_ball_entry_time_s": null,
+            "capture_time_s": null,
+            "max_retention_s": 0.0,
+            "retention_resets": 0,
+            "exited_after_entry": false,
+            "rim_band_contact": true,
+            "bucket_contact_before_entry": true,
+            "board_contact_episodes": 1,
+            "table_contact_steps": 35543,
+            "robot_contact_steps": 0,
+            "floor_contact_steps": 0,
+            "unattributed_contact_steps": 0,
+            "invalid_physics": false,
+            "scoring_version": "sircus-board-first-native-capture-v4"
+          },
+          "first_contact_times_s": {
+            "board": 0.15885416666666666,
+            "table": 0.5028645833333333,
+            "bucket": 0.6129557291666666
+          },
+          "board_contact_start_times_s": [
+            0.15885416666666666
+          ],
+          "first_bucket_contact": {
+            "time_s": 0.6129557291666666,
+            "ball_center_m": [
+              1.054211974143982,
+              -0.4314229190349579,
+              0.18532617390155792
+            ],
+            "velocity_before_m_s": [
+              0.8438944220542908,
+              -0.3868758976459503,
+              0.8354401588439941
+            ],
+            "velocity_after_m_s": [
+              -0.4360620379447937,
+              0.2145148515701294,
+              0.8921446204185486
+            ],
+            "forward_speed_before_m_s": 0.9283473588752872,
+            "forward_speed_after_m_s": -0.48580782646011256,
+            "geometry": {
+              "radial_center_distance_m": 0.1372716775699395,
+              "along_center_error_m": -0.13726961701888057,
+              "ball_center_above_rim_m": 0.0023261739015579264,
+              "ball_top_above_rim_m": 0.03982617390155793,
+              "vertical_velocity_before_m_s": 0.8354401588439941,
+              "ascending": true,
+              "near_side": true,
+              "scope": "Observed ball center and velocity at first measured bucket-force interval; does not identify a specific bucket wall/rim collider"
+            }
+          },
+          "descending_rim_crossings": [
+            {
+              "time_s": 0.44913145207221544,
+              "interval_start_tick": 6898,
+              "alpha": 0.6591038292294981,
+              "position_m": [
+                0.9101946949958801,
+                -0.3651636242866516,
+                0.18299999833106995
+              ],
+              "along_error_m": -0.2957980696461762,
+              "lateral_error_m": -0.0007754016872369845,
+              "radial_error_m": 0.2957990859590014,
+              "aperture_clearance_m": -0.24488047062161364,
+              "previous_nonboard_contact": null
+            },
+            {
+              "time_s": 0.8006287631934217,
+              "interval_start_tick": 12297,
+              "alpha": 0.657802650957356,
+              "position_m": [
+                0.973301351070404,
+                -0.3915432095527649,
+                0.18299999833106995
+              ],
+              "along_error_m": -0.22744260980009473,
+              "lateral_error_m": 0.0016460996964351438,
+              "radial_error_m": 0.22744856648677467,
+              "aperture_clearance_m": -0.17655400391198992,
+              "previous_nonboard_contact": "bucket"
+            }
+          ],
+          "forecast": {
+            "route": "table",
+            "score_m": -0.003595744137556019,
+            "status": "sampled_overlap",
+            "original_rim_margin_m": 0.0033533698119428967,
+            "minimum_clearance_lower_bound_m": -0.003595744137556019,
+            "first_predicted_contact": {
+              "time_s": 0.6314002364482899,
+              "segment_time_s": 0.13064552187967435,
+              "time_bracket_s": [
+                0.6304029423881397,
+                0.6314002364482899
+              ],
+              "center_m": [
+                1.0628688596354974,
+                -0.43114827925476157,
+                0.20551981653330326
+              ],
+              "geom": "bucket/wall27",
+              "vertical_velocity_m_s": 0.64525777356278,
+              "rising": true,
+              "sampled_surface_clearance_m": -0.00025433156727626416
+            }
+          }
+        },
+        "corrected": {
+          "id": "expanded-selector-test-10-corrected-0",
+          "trace_sha256": "74362c1d5515f36d557e5736c0766e47cfc47ba1cd21000908075a9afcc5600a",
+          "command": {
+            "board_center_m": [
+              0.6352832396127122,
+              -0.23778013337371418,
+              0.433805880878039
+            ],
+            "tilt_deg": 23.72734340385772,
+            "drop_gap_m": 0.15325404596484746,
+            "heading_offset_deg": 0.38053975571511955,
+            "board_twist_deg": -2.329189348574488,
+            "release_ball_center_m": [
+              0.6352832396127122,
+              -0.23778013337371418,
+              0.6245599268428865
+            ]
+          },
+          "score": {
+            "route_success": true,
+            "route_class": "table_assisted",
+            "board_first_confirmed": true,
+            "whole_ball_entry_time_s": 0.9114583333333334,
+            "capture_time_s": 1.9114583333333333,
+            "max_retention_s": 0.9999999999999999,
+            "retention_resets": 0,
+            "exited_after_entry": false,
+            "rim_band_contact": true,
+            "bucket_contact_before_entry": true,
+            "board_contact_episodes": 1,
+            "table_contact_steps": 27,
+            "robot_contact_steps": 0,
+            "floor_contact_steps": 0,
+            "unattributed_contact_steps": 0,
+            "invalid_physics": false,
+            "scoring_version": "sircus-board-first-native-capture-v4"
+          },
+          "first_contact_times_s": {
+            "board": 0.17317708333333334,
+            "table": 0.555078125,
+            "bucket": 0.6901692708333333
+          },
+          "board_contact_start_times_s": [
+            0.17317708333333334
+          ],
+          "first_bucket_contact": {
+            "time_s": 0.6901692708333333,
+            "ball_center_m": [
+              1.061572551727295,
+              -0.4358600378036499,
+              0.20698633790016174
+            ],
+            "velocity_before_m_s": [
+              0.7527384161949158,
+              -0.34608036279678345,
+              0.6191142201423645
+            ],
+            "velocity_after_m_s": [
+              0.4615130126476288,
+              -0.210374653339386,
+              0.7909961342811584
+            ],
+            "forward_speed_before_m_s": 0.8284845358315234,
+            "forward_speed_after_m_s": 0.5071965317629832,
+            "geometry": {
+              "radial_center_distance_m": 0.12873939951985594,
+              "along_center_error_m": -0.12872810327908701,
+              "ball_center_above_rim_m": 0.023986337900161747,
+              "ball_top_above_rim_m": 0.06148633790016175,
+              "vertical_velocity_before_m_s": 0.6191142201423645,
+              "ascending": true,
+              "near_side": true,
+              "scope": "Observed ball center and velocity at first measured bucket-force interval; does not identify a specific bucket wall/rim collider"
+            }
+          },
+          "descending_rim_crossings": [
+            {
+              "time_s": 0.5023974622051833,
+              "interval_start_tick": 7716,
+              "alpha": 0.8250194716153458,
+              "position_m": [
+                0.9149841070175171,
+                -0.3681657314300537,
+                0.18299999833106995
+              ],
+              "along_error_m": -0.290192183198114,
+              "lateral_error_m": -0.0015001425087864118,
+              "radial_error_m": 0.2901960606500964,
+              "aperture_clearance_m": -0.2392673270742046,
+              "previous_nonboard_contact": null
+            },
+            {
+              "time_s": 0.8804399336711711,
+              "interval_start_tick": 13523,
+              "alpha": 0.5573811891892472,
+              "position_m": [
+                1.1495716571807861,
+                -0.4760200083255768,
+                0.18299999833106995
+              ],
+              "along_error_m": -0.03199874295967211,
+              "lateral_error_m": -0.0013945295429128295,
+              "radial_error_m": 0.03202911587361134,
+              "aperture_clearance_m": 0.018895546164726842,
+              "previous_nonboard_contact": "bucket"
+            }
+          ],
+          "forecast": {
+            "route": "table",
+            "score_m": 0.00489179198971007,
+            "status": "clear",
+            "original_rim_margin_m": 0.00489179198971007,
+            "minimum_clearance_lower_bound_m": 0.007674740204085983,
+            "first_predicted_contact": null
+          }
+        }
+      },
+      "matched_changes": {
+        "board_center_unchanged": true,
+        "tilt_delta_deg": -8.0,
+        "drop_gap_delta_mm": 19.99999999999999,
+        "first_bucket_contact_ball_height_delta_mm": 21.66016399860382,
+        "original_first_contact_forward_speed_before_after_m_s": [
+          0.9283473588752872,
+          -0.48580782646011256
+        ],
+        "corrected_first_contact_forward_speed_before_after_m_s": [
+          0.8284845358315234,
+          0.5071965317629832
+        ],
+        "interpretation": "The corrected ball contacted the near rim higher and continued toward the bucket, rather than reversing away. Both tilt and gap changed; this does not identify a single causal parameter. The forecast predicted clear nominal approach, but the actual captured trajectory includes allowed rim contact."
+      }
+    },
+    {
+      "id": "expanded-selector-test-19",
+      "bucket_xy_m": [
+        0.8545968074612572,
+        -0.4085711388163732
+      ],
+      "variants": {
+        "original": {
+          "id": "expanded-selector-test-19-original-0",
+          "trace_sha256": "343d6a5f6e3a612d60bb48a51230a4f47513e3bc9d8de04c19c35c2ed0cf2809",
+          "command": {
+            "board_center_m": [
+              0.565195258797559,
+              -0.07921771696136812,
+              0.5025939154683754
+            ],
+            "tilt_deg": 12.144723315058823,
+            "drop_gap_m": 0.17980211771805632,
+            "heading_offset_deg": 0.412710914880937,
+            "board_twist_deg": 0.0,
+            "release_ball_center_m": [
+              0.565195258797559,
+              -0.07921771696136812,
+              0.7198960331864317
+            ]
+          },
+          "score": {
+            "route_success": false,
+            "route_class": "not_captured",
+            "board_first_confirmed": true,
+            "whole_ball_entry_time_s": null,
+            "capture_time_s": null,
+            "max_retention_s": 0.0,
+            "retention_resets": 0,
+            "exited_after_entry": false,
+            "rim_band_contact": true,
+            "bucket_contact_before_entry": true,
+            "board_contact_episodes": 1,
+            "table_contact_steps": 32176,
+            "robot_contact_steps": 0,
+            "floor_contact_steps": 0,
+            "unattributed_contact_steps": 0,
+            "invalid_physics": false,
+            "scoring_version": "sircus-board-first-native-capture-v4"
+          },
+          "first_contact_times_s": {
+            "board": 0.1896484375,
+            "table": 0.6431640625,
+            "bucket": 0.7216145833333333
+          },
+          "board_contact_start_times_s": [
+            0.1896484375
+          ],
+          "first_bucket_contact": {
+            "time_s": 0.7216145833333333,
+            "ball_center_m": [
+              0.7630640268325806,
+              -0.30689549446105957,
+              0.1760975420475006
+            ],
+            "velocity_before_m_s": [
+              0.3341136574745178,
+              -0.37994471192359924,
+              1.433107852935791
+            ],
+            "velocity_after_m_s": [
+              -0.3860018849372864,
+              0.41523510217666626,
+              1.1265398263931274
+            ],
+            "forward_speed_before_m_s": 0.5059544275739152,
+            "forward_speed_after_m_s": -0.5667146973560753,
+            "geometry": {
+              "radial_center_distance_m": 0.13680711452510672,
+              "along_center_error_m": -0.13679721587576876,
+              "ball_center_above_rim_m": -0.006902457952499386,
+              "ball_top_above_rim_m": 0.03059754204750062,
+              "vertical_velocity_before_m_s": 1.433107852935791,
+              "ascending": true,
+              "near_side": true,
+              "scope": "Observed ball center and velocity at first measured bucket-force interval; does not identify a specific bucket wall/rim collider"
+            }
+          },
+          "descending_rim_crossings": [
+            {
+              "time_s": 0.59625393448046,
+              "interval_start_tick": 9158,
+              "alpha": 0.460433619866306,
+              "position_m": [
+                0.719037652015686,
+                -0.25656357407569885,
+                0.18299999833106995
+              ],
+              "along_error_m": -0.20366724873138958,
+              "lateral_error_m": -0.001495378779144893,
+              "radial_error_m": 0.20367273839055347,
+              "aperture_clearance_m": -0.15277274235568974,
+              "previous_nonboard_contact": null
+            },
+            {
+              "time_s": 0.948721466951597,
+              "interval_start_tick": 14572,
+              "alpha": 0.3617323765302381,
+              "position_m": [
+                0.6758356690406799,
+                -0.21317052841186523,
+                0.18299999833106995
+              ],
+              "along_error_m": -0.2647806448906591,
+              "lateral_error_m": -0.00530596335850439,
+              "radial_error_m": 0.26483380289508945,
+              "aperture_clearance_m": -0.21393754593970196,
+              "previous_nonboard_contact": "bucket"
+            }
+          ],
+          "forecast": {
+            "route": "table",
+            "score_m": 0.0017834580824929913,
+            "status": "clear",
+            "original_rim_margin_m": 0.028809999823737102,
+            "minimum_clearance_lower_bound_m": 0.0017834580824929913,
+            "first_predicted_contact": null
+          }
+        },
+        "corrected": {
+          "id": "expanded-selector-test-19-corrected-0",
+          "trace_sha256": "343d6a5f6e3a612d60bb48a51230a4f47513e3bc9d8de04c19c35c2ed0cf2809",
+          "command": {
+            "board_center_m": [
+              0.6270205944271454,
+              -0.2257109299164155,
+              0.4100089689999375
+            ],
+            "tilt_deg": 32.11390790518917,
+            "drop_gap_m": 0.13612651196551223,
+            "heading_offset_deg": -0.03919890841282836,
+            "board_twist_deg": -0.011563296238392695,
+            "release_ball_center_m": [
+              0.6270205944271454,
+              -0.2257109299164155,
+              0.5836354809654497
+            ]
+          },
+          "score": {
+            "route_success": true,
+            "route_class": "direct",
+            "board_first_confirmed": true,
+            "whole_ball_entry_time_s": 0.45416666666666666,
+            "capture_time_s": 1.7258463541666667,
+            "max_retention_s": 1.0,
+            "retention_resets": 1,
+            "exited_after_entry": true,
+            "rim_band_contact": false,
+            "bucket_contact_before_entry": false,
+            "board_contact_episodes": 1,
+            "table_contact_steps": 0,
+            "robot_contact_steps": 0,
+            "floor_contact_steps": 0,
+            "unattributed_contact_steps": 0,
+            "invalid_physics": false,
+            "scoring_version": "sircus-board-first-native-capture-v4"
+          },
+          "first_contact_times_s": {
+            "board": 0.160546875,
+            "bucket": 0.47701822916666664
+          },
+          "board_contact_start_times_s": [
+            0.160546875
+          ],
+          "first_bucket_contact": {
+            "time_s": 0.47701822916666664,
+            "ball_center_m": [
+              0.8869042992591858,
+              -0.43746381998062134,
+              0.08583395183086395
+            ],
+            "velocity_before_m_s": [
+              0.8229540586471558,
+              -0.6706186532974243,
+              -2.72096586227417
+            ],
+            "velocity_after_m_s": [
+              -0.7083560228347778,
+              0.7060337066650391,
+              -2.0976552963256836
+            ],
+            "forward_speed_before_m_s": 1.0615693382871039,
+            "forward_speed_after_m_s": -0.9944192049187506,
+            "geometry": {
+              "radial_center_distance_m": 0.04334237016052678,
+              "along_center_error_m": 0.043282013953329486,
+              "ball_center_above_rim_m": -0.09716604816913604,
+              "ball_top_above_rim_m": -0.05966604816913604,
+              "vertical_velocity_before_m_s": -2.72096586227417,
+              "ascending": false,
+              "near_side": false,
+              "scope": "Observed ball center and velocity at first measured bucket-force interval; does not identify a specific bucket wall/rim collider"
+            }
+          },
+          "descending_rim_crossings": [
+            {
+              "time_s": 0.43866002792284914,
+              "interval_start_tick": 6737,
+              "alpha": 0.8180288949629313,
+              "position_m": [
+                0.8553332090377808,
+                -0.41173988580703735,
+                0.18299999833106995
+              ],
+              "along_error_m": 0.0025588334800621666,
+              "lateral_error_m": -0.002008884265970166,
+              "radial_error_m": 0.0032531899380069326,
+              "aperture_clearance_m": 0.04764068225767266,
+              "previous_nonboard_contact": null
+            }
+          ],
+          "forecast": {
+            "route": "direct",
+            "score_m": 0.03083241858942145,
+            "status": "clear",
+            "original_rim_margin_m": 0.03083241858942145,
+            "minimum_clearance_lower_bound_m": 0.033146787172414524,
+            "first_predicted_contact": null
+          }
+        }
+      }
+    }
+  ],
+  "scope": "Six saved first-repeat trajectories from three known development positions. Independent v4 scores match recorded outcomes. Force channels establish contact category and timing, not an exact bucket collider ID. The full-approach forecast does not predict contact responses or second board rebounds; contact warnings do not invalidate native captures. No generalization claim."
+}
