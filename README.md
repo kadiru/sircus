@@ -1,49 +1,65 @@
-# Sircus — Simple Circus
+# Two arms. One bounce. A moving target.
 
-Can two robot arms bounce a ball into a bucket after the bucket moves? One UFACTORY850 arm holds a tilted board. The other releases the ball above it. The planner chooses the board pose and drop height from the known scene geometry. A capture requires the whole ball to stay in the bucket for one continuous second after bouncing off the board.
+**Sircus — Simple Circus** asks a small coordination question: can one robot release a ball while another holds a board at the right angle to bounce it into a bucket after the bucket moves?
 
-![Saved MuJoCo replay with one arm holding the ball above the board and the second arm tilting the board toward the bucket](docs/images/two-arm-replay.webp)
+The difficulty is shared geometry. A plausible ball trajectory is useless if either arm cannot reach its pose, the setup collides, or the rebound strikes the robot.
 
-*An archived MuJoCo/mjlab simulation frame. Both arms hold their selected poses during the drop. [Replay provenance](https://github.com/kadiru/sircus/blob/fd950dc49fc5634f70e021f40619d4e8a8f21356/baselines/mjlab-yaw-tilt-gap-20261109/video.json).*
+[![MuJoCo replay: one arm holds the ball above a board held by the other arm](docs/images/two-arm-replay.webp)](https://vimeo.com/kadiru/demo-dualarm-coordinating)
 
-## Start here
+*Archived MuJoCo/mjlab simulation; both arms hold their selected poses during the drop. [Frame provenance](https://github.com/kadiru/sircus/blob/fd950dc49fc5634f70e021f40619d4e8a8f21356/baselines/mjlab-yaw-tilt-gap-20261109/video.json) · [Physical prototype film](https://vimeo.com/kadiru/demo-dualarm-coordinating). The film does not validate the simulation capture rates.*
 
-| If you want to… | Start with… |
+## What has been demonstrated
+
+The **November 16 simulation showcase captured 44/50 first drops** on its frozen target set; a separate interactive test captured 8/10. Each requested target gets at most one release, and rejected setups count against the rate. Capture means a board bounce followed by one continuous second of whole-ball containment. [Protocol, failures and source revision](docs/ONE_DROP_PLANNER.md)
+
+These targets share one simulated table. Contact parameters and hardware calibration remain incomplete. Later experiment PRs are ongoing; the result above is a pinned, reviewable checkpoint.
+
+## The central idea
+
+```mermaid
+flowchart LR
+    B["Bucket position + scene geometry"] --> P["Propose direct and table-assisted shots"]
+    P --> I["Check both arms and setup paths"]
+    I --> R["Rank feasible shots before release"]
+    R --> D["Release once"]
+    D --> A["Audit contacts and continuous capture"]
+```
+
+The showcase uses nearby successful shots and fitted adjustments to propose settings, then checks reachability and clearance. Project work connects the operator workflow, scene modeling, planning, simulation and scoring. Hardware/software collaborators and third-party models retain their existing attribution.
+
+<a name="start-here"></a>
+
+<a name="where-the-code-lives-on-main"></a>
+
+## Choose the right entry point
+
+| Intent | Start here |
 | --- | --- |
-| Understand how a shot is chosen and what worked | [Illustrated one-drop planner guide](docs/ONE_DROP_PLANNER.md) |
-| Inspect the November showcase implementation | [mjlab planner](https://github.com/kadiru/sircus/blob/9b59b84b8820b40790ebe20f1a036c1ea8679282/sircus/mjlab/intergrid_system_plan.py) and [interactive replay and results](https://github.com/kadiru/sircus/blob/9b59b84b8820b40790ebe20f1a036c1ea8679282/sircus/mjlab/web/README.md) at the revision used in the showcase |
-| Run a small numerical experiment on `main` | [Ubuntu setup and fixed-scene experiment](docs/UBUNTU_SETUP.md) or the commands below |
-| Inspect a trained model without running the simulation | [October checkpoint, test scorecard and trajectory preview](baselines/scene-conditioned-20261030/README.md) |
-| Explore the physical setup | [Mac operator panel and mock adapter](sircus/physical_trials/README.md) and [stationary RGB-D capture](sircus/perception/CAPTURE_README.md) |
+| Understand the November planner | [Illustrated one-drop guide](docs/ONE_DROP_PLANNER.md), with pinned experiment code and replay links |
+| Inspect the portable default branch | [Two-arm geometry and kinematics](sircus/two-arm/) · [Capture scoring](sircus/two-arm/capture_scoring.py) |
+| Inspect a trained model and its held-out cases | [October synthetic checkpoint and scorecard](baselines/scene-conditioned-20261030/README.md) |
+| Understand the physical integration | [Operator panel and mock adapter](sircus/physical_trials/README.md) · [Stationary RGB-D capture](sircus/perception/CAPTURE_README.md) |
+
+The **default branch** contains the earlier CPU/Viam simulator. The **November showcase** lives at the experiment revisions linked in its guide. They are different runnable snapshots.
 
 ## Run the CPU experiment on main
 
-With Python 3.12 on Ubuntu, run these commands from the repository root. This fixed-scene search tries board roll, pitch and release gap while holding the bucket and release XY fixed. It checks inverse kinematics at both arm endpoints and runs a numerical ball rollout. The experiment uses no GPU, Viam server or robot.
+With Python 3.12 on Ubuntu, from the repository root:
 
-```bash
+```sh
 ./setup-ubuntu.sh
 sircus/simulation/.venv/bin/python sircus/two-arm/train_orientation_height.py \
   --budget 4 --tests 2 --seed 42 --output experiments/first-shot
 ```
 
-Open `experiments/first-shot/summary.json` for the result. Give each run a fresh output directory. For the optional local viewer, follow the [Viam server and dashboard steps](docs/UBUNTU_SETUP.md). The dashboard can preview scene-conditioned numerical trajectories. Native replay of those v2 policies requires a matching runtime adapter.
+Use a fresh output directory and inspect its `summary.json`. This is a small fixed-scene numerical search with endpoint IK, not the 44/50 native benchmark. It requires no robot, GPU or Viam server. [Setup details](docs/UBUNTU_SETUP.md)
 
-## Where the code lives on main
+<a name="development"></a>
 
-| Area | What you will find |
-| --- | --- |
-| [Two-arm simulation](sircus/two-arm/) | [Scene geometry](sircus/two-arm/scene.json), [two-arm kinematics](sircus/two-arm/two_arm_kinematics.py), [ball rollout](sircus/two-arm/shot_rollout.py) and [capture scoring](sircus/two-arm/capture_scoring.py) |
-| [Dashboard and models](sircus/simulation/) | Browser viewer, Python bridge, Viam integration and pinned dependencies |
-| [Learning experiments](docs/SCENE_CONDITIONED_STUDY.md) | Training and evaluation commands, layout splits and comparisons with fixed actions and per-scene search |
-| [Reference results](baselines/) | Dated synthetic checkpoints, scorecards and experiment inputs |
-| [Physical operator](sircus/physical_trials/) and [perception](sircus/perception/) | Mac control panel, mock tests, stationary camera capture and alignment tools |
+## Next milestone
 
-Hardware calibration is incomplete. The scene records provisional values, including whether the measured 175 mm bucket height describes its interior depth or overall height. Simulation capture rates apply to the specified layouts and scoring rules. [Measurements](sircus/measurements.json) · [Scoring contract](docs/SCORING_CONTRACT.md).
+Improve first-drop reliability on prespecified new targets, with setup rejects and robot contacts included. Separately resolve physical geometry and contact calibration before testing transfer.
 
-## Development
+[Repository guide and development checks](docs/REPOSITORY_GUIDE.md) · [Scoring contract](docs/SCORING_CONTRACT.md) · [Contribution workflow](CONTRIBUTING.md)
 
-Run `scripts/test.sh` for the mock and numerical checks after setup. Use [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md) for the shared branch and review workflow. Pushing code and operating the robot are separate actions. Local credentials, calibration, raw observations and generated runtime files stay outside Git.
-
-[System architecture](docs/sircus-architecture.png) · [October integration checkpoint](docs/PROJECT_STATE.md) · [System audit and integration plan](docs/audits/2026-10-29/README.md)
-
-Third-party license and provenance files sit beside their models and viewer assets. No additional license is granted for project-authored code.
+Third-party license and provenance files remain beside their assets. No additional license is granted for project-authored code.
