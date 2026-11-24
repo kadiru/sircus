@@ -24,7 +24,7 @@ Heights are measured from the simulated table plane; tilt is from horizontal.
 Drop gap is the configured ball-bottom height above the board-center plane.
 Ball-center release height is board height + gap + the 37.5 mm ball radius.
 The table below does not include the simultaneous board XY and joint changes;
-the complete paired settings and deltas are in the diagnostic summary.
+the complete paired settings and deltas are in the [diagnostic summary](diagnosis.json).
 
 | Case | Planner | Board height (mm) | Tilt | Drop gap (mm) | Board–bucket XY distance (mm) |
 |---|---|---:|---:|---:|---:|
@@ -88,3 +88,26 @@ Use a new output path; never write into the parent study. Saved-native videos
 replay the recorded ball path and held arm configurations, not a new simulation
 or moving-arm trial. The parent 44/50 results remain unchanged. No live planner,
 4070 workload, Isaac setup, physical hardware or model weights are changed.
+
+## Frozen evidence
+
+Producer: **`a9c617a35be7ac49d6405508a487fe72e97a2e9b`**.
+Final CPU diagnosis completed **773 evidence checks**; all eight independently
+rescored outcomes match the audited parent. The full diagnostic is preserved
+outside Git at
+`/mnt/robot-training/sircus-mjlab/output/expanded-selector-replays-v1/diagnosis.json`.
+The repository summary excludes dense states and raw force arrays.
+
+| Artifact | SHA-256 |
+|---|---|
+| Final diagnosis | `8dc675a0e3314c7fa2a3794d986b31e2e7dd326555edef38b5fc337cecf82f95` |
+| Diagnosis module | `3f370cf03e729a572b2633c51a4445d5c9c5e4abbda2ff2ebf764a7480cfd31f` |
+| Parent report | `d72966f031f91ad1f231b0b8c9bed3e64f37032c1f0d20b020c22bd041baa0d2` |
+| Parent independent audit | `af5f6d4efdba7829bc3fda48a67c28e655a0306ca613abe5ce55659e1afe585a` |
+| Parent evidence manifest | `3117645239b4b56ba2a03ea81ccc616435dfea50b6014db864952630aa10a8ad` |
+| Parent choices | `2b9a06cded6a0911ae49e60674069307d70cc36389077bb8e318d0762bacdb8b` |
+
+Validation: 21 local unit tests passed across the new diagnosis, contact-interval
+and link-attribution helpers; the final frozen Ubuntu CPU diagnosis passed.
+Video generation and playback verification have separate receipts and do not
+add simulated drops.

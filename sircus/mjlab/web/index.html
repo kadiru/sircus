@@ -8,6 +8,16 @@
 <p id="savedReplayExplanation" class="fine">Recorded native simulation. Playback runs in your browser.</p><div id="savedReplayMarkers" class="saved-replay-markers" aria-label="Jump to a measured event"></div>
 </section>
 <div class="result" role="status" aria-live="polite"><span class="status-dot" id="resultDot"></span><div><strong id="resultTitle">Waiting for the learning study</strong><p id="resultText">Manual solves unlock after the completed study and frozen-checkpoint evaluation.</p></div></div>
+<section id="expandedSelectorReplays" class="results-section fast-planning-section hybrid-miss-section" hidden>
+<p class="eyebrow">SAME BUCKET · TWO CHOSEN SHOTS · SAVED FLIGHTS</p><h2>Where the planners chose differently</h2>
+<p class="scope-note">A capture means the first bounce was on the board, then the whole ball stayed inside the bucket for one continuous second. Later table or robot bounces are allowed.</p>
+<p data-expanded-replay="status" class="subtle" role="status"></p><p data-expanded-replay="summary" class="fine"></p>
+<p class="fine">Each movie compares the two recorded drops at the same bucket position: current planner on the left, expanded selector on the right. Playback does not plan a shot, move an arm or run new physics.</p>
+<div data-expanded-replay="cases"></div>
+<p class="fine">Recorded native MuJoCo at 64 substeps, with arms held at checked endpoints. These four cases explain two gains and two losses within the completed 50-position comparison; they are not four new tests. Contact forces establish contact timing. Reconstructed link names are CPU geometry estimates.</p>
+<details><summary>Evidence identities</summary><p data-expanded-replay="proof" class="fine"></p></details>
+<script type="application/json" id="expandedSelectorReplayVideoAssets">{}</script>
+</section>
 <section id="expandedSelectorStudy" class="results-section fast-planning-section" hidden>
 <p class="eyebrow">MORE DISTINCT SHOTS → LEARNED CHOICE → ONE FRESH DROP</p><h2>Can a larger shot library improve the first drop?</h2>
 <p class="scope-note">A shot setting specifies where the board sits, its tilt, the ball’s release height and the arm configuration. Repeated recordings of the same setting are grouped before training.</p>
