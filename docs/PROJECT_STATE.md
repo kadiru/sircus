@@ -1,5 +1,13 @@
 # Project state
 
+## Bucket-approach development correction — November 24, 2026
+
+- [Results and exact geometry](../baselines/mjlab-bucket-approach-20261124/README.md): all three prior outside-wall misses recovered with **3/3 corrected captures each**, versus **0/3 for each unchanged original**. The four previously successful settings retained **12/12 captures**. The separate unchanged arm-contact miss stayed **0/3**. The historical fresh-position comparison remains **44/50 per planner**; these inspected targets are development data.
+- A new opt-in forecast checks the full predicted release/board/table approach against compiled bucket collision geometry and the ball radius. It identifies early wall overlap in two original misses, but misses one overlap and warns on one known rim-assisted success. It affects candidate ranking, not the version-4 capture definition; valid later table, robot and other rebounds remain permitted.
+- The bounded CPU search performed **120 setup checks**, admitting **115 configurations**. Only target 04 selected a different winner because of the bucket check. Targets 10 and 19 selected the same winner that the old ranking would choose from the expanded candidate menu, so all three recoveries cannot be attributed to the new check alone.
+- **51 native64 releases** completed, both standard control blocks passed, and acquired RTX 4090 time was **419.733 seconds**. Independent preflight passed **1,372 checks**; the final saved-evidence audit passed **13,083 checks**. [Compact results and provenance](../baselines/mjlab-bucket-approach-20261124/summary.json). Producer **`5153f94214e09b030932b8795482d5a456a37846`**, UI publisher **`4f21d7491039c7b9d8f89af21d33a39ee2ecbbeb`**, draft [PR #168](https://github.com/kadiru/sircus/pull/168); UI destination **`#bucketApproachStudy`**. Both producer and publisher CI passed. Failed v1 CPU preparation is preserved separately with zero native drops.
+- No retraining, live planner promotion, service restart, 4070 workload or Isaac setup change. Native arms remained held at checked endpoints. Next: retain the recovered commands and test the expanded candidate menu plus full-approach ranking on fresh positions before changing the interactive default.
+
 ## Four paired expanded-selector replays published — November 24, 2026
 
 - [Diagnosis, exact settings and reproduction](../baselines/mjlab-expanded-selector-replays-20261124/README.md): inspect both planners' saved drops at the two gained and two lost placements (**04, 10, 19, 47** in the preceding 50-position test). The original comparison remains **44/50 for each planner**. CPU diagnosis passed **773 evidence checks**; no new drops or training.

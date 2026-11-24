@@ -1,0 +1,719 @@
+{
+  "version": "sircus-bucket-approach-display-v1",
+  "status": "completed",
+  "audit_status": "passed",
+  "scope": "development",
+  "physics_substeps": 64,
+  "frozen_before_native": true,
+  "cases": [
+    {
+      "id": "expanded-selector-test-04",
+      "bucket_xy_m": [
+        0.6164732555570717,
+        -0.5043638382666327
+      ],
+      "original_method": "expanded",
+      "methods": {
+        "original": {
+          "requested": 3,
+          "completed": 3,
+          "released": 3,
+          "captures": 0,
+          "setup_rejections": 0,
+          "invalid_physics": 0,
+          "flight_misses": 3,
+          "robot_contacts": 0,
+          "bucket_contacts": 3,
+          "settings": {
+            "values": [
+              0.565195258797559,
+              -0.07921771696136812,
+              0.5025939154683754,
+              12.144723315058823,
+              0.17980211771805632
+            ],
+            "q10_rad": [
+              -0.1392602026462555,
+              -0.4185694456100464,
+              -2.0717897415161133,
+              2.4424755338259274e-06,
+              -1.653220295906067,
+              1.3115028142929077
+            ],
+            "q14_rad": [
+              3.19245982170105,
+              1.21406090259552,
+              -3.5778024196624756,
+              -0.21229152381420135,
+              -1.6645476818084717,
+              3.19952392578125
+            ],
+            "release_ball_center_m": [
+              0.565195258797559,
+              -0.07921771696136812,
+              0.7198960331864317
+            ],
+            "heading_offset_deg": 0.412710914880937,
+            "twist_deg": 0.0
+          },
+          "forecast": {
+            "summary": "table: predicted bucket/wall16 contact while rising",
+            "collision": true,
+            "first_collision_s": 0.7165951174380081,
+            "minimum_margin_m": -0.0077355364956935915,
+            "opening_margin_m": 0.03385595363748826,
+            "limits": "The check follows the nominal predicted flight through one board rebound and, when predicted, one table rebound until the descending whole-ball rim passage. It does not simulate bucket, robot or second-board contact response or retention. A warning lowers selection rank; it does not forbid a later contact-assisted capture. Several settings can change together."
+          }
+        },
+        "corrected": {
+          "requested": 3,
+          "completed": 3,
+          "released": 3,
+          "captures": 3,
+          "setup_rejections": 0,
+          "invalid_physics": 0,
+          "flight_misses": 0,
+          "robot_contacts": 0,
+          "bucket_contacts": 3,
+          "settings": {
+            "values": [
+              0.7067808651800476,
+              -0.37473808026886024,
+              0.29127499261510703,
+              27.291877704337526,
+              0.07583586488431047
+            ],
+            "q10_rad": [
+              -0.487525075674057,
+              -1.126043677330017,
+              -2.4866554737091064,
+              1.0432045201014262e-06,
+              -1.3606117963790894,
+              1.6917681694030762
+            ],
+            "q14_rad": [
+              3.6228387355804443,
+              1.2804908752441406,
+              -3.991312026977539,
+              -0.21557432413101196,
+              -1.6982327699661255,
+              1.9772812128067017
+            ],
+            "release_ball_center_m": [
+              0.7067808651800476,
+              -0.37473808026886024,
+              0.4046108574994175
+            ],
+            "heading_offset_deg": 0.0,
+            "twist_deg": 0.0
+          },
+          "forecast": {
+            "summary": "direct: nominal approach clears the bucket",
+            "collision": false,
+            "first_collision_s": null,
+            "minimum_margin_m": 0.03705232714540526,
+            "opening_margin_m": 0.031130730361918886,
+            "limits": "The check follows the nominal predicted flight through one board rebound and, when predicted, one table rebound until the descending whole-ball rim passage. It does not simulate bucket, robot or second-board contact response or retention. A warning lowers selection rank; it does not forbid a later contact-assisted capture. Several settings can change together."
+          }
+        }
+      },
+      "selection_comparison": {
+        "changed": true,
+        "without_check_id": "expanded-selector-test-04-expanded",
+        "with_check_id": "expanded-selector-test-04-approach-056-b0",
+        "without_check_values": [
+          0.565195258797559,
+          -0.07921771696136812,
+          0.5025939154683754,
+          12.144723315058823,
+          0.17980211771805632
+        ],
+        "with_check_values": [
+          0.7067808651800476,
+          -0.37473808026886024,
+          0.29127499261510703,
+          27.291877704337526,
+          0.07583586488431047
+        ],
+        "checked_proposals": 40,
+        "admitted_candidates": 40,
+        "statement": "The full-path check chose a different setting from the same admitted candidates."
+      }
+    },
+    {
+      "id": "expanded-selector-test-10",
+      "bucket_xy_m": [
+        1.179222424148156,
+        -0.48813183237862323
+      ],
+      "original_method": "current",
+      "methods": {
+        "original": {
+          "requested": 3,
+          "completed": 3,
+          "released": 3,
+          "captures": 0,
+          "setup_rejections": 0,
+          "invalid_physics": 0,
+          "flight_misses": 3,
+          "robot_contacts": 0,
+          "bucket_contacts": 3,
+          "settings": {
+            "values": [
+              0.6352832396127122,
+              -0.23778013337371418,
+              0.433805880878039,
+              31.72734340385772,
+              0.13325404596484747
+            ],
+            "q10_rad": [
+              -0.35815516114234924,
+              -0.6729441285133362,
+              -2.1754539012908936,
+              2.5789092887862353e-06,
+              -1.5025097131729126,
+              0.07319623976945877
+            ],
+            "q14_rad": [
+              3.3846025466918945,
+              1.9145691394805908,
+              -2.371365785598755,
+              -0.3317694664001465,
+              -1.594922661781311,
+              4.072625637054443
+            ],
+            "release_ball_center_m": [
+              0.6352832396127122,
+              -0.23778013337371418,
+              0.6045599268428865
+            ],
+            "heading_offset_deg": 0.38053975571511955,
+            "twist_deg": -2.329189348574488
+          },
+          "forecast": {
+            "summary": "table: predicted bucket/wall27 contact while rising",
+            "collision": true,
+            "first_collision_s": 0.6314002364482899,
+            "minimum_margin_m": -0.003595744137556019,
+            "opening_margin_m": 0.0033533698119428967,
+            "limits": "The check follows the nominal predicted flight through one board rebound and, when predicted, one table rebound until the descending whole-ball rim passage. It does not simulate bucket, robot or second-board contact response or retention. A warning lowers selection rank; it does not forbid a later contact-assisted capture. Several settings can change together."
+          }
+        },
+        "corrected": {
+          "requested": 3,
+          "completed": 3,
+          "released": 3,
+          "captures": 3,
+          "setup_rejections": 0,
+          "invalid_physics": 0,
+          "flight_misses": 0,
+          "robot_contacts": 0,
+          "bucket_contacts": 3,
+          "settings": {
+            "values": [
+              0.6352832396127122,
+              -0.23778013337371418,
+              0.433805880878039,
+              23.72734340385772,
+              0.15325404596484746
+            ],
+            "q10_rad": [
+              -0.35815539956092834,
+              -0.7006122469902039,
+              -2.265368938446045,
+              1.987159066629829e-06,
+              -1.5647567510604858,
+              0.07319630682468414
+            ],
+            "q14_rad": [
+              3.402791738510132,
+              2.017404794692993,
+              -2.2135441303253174,
+              -0.2606354057788849,
+              -1.4223246574401855,
+              4.068113803863525
+            ],
+            "release_ball_center_m": [
+              0.6352832396127122,
+              -0.23778013337371418,
+              0.6245599268428865
+            ],
+            "heading_offset_deg": 0.38053975571511955,
+            "twist_deg": -2.329189348574488
+          },
+          "forecast": {
+            "summary": "table: nominal approach clears the bucket",
+            "collision": false,
+            "first_collision_s": null,
+            "minimum_margin_m": 0.007674740204085983,
+            "opening_margin_m": 0.00489179198971007,
+            "limits": "The check follows the nominal predicted flight through one board rebound and, when predicted, one table rebound until the descending whole-ball rim passage. It does not simulate bucket, robot or second-board contact response or retention. A warning lowers selection rank; it does not forbid a later contact-assisted capture. Several settings can change together."
+          }
+        }
+      },
+      "selection_comparison": {
+        "changed": false,
+        "without_check_id": "expanded-selector-test-10-approach-003-b0",
+        "with_check_id": "expanded-selector-test-10-approach-003-b0",
+        "without_check_values": [
+          0.6352832396127122,
+          -0.23778013337371418,
+          0.433805880878039,
+          23.72734340385772,
+          0.15325404596484746
+        ],
+        "with_check_values": [
+          0.6352832396127122,
+          -0.23778013337371418,
+          0.433805880878039,
+          23.72734340385772,
+          0.15325404596484746
+        ],
+        "checked_proposals": 40,
+        "admitted_candidates": 39,
+        "statement": "Both rankings chose the same setting from the admitted candidates; this selection did not depend on the new check."
+      }
+    },
+    {
+      "id": "expanded-selector-test-19",
+      "bucket_xy_m": [
+        0.8545968074612572,
+        -0.4085711388163732
+      ],
+      "original_method": "expanded",
+      "methods": {
+        "original": {
+          "requested": 3,
+          "completed": 3,
+          "released": 3,
+          "captures": 0,
+          "setup_rejections": 0,
+          "invalid_physics": 0,
+          "flight_misses": 3,
+          "robot_contacts": 0,
+          "bucket_contacts": 3,
+          "settings": {
+            "values": [
+              0.565195258797559,
+              -0.07921771696136812,
+              0.5025939154683754,
+              12.144723315058823,
+              0.17980211771805632
+            ],
+            "q10_rad": [
+              -0.1392602026462555,
+              -0.4185694456100464,
+              -2.0717897415161133,
+              2.4424698494840413e-06,
+              -1.653220295906067,
+              0.7106161713600159
+            ],
+            "q14_rad": [
+              3.203339099884033,
+              1.2957231998443604,
+              -3.423912525177002,
+              -0.16774293780326843,
+              -1.708356261253357,
+              3.795775890350342
+            ],
+            "release_ball_center_m": [
+              0.565195258797559,
+              -0.07921771696136812,
+              0.7198960331864317
+            ],
+            "heading_offset_deg": 0.412710914880937,
+            "twist_deg": 0.0
+          },
+          "forecast": {
+            "summary": "table: nominal approach clears the bucket",
+            "collision": false,
+            "first_collision_s": null,
+            "minimum_margin_m": 0.0017834580824929913,
+            "opening_margin_m": 0.028809999823737102,
+            "limits": "The check follows the nominal predicted flight through one board rebound and, when predicted, one table rebound until the descending whole-ball rim passage. It does not simulate bucket, robot or second-board contact response or retention. A warning lowers selection rank; it does not forbid a later contact-assisted capture. Several settings can change together."
+          }
+        },
+        "corrected": {
+          "requested": 3,
+          "completed": 3,
+          "released": 3,
+          "captures": 3,
+          "setup_rejections": 0,
+          "invalid_physics": 0,
+          "flight_misses": 0,
+          "robot_contacts": 0,
+          "bucket_contacts": 0,
+          "settings": {
+            "values": [
+              0.6270205944271454,
+              -0.2257109299164155,
+              0.4100089689999375,
+              32.11390790518917,
+              0.13612651196551223
+            ],
+            "q10_rad": [
+              -0.34553903341293335,
+              -0.6079072952270508,
+              -2.0283656120300293,
+              3.4968268209922826e-06,
+              -1.420458436012268,
+              0.3313397467136383
+            ],
+            "q14_rad": [
+              3.344581365585327,
+              1.4338924884796143,
+              -3.321425676345825,
+              -0.4579355716705322,
+              -1.9546794891357422,
+              3.731545925140381
+            ],
+            "release_ball_center_m": [
+              0.6270205944271454,
+              -0.2257109299164155,
+              0.5836354809654497
+            ],
+            "heading_offset_deg": -0.03919890841282836,
+            "twist_deg": -0.011563296238392695
+          },
+          "forecast": {
+            "summary": "direct: nominal approach clears the bucket",
+            "collision": false,
+            "first_collision_s": null,
+            "minimum_margin_m": 0.033146787172414524,
+            "opening_margin_m": 0.03083241858942145,
+            "limits": "The check follows the nominal predicted flight through one board rebound and, when predicted, one table rebound until the descending whole-ball rim passage. It does not simulate bucket, robot or second-board contact response or retention. A warning lowers selection rank; it does not forbid a later contact-assisted capture. Several settings can change together."
+          }
+        }
+      },
+      "selection_comparison": {
+        "changed": false,
+        "without_check_id": "expanded-selector-test-19-approach-070-b0",
+        "with_check_id": "expanded-selector-test-19-approach-070-b0",
+        "without_check_values": [
+          0.6270205944271454,
+          -0.2257109299164155,
+          0.4100089689999375,
+          32.11390790518917,
+          0.13612651196551223
+        ],
+        "with_check_values": [
+          0.6270205944271454,
+          -0.2257109299164155,
+          0.4100089689999375,
+          32.11390790518917,
+          0.13612651196551223
+        ],
+        "checked_proposals": 40,
+        "admitted_candidates": 36,
+        "statement": "Both rankings chose the same setting from the admitted candidates; this selection did not depend on the new check."
+      }
+    }
+  ],
+  "preservation": [
+    {
+      "id": "expanded-selector-test-04-current",
+      "bucket_xy_m": [
+        0.6164732555570717,
+        -0.5043638382666327
+      ],
+      "requested": 3,
+      "completed": 3,
+      "released": 3,
+      "captures": 3,
+      "setup_rejections": 0,
+      "invalid_physics": 0,
+      "flight_misses": 0,
+      "robot_contacts": 0,
+      "bucket_contacts": 0,
+      "settings": {
+        "values": [
+          0.6350775786098215,
+          -0.2729103127706889,
+          0.3353019608405116,
+          21.800193638484163,
+          0.1455665677899724
+        ],
+        "q10_rad": [
+          -0.40587449073791504,
+          -0.6653907895088196,
+          -1.9697965383529663,
+          4.187754257145571e-06,
+          -1.3044058084487915,
+          1.2451298236846924
+        ],
+        "q14_rad": [
+          3.4245095252990723,
+          1.348246455192566,
+          -3.7262697219848633,
+          -0.36308974027633667,
+          -1.7787353992462158,
+          2.6798110008239746
+        ],
+        "release_ball_center_m": [
+          0.6350775786098215,
+          -0.2729103127706889,
+          0.518368528630484
+        ],
+        "heading_offset_deg": 0.1535001978277819,
+        "twist_deg": 0.12124501409118693
+      },
+      "forecast": {
+        "summary": "direct: nominal approach clears the bucket",
+        "collision": false,
+        "first_collision_s": null,
+        "minimum_margin_m": 0.021317092565412317,
+        "opening_margin_m": 0.025588940126063893,
+        "limits": "The check follows the nominal predicted flight through one board rebound and, when predicted, one table rebound until the descending whole-ball rim passage. It does not simulate bucket, robot or second-board contact response or retention. A warning lowers selection rank; it does not forbid a later contact-assisted capture. Several settings can change together."
+      }
+    },
+    {
+      "id": "expanded-selector-test-10-expanded",
+      "bucket_xy_m": [
+        1.179222424148156,
+        -0.48813183237862323
+      ],
+      "requested": 3,
+      "completed": 3,
+      "released": 3,
+      "captures": 3,
+      "setup_rejections": 0,
+      "invalid_physics": 0,
+      "flight_misses": 0,
+      "robot_contacts": 0,
+      "bucket_contacts": 0,
+      "settings": {
+        "values": [
+          0.5877824038972639,
+          -0.06432385684602197,
+          0.42686245325720745,
+          29.141097762449544,
+          0.19296870061308669
+        ],
+        "q10_rad": [
+          -0.10900771617889404,
+          -0.4119492769241333,
+          -1.9153189659118652,
+          3.5616942568594823e-06,
+          -1.503369688987732,
+          0.5127515196800232
+        ],
+        "q14_rad": [
+          -3.129936695098877,
+          1.86968994140625,
+          -2.4781153202056885,
+          -3.438892364501953,
+          1.62309730052948,
+          0.9752143621444702
+        ],
+        "release_ball_center_m": [
+          0.5877824038972639,
+          -0.06432385684602197,
+          0.6573311538702942
+        ],
+        "heading_offset_deg": -0.6320074315764543,
+        "twist_deg": 0.07240450129700093
+      },
+      "forecast": {
+        "summary": "table: predicted bucket/wall55 contact while descending",
+        "collision": true,
+        "first_collision_s": 0.8820996855408654,
+        "minimum_margin_m": -0.0018375672696341544,
+        "opening_margin_m": 0.001141851676446315,
+        "limits": "The check follows the nominal predicted flight through one board rebound and, when predicted, one table rebound until the descending whole-ball rim passage. It does not simulate bucket, robot or second-board contact response or retention. A warning lowers selection rank; it does not forbid a later contact-assisted capture. Several settings can change together."
+      }
+    },
+    {
+      "id": "expanded-selector-test-19-current",
+      "bucket_xy_m": [
+        0.8545968074612572,
+        -0.4085711388163732
+      ],
+      "requested": 3,
+      "completed": 3,
+      "released": 3,
+      "captures": 3,
+      "setup_rejections": 0,
+      "invalid_physics": 0,
+      "flight_misses": 0,
+      "robot_contacts": 0,
+      "bucket_contacts": 0,
+      "settings": {
+        "values": [
+          0.5741987359355634,
+          0.1102357388998691,
+          0.4835953460448593,
+          22.328035370509124,
+          0.14436939141554855
+        ],
+        "q10_rad": [
+          0.18966735899448395,
+          -0.39832645654678345,
+          -1.9156031608581543,
+          3.4960746688739164e-06,
+          -1.517276644706726,
+          1.2649677991867065
+        ],
+        "q14_rad": [
+          2.927943468093872,
+          1.3882874250411987,
+          -3.2704548835754395,
+          -0.29481369256973267,
+          -1.7739075422286987,
+          3.8495943546295166
+        ],
+        "release_ball_center_m": [
+          0.5741987359355634,
+          0.1102357388998691,
+          0.6654647374604079
+        ],
+        "heading_offset_deg": 0.8579918632976273,
+        "twist_deg": 0.35766997090442487
+      },
+      "forecast": {
+        "summary": "table: nominal approach clears the bucket",
+        "collision": false,
+        "first_collision_s": null,
+        "minimum_margin_m": 0.023753051429996196,
+        "opening_margin_m": 0.020878530951195524,
+        "limits": "The check follows the nominal predicted flight through one board rebound and, when predicted, one table rebound until the descending whole-ball rim passage. It does not simulate bucket, robot or second-board contact response or retention. A warning lowers selection rank; it does not forbid a later contact-assisted capture. Several settings can change together."
+      }
+    },
+    {
+      "id": "expanded-selector-test-47-expanded",
+      "bucket_xy_m": [
+        1.178803302716751,
+        0.21647751813559243
+      ],
+      "requested": 3,
+      "completed": 3,
+      "released": 3,
+      "captures": 3,
+      "setup_rejections": 0,
+      "invalid_physics": 0,
+      "flight_misses": 0,
+      "robot_contacts": 0,
+      "bucket_contacts": 0,
+      "settings": {
+        "values": [
+          0.6546934822415221,
+          0.05289969148160392,
+          0.5397646345203551,
+          17.821956539882287,
+          0.06571426449708762
+        ],
+        "q10_rad": [
+          0.08061820268630981,
+          -0.6328078508377075,
+          -2.202415943145752,
+          2.2594642814510735e-06,
+          -1.5696080923080444,
+          -0.22190701961517334
+        ],
+        "q14_rad": [
+          -0.04575619846582413,
+          -2.1201083660125732,
+          -3.8074052333831787,
+          -3.025810480117798,
+          -1.743172526359558,
+          5.055907249450684
+        ],
+        "release_ball_center_m": [
+          0.6546934822415221,
+          0.05289969148160392,
+          0.6429788990174427
+        ],
+        "heading_offset_deg": 1.8773148900229444,
+        "twist_deg": -2.337174036745296
+      },
+      "forecast": {
+        "summary": "table: nominal approach clears the bucket",
+        "collision": false,
+        "first_collision_s": null,
+        "minimum_margin_m": 0.0706289479713016,
+        "opening_margin_m": -0.17862785295485759,
+        "limits": "The check follows the nominal predicted flight through one board rebound and, when predicted, one table rebound until the descending whole-ball rim passage. It does not simulate bucket, robot or second-board contact response or retention. A warning lowers selection rank; it does not forbid a later contact-assisted capture. Several settings can change together."
+      }
+    }
+  ],
+  "diagnostic_controls": [
+    {
+      "id": "expanded-selector-test-47-current",
+      "bucket_xy_m": [
+        1.178803302716751,
+        0.21647751813559243
+      ],
+      "requested": 3,
+      "completed": 3,
+      "released": 3,
+      "captures": 0,
+      "setup_rejections": 0,
+      "invalid_physics": 0,
+      "flight_misses": 3,
+      "robot_contacts": 3,
+      "bucket_contacts": 0,
+      "settings": {
+        "values": [
+          0.5878007242909605,
+          -0.14398666406199986,
+          0.3736925543705354,
+          16.016394669101363,
+          0.25346928437628946
+        ],
+        "q10_rad": [
+          -0.2402348816394806,
+          -0.46486783027648926,
+          -2.00541615486145,
+          3.117230335192289e-06,
+          -1.540548324584961,
+          -0.787916898727417
+        ],
+        "q14_rad": [
+          3.355339288711548,
+          1.6039425134658813,
+          -3.132035255432129,
+          0.10040953010320663,
+          -1.8558378219604492,
+          5.293548583984375
+        ],
+        "release_ball_center_m": [
+          0.5878007242909605,
+          -0.14398666406199986,
+          0.6646618387468248
+        ],
+        "heading_offset_deg": 1.2725508691282243,
+        "twist_deg": 12.0
+      },
+      "forecast": {
+        "summary": "table: predicted bucket/wall36 contact while descending",
+        "collision": true,
+        "first_collision_s": 0.9098851537775035,
+        "minimum_margin_m": -0.040239997975473125,
+        "opening_margin_m": -0.09852769787720161,
+        "limits": "The check follows the nominal predicted flight through one board rebound and, when predicted, one table rebound until the descending whole-ball rim passage. It does not simulate bucket, robot or second-board contact response or retention. A warning lowers selection rank; it does not forbid a later contact-assisted capture. Several settings can change together."
+      }
+    }
+  ],
+  "controls": {
+    "controls_pre": {
+      "status": "passed",
+      "requested": 9
+    },
+    "controls_post": {
+      "status": "passed",
+      "requested": 9
+    }
+  },
+  "native_releases": 51,
+  "checks_count": 13083,
+  "conclusion": "Known misses: unchanged 0/9, approach-checked 9/9. Unchanged successful settings: 12/12. Candidate search and ranking both changed. This does not isolate the effect of the new check or establish a new table-wide capture rate. The live planner remains unchanged.",
+  "limits": "The check follows the nominal predicted flight through one board rebound and, when predicted, one table rebound until the descending whole-ball rim passage. It does not simulate bucket, robot or second-board contact response or retention. A warning lowers selection rank; it does not forbid a later contact-assisted capture. Several settings can change together.",
+  "provenance": {
+    "report_sha256": "446288079f2b25f41ee70793d3f5d4e25ea3df44d70f3a5fe50685c1eee19283",
+    "evidence_manifest_sha256": "c2c2b52b8ff485eb0adc84b342a2126987eff6325524e1b13422290a2b854341",
+    "contract_sha256": "2540151271bcfc05797e12673a2185f6329096666f5ac17a450fcf46fb4c8da6",
+    "preparation_sha256": "57a6d18eee32ac6e6780fbbe6e6360336a4e5586557a1400c961fd4d7d42d56f",
+    "choices_sha256": "56e4d2b78485c6de490df06606c240f306807f9ed9efc49df8146b05ba543075",
+    "native_started_sha256": "1f03f295c2dec7b1270e190068cf33feba939bda94a030aad391269f6629c64f",
+    "audit_sha256": "7f30b31a80caae7bdab4676c659e2f639f261a07dc17b1d5fe781a396fb4719f"
+  }
+}
