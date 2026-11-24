@@ -1,5 +1,14 @@
 # Project state
 
+## Expanded deduplicated selector comparison — November 24, 2026
+
+- [Results and reproduction](../baselines/mjlab-expanded-selector-20261124/README.md): consolidate 28,876 compatible native64 attempts into **26,789 distinct shot settings**, including 13,415 settings with a recorded capture. The supervised 44→64→32→2 selector trains on **30,607 records at 1,195 bucket positions**, with equal total weight per position; validation uses 2,469 records at 292 separate positions. All 33 usable fixed-grid positions are TRAIN. Historical test data are explicitly development data for this new experiment; old results remain unchanged.
+- On **50 fresh positions**, **current planner 44/50; expanded selector 44/50**. Both captured 42 positions; the expanded method gained two and lost two. Both released all 50 balls, missed six flights and had zero invalid-physics outcomes. Mean decision time: **11.06 → 10.62 seconds**; mean full request: **11.29 → 10.93 seconds**. Median decision time rose **6.71 → 6.94 seconds**. This batch shows no capture gain; keep the current live planner.
+- Both methods had the same 30-second decision limit, frozen weights/choices and one native64 drop per position. **118 native releases** including 18 controls completed; controls and **139,349 independent checks** passed. RTX 4090 lease: **1,157.91 seconds**. This compares complete methods (library, model and contact ranking), not training alone. Arms were held at checked endpoints; no driven-arm, perception or hardware validation.
+- Published at **`#expandedSelectorStudy`**; frozen computational producer **`fafdc4447ee0a8942cdff61193ba30b845873f17`**, draft [PR #165](https://github.com/kadiru/sircus/pull/165), stacked on #164. No live planner promotion, service restart, 4070 or Isaac change.
+- Safe cleanup reclaimed approximately **3 GB**: consolidate 76 identical immutable NPZ copies while preserving paths/hashes, and remove a byte-identical task development-library copy. Every unique historical dataset, model and backing evidence remains available. [Library accounting](../baselines/mjlab-expanded-selector-20261124/library.json) and [cleanup proof](../baselines/mjlab-expanded-selector-20261124/storage-cleanup.json).
+- Next: retain the expanded library for future learning, but keep the current planner for interactive placement. The two gained/two lost positions identify where selection differs; this experiment does not establish a reliability improvement or justify another long training run by itself.
+
 ## Board-first scoring and frozen selector comparison — November 24, 2026
 
 - [Audited study and reproduction notes](../baselines/mjlab-board-first-20261124/README.md): version 4 permits ball contact with any surface **after the first confirmed board rebound**. Whole-ball entry and one continuous second inside remain required. Original labels, traces, checkpoints, arm placement and path checks are preserved.

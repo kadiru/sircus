@@ -1168,3 +1168,62 @@ function renderBoardFirst(root, raw) {
 
 return { boardFirstValidCounts:validCounts, boardFirstRescoreReady:rescoreReady, boardFirstComparisonReady:comparisonReady, renderBoardFirst };
 })();
+
+export const { expandedSelectorReady, renderExpandedSelector } = (() => {
+const VERSION = 'sircus-expanded-selector-display-v1';
+const integer = n => Number.isInteger(n) && n >= 0;
+const hash = h => typeof h === 'string' && /^[a-f0-9]{64}$/.test(h);
+const outcomes = new Set(['capture','setup refused','flight miss','invalid physics']);
+function ready(x) {
+  if (x?.version !== VERSION || x.status !== 'completed' || x.audit_status !== 'passed'
+    || x.positions !== 50 || x.physics_substeps !== 64 || x.frozen_before_test !== true
+    || !hash(x.provenance?.report_sha256) || !hash(x.provenance?.audit_sha256)
+    || !Array.isArray(x.methods) || x.methods.length !== 2
+    || x.methods.map(m=>m.id).sort().join(',') !== 'current,expanded') return false;
+  if (!x.methods.every(m => m.attempts === 50 && hash(m.checkpoint_sha256)
+    && ['captures','setup_rejections','released_misses','invalid_physics'].every(k=>integer(m[k]))
+    && m.captures+m.setup_rejections+m.released_misses+m.invalid_physics === 50
+    && Number.isFinite(m.mean_decision_s) && m.mean_decision_s >= 0
+    && Number.isFinite(m.mean_request_s) && m.mean_request_s >= m.mean_decision_s)) return false;
+  if (!Array.isArray(x.library_rows) || x.library_rows.length !== 2
+    || !x.library_rows.every(r=>typeof r.label==='string' && ['positions','settings','capturing_settings'].every(k=>integer(r[k])) && r.capturing_settings<=r.settings)
+    || !Array.isArray(x.results) || x.results.length !== 50) return false;
+  const positions = new Set();
+  for (const row of x.results) {
+    if (!Array.isArray(row.bucket_xy_m) || row.bucket_xy_m.length !== 2 || !row.bucket_xy_m.every(Number.isFinite)
+      || !outcomes.has(row.current) || !outcomes.has(row.expanded)) return false;
+    const key = JSON.stringify(row.bucket_xy_m); if (positions.has(key)) return false; positions.add(key);
+  }
+  return x.methods.every(m => [['captures','capture'],['setup_rejections','setup refused'],['released_misses','flight miss'],['invalid_physics','invalid physics']]
+    .every(([key,value])=>x.results.filter(r=>r[m.id]===value).length === m[key]));
+}
+function table(root, id, headings, rows) {
+  const node=root.querySelector(`[data-expanded="${id}"]`); node.replaceChildren();
+  if (!rows.length) return;
+  const doc=root.ownerDocument, tab=doc.createElement('table'), head=doc.createElement('thead'), body=doc.createElement('tbody');
+  const line=(values,tag)=>{const tr=doc.createElement('tr');for(const value of values){const td=doc.createElement(tag);td.textContent=String(value);tr.append(td);}return tr;};
+  head.append(line(headings,'th'));for(const row of rows)body.append(line(row,'td'));tab.append(head,body);node.append(tab);
+}
+function render(root, raw) {
+  root.hidden=raw?.version !== VERSION;if(root.hidden)return;
+  const text=(id,value)=>{root.querySelector(`[data-expanded="${id}"]`).textContent=value;};
+  const complete=ready(raw);
+  text('status',complete?'Expanded-library comparison complete · independently checked':`Expanded-library comparison: ${raw.phase??'preparing'}. Final capture counts await the evidence audit.`);
+  text('data',raw.training_text??'Preparing distinct shot settings and position-separated training and validation data.');
+  table(root,'library',['Data split','Bucket positions','Distinct settings','Settings with captures'],complete?raw.library_rows.map(r=>[r.label,r.positions,r.settings,r.capturing_settings]):[]);
+  const ordered=complete?['current','expanded'].map(id=>raw.methods.find(m=>m.id===id)):[];
+  table(root,'comparison',['Result','Current planner','Expanded selector'],complete?[
+    ['Captured and retained',...ordered.map(m=>`${m.captures} / 50`)],
+    ['No checked setup',...ordered.map(m=>m.setup_rejections)],
+    ['Released but missed',...ordered.map(m=>m.released_misses)],
+    ['Invalid physics',...ordered.map(m=>m.invalid_physics)],
+    ['Mean decision time (s)',...ordered.map(m=>m.mean_decision_s.toFixed(2))],
+    ['Mean full request time (s)',...ordered.map(m=>m.mean_request_s.toFixed(2))],
+  ]:[]);
+  table(root,'positions',['Bucket X, Y (mm)','Current planner','Expanded selector'],complete?raw.results.map(r=>[r.bucket_xy_m.map(v=>(1000*v).toFixed(1)).join(', '),r.current,r.expanded]):[]);
+  text('conclusion',complete?raw.conclusion:'No improvement is claimed before all test attempts and controls are checked.');
+  text('timing',complete?raw.timing_text:'');
+  text('proof',complete?`Report SHA-256: ${raw.provenance.report_sha256}. Independent audit: ${raw.provenance.audit_sha256}. Checkpoint and library identities are bound before test drops.`:'');
+}
+return {expandedSelectorReady:ready,renderExpandedSelector:render};
+})();

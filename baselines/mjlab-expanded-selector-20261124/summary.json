@@ -1,0 +1,1793 @@
+{
+  "attempts_per_method_per_position": 1,
+  "audit": {
+    "checks_count": 139349,
+    "sha256": "af5f6d4efdba7829bc3fda48a67c28e655a0306ca613abe5ce55659e1afe585a",
+    "status": "passed",
+    "version": "sircus-expanded-selector-independent-audit-v1"
+  },
+  "captured_routes": {
+    "current": {
+      "direct": 34,
+      "table_assisted": 10
+    },
+    "expanded": {
+      "direct": 34,
+      "table_assisted": 10
+    }
+  },
+  "comparison": {
+    "methods": {
+      "current": {
+        "capture_rate": 0.88,
+        "captures": 44,
+        "flight_misses": 6,
+        "invalid_physics": 0,
+        "max_planning_s": 30.0,
+        "max_request_s": 31.214297547994647,
+        "mean_planning_s": 11.061995466499939,
+        "mean_request_s": 11.291980534459581,
+        "median_planning_s": 6.711990716503351,
+        "median_request_s": 6.778533296994283,
+        "positions": 50,
+        "releases": 50,
+        "setup_rejections": 0
+      },
+      "expanded": {
+        "capture_rate": 0.88,
+        "captures": 44,
+        "flight_misses": 6,
+        "invalid_physics": 0,
+        "max_planning_s": 30.0,
+        "max_request_s": 31.679395086015575,
+        "mean_planning_s": 10.61950203299988,
+        "mean_request_s": 10.929798516918673,
+        "median_planning_s": 6.941715416993247,
+        "median_request_s": 7.469311733002542,
+        "positions": 50,
+        "releases": 50,
+        "setup_rejections": 0
+      }
+    },
+    "paired": {
+      "both": 42,
+      "current_only": 2,
+      "expanded_only": 2,
+      "neither": 4
+    },
+    "positions": [
+      {
+        "bucket_xy_m": [
+          0.18687952628592236,
+          -0.4994223215171745
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-00"
+      },
+      {
+        "bucket_xy_m": [
+          0.2624546387128314,
+          -0.6095110179836486
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-01"
+      },
+      {
+        "bucket_xy_m": [
+          0.40700148626957633,
+          -0.5380980778033908
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-02"
+      },
+      {
+        "bucket_xy_m": [
+          0.4261076612247312,
+          -0.6220306396402391
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-03"
+      },
+      {
+        "bucket_xy_m": [
+          0.6164732555570717,
+          -0.5043638382666327
+        ],
+        "captures": {
+          "current": true,
+          "expanded": false
+        },
+        "id": "expanded-selector-test-04"
+      },
+      {
+        "bucket_xy_m": [
+          0.5396075467679731,
+          -0.643684290017435
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-05"
+      },
+      {
+        "bucket_xy_m": [
+          0.7840277282125883,
+          -0.5606781070754023
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-06"
+      },
+      {
+        "bucket_xy_m": [
+          0.7163877394413436,
+          -0.6444526457776455
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-07"
+      },
+      {
+        "bucket_xy_m": [
+          0.910057686182532,
+          -0.5764154382155492
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-08"
+      },
+      {
+        "bucket_xy_m": [
+          0.9653510467374908,
+          -0.6375078434744011
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-09"
+      },
+      {
+        "bucket_xy_m": [
+          1.179222424148156,
+          -0.48813183237862323
+        ],
+        "captures": {
+          "current": false,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-10"
+      },
+      {
+        "bucket_xy_m": [
+          1.1791296760594494,
+          -0.6237709655798589
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-11"
+      },
+      {
+        "bucket_xy_m": [
+          0.16601694500243658,
+          -0.27304529089942553
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-12"
+      },
+      {
+        "bucket_xy_m": [
+          0.12397487489482636,
+          -0.3801190154074395
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-13"
+      },
+      {
+        "bucket_xy_m": [
+          0.3450215823242213,
+          -0.34803327212919655
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-14"
+      },
+      {
+        "bucket_xy_m": [
+          0.41768117909389746,
+          -0.21664105500943806
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-15"
+      },
+      {
+        "bucket_xy_m": [
+          0.5399769508085212,
+          -0.36052394792216547
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-16"
+      },
+      {
+        "bucket_xy_m": [
+          0.5512370208919096,
+          -0.39996751792195545
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-17"
+      },
+      {
+        "bucket_xy_m": [
+          0.7417023392300525,
+          -0.3151774013195533
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-18"
+      },
+      {
+        "bucket_xy_m": [
+          0.8545968074612572,
+          -0.4085711388163732
+        ],
+        "captures": {
+          "current": true,
+          "expanded": false
+        },
+        "id": "expanded-selector-test-19"
+      },
+      {
+        "bucket_xy_m": [
+          0.9847438375427636,
+          -0.26871500772135193
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-20"
+      },
+      {
+        "bucket_xy_m": [
+          0.9630118448359675,
+          -0.261535732251082
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-21"
+      },
+      {
+        "bucket_xy_m": [
+          1.102632199016565,
+          -0.3271155437750339
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-22"
+      },
+      {
+        "bucket_xy_m": [
+          1.2199707089072,
+          -0.38350410639790056
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-23"
+      },
+      {
+        "bucket_xy_m": [
+          0.18410269923561068,
+          -0.08451172694771424
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-24"
+      },
+      {
+        "bucket_xy_m": [
+          0.14854559089961425,
+          -0.17202143638012174
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-25"
+      },
+      {
+        "bucket_xy_m": [
+          0.34880083450767124,
+          -0.14320476998651255
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-26"
+      },
+      {
+        "bucket_xy_m": [
+          0.44779446188576055,
+          -0.12144337372661833
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-27"
+      },
+      {
+        "bucket_xy_m": [
+          0.6127567517083323,
+          -0.10016991297858173
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-28"
+      },
+      {
+        "bucket_xy_m": [
+          0.6371355577630191,
+          -0.09876498409492447
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-29"
+      },
+      {
+        "bucket_xy_m": [
+          0.758648577439468,
+          -0.12639515060630294
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-30"
+      },
+      {
+        "bucket_xy_m": [
+          0.8222736792301689,
+          -0.009192742513017133
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-31"
+      },
+      {
+        "bucket_xy_m": [
+          0.9432795111465361,
+          -0.1018943107134431
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-32"
+      },
+      {
+        "bucket_xy_m": [
+          0.9301783217399414,
+          -0.19369730241955516
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-33"
+      },
+      {
+        "bucket_xy_m": [
+          1.1251460768033097,
+          -0.031295548211451446
+        ],
+        "captures": {
+          "current": false,
+          "expanded": false
+        },
+        "id": "expanded-selector-test-34"
+      },
+      {
+        "bucket_xy_m": [
+          1.1830564197721687,
+          -0.17394185206631058
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-35"
+      },
+      {
+        "bucket_xy_m": [
+          0.21188332048811997,
+          0.1670897676012213
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-36"
+      },
+      {
+        "bucket_xy_m": [
+          0.19971923422434468,
+          0.22141825772039261
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-37"
+      },
+      {
+        "bucket_xy_m": [
+          0.41378398289608687,
+          0.12125744525023474
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-38"
+      },
+      {
+        "bucket_xy_m": [
+          0.3359371028447792,
+          0.24149910308911007
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-39"
+      },
+      {
+        "bucket_xy_m": [
+          0.5600200049289705,
+          0.15830864447832646
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-40"
+      },
+      {
+        "bucket_xy_m": [
+          0.6449278719383327,
+          0.19880208422835494
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-41"
+      },
+      {
+        "bucket_xy_m": [
+          0.7762339249457559,
+          0.08204867756626635
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-42"
+      },
+      {
+        "bucket_xy_m": [
+          0.7464764251031946,
+          0.24329391048492605
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-43"
+      },
+      {
+        "bucket_xy_m": [
+          0.9913534327829564,
+          0.10423301008490858
+        ],
+        "captures": {
+          "current": false,
+          "expanded": false
+        },
+        "id": "expanded-selector-test-44"
+      },
+      {
+        "bucket_xy_m": [
+          0.9697022274176293,
+          0.1972801086845609
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-45"
+      },
+      {
+        "bucket_xy_m": [
+          1.146537090172749,
+          0.11795447912810547
+        ],
+        "captures": {
+          "current": false,
+          "expanded": false
+        },
+        "id": "expanded-selector-test-46"
+      },
+      {
+        "bucket_xy_m": [
+          1.178803302716751,
+          0.21647751813559243
+        ],
+        "captures": {
+          "current": false,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-47"
+      },
+      {
+        "bucket_xy_m": [
+          0.20865639998714441,
+          0.040689983882391756
+        ],
+        "captures": {
+          "current": true,
+          "expanded": true
+        },
+        "id": "expanded-selector-test-48"
+      },
+      {
+        "bucket_xy_m": [
+          1.1327881927873922,
+          0.08700327386345719
+        ],
+        "captures": {
+          "current": false,
+          "expanded": false
+        },
+        "id": "expanded-selector-test-49"
+      }
+    ]
+  },
+  "comparison_kind": "Complete current and expanded planners: library, model and contact ranking differ",
+  "controls": {
+    "controls_post": {
+      "board_first_captures": 6,
+      "board_first_passed": true,
+      "counts": {
+        "attempts": 9,
+        "captures": 6,
+        "clean": 3,
+        "direct_captures": 3,
+        "forbidden_contact_shots": 3,
+        "invalid": 0,
+        "invalid_physics": 0,
+        "mean_reward": 2.830224354931944,
+        "native_misses": 3,
+        "native_releases": 9,
+        "setup_rejections": 0,
+        "table_assisted_captures": 3
+      },
+      "direct_captures": 3,
+      "negative_captures": 0,
+      "status": "passed",
+      "table_assisted_captures": 3
+    },
+    "controls_pre": {
+      "board_first_captures": 6,
+      "board_first_passed": true,
+      "counts": {
+        "attempts": 9,
+        "captures": 6,
+        "clean": 3,
+        "direct_captures": 3,
+        "forbidden_contact_shots": 3,
+        "invalid": 0,
+        "invalid_physics": 0,
+        "mean_reward": 2.830224355402141,
+        "native_misses": 3,
+        "native_releases": 9,
+        "setup_rejections": 0,
+        "table_assisted_captures": 3
+      },
+      "direct_captures": 3,
+      "negative_captures": 0,
+      "status": "passed",
+      "table_assisted_captures": 3
+    }
+  },
+  "current_baseline_binding": {
+    "audit": "/home/kadir/sircus-mjlab/output/fast-planning-v2-audit.json",
+    "audit_sha256": "f0ef2fa51f1564844cbcb4a19c5a75582712708434b6aff72ad344b57ec489ca",
+    "decision_budget_s": 30.0,
+    "inputs": {
+      "calibration.json": "992d4e191fb678ff85e9e93c9099e311cac19efd47207e104f9887ecc7437358",
+      "neural-checkpoint.json": "3ea83197149204bb92782f9efd9a7ee985d6c7bbbfb0823bd068642eebdd1a1e",
+      "route-history.json": "bd7c44f296e04edf017152f6ce338c1f3a65255a848738bc46d7c91b1ac03df4",
+      "route-models.json": "3b43cb74946ab4dd53f110ffe1d9e07bff5409bd40966f1f128eb72009da6161",
+      "shot-library-rows.json": "7945855f3369257154e23917c232fc5063aeb291d33efebf1a5bb38f276ec104",
+      "training-prior.json": "dd1c434b88ca44bf73e9a3f6ba330c45ae772e92f7ad936d17116562e2c6330b",
+      "verification.json": "760c187a69245687f6927fe71afb88d777fe8c8e8d56da1a7913361e05f4427d"
+    },
+    "manifest_sha256": "7aa188566b3d9af7c7366ec62acd6f7568192634f36b197eb366cea69d035d51",
+    "planner": "StalledReferencePlanner/warm_early",
+    "reference_path_budget_s": 5.0,
+    "report_sha256": "9d2c0fdf022580e78bbb5368eab5012e164f827aa3914e128194cbea29cb66bb",
+    "study": "/home/kadir/sircus-mjlab/output/fast-planning-v2"
+  },
+  "decision_budget_s": 30,
+  "gpu_lease_s": 1157.908017890004,
+  "hashes": {
+    "choices.json": "2b9a06cded6a0911ae49e60674069307d70cc36389077bb8e318d0762bacdb8b",
+    "contract.json": "ae8da6f745639d4c98113449e8e1626e579c9976262e2368debfb183feffd2c3",
+    "current-checkpoint.json": "3ea83197149204bb92782f9efd9a7ee985d6c7bbbfb0823bd068642eebdd1a1e",
+    "evidence-manifest.json": "3117645239b4b56ba2a03ea81ccc616435dfea50b6014db864952630aa10a8ad",
+    "expanded-checkpoint.json": "c34a574a6b6e39416fcd581184ec5b40dce31f5a93a17c6a956269aea24b8980",
+    "fit.json": "6cabf391544917abebebb4b3f83e08e2f2d4bfea6c43af69c25c7c54c6f51a31",
+    "layouts.json": "20fefbfe9e093a2fc24a091646a2c69d3a847df681749a6e4f401041c4d6cee7",
+    "library-manifest.json": "70fe0d03c591a94e3e21b2da5a802a259960dae591601a76c48a1c736beaed91",
+    "library-summary.json": "3d4163e77336259be94d89eed5302d3bace6934517a4bc857dbe7483a5fb2779",
+    "native-started.json": "1485324dfbeb470758b643f5e591cc821c9fcf1096c6ab168464549737c92070",
+    "plans.json": "027d03f99e2517f05232a4d438a60eb8232c4382b3fb903eaa7d003aeb04b95a",
+    "preparation-started.json": "0e90c1328301260d77c731464ea2358a07918a4aace047c3b43697b89c8c6f04",
+    "report.json": "d72966f031f91ad1f231b0b8c9bed3e64f37032c1f0d20b020c22bd041baa0d2"
+  },
+  "learning": "Supervised position-balanced 44-64-32-2 shot selector; not PPO or perception",
+  "library": {
+    "all_historical_positions": 1846,
+    "candidate_observed_routes": {
+      "direct": 7248,
+      "mixed_assisted": 25,
+      "robot_assisted": 74,
+      "table_assisted": 4994
+    },
+    "candidate_positions": 1034,
+    "candidate_settings": 12341,
+    "capture_attempt_routes": {
+      "direct": 9109,
+      "mixed_assisted": 25,
+      "robot_assisted": 97,
+      "table_assisted": 5770
+    },
+    "conflicting_settings": 0,
+    "deduplication": "Bucket+requested geometry+both actual arm joints+release point+scene/calibration/protocol. Meters/task values rounded8decimals; joints6decimals; orientation7decimals. IDs/repeat count do not define a setting.",
+    "exclusions": {
+      "different_scene_calibration_or_contact_protocol": 146,
+      "missing_frozen_request_packet": 2568,
+      "missing_original_evidence_manifest": 5467,
+      "non_native_or_unscored": 3688,
+      "not_native64": 54
+    },
+    "forced_train_positions": [
+      [
+        0.1,
+        -0.65
+      ],
+      [
+        0.1,
+        -0.425
+      ],
+      [
+        0.1,
+        -0.2
+      ],
+      [
+        0.1,
+        0.25
+      ],
+      [
+        0.29,
+        -0.65
+      ],
+      [
+        0.29,
+        -0.425
+      ],
+      [
+        0.29,
+        -0.2
+      ],
+      [
+        0.29,
+        0.025
+      ],
+      [
+        0.29,
+        0.25
+      ],
+      [
+        0.48,
+        -0.65
+      ],
+      [
+        0.48,
+        -0.425
+      ],
+      [
+        0.48,
+        -0.2
+      ],
+      [
+        0.48,
+        0.025
+      ],
+      [
+        0.48,
+        0.25
+      ],
+      [
+        0.67,
+        -0.65
+      ],
+      [
+        0.67,
+        -0.425
+      ],
+      [
+        0.67,
+        -0.2
+      ],
+      [
+        0.67,
+        0.025
+      ],
+      [
+        0.67,
+        0.25
+      ],
+      [
+        0.86,
+        -0.65
+      ],
+      [
+        0.86,
+        -0.425
+      ],
+      [
+        0.86,
+        -0.2
+      ],
+      [
+        0.86,
+        0.025
+      ],
+      [
+        0.86,
+        0.25
+      ],
+      [
+        1.05,
+        -0.65
+      ],
+      [
+        1.05,
+        -0.425
+      ],
+      [
+        1.05,
+        -0.2
+      ],
+      [
+        1.05,
+        0.025
+      ],
+      [
+        1.05,
+        0.25
+      ],
+      [
+        1.24,
+        -0.65
+      ],
+      [
+        1.24,
+        -0.425
+      ],
+      [
+        1.24,
+        -0.2
+      ],
+      [
+        1.24,
+        0.25
+      ]
+    ],
+    "forced_train_positions_represented": 33,
+    "included_capture_attempts": 15001,
+    "included_native_attempts": 28876,
+    "input_scope": "Original pre-IK geometry and source seeds only. Solved query joints excluded from training features, preserved for dedup and candidate provenance only. Candidate ranking uses original pre-IK seeds.",
+    "limitations": "Bounded60-source corpus; nominal commands require measured full-quaternion confirmation and a frozen request or explicit bucket-facing contract. Unsupported command schemas, noncentral releases, other scenes and non64steps excluded. Later contacts accepted byv4; contact presence does not prove a causal rebound.",
+    "native_repeat_rows_removed": 2087,
+    "native_settings": 26789,
+    "nominal_reconstructed_attempts": 3150,
+    "scoring_version": "sircus-board-first-native-capture-v4",
+    "seed": 2026112409,
+    "settings_by_observed_route": {
+      "direct": 8061,
+      "mixed_assisted": 25,
+      "robot_assisted": 88,
+      "table_assisted": 5241
+    },
+    "source_records": 40799,
+    "split_policy": "Entire bucket coordinate belongs to one split; deterministic80/20 hash except declared fixed-gridTRAIN positions. Historical TEST is explicitly reused as development; new TEST must exclude all historical positions.",
+    "splits": {
+      "train": {
+        "capture_settings": 12341,
+        "positions": 1195,
+        "rows": 30607
+      },
+      "validation": {
+        "capture_settings": 1074,
+        "positions": 292,
+        "rows": 2469
+      }
+    },
+    "status": "built",
+    "targets": "Each deduplicated setting has one loss weight; capture target is successes / valid native repeats. Invalid outcomes masked. Equal total loss weight per bucket position, applied during fitting.",
+    "unique_setting_capture_count": 13415,
+    "version": "sircus-expanded-deduplicated-shot-library-v1"
+  },
+  "limits": [
+    "Privileged simulator geometry; no camera or point-cloud input",
+    "Arms held at checked endpoints during native flight; no driven-arm validation",
+    "Post-board contacts accepted; presence does not prove a useful rebound",
+    "Fifty fresh positions are a finite comparison, not arbitrary-table success",
+    "No live planner promotion"
+  ],
+  "native_control_releases": 18,
+  "native_test_releases": 100,
+  "per_position_outcomes": [
+    {
+      "bucket_xy_m": [
+        0.18687952628592236,
+        -0.4994223215171745
+      ],
+      "id": "expanded-selector-test-00",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.2624546387128314,
+        -0.6095110179836486
+      ],
+      "id": "expanded-selector-test-01",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.40700148626957633,
+        -0.5380980778033908
+      ],
+      "id": "expanded-selector-test-02",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.4261076612247312,
+        -0.6220306396402391
+      ],
+      "id": "expanded-selector-test-03",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6164732555570717,
+        -0.5043638382666327
+      ],
+      "id": "expanded-selector-test-04",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": null,
+          "outcome": "flight_miss"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.5396075467679731,
+        -0.643684290017435
+      ],
+      "id": "expanded-selector-test-05",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.7840277282125883,
+        -0.5606781070754023
+      ],
+      "id": "expanded-selector-test-06",
+      "methods": {
+        "current": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.7163877394413436,
+        -0.6444526457776455
+      ],
+      "id": "expanded-selector-test-07",
+      "methods": {
+        "current": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.910057686182532,
+        -0.5764154382155492
+      ],
+      "id": "expanded-selector-test-08",
+      "methods": {
+        "current": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.9653510467374908,
+        -0.6375078434744011
+      ],
+      "id": "expanded-selector-test-09",
+      "methods": {
+        "current": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.179222424148156,
+        -0.48813183237862323
+      ],
+      "id": "expanded-selector-test-10",
+      "methods": {
+        "current": {
+          "capture_route": null,
+          "outcome": "flight_miss"
+        },
+        "expanded": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.1791296760594494,
+        -0.6237709655798589
+      ],
+      "id": "expanded-selector-test-11",
+      "methods": {
+        "current": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.16601694500243658,
+        -0.27304529089942553
+      ],
+      "id": "expanded-selector-test-12",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.12397487489482636,
+        -0.3801190154074395
+      ],
+      "id": "expanded-selector-test-13",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.3450215823242213,
+        -0.34803327212919655
+      ],
+      "id": "expanded-selector-test-14",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.41768117909389746,
+        -0.21664105500943806
+      ],
+      "id": "expanded-selector-test-15",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.5399769508085212,
+        -0.36052394792216547
+      ],
+      "id": "expanded-selector-test-16",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.5512370208919096,
+        -0.39996751792195545
+      ],
+      "id": "expanded-selector-test-17",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.7417023392300525,
+        -0.3151774013195533
+      ],
+      "id": "expanded-selector-test-18",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.8545968074612572,
+        -0.4085711388163732
+      ],
+      "id": "expanded-selector-test-19",
+      "methods": {
+        "current": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": null,
+          "outcome": "flight_miss"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.9847438375427636,
+        -0.26871500772135193
+      ],
+      "id": "expanded-selector-test-20",
+      "methods": {
+        "current": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.9630118448359675,
+        -0.261535732251082
+      ],
+      "id": "expanded-selector-test-21",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.102632199016565,
+        -0.3271155437750339
+      ],
+      "id": "expanded-selector-test-22",
+      "methods": {
+        "current": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.2199707089072,
+        -0.38350410639790056
+      ],
+      "id": "expanded-selector-test-23",
+      "methods": {
+        "current": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.18410269923561068,
+        -0.08451172694771424
+      ],
+      "id": "expanded-selector-test-24",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.14854559089961425,
+        -0.17202143638012174
+      ],
+      "id": "expanded-selector-test-25",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.34880083450767124,
+        -0.14320476998651255
+      ],
+      "id": "expanded-selector-test-26",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.44779446188576055,
+        -0.12144337372661833
+      ],
+      "id": "expanded-selector-test-27",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6127567517083323,
+        -0.10016991297858173
+      ],
+      "id": "expanded-selector-test-28",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6371355577630191,
+        -0.09876498409492447
+      ],
+      "id": "expanded-selector-test-29",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.758648577439468,
+        -0.12639515060630294
+      ],
+      "id": "expanded-selector-test-30",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.8222736792301689,
+        -0.009192742513017133
+      ],
+      "id": "expanded-selector-test-31",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.9432795111465361,
+        -0.1018943107134431
+      ],
+      "id": "expanded-selector-test-32",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.9301783217399414,
+        -0.19369730241955516
+      ],
+      "id": "expanded-selector-test-33",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.1251460768033097,
+        -0.031295548211451446
+      ],
+      "id": "expanded-selector-test-34",
+      "methods": {
+        "current": {
+          "capture_route": null,
+          "outcome": "flight_miss"
+        },
+        "expanded": {
+          "capture_route": null,
+          "outcome": "flight_miss"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.1830564197721687,
+        -0.17394185206631058
+      ],
+      "id": "expanded-selector-test-35",
+      "methods": {
+        "current": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.21188332048811997,
+        0.1670897676012213
+      ],
+      "id": "expanded-selector-test-36",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.19971923422434468,
+        0.22141825772039261
+      ],
+      "id": "expanded-selector-test-37",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.41378398289608687,
+        0.12125744525023474
+      ],
+      "id": "expanded-selector-test-38",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.3359371028447792,
+        0.24149910308911007
+      ],
+      "id": "expanded-selector-test-39",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.5600200049289705,
+        0.15830864447832646
+      ],
+      "id": "expanded-selector-test-40",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.6449278719383327,
+        0.19880208422835494
+      ],
+      "id": "expanded-selector-test-41",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.7762339249457559,
+        0.08204867756626635
+      ],
+      "id": "expanded-selector-test-42",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.7464764251031946,
+        0.24329391048492605
+      ],
+      "id": "expanded-selector-test-43",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.9913534327829564,
+        0.10423301008490858
+      ],
+      "id": "expanded-selector-test-44",
+      "methods": {
+        "current": {
+          "capture_route": null,
+          "outcome": "flight_miss"
+        },
+        "expanded": {
+          "capture_route": null,
+          "outcome": "flight_miss"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.9697022274176293,
+        0.1972801086845609
+      ],
+      "id": "expanded-selector-test-45",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.146537090172749,
+        0.11795447912810547
+      ],
+      "id": "expanded-selector-test-46",
+      "methods": {
+        "current": {
+          "capture_route": null,
+          "outcome": "flight_miss"
+        },
+        "expanded": {
+          "capture_route": null,
+          "outcome": "flight_miss"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.178803302716751,
+        0.21647751813559243
+      ],
+      "id": "expanded-selector-test-47",
+      "methods": {
+        "current": {
+          "capture_route": null,
+          "outcome": "flight_miss"
+        },
+        "expanded": {
+          "capture_route": "table_assisted",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        0.20865639998714441,
+        0.040689983882391756
+      ],
+      "id": "expanded-selector-test-48",
+      "methods": {
+        "current": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        },
+        "expanded": {
+          "capture_route": "direct",
+          "outcome": "capture"
+        }
+      }
+    },
+    {
+      "bucket_xy_m": [
+        1.1327881927873922,
+        0.08700327386345719
+      ],
+      "id": "expanded-selector-test-49",
+      "methods": {
+        "current": {
+          "capture_route": null,
+          "outcome": "flight_miss"
+        },
+        "expanded": {
+          "capture_route": null,
+          "outcome": "flight_miss"
+        }
+      }
+    }
+  ],
+  "physics_substeps": 64,
+  "positions": 50,
+  "producer_commit": "fafdc4447ee0a8942cdff61193ba30b845873f17",
+  "progress": {
+    "completed_releases": 100,
+    "planned_releases": 100,
+    "prepared": 100
+  },
+  "simulation_only": true,
+  "storage_cleanup": {
+    "allocated_bytes_reclaimed": 2871066624,
+    "duplicate_development_library_logical_bytes_removed": 126003130,
+    "unique_datasets_retained": true,
+    "verified_duplicate_npz_files": 76
+  },
+  "total_native_releases": 118,
+  "training": {
+    "history": [
+      {
+        "conditional_capture_loss": 0.44224363565444946,
+        "epoch": 100,
+        "loss": 0.6275938749313354,
+        "setup_loss": 0.185350239276886,
+        "train_loss": 0.6504287719726562
+      },
+      {
+        "conditional_capture_loss": 0.40396881103515625,
+        "epoch": 250,
+        "loss": 0.5684757977724075,
+        "setup_loss": 0.16450698673725128,
+        "train_loss": 0.5333641767501831
+      },
+      {
+        "conditional_capture_loss": 0.38285839557647705,
+        "epoch": 500,
+        "loss": 0.5233049541711807,
+        "setup_loss": 0.14044655859470367,
+        "train_loss": 0.4441130757331848
+      }
+    ],
+    "selected_epoch": 500
+  },
+  "version": "sircus-expanded-selector-public-summary-v1"
+}

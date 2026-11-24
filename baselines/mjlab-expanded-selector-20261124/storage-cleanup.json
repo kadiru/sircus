@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "immutable_duplicate_npz_files": 76,
+  "bytes_reclaimed": 2871066624,
+  "gib_reclaimed": 2.67388916015625,
+  "unique_data_deleted": 0,
+  "all_paths_preserved": true,
+  "all_sha256_payloads_preserved": true,
+  "method": "Atomic replacement of duplicate immutable NPZ files by hard links to identical same-filesystem copies.",
+  "old_manifest_sha256": "9a5124f817aab27377243b001135b44ea450e44874794107c02fb44b8f2096b3",
+  "old_audit_sha256": "b8f44ff0666f07ebe045293d7518229673a29f86c791c61e5cd5433877756895",
+  "receipt_sha256": "a638947db524c43deddd4d83fdb762d190af89b0151697aed285ed2454190964",
+  "retained": "All unique training data, checkpoints, native traces, backup archives, Mac datasets, mutable JSON, source runtimes, Isaac and 4070 workloads.",
+  "caveat": "The two names now share one immutable inode; future edits would affect both. Original checksum audits remain authoritative."
+}
