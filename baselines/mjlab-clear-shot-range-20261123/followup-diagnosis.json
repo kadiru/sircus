@@ -1,0 +1,610 @@
+{
+  "version": "sircus-clear-shot-range-followup-v1",
+  "status": "completed",
+  "cpu_only": true,
+  "physics_substeps": 64,
+  "source": {
+    "report_sha256": "fc6a103d4f4a18712a7f02f780730159a6643996d9ef9201c592cd253d9110c7",
+    "audit_sha256": "20ca749f368cf720d6123d8a6cce41c4ba872b0b1584d8f3b19775dd8084fdf6",
+    "rows_sha256": "f99208edf9533539482a58de5a7af1b55a0f9ad71ce9567fc5277aaf513484d6",
+    "contract_sha256": "7f0e7f0b55c54b4c0d0fb21594c637cee8b7afac41437ea81b1b0c0a37195cec",
+    "manifest_sha256": "7a5649b9f3baf08fd16a59559d8fbbf312aac95c08e66cb5a08e600e90c59b62"
+  },
+  "raw_analysis_sha256": "4d1e72a8383202a8c91e71e75ccf7f54c218018b6411ca8846487ebc681c3b55",
+  "summary": {
+    "original": {
+      "drops": 3,
+      "captures": 0,
+      "robot_contact_shots": 0,
+      "board_contact_interval_counts": {
+        "2": 3
+      }
+    },
+    "search": {
+      "drops": 11,
+      "captures": 0,
+      "robot_contact_shots": 8,
+      "board_contact_interval_counts": {
+        "1": 11
+      }
+    },
+    "repeat": {
+      "drops": 0,
+      "captures": 0,
+      "robot_contact_shots": 0,
+      "board_contact_interval_counts": {}
+    }
+  },
+  "diagnosis_rows": [
+    {
+      "id": "parallel-board-miss-09",
+      "bucket_xy_m": [
+        1.1929942869527974,
+        0.14742349109856434
+      ],
+      "trials": 11,
+      "robot_contacts": 8,
+      "first_contact_link_counts": {
+        "Arm14/link3/collision/0": 8,
+        "no_robot_force": 3
+      },
+      "first_contact_time_s": {
+        "min": 0.44440104166666666,
+        "max": 0.5138671875
+      },
+      "method": "native_force_cpu_reconstruction"
+    }
+  ],
+  "examples": [
+    {
+      "id": "parallel-board-miss-09-original-0",
+      "values": [
+        0.6803429248048187,
+        -0.011044302443505356,
+        0.4618683735173024,
+        25.4687518028256,
+        0.1094386406066069
+      ],
+      "release_center_height_mm": 608.8070141239092,
+      "board_heading_offset_deg": 6.9477438887308125,
+      "board_twist_deg": 135.0,
+      "bucket_xy_m": [
+        1.1929942869527974,
+        0.14742349109856434
+      ],
+      "board_center_m": [
+        0.6803428530693054,
+        -0.011044386774301529,
+        0.46186840534210205
+      ],
+      "whole_ball_entry": false,
+      "max_retention_s": 0.0,
+      "board_contact_intervals": 2,
+      "robot_contact_intervals": 0,
+      "post_board_states": [
+        {
+          "time_s": 0.14641927083333334,
+          "position_m": [
+            0.6811058521270752,
+            -0.010689224116504192,
+            0.5056350827217102
+          ],
+          "velocity_m_s": [
+            0.744701087474823,
+            0.3446345031261444,
+            0.5378546714782715
+          ],
+          "forward_speed_m_s": 0.8132644479857956,
+          "lateral_speed_m_s": 0.10933246578005837
+        },
+        {
+          "time_s": 0.338671875,
+          "position_m": [
+            0.8247793316841125,
+            0.055652666836977005,
+            0.42878586053848267
+          ],
+          "velocity_m_s": [
+            1.223074197769165,
+            0.4110519289970398,
+            -0.44229230284690857
+          ],
+          "forward_speed_m_s": 1.289915203397989,
+          "lateral_speed_m_s": 0.03151110317965189
+        }
+      ],
+      "first_bucket_contact_center_height_mm": 166.3203239440918,
+      "rim_height_mm": 183.00000141316474,
+      "descending_center_rim_crossings_before_first_bucket_contact": [
+        {
+          "time_s": 0.5219037726970905,
+          "position_m": [
+            1.0488983392715454,
+            0.13097412884235382,
+            0.18299999833106995
+          ],
+          "forward_error_mm": -142.52667631241806,
+          "lateral_error_mm": 26.839713041114322,
+          "necessary_aperture_clearance_mm": -94.05655427016882
+        }
+      ],
+      "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059",
+      "trace_column": 0,
+      "row_sha256": "e1d31b5fee707712498920a67d044ac66dba78eff5d2a603c153bed2254e5f01"
+    },
+    {
+      "id": "parallel-board-miss-09-range-02-b0-search-0",
+      "values": [
+        0.6803429248048187,
+        -0.011044302443505356,
+        0.4618683735173024,
+        25.4687518028256,
+        0.1694386406066069
+      ],
+      "release_center_height_mm": 668.8070141239093,
+      "board_heading_offset_deg": 6.9477438887308125,
+      "board_twist_deg": 135.0,
+      "bucket_xy_m": [
+        1.1929942869527974,
+        0.14742349109856434
+      ],
+      "board_center_m": [
+        0.6803428530693054,
+        -0.011044386774301529,
+        0.46186840534210205
+      ],
+      "whole_ball_entry": false,
+      "max_retention_s": 0.0,
+      "board_contact_intervals": 1,
+      "robot_contact_intervals": 0,
+      "post_board_states": [
+        {
+          "time_s": 0.18385416666666665,
+          "position_m": [
+            0.6813035607337952,
+            -0.010597220622003078,
+            0.5055031776428223
+          ],
+          "velocity_m_s": [
+            0.9362989068031311,
+            0.43343597650527954,
+            0.6781145930290222
+          ],
+          "forward_speed_m_s": 1.0225417453158612,
+          "lateral_speed_m_s": 0.1375891263734747
+        }
+      ],
+      "first_bucket_contact_center_height_mm": 89.84781056642532,
+      "rim_height_mm": 183.00000141316474,
+      "descending_center_rim_crossings_before_first_bucket_contact": [
+        {
+          "time_s": 0.5185063915280057,
+          "position_m": [
+            0.9947336316108704,
+            0.13444843888282776,
+            0.18299999833106995
+          ],
+          "forward_error_mm": -193.24938350947085,
+          "lateral_error_mm": 46.155337825877965,
+          "necessary_aperture_clearance_mm": -147.76510157633973
+        }
+      ],
+      "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059",
+      "trace_column": 5,
+      "row_sha256": "ef0c65cb3cb21c16a6e505ae06b3fb1089c4a35a4198b18d87e8cde5a310f3a9"
+    },
+    {
+      "id": "parallel-board-miss-09-range-22-b0-search-0",
+      "values": [
+        0.6803429248048187,
+        -0.011044302443505356,
+        0.4618683735173024,
+        28.4687518028256,
+        0.1694386406066069
+      ],
+      "release_center_height_mm": 668.8070141239093,
+      "board_heading_offset_deg": 6.9477438887308125,
+      "board_twist_deg": 135.0,
+      "bucket_xy_m": [
+        1.1929942869527974,
+        0.14742349109856434
+      ],
+      "board_center_m": [
+        0.6803427934646606,
+        -0.011044405400753021,
+        0.4618683457374573
+      ],
+      "whole_ball_entry": false,
+      "max_retention_s": 0.0,
+      "board_contact_intervals": 1,
+      "robot_contact_intervals": 0,
+      "post_board_states": [
+        {
+          "time_s": 0.183203125,
+          "position_m": [
+            0.6813969016075134,
+            -0.010555313900113106,
+            0.5065946578979492
+          ],
+          "velocity_m_s": [
+            1.0122061967849731,
+            0.4674763083457947,
+            0.5730699300765991
+          ],
+          "forward_speed_m_s": 1.105116309699975,
+          "lateral_speed_m_s": 0.14769368879414285
+        }
+      ],
+      "first_bucket_contact_center_height_mm": 59.95747074484825,
+      "rim_height_mm": 183.00000141316474,
+      "descending_center_rim_crossings_before_first_bucket_contact": [
+        {
+          "time_s": 0.504987468129314,
+          "position_m": [
+            1.0072270631790161,
+            0.13987061381340027,
+            0.18299999833106995
+          ],
+          "forward_error_mm": -179.7118919178743,
+          "lateral_error_mm": 47.646020685899316,
+          "necessary_aperture_clearance_mm": -135.0206635179044
+        }
+      ],
+      "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059",
+      "trace_column": 9,
+      "row_sha256": "f327f447023e5bfdf7749a40be55d774e391f25104f84bc4f33fd180dcc5d4f1"
+    },
+    {
+      "id": "parallel-board-miss-09-range-42-b0-search-0",
+      "values": [
+        0.6803429248048187,
+        -0.011044302443505356,
+        0.4618683735173024,
+        31.4687518028256,
+        0.1694386406066069
+      ],
+      "release_center_height_mm": 668.8070141239093,
+      "board_heading_offset_deg": 6.9477438887308125,
+      "board_twist_deg": 135.0,
+      "bucket_xy_m": [
+        1.1929942869527974,
+        0.14742349109856434
+      ],
+      "board_center_m": [
+        0.680342972278595,
+        -0.011044299229979515,
+        0.46186840534210205
+      ],
+      "whole_ball_entry": false,
+      "max_retention_s": 0.0,
+      "board_contact_intervals": 1,
+      "robot_contact_intervals": 0,
+      "post_board_states": [
+        {
+          "time_s": 0.182421875,
+          "position_m": [
+            0.681462287902832,
+            -0.010526315309107304,
+            0.5078681707382202
+          ],
+          "velocity_m_s": [
+            1.0726293325424194,
+            0.4943769574165344,
+            0.4532584249973297
+          ],
+          "forward_speed_m_s": 1.1707888170413174,
+          "lateral_speed_m_s": 0.15555001429064147
+        }
+      ],
+      "first_bucket_contact_center_height_mm": 46.262212097644806,
+      "rim_height_mm": 183.00000141316474,
+      "descending_center_rim_crossings_before_first_bucket_contact": [
+        {
+          "time_s": 0.49005463448473907,
+          "position_m": [
+            1.0115516185760498,
+            0.1415621042251587,
+            0.18299999833106995
+          ],
+          "forward_error_mm": -175.0806896633599,
+          "lateral_error_mm": 47.98489210945901,
+          "necessary_aperture_clearance_mm": -130.61831916381016
+        }
+      ],
+      "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059",
+      "trace_column": 13,
+      "row_sha256": "5ab8f64560a19992dd79d5d23831de5632fb20869d4a484fc7a696e86aeea59a"
+    }
+  ],
+  "definitions": {
+    "forward_error": "Ball center minus bucket center projected along board-to-bucket direction at first descending center-rim-height crossing; negative is short.",
+    "lateral_error": "Orthogonal horizontal offset at the same measured, interpolated crossing.",
+    "first_bucket_contact_height": "Recorded ball-center height at first positive bucket-force sample; not the exact surface contact-point height.",
+    "board_contact_intervals": "Separated intervals with board force over the scoring threshold; shown alongside pre/post velocities, not automatically counted as separate large bounces.",
+    "link_attribution": "Native force detects robot contact. Link identity is independently inferred from CPU collision geometry at held joints and recorded ball center."
+  },
+  "scope": "Saved native force intervals and ball states, not new physics. Link names are CPU geometry inference. Rim crossings interpolate adjacent recorded states; projected aperture clearance is necessary only, not a capture label. Negative forward error means short of bucket center along board-to-bucket direction. Contact intervals are separated force episodes, not necessarily distinct energetic bounces. Full-ball entry and one-second retention labels remain unchanged.",
+  "contact_examples": [
+    {
+      "id": "parallel-board-miss-09-range-00-b0-search-0",
+      "values": [
+        0.6803429248048187,
+        -0.011044302443505356,
+        0.4618683735173024,
+        25.4687518028256,
+        0.1294386406066069
+      ],
+      "board_contact_intervals": 1,
+      "robot_contact_intervals": 1,
+      "post_board_states": [
+        {
+          "time_s": 0.15989583333333332,
+          "position_m": [
+            0.6811860799789429,
+            -0.01065188366919756,
+            0.5055927038192749
+          ],
+          "velocity_m_s": [
+            0.8158318400382996,
+            0.377691388130188,
+            0.5926734805107117
+          ],
+          "forward_speed_m_s": 0.8909850878816971,
+          "lateral_speed_m_s": 0.11990808588427332
+        }
+      ],
+      "first_robot_event": {
+        "channel": "robot",
+        "start_tick": 7641,
+        "end_tick": 7664,
+        "start_s": 0.4974609375,
+        "end_s": 0.49895833333333334,
+        "position_m": [
+          0.9565497040748596,
+          0.11683988571166992,
+          0.14661568403244019
+        ],
+        "velocity_before_m_s": [
+          0.8158318400382996,
+          0.377691388130188,
+          -2.7189674377441406
+        ],
+        "velocity_after_m_s": [
+          0.49714985489845276,
+          1.0466755628585815,
+          -2.3260128498077393
+        ],
+        "peak_force_N": 157.80291748046875
+      },
+      "first_robot_reconstruction": {
+        "tick": 7641,
+        "time_s": 0.4974609375,
+        "center_m": [
+          0.9565497040748596,
+          0.11683988571166992,
+          0.14661568403244019
+        ],
+        "status": "unique_overlap",
+        "inferred_geometry": "Arm14/link3/collision/0",
+        "overlapping_geometries": [
+          "Arm14/link3/collision/0"
+        ],
+        "nearest_geometry": "Arm14/link3/collision/0",
+        "nearest_signed_distance_m": -2.783069322431081e-05,
+        "second_nearest_geometry": "Arm14/link2/collision/0",
+        "second_nearest_signed_distance_m": 0.07392026557925924
+      },
+      "descending_center_rim_crossings_before_first_bucket_contact": [
+        {
+          "time_s": 0.48374128673669137,
+          "position_m": [
+            0.9453580975532532,
+            0.11165858805179596,
+            0.18299999833106995
+          ],
+          "forward_error_mm": -247.1530384221272,
+          "lateral_error_mm": 38.96390880009607,
+          "necessary_aperture_clearance_mm": -199.31030742165612
+        },
+        {
+          "time_s": 0.7651334157384946,
+          "position_m": [
+            1.0715168714523315,
+            0.383455753326416,
+            0.18299999833106995
+          ],
+          "forward_error_mm": -46.35246097178612,
+          "lateral_error_mm": 261.37987805286235,
+          "necessary_aperture_clearance_mm": -214.41552877721037
+        }
+      ],
+      "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059",
+      "trace_column": 3,
+      "row_sha256": "1c631d47f0b97c9ef31194fa02d2a24ab5155a043951c40b466b6a12914bbd17"
+    },
+    {
+      "id": "parallel-board-miss-09-range-19-b0-search-0",
+      "values": [
+        0.6803429248048187,
+        -0.011044302443505356,
+        0.4618683735173024,
+        28.4687518028256,
+        0.1094386406066069
+      ],
+      "board_contact_intervals": 1,
+      "robot_contact_intervals": 1,
+      "post_board_states": [
+        {
+          "time_s": 0.14557291666666666,
+          "position_m": [
+            0.6811602711677551,
+            -0.010665061883628368,
+            0.5067421793937683
+          ],
+          "velocity_m_s": [
+            0.7991170883178711,
+            0.368892103433609,
+            0.4459799826145172
+          ],
+          "forward_speed_m_s": 0.8724172120036044,
+          "lateral_speed_m_s": 0.11643759280044635
+        }
+      ],
+      "first_robot_event": {
+        "channel": "robot",
+        "start_tick": 7076,
+        "end_tick": 7104,
+        "start_s": 0.46067708333333335,
+        "end_s": 0.46249999999999997,
+        "position_m": [
+          0.9330089688301086,
+          0.10556954890489578,
+          0.16014212369918823
+        ],
+        "velocity_before_m_s": [
+          0.7991170883178711,
+          0.368892103433609,
+          -2.645314931869507
+        ],
+        "velocity_after_m_s": [
+          0.2967801094055176,
+          1.2819911241531372,
+          -2.0201895236968994
+        ],
+        "peak_force_N": 196.20379638671875
+      },
+      "first_robot_reconstruction": {
+        "tick": 7076,
+        "time_s": 0.46067708333333335,
+        "center_m": [
+          0.9330089688301086,
+          0.10556954890489578,
+          0.16014212369918823
+        ],
+        "status": "unique_overlap",
+        "inferred_geometry": "Arm14/link3/collision/0",
+        "overlapping_geometries": [
+          "Arm14/link3/collision/0"
+        ],
+        "nearest_geometry": "Arm14/link3/collision/0",
+        "nearest_signed_distance_m": -2.397749782699632e-05,
+        "second_nearest_geometry": "Arm14/link2/collision/0",
+        "second_nearest_signed_distance_m": 0.06977506129081701
+      },
+      "descending_center_rim_crossings_before_first_bucket_contact": [
+        {
+          "time_s": 0.45189420755215387,
+          "position_m": [
+            0.9259892106056213,
+            0.1023300439119339,
+            0.18299999833106995
+          ],
+          "forward_error_mm": -268.4129698339972,
+          "lateral_error_mm": 35.77160045662526,
+          "necessary_aperture_clearance_mm": -219.8383367029367
+        }
+      ],
+      "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059",
+      "trace_column": 6,
+      "row_sha256": "36aca5a4d9f036555de79290d1632735e64b1ad0b071dd2a49a880bac39b6f0c"
+    },
+    {
+      "id": "parallel-board-miss-09-range-39-b0-search-0",
+      "values": [
+        0.6803429248048187,
+        -0.011044302443505356,
+        0.4618683735173024,
+        31.4687518028256,
+        0.1094386406066069
+      ],
+      "board_contact_intervals": 1,
+      "robot_contact_intervals": 1,
+      "post_board_states": [
+        {
+          "time_s": 0.14459635416666666,
+          "position_m": [
+            0.6812191009521484,
+            -0.010638787411153316,
+            0.5080476403236389
+          ],
+          "velocity_m_s": [
+            0.8469388484954834,
+            0.3903210759162903,
+            0.3542812764644623
+          ],
+          "forward_speed_m_s": 0.9244344822663607,
+          "lateral_speed_m_s": 0.1227877982221024
+        }
+      ],
+      "first_robot_event": {
+        "channel": "robot",
+        "start_tick": 6826,
+        "end_tick": 6852,
+        "start_s": 0.44440104166666666,
+        "end_s": 0.44609375,
+        "position_m": [
+          0.9351125359535217,
+          0.10638401657342911,
+          0.17328301072120667
+        ],
+        "velocity_before_m_s": [
+          0.8469388484954834,
+          0.3903210759162903,
+          -2.5869221687316895
+        ],
+        "velocity_after_m_s": [
+          0.24948649108409882,
+          1.3838409185409546,
+          -1.862412691116333
+        ],
+        "peak_force_N": 232.2435760498047
+      },
+      "first_robot_reconstruction": {
+        "tick": 6826,
+        "time_s": 0.44440104166666666,
+        "center_m": [
+          0.9351125359535217,
+          0.10638401657342911,
+          0.17328301072120667
+        ],
+        "status": "unique_overlap",
+        "inferred_geometry": "Arm14/link3/collision/0",
+        "overlapping_geometries": [
+          "Arm14/link3/collision/0"
+        ],
+        "nearest_geometry": "Arm14/link3/collision/0",
+        "nearest_signed_distance_m": -4.669013943701256e-05,
+        "second_nearest_geometry": "Arm14/link2/collision/0",
+        "second_nearest_signed_distance_m": 0.0699707083966907
+      },
+      "descending_center_rim_crossings_before_first_bucket_contact": [
+        {
+          "time_s": 0.4406181734016206,
+          "position_m": [
+            0.9319089651107788,
+            0.10490734130144119,
+            0.18299999833106995
+          ],
+          "forward_error_mm": -261.99611673758363,
+          "lateral_error_mm": 36.48565593967483,
+          "necessary_aperture_clearance_mm": -213.6044866432162
+        }
+      ],
+      "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059",
+      "trace_column": 10,
+      "row_sha256": "ce32d01c0062e46ee9bad957d80ca8c8a434ce62319e5b96828e5cbc88e02a16"
+    }
+  ],
+  "observations": [
+    "All three unchanged originals had two separated board impacts. All eleven new releases had one.",
+    "The original first board impact left 0.8133 m/s forward speed; the second raised it to 1.2899 m/s while vertical speed changed from -1.3284 to -0.4423 m/s.",
+    "At the 169.4386 mm gap, tilts 25.4688, 28.4688, and 31.4688 degrees left forward speeds 1.0225, 1.1051, and 1.1708 m/s, with upward speeds 0.6781, 0.5731, and 0.4533 m/s.",
+    "Those three shots cleared both arms but crossed rim height 193.25, 179.71, and 175.08 mm short. After bouncing on the table they contacted the bucket exterior below its rim; none entered.",
+    "All eight robot-contact shots first intersected the board arm link3 collider in CPU reconstruction. Their native force channels independently recorded robot contact."
+  ],
+  "proposed_next": {
+    "status": "untested",
+    "description": "Vary board center height while compensating drop gap to preserve an already reachable absolute release height; include a modest forward board shift if range remains insufficient. Check both arm poses and paths before native drops.",
+    "coordinate_constraint": "At the observed clear setting: release center z = board center z + drop gap + 37.5 mm = 461.8684 + 169.4386 + 37.5 = 668.8070 mm. Lowering board center by delta and increasing gap by delta keeps release center z unchanged. This does not prove the changed board pose is reachable or clear."
+  }
+}
