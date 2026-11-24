@@ -1,0 +1,116 @@
+{
+  "all_historical_positions": 1846,
+  "candidate_library": {
+    "observed_routes": {
+      "direct": 7248,
+      "mixed_assisted": 25,
+      "robot_assisted": 74,
+      "table_assisted": 4994
+    },
+    "positions": 1034,
+    "settings": 12341,
+    "split": "train"
+  },
+  "capture_attempts": 15001,
+  "capture_settings": 13415,
+  "conflicting_settings": 0,
+  "exclusions": {
+    "different_scene_calibration_or_contact_protocol": 146,
+    "missing_frozen_request_packet": 2568,
+    "missing_original_evidence_manifest": 5467,
+    "non_native_or_unscored": 3688,
+    "not_native64": 54
+  },
+  "fixed_grid_scope": "All 33 usable fixed-grid positions are TRAIN. Two fixed-base overlaps are not task locations.",
+  "library_version": "sircus-expanded-deduplicated-shot-library-v1",
+  "manifest_sha256": "70fe0d03c591a94e3e21b2da5a802a259960dae591601a76c48a1c736beaed91",
+  "native_attempts": 28876,
+  "native_settings": 26789,
+  "nominal_orientation_reconstructions": 3150,
+  "repeat_rows_removed": 2087,
+  "scope": "Saved simulation development data, not fresh accuracy. First confirmed board rebound plus one continuous second fully inside; later contacts permitted. Historical TEST explicitly reused as development; new TEST excludes all historical positions. Equal loss weight per bucket position, then per distinct setting; repeat outcomes retained.",
+  "scoring_version": "sircus-board-first-native-capture-v4",
+  "sensors_and_inputs": "Simulator geometry and original pre-IK source hints; no camera, point cloud or IMU observations. Solved query joints are excluded from network inputs.",
+  "source_records": 40799,
+  "splits": {
+    "train": {
+      "admitted_unreleased_settings": 458,
+      "capture_attempts": 13664,
+      "capture_attempts_by_route": {
+        "direct": 8126,
+        "mixed_assisted": 25,
+        "robot_assisted": 83,
+        "table_assisted": 5430
+      },
+      "capture_settings": 12341,
+      "capture_settings_by_route": {
+        "direct": 7248,
+        "mixed_assisted": 25,
+        "robot_assisted": 74,
+        "table_assisted": 4994
+      },
+      "fixed_grid_positions": 33,
+      "historical_phase_groups": {
+        "controls": 810,
+        "historical_test": 2585,
+        "historical_train": 4205,
+        "historical_validation": 491,
+        "search_diagnosis_confirmation_or_setup": 24293
+      },
+      "invalid_native_attempts": 261,
+      "mixed_setup_settings": 0,
+      "native_attempts": 26999,
+      "native_settings": 25222,
+      "positions": 1195,
+      "records": 30607,
+      "setup_only_settings": 5385,
+      "setup_rejected_settings": 4927,
+      "valid_native_attempts": 26738
+    },
+    "validation": {
+      "admitted_unreleased_settings": 95,
+      "capture_attempts": 1337,
+      "capture_attempts_by_route": {
+        "direct": 983,
+        "robot_assisted": 14,
+        "table_assisted": 340
+      },
+      "capture_settings": 1074,
+      "capture_settings_by_route": {
+        "direct": 813,
+        "robot_assisted": 14,
+        "table_assisted": 247
+      },
+      "fixed_grid_positions": 0,
+      "historical_phase_groups": {
+        "historical_test": 753,
+        "historical_train": 784,
+        "historical_validation": 122,
+        "search_diagnosis_confirmation_or_setup": 1120
+      },
+      "invalid_native_attempts": 8,
+      "mixed_setup_settings": 0,
+      "native_attempts": 1877,
+      "native_settings": 1567,
+      "positions": 292,
+      "records": 2469,
+      "setup_only_settings": 902,
+      "setup_rejected_settings": 807,
+      "valid_native_attempts": 1869
+    }
+  },
+  "status": "independently_counted",
+  "summary_sha256": "3d4163e77336259be94d89eed5302d3bace6934517a4bc857dbe7483a5fb2779",
+  "temporary_duplicate_cleanup": {
+    "bytes_removed": 126003130,
+    "files_removed": 6,
+    "original_source_datasets_preserved": true,
+    "other_intermediate_preserved": true,
+    "receipt_sha256": "a788de51bce4208197bb52f5d18a6da29ec720ebb8faf59bce60cd07e65002bc",
+    "retained_final_library_verified": true,
+    "scope": "Only the byte-identical development copy of this library was deleted after checking file hashes, frozen references and active readable process references. No historical dataset or checkpoint was deleted.",
+    "status": "completed"
+  },
+  "verification": "Counts independently recomputed from both frozen dataset files and candidate file; source and artifact hashes passed verify_library twice before fitting.",
+  "version": "sircus-expanded-selector-library-aggregate-v1"
+}

@@ -1185,7 +1185,9 @@ function ready(x) {
     && m.captures+m.setup_rejections+m.released_misses+m.invalid_physics === 50
     && Number.isFinite(m.mean_decision_s) && m.mean_decision_s >= 0
     && Number.isFinite(m.mean_request_s) && m.mean_request_s >= m.mean_decision_s)) return false;
-  if (!Array.isArray(x.results) || x.results.length !== 50) return false;
+  if (!Array.isArray(x.library_rows) || x.library_rows.length !== 2
+    || !x.library_rows.every(r=>typeof r.label==='string' && ['positions','settings','capturing_settings'].every(k=>integer(r[k])) && r.capturing_settings<=r.settings)
+    || !Array.isArray(x.results) || x.results.length !== 50) return false;
   const positions = new Set();
   for (const row of x.results) {
     if (!Array.isArray(row.bucket_xy_m) || row.bucket_xy_m.length !== 2 || !row.bucket_xy_m.every(Number.isFinite)
@@ -1207,9 +1209,17 @@ function render(root, raw) {
   const text=(id,value)=>{root.querySelector(`[data-expanded="${id}"]`).textContent=value;};
   const complete=ready(raw);
   text('status',complete?'Expanded-library comparison complete · independently checked':`Expanded-library comparison: ${raw.phase??'preparing'}. Final capture counts await the evidence audit.`);
-  text('data',complete?raw.training_text:'Preparing distinct shot settings and position-separated training and validation data.');
+  text('data',raw.training_text??'Preparing distinct shot settings and position-separated training and validation data.');
   table(root,'library',['Data split','Bucket positions','Distinct settings','Settings with captures'],complete?raw.library_rows.map(r=>[r.label,r.positions,r.settings,r.capturing_settings]):[]);
-  table(root,'comparison',['Method','Captures / 50','Setup refused','Released misses','Invalid','Mean decision / request (s)'],complete?raw.methods.map(m=>[m.label,`${m.captures} / 50`,m.setup_rejections,m.released_misses,m.invalid_physics,`${m.mean_decision_s.toFixed(2)} / ${m.mean_request_s.toFixed(2)}`]):[]);
+  const ordered=complete?['current','expanded'].map(id=>raw.methods.find(m=>m.id===id)):[];
+  table(root,'comparison',['Result','Current planner','Expanded selector'],complete?[
+    ['Captured and retained',...ordered.map(m=>`${m.captures} / 50`)],
+    ['No checked setup',...ordered.map(m=>m.setup_rejections)],
+    ['Released but missed',...ordered.map(m=>m.released_misses)],
+    ['Invalid physics',...ordered.map(m=>m.invalid_physics)],
+    ['Mean decision time (s)',...ordered.map(m=>m.mean_decision_s.toFixed(2))],
+    ['Mean full request time (s)',...ordered.map(m=>m.mean_request_s.toFixed(2))],
+  ]:[]);
   table(root,'positions',['Bucket X, Y (mm)','Current planner','Expanded selector'],complete?raw.results.map(r=>[r.bucket_xy_m.map(v=>(1000*v).toFixed(1)).join(', '),r.current,r.expanded]):[]);
   text('conclusion',complete?raw.conclusion:'No improvement is claimed before all test attempts and controls are checked.');
   text('timing',complete?raw.timing_text:'');
