@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { validCounts, rescoreReady, comparisonReady } from '../web/board-first.mjs';
+import { boardFirstValidCounts as validCounts, boardFirstRescoreReady as rescoreReady, boardFirstComparisonReady as comparisonReady } from '../web/interactive-physics.mjs';
 const provenance={report_sha256:'a'.repeat(64),audit_sha256:'b'.repeat(64)};
 const counts={scorable_native:10,old_captures:4,new_captures:5,gained:2,lost:1,unchanged_captures:3,unchanged_misses:3,invalid_native:1};
 test('rescoring separates gains, losses and invalid physics on one denominator',()=>{
@@ -22,7 +22,7 @@ test('only complete independently audited frozen50 comparisons display final cap
 test('new panel is read-only and keeps old studies and both refresh calls',()=>{
  const html=readFileSync(new URL('../web/index.html',import.meta.url),'utf8');
  const app=readFileSync(new URL('../web/app.js',import.meta.url),'utf8');
- const source=readFileSync(new URL('../web/board-first.mjs',import.meta.url),'utf8');
+ const source=readFileSync(new URL('../web/interactive-physics.mjs',import.meta.url),'utf8').split('// Read-only view.')[1];
  const panel=html.split('<section id="boardFirstStudy"')[1].split('</section>')[0];
  assert.doesNotMatch(panel,/<button|<input|<select/);
  assert.doesNotMatch(source,/fetch\(|innerHTML|physics\.drop|physics\.plan/);
