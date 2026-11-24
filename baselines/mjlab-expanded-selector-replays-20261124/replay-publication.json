@@ -1,0 +1,673 @@
+{
+  "schema": "sircus-expanded-selector-replay-publication-v1",
+  "status": "completed",
+  "diagnosis_sha256": "8dc675a0e3314c7fa2a3794d986b31e2e7dd326555edef38b5fc337cecf82f95",
+  "producer_commit": "a9c617a35be7ac49d6405508a487fe72e97a2e9b",
+  "ui_publisher_commit": "c8be9e9afc9eaedc047ed085c071042e046aa0ca",
+  "ui_fragment": "expandedSelectorReplays",
+  "historical_media_preserved": 13,
+  "media_entries_after": 17,
+  "services_restarted": false,
+  "live_planner_changed": false,
+  "ui_playback_verified": {
+    "method": "actual Replay from start buttons for all four videos; readyState=4, no media error, currentTime advanced",
+    "video_count": 4
+  },
+  "validation": {
+    "independent_evidence_checks": 773,
+    "python_tests_total": 3138,
+    "python_tests_skipped": 301,
+    "javascript_tests_passed": 500,
+    "code_commit_ci_run": 45491807126,
+    "code_commit_ci_conclusion": "success"
+  },
+  "media": [
+    {
+      "case_id": "expanded-selector-test-04",
+      "methods": {
+        "current": {
+          "record_id": "expanded-selector-test-04-current",
+          "record_sha256": "390a37a955d0bfe541a83100f59e34c06bfbac52e3e6ec2aa429eaf9a4dcc4f6",
+          "native_archive_sha256": "1466c79a84b27cc449623a4330982fe000f0a3d33368aed05ef5d66f344c91ad",
+          "native_column": 4,
+          "capture": true,
+          "scoring_version": "sircus-board-first-native-capture-v4",
+          "source_interval_s": [
+            0,
+            1.7110677083333332
+          ],
+          "events": {
+            "board": 0.1689453125,
+            "bucket": 0.49277343749999997,
+            "whole_ball_entry": 0.47649739583333334,
+            "capture": 1.7110677083333332
+          },
+          "q10": [
+            -0.40587449073791504,
+            -0.6653907895088196,
+            -1.9697965383529663,
+            4.187754257145571e-06,
+            -1.3044058084487915,
+            1.2451298236846924
+          ],
+          "q14": [
+            3.4245095252990723,
+            1.348246455192566,
+            -3.7262697219848633,
+            -0.36308974027633667,
+            -1.7787353992462158,
+            2.6798110008239746
+          ],
+          "bucket_xy_m": [
+            0.6164732555570717,
+            -0.5043638382666327
+          ],
+          "values": [
+            0.6350775786098215,
+            -0.2729103127706889,
+            0.3353019608405116,
+            21.800193638484163,
+            0.1455665677899724
+          ],
+          "calibrated_geometry_sha256": "7be78490527126841a8b580731a7d6415ef273358785810809f9d132a53896ca",
+          "input_sha256": {
+            "report.json": "d72966f031f91ad1f231b0b8c9bed3e64f37032c1f0d20b020c22bd041baa0d2",
+            "contract.json": "ae8da6f745639d4c98113449e8e1626e579c9976262e2368debfb183feffd2c3",
+            "rows.jsonl": "29fe3357864c16c3d85d1523326fc9810e16dbd8b6bb92c822995577f3915ef3",
+            "evidence-manifest.json": "3117645239b4b56ba2a03ea81ccc616435dfea50b6014db864952630aa10a8ad",
+            "audit": "af5f6d4efdba7829bc3fda48a67c28e655a0306ca613abe5ce55659e1afe585a",
+            "native_archive": "1466c79a84b27cc449623a4330982fe000f0a3d33368aed05ef5d66f344c91ad",
+            "choices.json": "2b9a06cded6a0911ae49e60674069307d70cc36389077bb8e318d0762bacdb8b",
+            "native_options": "1b66c77e8e42a17f45ebfae502fbe7a534802ca359a456cbad3147c4e656e48c"
+          }
+        },
+        "expanded": {
+          "record_id": "expanded-selector-test-04-expanded",
+          "record_sha256": "9248178ab170a94f94dd62068c5f3e7645b7dc3beafe5c46be6b139c5efc74fc",
+          "native_archive_sha256": "4022628ae9f57d5a0346cf71523147f7f139df6aec6d173e678b3f8f77bca4c6",
+          "native_column": 4,
+          "capture": false,
+          "scoring_version": "sircus-board-first-native-capture-v4",
+          "source_interval_s": [
+            0,
+            3.874153645833333
+          ],
+          "events": {
+            "board": 0.1896484375,
+            "bucket": 0.7044921875,
+            "table": 0.6430989583333333
+          },
+          "q10": [
+            -0.1392602026462555,
+            -0.4185694456100464,
+            -2.0717897415161133,
+            2.4424755338259274e-06,
+            -1.653220295906067,
+            1.3115028142929077
+          ],
+          "q14": [
+            3.19245982170105,
+            1.21406090259552,
+            -3.5778024196624756,
+            -0.21229152381420135,
+            -1.6645476818084717,
+            3.19952392578125
+          ],
+          "bucket_xy_m": [
+            0.6164732555570717,
+            -0.5043638382666327
+          ],
+          "values": [
+            0.565195258797559,
+            -0.07921771696136812,
+            0.5025939154683754,
+            12.144723315058823,
+            0.17980211771805632
+          ],
+          "calibrated_geometry_sha256": "7be78490527126841a8b580731a7d6415ef273358785810809f9d132a53896ca",
+          "input_sha256": {
+            "report.json": "d72966f031f91ad1f231b0b8c9bed3e64f37032c1f0d20b020c22bd041baa0d2",
+            "contract.json": "ae8da6f745639d4c98113449e8e1626e579c9976262e2368debfb183feffd2c3",
+            "rows.jsonl": "29fe3357864c16c3d85d1523326fc9810e16dbd8b6bb92c822995577f3915ef3",
+            "evidence-manifest.json": "3117645239b4b56ba2a03ea81ccc616435dfea50b6014db864952630aa10a8ad",
+            "audit": "af5f6d4efdba7829bc3fda48a67c28e655a0306ca613abe5ce55659e1afe585a",
+            "native_archive": "4022628ae9f57d5a0346cf71523147f7f139df6aec6d173e678b3f8f77bca4c6",
+            "choices.json": "2b9a06cded6a0911ae49e60674069307d70cc36389077bb8e318d0762bacdb8b",
+            "native_options": "1b66c77e8e42a17f45ebfae502fbe7a534802ca359a456cbad3147c4e656e48c"
+          }
+        }
+      },
+      "renderer_source_sha256": "5815daeea631711b8b4a3b50e05fdb13f6c0490a7da8e39345d7fb0a455598bd",
+      "model_xml_sha256": {
+        "current": "8683aa9fadfd14877c7a79a9fb456081c379877d11e199da63dec37c5991f3cd",
+        "expanded": "8683aa9fadfd14877c7a79a9fb456081c379877d11e199da63dec37c5991f3cd"
+      },
+      "model_source_sha256": {
+        "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+        "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d"
+      },
+      "packages": {
+        "mujoco": "3.11.0",
+        "numpy": "1.26.4",
+        "Pillow": "12.3.0",
+        "imageio": "2.38.0"
+      },
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "duration_s": 17.0,
+      "playback_speed": 0.25,
+      "camera": {
+        "lookat": [
+          0.6001364290714264,
+          -0.29179075903261786,
+          0.4199480092525482
+        ],
+        "distance": 1.5,
+        "azimuth": -162.15119734235213,
+        "elevation": -25
+      },
+      "native_steps_added": 0,
+      "held_arm_poses": true,
+      "interpolation": false,
+      "sampled_ball_centers_only": true,
+      "ball_spin_recorded": false,
+      "historical_labels_unchanged": true,
+      "output_sha256": "39bae646fce867684b92940886c19e0138db5288af2f989ca3e53c01fe72e899",
+      "video_bytes": 439087,
+      "file": "expanded-selector-case-04.mp4",
+      "receipt_sha256": "bf6a1f9413f53d1c4abf4eadb0ff82cc00f9a43698a846f7324281d4024c95c0",
+      "frames": 510,
+      "renderers": {
+        "current": "NVIDIA GeForce RTX 4090/PCIe/SSE2",
+        "expanded": "NVIDIA GeForce RTX 4090/PCIe/SSE2"
+      }
+    },
+    {
+      "case_id": "expanded-selector-test-10",
+      "methods": {
+        "current": {
+          "record_id": "expanded-selector-test-10-current",
+          "record_sha256": "2c6c2a5c324fde38e316f7910e7058edd80f8b3d8ae7058a0f53228115c38626",
+          "native_archive_sha256": "1466c79a84b27cc449623a4330982fe000f0a3d33368aed05ef5d66f344c91ad",
+          "native_column": 10,
+          "capture": false,
+          "scoring_version": "sircus-board-first-native-capture-v4",
+          "source_interval_s": [
+            0,
+            4.0
+          ],
+          "events": {
+            "board": 0.15885416666666666,
+            "bucket": 0.6129557291666666,
+            "table": 0.5028645833333333
+          },
+          "q10": [
+            -0.35815516114234924,
+            -0.6729441285133362,
+            -2.1754539012908936,
+            2.5789092887862353e-06,
+            -1.5025097131729126,
+            0.07319623976945877
+          ],
+          "q14": [
+            3.3846025466918945,
+            1.9145691394805908,
+            -2.371365785598755,
+            -0.3317694664001465,
+            -1.594922661781311,
+            4.072625637054443
+          ],
+          "bucket_xy_m": [
+            1.179222424148156,
+            -0.48813183237862323
+          ],
+          "values": [
+            0.6352832396127122,
+            -0.23778013337371418,
+            0.433805880878039,
+            31.72734340385772,
+            0.13325404596484747
+          ],
+          "calibrated_geometry_sha256": "7be78490527126841a8b580731a7d6415ef273358785810809f9d132a53896ca",
+          "input_sha256": {
+            "report.json": "d72966f031f91ad1f231b0b8c9bed3e64f37032c1f0d20b020c22bd041baa0d2",
+            "contract.json": "ae8da6f745639d4c98113449e8e1626e579c9976262e2368debfb183feffd2c3",
+            "rows.jsonl": "29fe3357864c16c3d85d1523326fc9810e16dbd8b6bb92c822995577f3915ef3",
+            "evidence-manifest.json": "3117645239b4b56ba2a03ea81ccc616435dfea50b6014db864952630aa10a8ad",
+            "audit": "af5f6d4efdba7829bc3fda48a67c28e655a0306ca613abe5ce55659e1afe585a",
+            "native_archive": "1466c79a84b27cc449623a4330982fe000f0a3d33368aed05ef5d66f344c91ad",
+            "choices.json": "2b9a06cded6a0911ae49e60674069307d70cc36389077bb8e318d0762bacdb8b",
+            "native_options": "1b66c77e8e42a17f45ebfae502fbe7a534802ca359a456cbad3147c4e656e48c"
+          }
+        },
+        "expanded": {
+          "record_id": "expanded-selector-test-10-expanded",
+          "record_sha256": "b7952ecd5c2ae91acab90a3b9bcfef1079f64f6e180a777f5ee3d801e0eab7c0",
+          "native_archive_sha256": "4022628ae9f57d5a0346cf71523147f7f139df6aec6d173e678b3f8f77bca4c6",
+          "native_column": 10,
+          "capture": true,
+          "scoring_version": "sircus-board-first-native-capture-v4",
+          "source_interval_s": [
+            0,
+            1.8795572916666667
+          ],
+          "events": {
+            "board": 0.19401041666666666,
+            "bucket": 0.88359375,
+            "table": 0.5568359375,
+            "whole_ball_entry": 0.8795572916666666,
+            "capture": 1.8795572916666667
+          },
+          "q10": [
+            -0.10900771617889404,
+            -0.4119492769241333,
+            -1.9153189659118652,
+            3.5616942568594823e-06,
+            -1.503369688987732,
+            0.5127515196800232
+          ],
+          "q14": [
+            -3.129936695098877,
+            1.86968994140625,
+            -2.4781153202056885,
+            -3.438892364501953,
+            1.62309730052948,
+            0.9752143621444702
+          ],
+          "bucket_xy_m": [
+            1.179222424148156,
+            -0.48813183237862323
+          ],
+          "values": [
+            0.5877824038972639,
+            -0.06432385684602197,
+            0.42686245325720745,
+            29.141097762449544,
+            0.19296870061308669
+          ],
+          "calibrated_geometry_sha256": "7be78490527126841a8b580731a7d6415ef273358785810809f9d132a53896ca",
+          "input_sha256": {
+            "report.json": "d72966f031f91ad1f231b0b8c9bed3e64f37032c1f0d20b020c22bd041baa0d2",
+            "contract.json": "ae8da6f745639d4c98113449e8e1626e579c9976262e2368debfb183feffd2c3",
+            "rows.jsonl": "29fe3357864c16c3d85d1523326fc9810e16dbd8b6bb92c822995577f3915ef3",
+            "evidence-manifest.json": "3117645239b4b56ba2a03ea81ccc616435dfea50b6014db864952630aa10a8ad",
+            "audit": "af5f6d4efdba7829bc3fda48a67c28e655a0306ca613abe5ce55659e1afe585a",
+            "native_archive": "4022628ae9f57d5a0346cf71523147f7f139df6aec6d173e678b3f8f77bca4c6",
+            "choices.json": "2b9a06cded6a0911ae49e60674069307d70cc36389077bb8e318d0762bacdb8b",
+            "native_options": "1b66c77e8e42a17f45ebfae502fbe7a534802ca359a456cbad3147c4e656e48c"
+          }
+        }
+      },
+      "renderer_source_sha256": "5815daeea631711b8b4a3b50e05fdb13f6c0490a7da8e39345d7fb0a455598bd",
+      "model_xml_sha256": {
+        "current": "8683aa9fadfd14877c7a79a9fb456081c379877d11e199da63dec37c5991f3cd",
+        "expanded": "8683aa9fadfd14877c7a79a9fb456081c379877d11e199da63dec37c5991f3cd"
+      },
+      "model_source_sha256": {
+        "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+        "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d"
+      },
+      "packages": {
+        "mujoco": "3.11.0",
+        "numpy": "1.26.4",
+        "Pillow": "12.3.0",
+        "imageio": "2.38.0"
+      },
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "duration_s": 17.5,
+      "playback_speed": 0.25,
+      "camera": {
+        "lookat": [
+          0.8835023737542995,
+          -0.2762278449026333,
+          0.3886655843257904
+        ],
+        "distance": 1.6281190319854293,
+        "azimuth": 74.2992291905605,
+        "elevation": -35
+      },
+      "native_steps_added": 0,
+      "held_arm_poses": true,
+      "interpolation": false,
+      "sampled_ball_centers_only": true,
+      "ball_spin_recorded": false,
+      "historical_labels_unchanged": true,
+      "output_sha256": "6c1b057409282059c6e8ff15108cb2dd42e5ff1980ac953cb4983d1c1fa06621",
+      "video_bytes": 488229,
+      "file": "expanded-selector-case-10.mp4",
+      "receipt_sha256": "4d78af4e319d80a0846ce591b270e55f2a9fc26c87099b3d348b58b0dfa8b0dd",
+      "frames": 525,
+      "renderers": {
+        "current": "NVIDIA GeForce RTX 4090/PCIe/SSE2",
+        "expanded": "NVIDIA GeForce RTX 4090/PCIe/SSE2"
+      }
+    },
+    {
+      "case_id": "expanded-selector-test-19",
+      "methods": {
+        "current": {
+          "record_id": "expanded-selector-test-19-current",
+          "record_sha256": "d90fe32d50be32e9191e627b63769b37754704193f9b61593353db2f6dce4edc",
+          "native_archive_sha256": "1466c79a84b27cc449623a4330982fe000f0a3d33368aed05ef5d66f344c91ad",
+          "native_column": 19,
+          "capture": true,
+          "scoring_version": "sircus-board-first-native-capture-v4",
+          "source_interval_s": [
+            0,
+            1.9301432291666667
+          ],
+          "events": {
+            "board": 0.16809895833333333,
+            "bucket": 0.9505859375,
+            "table": 0.5662109375,
+            "whole_ball_entry": 0.9301432291666667,
+            "capture": 1.9301432291666667
+          },
+          "q10": [
+            0.18966735899448395,
+            -0.39832645654678345,
+            -1.9156031608581543,
+            3.4960746688739164e-06,
+            -1.517276644706726,
+            1.2649677991867065
+          ],
+          "q14": [
+            2.927943468093872,
+            1.3882874250411987,
+            -3.2704548835754395,
+            -0.29481369256973267,
+            -1.7739075422286987,
+            3.8495943546295166
+          ],
+          "bucket_xy_m": [
+            0.8545968074612572,
+            -0.4085711388163732
+          ],
+          "values": [
+            0.5741987359355634,
+            0.1102357388998691,
+            0.4835953460448593,
+            22.328035370509124,
+            0.14436939141554855
+          ],
+          "calibrated_geometry_sha256": "7be78490527126841a8b580731a7d6415ef273358785810809f9d132a53896ca",
+          "input_sha256": {
+            "report.json": "d72966f031f91ad1f231b0b8c9bed3e64f37032c1f0d20b020c22bd041baa0d2",
+            "contract.json": "ae8da6f745639d4c98113449e8e1626e579c9976262e2368debfb183feffd2c3",
+            "rows.jsonl": "29fe3357864c16c3d85d1523326fc9810e16dbd8b6bb92c822995577f3915ef3",
+            "evidence-manifest.json": "3117645239b4b56ba2a03ea81ccc616435dfea50b6014db864952630aa10a8ad",
+            "audit": "af5f6d4efdba7829bc3fda48a67c28e655a0306ca613abe5ce55659e1afe585a",
+            "native_archive": "1466c79a84b27cc449623a4330982fe000f0a3d33368aed05ef5d66f344c91ad",
+            "choices.json": "2b9a06cded6a0911ae49e60674069307d70cc36389077bb8e318d0762bacdb8b",
+            "native_options": "1b66c77e8e42a17f45ebfae502fbe7a534802ca359a456cbad3147c4e656e48c"
+          }
+        },
+        "expanded": {
+          "record_id": "expanded-selector-test-19-expanded",
+          "record_sha256": "eb479b19bc8f86c32bf1b59b4799e3c765bd013e394ac9048cfb43efc9d929a0",
+          "native_archive_sha256": "4022628ae9f57d5a0346cf71523147f7f139df6aec6d173e678b3f8f77bca4c6",
+          "native_column": 19,
+          "capture": false,
+          "scoring_version": "sircus-board-first-native-capture-v4",
+          "source_interval_s": [
+            0,
+            4.0
+          ],
+          "events": {
+            "board": 0.1896484375,
+            "bucket": 0.7216145833333333,
+            "table": 0.6431640625
+          },
+          "q10": [
+            -0.1392602026462555,
+            -0.4185694456100464,
+            -2.0717897415161133,
+            2.4424698494840413e-06,
+            -1.653220295906067,
+            0.7106161713600159
+          ],
+          "q14": [
+            3.203339099884033,
+            1.2957231998443604,
+            -3.423912525177002,
+            -0.16774293780326843,
+            -1.708356261253357,
+            3.795775890350342
+          ],
+          "bucket_xy_m": [
+            0.8545968074612572,
+            -0.4085711388163732
+          ],
+          "values": [
+            0.565195258797559,
+            -0.07921771696136812,
+            0.5025939154683754,
+            12.144723315058823,
+            0.17980211771805632
+          ],
+          "calibrated_geometry_sha256": "7be78490527126841a8b580731a7d6415ef273358785810809f9d132a53896ca",
+          "input_sha256": {
+            "report.json": "d72966f031f91ad1f231b0b8c9bed3e64f37032c1f0d20b020c22bd041baa0d2",
+            "contract.json": "ae8da6f745639d4c98113449e8e1626e579c9976262e2368debfb183feffd2c3",
+            "rows.jsonl": "29fe3357864c16c3d85d1523326fc9810e16dbd8b6bb92c822995577f3915ef3",
+            "evidence-manifest.json": "3117645239b4b56ba2a03ea81ccc616435dfea50b6014db864952630aa10a8ad",
+            "audit": "af5f6d4efdba7829bc3fda48a67c28e655a0306ca613abe5ce55659e1afe585a",
+            "native_archive": "4022628ae9f57d5a0346cf71523147f7f139df6aec6d173e678b3f8f77bca4c6",
+            "choices.json": "2b9a06cded6a0911ae49e60674069307d70cc36389077bb8e318d0762bacdb8b",
+            "native_options": "1b66c77e8e42a17f45ebfae502fbe7a534802ca359a456cbad3147c4e656e48c"
+          }
+        }
+      },
+      "renderer_source_sha256": "5815daeea631711b8b4a3b50e05fdb13f6c0490a7da8e39345d7fb0a455598bd",
+      "model_xml_sha256": {
+        "current": "8683aa9fadfd14877c7a79a9fb456081c379877d11e199da63dec37c5991f3cd",
+        "expanded": "8683aa9fadfd14877c7a79a9fb456081c379877d11e199da63dec37c5991f3cd"
+      },
+      "model_source_sha256": {
+        "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+        "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d"
+      },
+      "packages": {
+        "mujoco": "3.11.0",
+        "numpy": "1.26.4",
+        "Pillow": "12.3.0",
+        "imageio": "2.38.0"
+      },
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "duration_s": 17.5,
+      "playback_speed": 0.25,
+      "camera": {
+        "lookat": [
+          0.7098959455397107,
+          -0.14916770152116648,
+          0.4199480092525482
+        ],
+        "distance": 1.519683154821628,
+        "azimuth": 48.89347877582105,
+        "elevation": -35
+      },
+      "native_steps_added": 0,
+      "held_arm_poses": true,
+      "interpolation": false,
+      "sampled_ball_centers_only": true,
+      "ball_spin_recorded": false,
+      "historical_labels_unchanged": true,
+      "output_sha256": "bc65818c02d6e31f4d2c0a6e06e7efaffc848c092729d528a81f076718df399c",
+      "video_bytes": 535953,
+      "file": "expanded-selector-case-19.mp4",
+      "receipt_sha256": "35bd6c03d8dfae4760525fa2573920c5b2e0b27f1a09eda27d27144727a420f3",
+      "frames": 525,
+      "renderers": {
+        "current": "NVIDIA GeForce RTX 4090/PCIe/SSE2",
+        "expanded": "NVIDIA GeForce RTX 4090/PCIe/SSE2"
+      }
+    },
+    {
+      "case_id": "expanded-selector-test-47",
+      "methods": {
+        "current": {
+          "record_id": "expanded-selector-test-47-current",
+          "record_sha256": "6ae3fb5a410e08e56784b5eaea5476e0a0d0b5e925a68a4e0befc38a95f43693",
+          "native_archive_sha256": "a998c8a1489970020a6f22b57bb8ba7416e5cbe2e16fab1dba7e649954564899",
+          "native_column": 0,
+          "capture": false,
+          "scoring_version": "sircus-board-first-native-capture-v4",
+          "source_interval_s": [
+            0,
+            1.4145182291666667
+          ],
+          "events": {
+            "board": 0.22545572916666667,
+            "table": 0.6560546875,
+            "robot": 0.5526692708333333
+          },
+          "q10": [
+            -0.2402348816394806,
+            -0.46486783027648926,
+            -2.00541615486145,
+            3.117230335192289e-06,
+            -1.540548324584961,
+            -0.787916898727417
+          ],
+          "q14": [
+            3.355339288711548,
+            1.6039425134658813,
+            -3.132035255432129,
+            0.10040953010320663,
+            -1.8558378219604492,
+            5.293548583984375
+          ],
+          "bucket_xy_m": [
+            1.178803302716751,
+            0.21647751813559243
+          ],
+          "values": [
+            0.5878007242909605,
+            -0.14398666406199986,
+            0.3736925543705354,
+            16.016394669101363,
+            0.25346928437628946
+          ],
+          "calibrated_geometry_sha256": "7be78490527126841a8b580731a7d6415ef273358785810809f9d132a53896ca",
+          "input_sha256": {
+            "report.json": "d72966f031f91ad1f231b0b8c9bed3e64f37032c1f0d20b020c22bd041baa0d2",
+            "contract.json": "ae8da6f745639d4c98113449e8e1626e579c9976262e2368debfb183feffd2c3",
+            "rows.jsonl": "29fe3357864c16c3d85d1523326fc9810e16dbd8b6bb92c822995577f3915ef3",
+            "evidence-manifest.json": "3117645239b4b56ba2a03ea81ccc616435dfea50b6014db864952630aa10a8ad",
+            "audit": "af5f6d4efdba7829bc3fda48a67c28e655a0306ca613abe5ce55659e1afe585a",
+            "native_archive": "a998c8a1489970020a6f22b57bb8ba7416e5cbe2e16fab1dba7e649954564899",
+            "choices.json": "2b9a06cded6a0911ae49e60674069307d70cc36389077bb8e318d0762bacdb8b",
+            "native_options": "1b66c77e8e42a17f45ebfae502fbe7a534802ca359a456cbad3147c4e656e48c"
+          }
+        },
+        "expanded": {
+          "record_id": "expanded-selector-test-47-expanded",
+          "record_sha256": "fd39081faaa00f673e7815a365739bd05ad42abdb02bf97cdda86b619d1f240a",
+          "native_archive_sha256": "4ab95c1d1f25cd3f78d6818992fc7724623a0f34f642db2da52720adeed81b30",
+          "native_column": 0,
+          "capture": true,
+          "scoring_version": "sircus-board-first-native-capture-v4",
+          "source_interval_s": [
+            0,
+            1.9682942708333333
+          ],
+          "events": {
+            "board": 0.11171874999999999,
+            "bucket": 0.9850260416666666,
+            "table": 0.6125651041666667,
+            "whole_ball_entry": 0.9682942708333333,
+            "capture": 1.9682942708333333
+          },
+          "q10": [
+            0.08061820268630981,
+            -0.6328078508377075,
+            -2.202415943145752,
+            2.2594642814510735e-06,
+            -1.5696080923080444,
+            -0.22190701961517334
+          ],
+          "q14": [
+            -0.04575619846582413,
+            -2.1201083660125732,
+            -3.8074052333831787,
+            -3.025810480117798,
+            -1.743172526359558,
+            5.055907249450684
+          ],
+          "bucket_xy_m": [
+            1.178803302716751,
+            0.21647751813559243
+          ],
+          "values": [
+            0.6546934822415221,
+            0.05289969148160392,
+            0.5397646345203551,
+            17.821956539882287,
+            0.06571426449708762
+          ],
+          "calibrated_geometry_sha256": "7be78490527126841a8b580731a7d6415ef273358785810809f9d132a53896ca",
+          "input_sha256": {
+            "report.json": "d72966f031f91ad1f231b0b8c9bed3e64f37032c1f0d20b020c22bd041baa0d2",
+            "contract.json": "ae8da6f745639d4c98113449e8e1626e579c9976262e2368debfb183feffd2c3",
+            "rows.jsonl": "29fe3357864c16c3d85d1523326fc9810e16dbd8b6bb92c822995577f3915ef3",
+            "evidence-manifest.json": "3117645239b4b56ba2a03ea81ccc616435dfea50b6014db864952630aa10a8ad",
+            "audit": "af5f6d4efdba7829bc3fda48a67c28e655a0306ca613abe5ce55659e1afe585a",
+            "native_archive": "4ab95c1d1f25cd3f78d6818992fc7724623a0f34f642db2da52720adeed81b30",
+            "choices.json": "2b9a06cded6a0911ae49e60674069307d70cc36389077bb8e318d0762bacdb8b",
+            "native_options": "1b66c77e8e42a17f45ebfae502fbe7a534802ca359a456cbad3147c4e656e48c"
+          }
+        }
+      },
+      "renderer_source_sha256": "5815daeea631711b8b4a3b50e05fdb13f6c0490a7da8e39345d7fb0a455598bd",
+      "model_xml_sha256": {
+        "current": "8683aa9fadfd14877c7a79a9fb456081c379877d11e199da63dec37c5991f3cd",
+        "expanded": "8683aa9fadfd14877c7a79a9fb456081c379877d11e199da63dec37c5991f3cd"
+      },
+      "model_source_sha256": {
+        "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+        "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d"
+      },
+      "packages": {
+        "mujoco": "3.11.0",
+        "numpy": "1.26.4",
+        "Pillow": "12.3.0",
+        "imageio": "2.38.0"
+      },
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "duration_s": 9.4,
+      "playback_speed": 0.25,
+      "camera": {
+        "lookat": [
+          0.8833019325492477,
+          0.03624539318396901,
+          0.3923309123516083
+        ],
+        "distance": 1.585508027659244,
+        "azimuth": -49.82903579855116,
+        "elevation": -25
+      },
+      "native_steps_added": 0,
+      "held_arm_poses": true,
+      "interpolation": false,
+      "sampled_ball_centers_only": true,
+      "ball_spin_recorded": false,
+      "historical_labels_unchanged": true,
+      "output_sha256": "45181c8c6ecf936ead08e2b0d65c86b1a369bce56637a462bec9e771e58f46d2",
+      "video_bytes": 315443,
+      "file": "expanded-selector-case-47.mp4",
+      "receipt_sha256": "d798b61af6a3def4853e173ebe10aa9833e2aa608bd1a5e4a4d82d75b002121f",
+      "frames": 282,
+      "renderers": {
+        "current": "NVIDIA GeForce RTX 4090/PCIe/SSE2",
+        "expanded": "NVIDIA GeForce RTX 4090/PCIe/SSE2"
+      }
+    }
+  ]
+}

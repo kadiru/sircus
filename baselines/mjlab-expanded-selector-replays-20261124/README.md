@@ -5,6 +5,15 @@ finished at **44 captures for each planner**. The expanded planner gained two
 placements and lost two. This follow-up examines both saved drops at those four
 placements: **eight historical flights, no new trials or training**.
 
+**Four paired movies are published in the mjlab UI at
+`#expandedSelectorReplays`.** Each compares the two saved flights with the same
+camera at **0.25× speed**. Both arms stay at their recorded endpoints; only the
+recorded ball samples are played back. All four movies passed live-browser
+playback verification. [Publication receipts](replay-publication.json) record
+the movie hashes, camera settings and playback checks. All 13 older media entries
+are preserved, bringing the total to 17. The 4070 workload and Isaac setup remain
+untouched.
+
 | Bucket X/Y (mm) | Current planner | Expanded planner | Observed difference |
 |---|---|---|---|
 | 616.5 / −504.4 (04) | Direct capture | Miss | Expanded: table rebound, then near-side bucket contact while rising at 1.56 m/s; no entry. |
@@ -91,7 +100,9 @@ or moving-arm trial. The parent 44/50 results remain unchanged. No live planner,
 
 ## Frozen evidence
 
-Producer: **`a9c617a35be7ac49d6405508a487fe72e97a2e9b`**.
+Diagnosis/video producer: **`a9c617a35be7ac49d6405508a487fe72e97a2e9b`**.
+UI/publisher: **`c8be9e9`**; draft
+[PR #167](https://github.com/kadiru/sircus/pull/167).
 Final CPU diagnosis completed **773 evidence checks**; all eight independently
 rescored outcomes match the audited parent. The full diagnostic is preserved
 outside Git at
@@ -107,7 +118,11 @@ The repository summary excludes dense states and raw force arrays.
 | Parent evidence manifest | `3117645239b4b56ba2a03ea81ccc616435dfea50b6014db864952630aa10a8ad` |
 | Parent choices | `2b9a06cded6a0911ae49e60674069307d70cc36389077bb8e318d0762bacdb8b` |
 
-Validation: 21 local unit tests passed across the new diagnosis, contact-interval
-and link-attribution helpers; the final frozen Ubuntu CPU diagnosis passed.
-Video generation and playback verification have separate receipts and do not
-add simulated drops.
+Validation: the full Python suite passed with **3,138 tests run and 301 skipped**;
+**500 JavaScript tests passed**. This includes the diagnosis/contact helper
+checks; the final frozen Ubuntu CPU diagnosis passed independently. All four
+published movies were verified playing in the live browser. Video generation
+and playback verification have separate receipts and add no simulated drops.
+GitHub CI passed for `c8be9e9` ([run 45491807126](https://github.com/kadiru/sircus/actions/runs/45491807126)).
+No training, live planner promotion, service restart, 4070 workload change or
+Isaac setup change accompanied publication.

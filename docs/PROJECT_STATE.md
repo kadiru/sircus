@@ -1,5 +1,13 @@
 # Project state
 
+## Four paired expanded-selector replays published — November 24, 2026
+
+- [Diagnosis, exact settings and reproduction](../baselines/mjlab-expanded-selector-replays-20261124/README.md): inspect both planners' saved drops at the two gained and two lost placements (**04, 10, 19, 47** in the preceding 50-position test). The original comparison remains **44/50 for each planner**. CPU diagnosis passed **773 evidence checks**; no new drops or training.
+- Both expanded losses reused one historical source setting and hit the bucket while rising after a table rebound, without whole-ball entry. Current Case 10 had the same approach failure; its expanded shot captured. Current Case 47 contacted a robot (CPU geometry identifies board-arm link 3); the expanded shot captured after two board-contact intervals and a table rebound. Link identity is inferred separately from measured contact forces, and several shot parameters changed together.
+- **Four paired movies** are published at **`#expandedSelectorReplays`**: identical camera within each pair, recorded native64 ball samples at **0.25× speed**, and arms held at saved endpoints. All four passed live-browser playback verification. These are historical replays, not new simulated trials or learned arm motions.
+- Frozen diagnosis/video producer **`a9c617a35be7ac49d6405508a487fe72e97a2e9b`**; UI/publisher **`c8be9e9`**; draft [PR #167](https://github.com/kadiru/sircus/pull/167). Full Python suite passed: **3,138 tests run, 301 skipped**; **500 JavaScript tests passed**. No live planner promotion, service restart, 4070 workload or Isaac setup change.
+- Next proposed test: check the rising table-rebound approach against bucket collision geometry before trusting a favorable descending opening prediction. Preserve valid table/robot rebounds and successful settings. The second-board rebound also exposes a limitation of the one-board forecast; no correction experiment starts from this publication.
+
 ## Expanded deduplicated selector comparison — November 24, 2026
 
 - [Results and reproduction](../baselines/mjlab-expanded-selector-20261124/README.md): consolidate 28,876 compatible native64 attempts into **26,789 distinct shot settings**, including 13,415 settings with a recorded capture. The supervised 44→64→32→2 selector trains on **30,607 records at 1,195 bucket positions**, with equal total weight per position; validation uses 2,469 records at 292 separate positions. All 33 usable fixed-grid positions are TRAIN. Historical test data are explicitly development data for this new experiment; old results remain unchanged.
