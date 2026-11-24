@@ -533,6 +533,82 @@ export function guardedBoardFallbackSummary(study) {
 }
 
 /** Selected development targets and repeated frozen commands, never a fresh-position policy score. */
+export function clearShotRangeSummary(study) {
+  const raw=study?.clear_shot_range;
+  if(raw?.version!=='sircus-clear-shot-range-v1')return null;
+  const count=value=>Number.isInteger(value)&&value>=0?value:null;
+  const text=value=>typeof value==='string'?value:'';
+  const hash=value=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
+  const same=(a,b)=>Number.isFinite(a)&&Number.isFinite(b)&&Math.abs(a-b)<1e-8;
+  const source=raw.source_summary||{},case_=raw.cases?.[0]||{};
+  const sourceValid=source.id==='parallel-board-miss-09-clearance-0016-b0'&&vector(source.values,5)
+    &&vector(source.bucket_xy_m,2)&&sameXY(source.bucket_xy_m,case_.bucket_xy_m)
+    &&Number.isFinite(source.board_heading_offset_deg)&&same(source.board_twist_deg,135)
+    &&vector(source.selected_q10,6)&&vector(source.selected_q14,6)&&source.prior_no_robot_contact===true;
+  const allowed=new Set(['direct','table','flight_miss','invalid_physics','arm_assisted_capture']);
+  const result=group=>{
+    const row=Object.fromEntries(['requested','completed','released','captures','direct','table','robot_contacts'].map(key=>[key,count(group?.[key])]));
+    const outcomes=Array.isArray(group?.outcomes)?group.outcomes:[];
+    row.arm_assisted=outcomes.filter(value=>value==='arm_assisted_capture').length;
+    row.valid=Object.values(row).every(value=>value!==null)&&row.requested===row.completed&&row.released===row.completed
+      &&row.captures===row.direct+row.table&&row.captures<=row.released&&row.robot_contacts<=row.released&&row.arm_assisted<=row.robot_contacts
+      &&outcomes.length===row.completed&&outcomes.every(value=>allowed.has(value))
+      &&row.direct===outcomes.filter(value=>value==='direct').length&&row.table===outcomes.filter(value=>value==='table').length;
+    return row;
+  };
+  const results=Object.fromEntries(['original','search','repeat'].map(key=>[key,result(case_.results?.[key])]));
+  const grid=Array.isArray(case_.grid)?case_.grid:[];
+  const gaps=[0,.02,.04,.06,.08,.10,.13,.16,.20,.24],tilts=[0,-3,3,-6,6];
+  const coordinateKeys=new Set();
+  const gridValid=grid.length===49&&grid.every(row=>{
+    const key=JSON.stringify([row.gap_delta_m,row.tilt_delta_deg]);
+    const unique=!coordinateKeys.has(key);coordinateKeys.add(key);
+    const admitted=row.setup_status==='admitted',unreleased=['rejected','not_checked'].includes(row.setup_status);
+    return unique&&Boolean(text(row.proposal_id))&&gaps.some(value=>same(value,row.gap_delta_m))&&tilts.includes(row.tilt_delta_deg)
+      &&!(same(row.gap_delta_m,0)&&row.tilt_delta_deg===0)&&same(row.tilt_deg,source.values?.[3]+row.tilt_delta_deg)
+      &&same(row.drop_gap_m,source.values?.[4]+row.gap_delta_m)
+      &&(admitted ? Boolean(text(row.candidate_id))&&allowed.has(row.initial_outcome)&&typeof row.robot_contact==='boolean'
+        &&row.initial_capture===['direct','table'].includes(row.initial_outcome)
+        &&count(row.repeat_completed)!==null&&count(row.repeat_captures)!==null&&row.repeat_captures<=row.repeat_completed
+        &&row.repeat_completed===(row.initial_capture?3:0)&&row.confirmed===(row.repeat_completed===3&&row.repeat_captures===3)
+        :unreleased&&row.candidate_id===null&&row.initial_outcome===null&&row.initial_capture===null&&row.robot_contact===null
+          &&row.repeat_completed===0&&row.repeat_captures===0&&row.confirmed===false);
+  });
+  const repeated=Array.isArray(case_.repeated_settings)?case_.repeated_settings:[];
+  const confirmed=repeated.filter(row=>row.repeat_completed===3&&row.repeat_captures===3);
+  const repeatValid=repeated.length===results.search.captures&&repeated.every(row=>{
+    const request=row.request||{},match=grid.find(item=>item.candidate_id===row.candidate_id);
+    return Boolean(match?.initial_capture)&&request.id===row.candidate_id&&request.context_id===case_.id
+      &&sameXY(request.bucket_xy_m,case_.bucket_xy_m)&&vector(request.values,5)
+      &&same(request.values[0],source.values?.[0])&&same(request.values[1],source.values?.[1])&&same(request.values[2],source.values?.[2])
+      &&same(request.values[3],match.tilt_deg)&&same(request.values[4],match.drop_gap_m)
+      &&same(request.board_heading_offset_deg,source.board_heading_offset_deg)&&same(request.board_twist_deg,source.board_twist_deg)
+      &&vector(request.selected_q10,6)&&vector(request.selected_q14,6)&&row.repeat_completed===match.repeat_completed&&row.repeat_captures===match.repeat_captures;
+  })&&new Set(repeated.map(row=>row.candidate_id)).size===repeated.length
+    &&JSON.stringify(case_.confirmed_settings)===JSON.stringify(confirmed);
+  const admitted=grid.filter(row=>row.setup_status==='admitted');
+  const accounting=Array.isArray(raw.cases)&&raw.cases.length===1&&case_.id==='parallel-board-miss-09'&&sourceValid&&gridValid&&repeatValid
+    &&Object.values(results).every(row=>row.valid)&&results.original.requested===3&&results.search.requested===admitted.length
+    &&case_.selected===admitted.length&&case_.proposed===49&&new Set(admitted.map(row=>row.candidate_id)).size===admitted.length
+    &&results.search.captures===admitted.filter(row=>row.initial_capture).length
+    &&results.search.robot_contacts===admitted.filter(row=>row.robot_contact).length
+    &&results.search.direct===admitted.filter(row=>row.initial_outcome==='direct').length&&results.search.table===admitted.filter(row=>row.initial_outcome==='table').length
+    &&results.repeat.released===3*results.search.captures&&results.repeat.captures===grid.reduce((sum,row)=>sum+row.repeat_captures,0)
+    &&raw.initial_requests===3+admitted.length&&raw.confirmation_requests===results.repeat.released
+    &&raw.progress?.completed===raw.progress?.planned&&raw.progress.completed===raw.initial_requests+raw.confirmation_requests
+    &&raw.native_releases===raw.progress.completed+27&&raw.native_releases<=226;
+  const controls=['controls_pre','controls_post'].every(key=>raw.controls?.[key]?.status==='passed'&&raw.controls[key].direct_captures===3
+    &&raw.controls[key].table_assisted_captures===3&&raw.controls[key].negative_captures===0);
+  const preserved=raw.preserved_shots||{},provenance=raw.published_provenance||{};
+  const proof=['report_sha256','audit_sha256','evidence_manifest_sha256','plan_sha256','contract_sha256','source_bank_sha256'].every(key=>hash(provenance[key]))
+    &&provenance.evidence_manifest_sha256===raw.evidence_manifest_sha256;
+  const complete=Boolean(raw.status==='completed'&&raw.phase==='completed'&&raw.audit_status==='passed'&&raw.scope==='development'
+    &&raw.physics_substeps===64&&controls&&preserved.requested===9&&preserved.completed===9&&preserved.captures===9&&preserved.passed===true&&proof&&accounting);
+  return {complete,accounting_valid:accounting,promotion_eligible:false,status:raw.status,phase:raw.phase,audit:raw.audit_status,
+    completed:count(raw.progress?.completed),planned:count(raw.progress?.planned),source:complete?source:null,results:complete?results:null,
+    grid:complete?grid:[],confirmed:complete?confirmed:[],native_releases:complete?raw.native_releases:null,next:text(raw.next),error:text(raw.error)};
+}
+
 export function remainingLinkClearanceSummary(study) {
   const raw = study?.remaining_link_clearance;
   if (raw?.version !== 'sircus-link-clearance-study-v1') return null;

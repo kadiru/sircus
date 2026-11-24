@@ -8,6 +8,18 @@
 <p id="savedReplayExplanation" class="fine">Recorded native simulation. Playback runs in your browser.</p><div id="savedReplayMarkers" class="saved-replay-markers" aria-label="Jump to a measured event"></div>
 </section>
 <div class="result" role="status" aria-live="polite"><span class="status-dot" id="resultDot"></span><div><strong id="resultTitle">Waiting for the learning study</strong><p id="resultText">Manual solves unlock after the completed study and frozen-checkpoint evaluation.</p></div></div>
+<section id="clearShotRange" class="results-section fast-planning-section" hidden>
+<p class="eyebrow">ONE ARM-FREE MISS · ADJUST DROP HEIGHT AND BOARD TILT</p><h2>Give the clear shot enough range</h2>
+<p class="fine">At bucket (1193.0, 147.4) mm, the previous shot cleared both arms but fell short after hitting the board twice. This test keeps its board center, heading and 135° twist, increases the drop gap, and varies tilt. Every changed setting needs fresh arm-pose and setup-path checks.</p>
+<p class="scope-note">One known development position. The other unresolved bucket, (1127.6, −38.3) mm, is not tested in this pass. Existing successful shots and the live planner stay unchanged.</p>
+<p id="clearRangeStatus" class="subtle" role="status"></p><p id="clearRangeProgress" class="fine"></p><p id="clearRangeSource" class="fine"></p>
+<div id="clearRangeResults" class="table-wrap" tabindex="0" role="region" aria-label="Original, adjusted settings and fresh repeat capture counts"></div>
+<p id="clearRangeOutcome" class="scope-note"></p>
+<details id="clearRangeGridDetails" hidden><summary>All 49 planned height/tilt settings</summary><p class="fine">Setup rejection or an unfinished check is not a simulated miss. Only admitted settings are released; robot contacts and capture outcomes come from actual native drops. The unchanged parent is repeated separately.</p><div id="clearRangeGrid" class="table-wrap" tabindex="0" role="region" aria-label="Each tilt and drop gap with setup status, native outcome and fresh repeats"></div></details>
+<details id="clearRangeSettingsDetails" hidden><summary>Settings confirmed by three fresh captures</summary><div id="clearRangeSettings" class="table-wrap" tabindex="0" role="region" aria-label="Exact confirmed arm and shot settings"></div></details>
+<p id="clearRangeChecks" class="fine"></p><p id="clearRangeNext" class="scope-note"></p>
+<p class="fine">Capture requires a board rebound and one continuous second fully inside the bucket. Table-assisted captures count; arm-assisted retentions remain separate. Drop gap is released ball-bottom Z minus board-center Z; tilt is from horizontal. Native MuJoCo uses 64 substeps and holds both arms at checked endpoints. No new policy training, perception, driven-arm validation or automatic planner update.</p>
+</section>
 <section id="remainingLinkClearance" class="results-section fast-planning-section" hidden>
 <p class="eyebrow">TWO REMAINING MISSES · CLEAR THE BALL’S PATH</p><h2>Which arm segment blocks the bounce?</h2>
 <p class="fine">The previous search recovered three of five bucket positions. At the two remaining positions, all 20 tested balls hit a robot. We locate those contacts, try other joint configurations and board poses, then test the resulting drops.</p>

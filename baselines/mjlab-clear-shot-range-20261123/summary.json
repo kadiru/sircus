@@ -1,0 +1,1978 @@
+{
+  "aggregate": {
+    "arm_assisted_retained_unconfirmed": 0,
+    "confirmation_captures": 0,
+    "confirmation_releases": 0,
+    "confirmed_settings": 0,
+    "invalid_physics_releases": 0,
+    "original_captures": 0,
+    "original_releases": 3,
+    "search_captures": 0,
+    "search_releases": 11,
+    "search_robot_contacts": 8,
+    "selected_settings": 11,
+    "targets": 1,
+    "targets_with_confirmed_setting": 0
+  },
+  "artifact_sha256": {
+    "contract.json": "7f0e7f0b55c54b4c0d0fb21594c637cee8b7afac41437ea81b1b0c0a37195cec",
+    "evidence-manifest.json": "7a5649b9f3baf08fd16a59559d8fbbf312aac95c08e66cb5a08e600e90c59b62",
+    "final_audit": "20ca749f368cf720d6123d8a6cce41c4ba872b0b1584d8f3b19775dd8084fdf6",
+    "native-started.json": "0ae2a9bda9dad6712cc1a88e8f319ff124393ec6e1f7f4059b947879b5797793",
+    "preparation.json": "791629ab598da6d144ad63bcce80f9ea4abb98fa7bab6a3a85853e615cac4f7b",
+    "preserved-slots.json": "d5e24732ba76cfc45da91922b98d67d883566a21c0f9fb1b47665841f62daf32",
+    "repeat-slots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "report.json": "fc6a103d4f4a18712a7f02f780730159a6643996d9ef9201c592cd253d9110c7",
+    "slots.json": "eacca654551d0c5dca5711ecbe06b569034034538907c62eb08e17c0594046e3",
+    "source-bank.json": "4cd1ca52b11551acfeca06ecb43d0a0bb37f215664e4af2b7edd7af81e69cbf8"
+  },
+  "audit_status": "passed",
+  "capture_definition": "Board rebound followed by whole-ball retention for one continuous second; direct and table-assisted routes qualify; arm-assisted retentions remain separate",
+  "cases": [
+    {
+      "bucket_xy_m": [
+        1.1929942869527974,
+        0.14742349109856434
+      ],
+      "confirmed_setting_ids": [],
+      "grid": [
+        {
+          "candidate_id": "parallel-board-miss-09-range-00-b0",
+          "confirmed": false,
+          "drop_gap_m": 0.1294386406066069,
+          "gap_delta_m": 0.02,
+          "initial_capture": false,
+          "initial_outcome": "flight_miss",
+          "proposal_id": "parallel-board-miss-09-range-00",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": true,
+          "setup_reason": null,
+          "setup_status": "admitted",
+          "tilt_deg": 25.4687518028256,
+          "tilt_delta_deg": 0.0
+        },
+        {
+          "candidate_id": "parallel-board-miss-09-range-01-b0",
+          "confirmed": false,
+          "drop_gap_m": 0.1494386406066069,
+          "gap_delta_m": 0.04,
+          "initial_capture": false,
+          "initial_outcome": "flight_miss",
+          "proposal_id": "parallel-board-miss-09-range-01",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": true,
+          "setup_reason": null,
+          "setup_status": "admitted",
+          "tilt_deg": 25.4687518028256,
+          "tilt_delta_deg": 0.0
+        },
+        {
+          "candidate_id": "parallel-board-miss-09-range-02-b0",
+          "confirmed": false,
+          "drop_gap_m": 0.1694386406066069,
+          "gap_delta_m": 0.06,
+          "initial_capture": false,
+          "initial_outcome": "flight_miss",
+          "proposal_id": "parallel-board-miss-09-range-02",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": false,
+          "setup_reason": null,
+          "setup_status": "admitted",
+          "tilt_deg": 25.4687518028256,
+          "tilt_delta_deg": 0.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.1894386406066069,
+          "gap_delta_m": 0.08,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-03",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 25.4687518028256,
+          "tilt_delta_deg": 0.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.20943864060660689,
+          "gap_delta_m": 0.1,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-04",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 25.4687518028256,
+          "tilt_delta_deg": 0.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.2394386406066069,
+          "gap_delta_m": 0.13,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-05",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 25.4687518028256,
+          "tilt_delta_deg": 0.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.2694386406066069,
+          "gap_delta_m": 0.16,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-06",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 25.4687518028256,
+          "tilt_delta_deg": 0.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.3094386406066069,
+          "gap_delta_m": 0.2,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-07",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 25.4687518028256,
+          "tilt_delta_deg": 0.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.3494386406066069,
+          "gap_delta_m": 0.24,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-08",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 25.4687518028256,
+          "tilt_delta_deg": 0.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.1094386406066069,
+          "gap_delta_m": 0.0,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-09",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "strict_endpoint_clearance_or_pose_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 22.4687518028256,
+          "tilt_delta_deg": -3.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.1294386406066069,
+          "gap_delta_m": 0.02,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-10",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "strict_endpoint_clearance_or_pose_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 22.4687518028256,
+          "tilt_delta_deg": -3.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.1494386406066069,
+          "gap_delta_m": 0.04,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-11",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "strict_endpoint_clearance_or_pose_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 22.4687518028256,
+          "tilt_delta_deg": -3.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.1694386406066069,
+          "gap_delta_m": 0.06,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-12",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "strict_endpoint_clearance_or_pose_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 22.4687518028256,
+          "tilt_delta_deg": -3.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.1894386406066069,
+          "gap_delta_m": 0.08,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-13",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 22.4687518028256,
+          "tilt_delta_deg": -3.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.20943864060660689,
+          "gap_delta_m": 0.1,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-14",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 22.4687518028256,
+          "tilt_delta_deg": -3.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.2394386406066069,
+          "gap_delta_m": 0.13,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-15",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 22.4687518028256,
+          "tilt_delta_deg": -3.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.2694386406066069,
+          "gap_delta_m": 0.16,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-16",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 22.4687518028256,
+          "tilt_delta_deg": -3.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.3094386406066069,
+          "gap_delta_m": 0.2,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-17",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 22.4687518028256,
+          "tilt_delta_deg": -3.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.3494386406066069,
+          "gap_delta_m": 0.24,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-18",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 22.4687518028256,
+          "tilt_delta_deg": -3.0
+        },
+        {
+          "candidate_id": "parallel-board-miss-09-range-19-b0",
+          "confirmed": false,
+          "drop_gap_m": 0.1094386406066069,
+          "gap_delta_m": 0.0,
+          "initial_capture": false,
+          "initial_outcome": "flight_miss",
+          "proposal_id": "parallel-board-miss-09-range-19",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": true,
+          "setup_reason": null,
+          "setup_status": "admitted",
+          "tilt_deg": 28.4687518028256,
+          "tilt_delta_deg": 3.0
+        },
+        {
+          "candidate_id": "parallel-board-miss-09-range-20-b0",
+          "confirmed": false,
+          "drop_gap_m": 0.1294386406066069,
+          "gap_delta_m": 0.02,
+          "initial_capture": false,
+          "initial_outcome": "flight_miss",
+          "proposal_id": "parallel-board-miss-09-range-20",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": true,
+          "setup_reason": null,
+          "setup_status": "admitted",
+          "tilt_deg": 28.4687518028256,
+          "tilt_delta_deg": 3.0
+        },
+        {
+          "candidate_id": "parallel-board-miss-09-range-21-b0",
+          "confirmed": false,
+          "drop_gap_m": 0.1494386406066069,
+          "gap_delta_m": 0.04,
+          "initial_capture": false,
+          "initial_outcome": "flight_miss",
+          "proposal_id": "parallel-board-miss-09-range-21",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": true,
+          "setup_reason": null,
+          "setup_status": "admitted",
+          "tilt_deg": 28.4687518028256,
+          "tilt_delta_deg": 3.0
+        },
+        {
+          "candidate_id": "parallel-board-miss-09-range-22-b0",
+          "confirmed": false,
+          "drop_gap_m": 0.1694386406066069,
+          "gap_delta_m": 0.06,
+          "initial_capture": false,
+          "initial_outcome": "flight_miss",
+          "proposal_id": "parallel-board-miss-09-range-22",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": false,
+          "setup_reason": null,
+          "setup_status": "admitted",
+          "tilt_deg": 28.4687518028256,
+          "tilt_delta_deg": 3.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.1894386406066069,
+          "gap_delta_m": 0.08,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-23",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 28.4687518028256,
+          "tilt_delta_deg": 3.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.20943864060660689,
+          "gap_delta_m": 0.1,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-24",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 28.4687518028256,
+          "tilt_delta_deg": 3.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.2394386406066069,
+          "gap_delta_m": 0.13,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-25",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 28.4687518028256,
+          "tilt_delta_deg": 3.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.2694386406066069,
+          "gap_delta_m": 0.16,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-26",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 28.4687518028256,
+          "tilt_delta_deg": 3.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.3094386406066069,
+          "gap_delta_m": 0.2,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-27",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 28.4687518028256,
+          "tilt_delta_deg": 3.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.3494386406066069,
+          "gap_delta_m": 0.24,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-28",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 28.4687518028256,
+          "tilt_delta_deg": 3.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.1094386406066069,
+          "gap_delta_m": 0.0,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-29",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "strict_endpoint_clearance_or_pose_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 19.4687518028256,
+          "tilt_delta_deg": -6.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.1294386406066069,
+          "gap_delta_m": 0.02,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-30",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "strict_endpoint_clearance_or_pose_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 19.4687518028256,
+          "tilt_delta_deg": -6.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.1494386406066069,
+          "gap_delta_m": 0.04,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-31",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "strict_endpoint_clearance_or_pose_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 19.4687518028256,
+          "tilt_delta_deg": -6.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.1694386406066069,
+          "gap_delta_m": 0.06,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-32",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "strict_endpoint_clearance_or_pose_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 19.4687518028256,
+          "tilt_delta_deg": -6.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.1894386406066069,
+          "gap_delta_m": 0.08,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-33",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 19.4687518028256,
+          "tilt_delta_deg": -6.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.20943864060660689,
+          "gap_delta_m": 0.1,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-34",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 19.4687518028256,
+          "tilt_delta_deg": -6.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.2394386406066069,
+          "gap_delta_m": 0.13,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-35",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 19.4687518028256,
+          "tilt_delta_deg": -6.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.2694386406066069,
+          "gap_delta_m": 0.16,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-36",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 19.4687518028256,
+          "tilt_delta_deg": -6.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.3094386406066069,
+          "gap_delta_m": 0.2,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-37",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 19.4687518028256,
+          "tilt_delta_deg": -6.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.3494386406066069,
+          "gap_delta_m": 0.24,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-38",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 19.4687518028256,
+          "tilt_delta_deg": -6.0
+        },
+        {
+          "candidate_id": "parallel-board-miss-09-range-39-b0",
+          "confirmed": false,
+          "drop_gap_m": 0.1094386406066069,
+          "gap_delta_m": 0.0,
+          "initial_capture": false,
+          "initial_outcome": "flight_miss",
+          "proposal_id": "parallel-board-miss-09-range-39",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": true,
+          "setup_reason": null,
+          "setup_status": "admitted",
+          "tilt_deg": 31.4687518028256,
+          "tilt_delta_deg": 6.0
+        },
+        {
+          "candidate_id": "parallel-board-miss-09-range-40-b0",
+          "confirmed": false,
+          "drop_gap_m": 0.1294386406066069,
+          "gap_delta_m": 0.02,
+          "initial_capture": false,
+          "initial_outcome": "flight_miss",
+          "proposal_id": "parallel-board-miss-09-range-40",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": true,
+          "setup_reason": null,
+          "setup_status": "admitted",
+          "tilt_deg": 31.4687518028256,
+          "tilt_delta_deg": 6.0
+        },
+        {
+          "candidate_id": "parallel-board-miss-09-range-41-b0",
+          "confirmed": false,
+          "drop_gap_m": 0.1494386406066069,
+          "gap_delta_m": 0.04,
+          "initial_capture": false,
+          "initial_outcome": "flight_miss",
+          "proposal_id": "parallel-board-miss-09-range-41",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": true,
+          "setup_reason": null,
+          "setup_status": "admitted",
+          "tilt_deg": 31.4687518028256,
+          "tilt_delta_deg": 6.0
+        },
+        {
+          "candidate_id": "parallel-board-miss-09-range-42-b0",
+          "confirmed": false,
+          "drop_gap_m": 0.1694386406066069,
+          "gap_delta_m": 0.06,
+          "initial_capture": false,
+          "initial_outcome": "flight_miss",
+          "proposal_id": "parallel-board-miss-09-range-42",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": false,
+          "setup_reason": null,
+          "setup_status": "admitted",
+          "tilt_deg": 31.4687518028256,
+          "tilt_delta_deg": 6.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.1894386406066069,
+          "gap_delta_m": 0.08,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-43",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 31.4687518028256,
+          "tilt_delta_deg": 6.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.20943864060660689,
+          "gap_delta_m": 0.1,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-44",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 31.4687518028256,
+          "tilt_delta_deg": 6.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.2394386406066069,
+          "gap_delta_m": 0.13,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-45",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 31.4687518028256,
+          "tilt_delta_deg": 6.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.2694386406066069,
+          "gap_delta_m": 0.16,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-46",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 31.4687518028256,
+          "tilt_delta_deg": 6.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.3094386406066069,
+          "gap_delta_m": 0.2,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-47",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 31.4687518028256,
+          "tilt_delta_deg": 6.0
+        },
+        {
+          "candidate_id": null,
+          "confirmed": false,
+          "drop_gap_m": 0.3494386406066069,
+          "gap_delta_m": 0.24,
+          "initial_capture": null,
+          "initial_outcome": null,
+          "proposal_id": "parallel-board-miss-09-range-48",
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "robot_contact": null,
+          "setup_reason": "proven_full_pose_wrist_reach_rejected",
+          "setup_status": "rejected",
+          "tilt_deg": 31.4687518028256,
+          "tilt_delta_deg": 6.0
+        }
+      ],
+      "id": "parallel-board-miss-09",
+      "original_command": {
+        "board_heading_offset_deg": 6.9477438887308125,
+        "board_twist_deg": 135.0,
+        "branch_seed": 2026113207,
+        "bucket_xy_m": [
+          1.1929942869527974,
+          0.14742349109856434
+        ],
+        "context_id": "parallel-board-miss-09",
+        "fixed_cartesian": false,
+        "id": "parallel-board-miss-09-clearance-0016-b0",
+        "intended_route": "table",
+        "joint_change": {
+          "maximum_rad": 3.141587501897968,
+          "per_arm_rad": {
+            "q10": [
+              1.6653345369377348e-16,
+              4.419131727217973e-12,
+              7.999378937029178e-12,
+              2.3778798279917336e-16,
+              5.236922007156863e-12,
+              0.0
+            ],
+            "q14": [
+              8.908462896251024e-07,
+              1.0476961698202558e-07,
+              3.7063518076863033e-07,
+              3.141587501897968,
+              2.5783937498875416,
+              2.356199271035698
+            ]
+          },
+          "proximal_rad": 8.908462896251024e-07
+        },
+        "lateral_offset_m": 0.0,
+        "proof_sha256": {
+          "context_resolution": "1aa1510ca3c6cc3f3da35e37962530829e2df349b187a4bdc97d870528dde935",
+          "prepared_connection": "c0b96be2a5368824ef326f22dcf9aa68451459f99c33bc2768b5201362ac9e6a"
+        },
+        "proposal_family": "board_twist",
+        "radial_offset_m": 0.0,
+        "selected_q10": [
+          -0.016239233270225924,
+          -0.6872217743357377,
+          -2.207579791372531,
+          2.3790768118114246e-06,
+          -1.5203580170583504,
+          5.967149660271598
+        ],
+        "selected_q14": [
+          -3.080920771673224,
+          2.218076420956739,
+          -1.7900465743182983,
+          -2.983062888222352,
+          1.289196797262201,
+          -2.0726543544900555
+        ],
+        "source_bank_id": "parallel-board-miss-09-transfer-0028-multistart-b0",
+        "source_request_id": "parallel-board-miss-09-transfer-0028-multistart-b0",
+        "source_strength": "prior_robot_contact",
+        "twist_delta_deg": -45.0,
+        "values": [
+          0.6803429248048187,
+          -0.011044302443505356,
+          0.4618683735173024,
+          25.4687518028256,
+          0.1094386406066069
+        ]
+      },
+      "original_repeats": [
+        {
+          "id": "parallel-board-miss-09-original-0",
+          "native_release": true,
+          "outcome": "flight_miss",
+          "robot_contact": false,
+          "row_sha256": "e1d31b5fee707712498920a67d044ac66dba78eff5d2a603c153bed2254e5f01",
+          "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059"
+        },
+        {
+          "id": "parallel-board-miss-09-original-1",
+          "native_release": true,
+          "outcome": "flight_miss",
+          "robot_contact": false,
+          "row_sha256": "e2c550ad8feda30695cfea4f3f1e68056d39ab0c07b5b9eabbc7d7c42c9a91b9",
+          "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059"
+        },
+        {
+          "id": "parallel-board-miss-09-original-2",
+          "native_release": true,
+          "outcome": "flight_miss",
+          "robot_contact": false,
+          "row_sha256": "c1ad6a9382a237d20ab1b9a1eb3055cf8d283fc7e8f08ad2e23413823ffdff98",
+          "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059"
+        }
+      ],
+      "preparation": {
+        "admitted": 11,
+        "checked": 49,
+        "proposed": 49,
+        "selected": 11
+      },
+      "preparation_s": 43.59438167497865,
+      "preparation_timed_out": false,
+      "results": {
+        "original": {
+          "captures": 0,
+          "completed": 3,
+          "direct": 0,
+          "outcomes": [
+            "flight_miss",
+            "flight_miss",
+            "flight_miss"
+          ],
+          "released": 3,
+          "requested": 3,
+          "robot_contacts": 0,
+          "table": 0
+        },
+        "repeat": {
+          "captures": 0,
+          "completed": 0,
+          "direct": 0,
+          "outcomes": [],
+          "released": 0,
+          "requested": 0,
+          "robot_contacts": 0,
+          "table": 0
+        },
+        "search": {
+          "captures": 0,
+          "completed": 11,
+          "direct": 0,
+          "outcomes": [
+            "flight_miss",
+            "flight_miss",
+            "flight_miss",
+            "flight_miss",
+            "flight_miss",
+            "flight_miss",
+            "flight_miss",
+            "flight_miss",
+            "flight_miss",
+            "flight_miss",
+            "flight_miss"
+          ],
+          "released": 11,
+          "requested": 11,
+          "robot_contacts": 8,
+          "table": 0
+        }
+      },
+      "selected_settings": [
+        {
+          "confirmed": false,
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "repeat_outcomes": [],
+          "request": {
+            "board_heading_offset_deg": 6.9477438887308125,
+            "board_twist_deg": 135.0,
+            "bucket_xy_m": [
+              1.1929942869527974,
+              0.14742349109856434
+            ],
+            "context_id": "parallel-board-miss-09",
+            "gap_delta_m": 0.02,
+            "id": "parallel-board-miss-09-range-00-b0",
+            "intended_route": "table",
+            "proof_sha256": {
+              "context_resolution": "1aa1510ca3c6cc3f3da35e37962530829e2df349b187a4bdc97d870528dde935",
+              "prepared_connection": "b3974f0cfea9abda9256581ac05e9c26e98507d3d3bd36427392d95dc87e4678"
+            },
+            "proposal_family": "gap_only",
+            "selected_q10": [
+              -0.01623947677961554,
+              -0.7182680753460994,
+              -2.303554680309517,
+              1.7519991458237502e-06,
+              -1.585286604759146,
+              5.967149727555892
+            ],
+            "selected_q14": [
+              -3.080920771673224,
+              2.218076420956739,
+              -1.7900465743182983,
+              -2.983062888222352,
+              1.289196797262201,
+              -2.0726543544900555
+            ],
+            "source_request_id": "parallel-board-miss-09-clearance-0016-b0",
+            "tilt_delta_deg": 0.0,
+            "values": [
+              0.6803429248048187,
+              -0.011044302443505356,
+              0.4618683735173024,
+              25.4687518028256,
+              0.1294386406066069
+            ]
+          },
+          "search": {
+            "id": "parallel-board-miss-09-range-00-b0-search-0",
+            "native_release": true,
+            "outcome": "flight_miss",
+            "robot_contact": true,
+            "row_sha256": "1c631d47f0b97c9ef31194fa02d2a24ab5155a043951c40b466b6a12914bbd17",
+            "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059"
+          }
+        },
+        {
+          "confirmed": false,
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "repeat_outcomes": [],
+          "request": {
+            "board_heading_offset_deg": 6.9477438887308125,
+            "board_twist_deg": 135.0,
+            "bucket_xy_m": [
+              1.1929942869527974,
+              0.14742349109856434
+            ],
+            "context_id": "parallel-board-miss-09",
+            "gap_delta_m": 0.04,
+            "id": "parallel-board-miss-09-range-01-b0",
+            "intended_route": "table",
+            "proof_sha256": {
+              "context_resolution": "1aa1510ca3c6cc3f3da35e37962530829e2df349b187a4bdc97d870528dde935",
+              "prepared_connection": "785b77b7fcce6f8990595eea59e472987efc3f93d95f25a90b27bb5264a4ebb3"
+            },
+            "proposal_family": "gap_only",
+            "selected_q10": [
+              -0.01623973136199346,
+              -0.7644283817219998,
+              -2.4267622460190883,
+              9.61779485411945e-07,
+              -1.6623338642566483,
+              -0.31603549159737354
+            ],
+            "selected_q14": [
+              -3.080920771673224,
+              2.218076420956739,
+              -1.7900465743182983,
+              -2.983062888222352,
+              1.289196797262201,
+              -2.0726543544900555
+            ],
+            "source_request_id": "parallel-board-miss-09-clearance-0016-b0",
+            "tilt_delta_deg": 0.0,
+            "values": [
+              0.6803429248048187,
+              -0.011044302443505356,
+              0.4618683735173024,
+              25.4687518028256,
+              0.1494386406066069
+            ]
+          },
+          "search": {
+            "id": "parallel-board-miss-09-range-01-b0-search-0",
+            "native_release": true,
+            "outcome": "flight_miss",
+            "robot_contact": true,
+            "row_sha256": "ccfebf1be8b26ef5557a92adda0def363c5d0063e8f305e9690bb8f7e4959066",
+            "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059"
+          }
+        },
+        {
+          "confirmed": false,
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "repeat_outcomes": [],
+          "request": {
+            "board_heading_offset_deg": 6.9477438887308125,
+            "board_twist_deg": 135.0,
+            "bucket_xy_m": [
+              1.1929942869527974,
+              0.14742349109856434
+            ],
+            "context_id": "parallel-board-miss-09",
+            "gap_delta_m": 0.06,
+            "id": "parallel-board-miss-09-range-02-b0",
+            "intended_route": "table",
+            "proof_sha256": {
+              "context_resolution": "1aa1510ca3c6cc3f3da35e37962530829e2df349b187a4bdc97d870528dde935",
+              "prepared_connection": "3cc1ec359afe167708757cd7db7bb288efecf70eb4459708a9c22cec0e88aaa3"
+            },
+            "proposal_family": "gap_only",
+            "selected_q10": [
+              -0.016239997016437826,
+              -0.8523167362433552,
+              -2.626854291432024,
+              -3.307583693162707e-07,
+              -1.774537555073757,
+              5.967149962082171
+            ],
+            "selected_q14": [
+              -3.080920771673224,
+              2.218076420956739,
+              -1.7900465743182983,
+              -2.983062888222352,
+              1.289196797262201,
+              -2.0726543544900555
+            ],
+            "source_request_id": "parallel-board-miss-09-clearance-0016-b0",
+            "tilt_delta_deg": 0.0,
+            "values": [
+              0.6803429248048187,
+              -0.011044302443505356,
+              0.4618683735173024,
+              25.4687518028256,
+              0.1694386406066069
+            ]
+          },
+          "search": {
+            "id": "parallel-board-miss-09-range-02-b0-search-0",
+            "native_release": true,
+            "outcome": "flight_miss",
+            "robot_contact": false,
+            "row_sha256": "ef0c65cb3cb21c16a6e505ae06b3fb1089c4a35a4198b18d87e8cde5a310f3a9",
+            "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059"
+          }
+        },
+        {
+          "confirmed": false,
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "repeat_outcomes": [],
+          "request": {
+            "board_heading_offset_deg": 6.9477438887308125,
+            "board_twist_deg": 135.0,
+            "bucket_xy_m": [
+              1.1929942869527974,
+              0.14742349109856434
+            ],
+            "context_id": "parallel-board-miss-09",
+            "gap_delta_m": 0.0,
+            "id": "parallel-board-miss-09-range-19-b0",
+            "intended_route": "table",
+            "proof_sha256": {
+              "context_resolution": "1aa1510ca3c6cc3f3da35e37962530829e2df349b187a4bdc97d870528dde935",
+              "prepared_connection": "8ad7a85292a6e4a088c37946621aaaa055ca631f174fd9bc11492a74539d8e3f"
+            },
+            "proposal_family": "tilt_and_gap",
+            "selected_q10": [
+              -0.016239233270225924,
+              -0.6872217743357377,
+              -2.207579791372531,
+              2.3790768118114246e-06,
+              -1.5203580170583504,
+              5.967149660271598
+            ],
+            "selected_q14": [
+              -3.0767026824024244,
+              2.1894309595395867,
+              -1.829330651703676,
+              -2.9704229414695584,
+              1.3505296007057939,
+              -2.0778625400533706
+            ],
+            "source_request_id": "parallel-board-miss-09-clearance-0016-b0",
+            "tilt_delta_deg": 3.0,
+            "values": [
+              0.6803429248048187,
+              -0.011044302443505356,
+              0.4618683735173024,
+              28.4687518028256,
+              0.1094386406066069
+            ]
+          },
+          "search": {
+            "id": "parallel-board-miss-09-range-19-b0-search-0",
+            "native_release": true,
+            "outcome": "flight_miss",
+            "robot_contact": true,
+            "row_sha256": "36aca5a4d9f036555de79290d1632735e64b1ad0b071dd2a49a880bac39b6f0c",
+            "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059"
+          }
+        },
+        {
+          "confirmed": false,
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "repeat_outcomes": [],
+          "request": {
+            "board_heading_offset_deg": 6.9477438887308125,
+            "board_twist_deg": 135.0,
+            "bucket_xy_m": [
+              1.1929942869527974,
+              0.14742349109856434
+            ],
+            "context_id": "parallel-board-miss-09",
+            "gap_delta_m": 0.02,
+            "id": "parallel-board-miss-09-range-20-b0",
+            "intended_route": "table",
+            "proof_sha256": {
+              "context_resolution": "1aa1510ca3c6cc3f3da35e37962530829e2df349b187a4bdc97d870528dde935",
+              "prepared_connection": "36d6043fae4aa3cd354ec0fb519626d10df2d843d011f205766aeb7c08c0e9d3"
+            },
+            "proposal_family": "tilt_and_gap",
+            "selected_q10": [
+              -0.01623947677961554,
+              -0.7182680753460994,
+              -2.303554680309517,
+              1.7519991458237502e-06,
+              -1.585286604759146,
+              5.967149727555892
+            ],
+            "selected_q14": [
+              -3.0767026824024244,
+              2.1894309595395867,
+              -1.829330651703676,
+              -2.9704229414695584,
+              1.3505296007057939,
+              -2.0778625400533706
+            ],
+            "source_request_id": "parallel-board-miss-09-clearance-0016-b0",
+            "tilt_delta_deg": 3.0,
+            "values": [
+              0.6803429248048187,
+              -0.011044302443505356,
+              0.4618683735173024,
+              28.4687518028256,
+              0.1294386406066069
+            ]
+          },
+          "search": {
+            "id": "parallel-board-miss-09-range-20-b0-search-0",
+            "native_release": true,
+            "outcome": "flight_miss",
+            "robot_contact": true,
+            "row_sha256": "787cf805bc27e33826a3a1bd806a80c66968b57d508ae9d9894f1440918a3bbb",
+            "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059"
+          }
+        },
+        {
+          "confirmed": false,
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "repeat_outcomes": [],
+          "request": {
+            "board_heading_offset_deg": 6.9477438887308125,
+            "board_twist_deg": 135.0,
+            "bucket_xy_m": [
+              1.1929942869527974,
+              0.14742349109856434
+            ],
+            "context_id": "parallel-board-miss-09",
+            "gap_delta_m": 0.04,
+            "id": "parallel-board-miss-09-range-21-b0",
+            "intended_route": "table",
+            "proof_sha256": {
+              "context_resolution": "1aa1510ca3c6cc3f3da35e37962530829e2df349b187a4bdc97d870528dde935",
+              "prepared_connection": "1e49d65ebb8dd390cb97e07886b6bb3a513db5d108e80cb55ae1650640db8c7a"
+            },
+            "proposal_family": "tilt_and_gap",
+            "selected_q10": [
+              -0.01623973136199346,
+              -0.7644283817219998,
+              -2.4267622460190883,
+              9.61779485411945e-07,
+              -1.6623338642566483,
+              -0.31603549159737354
+            ],
+            "selected_q14": [
+              -3.0767026824024244,
+              2.1894309595395867,
+              -1.829330651703676,
+              -2.9704229414695584,
+              1.3505296007057939,
+              -2.0778625400533706
+            ],
+            "source_request_id": "parallel-board-miss-09-clearance-0016-b0",
+            "tilt_delta_deg": 3.0,
+            "values": [
+              0.6803429248048187,
+              -0.011044302443505356,
+              0.4618683735173024,
+              28.4687518028256,
+              0.1494386406066069
+            ]
+          },
+          "search": {
+            "id": "parallel-board-miss-09-range-21-b0-search-0",
+            "native_release": true,
+            "outcome": "flight_miss",
+            "robot_contact": true,
+            "row_sha256": "68a991b32426fcc7cd57542731e09e05b3fff90db0caff97dd1d1000675367ac",
+            "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059"
+          }
+        },
+        {
+          "confirmed": false,
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "repeat_outcomes": [],
+          "request": {
+            "board_heading_offset_deg": 6.9477438887308125,
+            "board_twist_deg": 135.0,
+            "bucket_xy_m": [
+              1.1929942869527974,
+              0.14742349109856434
+            ],
+            "context_id": "parallel-board-miss-09",
+            "gap_delta_m": 0.06,
+            "id": "parallel-board-miss-09-range-22-b0",
+            "intended_route": "table",
+            "proof_sha256": {
+              "context_resolution": "1aa1510ca3c6cc3f3da35e37962530829e2df349b187a4bdc97d870528dde935",
+              "prepared_connection": "53ac809fc926a483c95f8599587f98ed8db3ee5aa4e9838a9500ae4038a2ac7c"
+            },
+            "proposal_family": "tilt_and_gap",
+            "selected_q10": [
+              -0.016239997016437826,
+              -0.8523167362433552,
+              -2.626854291432024,
+              -3.307583693162707e-07,
+              -1.774537555073757,
+              5.967149962082171
+            ],
+            "selected_q14": [
+              -3.0767026824024244,
+              2.1894309595395867,
+              -1.829330651703676,
+              -2.9704229414695584,
+              1.3505296007057939,
+              -2.0778625400533706
+            ],
+            "source_request_id": "parallel-board-miss-09-clearance-0016-b0",
+            "tilt_delta_deg": 3.0,
+            "values": [
+              0.6803429248048187,
+              -0.011044302443505356,
+              0.4618683735173024,
+              28.4687518028256,
+              0.1694386406066069
+            ]
+          },
+          "search": {
+            "id": "parallel-board-miss-09-range-22-b0-search-0",
+            "native_release": true,
+            "outcome": "flight_miss",
+            "robot_contact": false,
+            "row_sha256": "f327f447023e5bfdf7749a40be55d774e391f25104f84bc4f33fd180dcc5d4f1",
+            "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059"
+          }
+        },
+        {
+          "confirmed": false,
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "repeat_outcomes": [],
+          "request": {
+            "board_heading_offset_deg": 6.9477438887308125,
+            "board_twist_deg": 135.0,
+            "bucket_xy_m": [
+              1.1929942869527974,
+              0.14742349109856434
+            ],
+            "context_id": "parallel-board-miss-09",
+            "gap_delta_m": 0.0,
+            "id": "parallel-board-miss-09-range-39-b0",
+            "intended_route": "table",
+            "proof_sha256": {
+              "context_resolution": "1aa1510ca3c6cc3f3da35e37962530829e2df349b187a4bdc97d870528dde935",
+              "prepared_connection": "f690f4cb05625388bb23d5d2be302b639a759063183115d13bb1b029e8088d7a"
+            },
+            "proposal_family": "tilt_and_gap",
+            "selected_q10": [
+              -0.016239233270225924,
+              -0.6872217743357377,
+              -2.207579791372531,
+              2.3790768118114246e-06,
+              -1.5203580170583504,
+              5.967149660271598
+            ],
+            "selected_q14": [
+              -3.072692362559263,
+              2.160207566778084,
+              -1.8689511289183087,
+              -2.9581923077837144,
+              1.4116844482324777,
+              -2.081843039869274
+            ],
+            "source_request_id": "parallel-board-miss-09-clearance-0016-b0",
+            "tilt_delta_deg": 6.0,
+            "values": [
+              0.6803429248048187,
+              -0.011044302443505356,
+              0.4618683735173024,
+              31.4687518028256,
+              0.1094386406066069
+            ]
+          },
+          "search": {
+            "id": "parallel-board-miss-09-range-39-b0-search-0",
+            "native_release": true,
+            "outcome": "flight_miss",
+            "robot_contact": true,
+            "row_sha256": "ce32d01c0062e46ee9bad957d80ca8c8a434ce62319e5b96828e5cbc88e02a16",
+            "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059"
+          }
+        },
+        {
+          "confirmed": false,
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "repeat_outcomes": [],
+          "request": {
+            "board_heading_offset_deg": 6.9477438887308125,
+            "board_twist_deg": 135.0,
+            "bucket_xy_m": [
+              1.1929942869527974,
+              0.14742349109856434
+            ],
+            "context_id": "parallel-board-miss-09",
+            "gap_delta_m": 0.02,
+            "id": "parallel-board-miss-09-range-40-b0",
+            "intended_route": "table",
+            "proof_sha256": {
+              "context_resolution": "1aa1510ca3c6cc3f3da35e37962530829e2df349b187a4bdc97d870528dde935",
+              "prepared_connection": "295437018d63cb994b05969ac3aa996f9098b062937ce17ddfef541cd17cb04b"
+            },
+            "proposal_family": "tilt_and_gap",
+            "selected_q10": [
+              -0.01623947677961554,
+              -0.7182680753460994,
+              -2.303554680309517,
+              1.7519991458237502e-06,
+              -1.585286604759146,
+              5.967149727555892
+            ],
+            "selected_q14": [
+              -3.072692362559263,
+              2.160207566778084,
+              -1.8689511289183087,
+              -2.9581923077837144,
+              1.4116844482324777,
+              -2.081843039869274
+            ],
+            "source_request_id": "parallel-board-miss-09-clearance-0016-b0",
+            "tilt_delta_deg": 6.0,
+            "values": [
+              0.6803429248048187,
+              -0.011044302443505356,
+              0.4618683735173024,
+              31.4687518028256,
+              0.1294386406066069
+            ]
+          },
+          "search": {
+            "id": "parallel-board-miss-09-range-40-b0-search-0",
+            "native_release": true,
+            "outcome": "flight_miss",
+            "robot_contact": true,
+            "row_sha256": "05b3f8d55363c69ca726935c1ffce89a174968e1d8f373b4d5e7e24223af7e57",
+            "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059"
+          }
+        },
+        {
+          "confirmed": false,
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "repeat_outcomes": [],
+          "request": {
+            "board_heading_offset_deg": 6.9477438887308125,
+            "board_twist_deg": 135.0,
+            "bucket_xy_m": [
+              1.1929942869527974,
+              0.14742349109856434
+            ],
+            "context_id": "parallel-board-miss-09",
+            "gap_delta_m": 0.04,
+            "id": "parallel-board-miss-09-range-41-b0",
+            "intended_route": "table",
+            "proof_sha256": {
+              "context_resolution": "1aa1510ca3c6cc3f3da35e37962530829e2df349b187a4bdc97d870528dde935",
+              "prepared_connection": "7d7c8bdabfbebb26046d9b6c6a8499d70438f1ac5b8e90cd40d361ffee55b662"
+            },
+            "proposal_family": "tilt_and_gap",
+            "selected_q10": [
+              -0.01623973136199346,
+              -0.7644283817219998,
+              -2.4267622460190883,
+              9.61779485411945e-07,
+              -1.6623338642566483,
+              -0.31603549159737354
+            ],
+            "selected_q14": [
+              -3.072692362559263,
+              2.160207566778084,
+              -1.8689511289183087,
+              -2.9581923077837144,
+              1.4116844482324777,
+              -2.081843039869274
+            ],
+            "source_request_id": "parallel-board-miss-09-clearance-0016-b0",
+            "tilt_delta_deg": 6.0,
+            "values": [
+              0.6803429248048187,
+              -0.011044302443505356,
+              0.4618683735173024,
+              31.4687518028256,
+              0.1494386406066069
+            ]
+          },
+          "search": {
+            "id": "parallel-board-miss-09-range-41-b0-search-0",
+            "native_release": true,
+            "outcome": "flight_miss",
+            "robot_contact": true,
+            "row_sha256": "b2a9cf063f2c5565bf769e16ec4c754521c3a1ee7ddcf018b2d4f7dd191ceb24",
+            "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059"
+          }
+        },
+        {
+          "confirmed": false,
+          "repeat_captures": 0,
+          "repeat_completed": 0,
+          "repeat_outcomes": [],
+          "request": {
+            "board_heading_offset_deg": 6.9477438887308125,
+            "board_twist_deg": 135.0,
+            "bucket_xy_m": [
+              1.1929942869527974,
+              0.14742349109856434
+            ],
+            "context_id": "parallel-board-miss-09",
+            "gap_delta_m": 0.06,
+            "id": "parallel-board-miss-09-range-42-b0",
+            "intended_route": "table",
+            "proof_sha256": {
+              "context_resolution": "1aa1510ca3c6cc3f3da35e37962530829e2df349b187a4bdc97d870528dde935",
+              "prepared_connection": "414c7e1b6cae361b7cbfb21b8a5af8980e813ba316b6004c59256d05c5880e72"
+            },
+            "proposal_family": "tilt_and_gap",
+            "selected_q10": [
+              -0.016239997016437826,
+              -0.8523167362433552,
+              -2.626854291432024,
+              -3.307583693162707e-07,
+              -1.774537555073757,
+              5.967149962082171
+            ],
+            "selected_q14": [
+              -3.072692362559263,
+              2.160207566778084,
+              -1.8689511289183087,
+              -2.9581923077837144,
+              1.4116844482324777,
+              -2.081843039869274
+            ],
+            "source_request_id": "parallel-board-miss-09-clearance-0016-b0",
+            "tilt_delta_deg": 6.0,
+            "values": [
+              0.6803429248048187,
+              -0.011044302443505356,
+              0.4618683735173024,
+              31.4687518028256,
+              0.1694386406066069
+            ]
+          },
+          "search": {
+            "id": "parallel-board-miss-09-range-42-b0-search-0",
+            "native_release": true,
+            "outcome": "flight_miss",
+            "robot_contact": false,
+            "row_sha256": "5ab8f64560a19992dd79d5d23831de5632fb20869d4a484fc7a696e86aeea59a",
+            "trace_sha256": "6c779746a512b6752ac64b434e8786bb193ef5037f62b2c6d7e59f0dfe01c059"
+          }
+        }
+      ]
+    }
+  ],
+  "confirmation_requests": 0,
+  "controls": {
+    "controls_post": {
+      "counts": {
+        "attempts": 9,
+        "captures": 6,
+        "clean": 3,
+        "direct_captures": 3,
+        "forbidden_contact_shots": 3,
+        "invalid": 0,
+        "invalid_physics": 0,
+        "mean_reward": 2.830224356341267,
+        "native_misses": 3,
+        "native_releases": 9,
+        "setup_rejections": 0,
+        "table_assisted_captures": 3
+      },
+      "direct_captures": 3,
+      "negative_captures": 0,
+      "status": "passed",
+      "table_assisted_captures": 3
+    },
+    "controls_pre": {
+      "counts": {
+        "attempts": 9,
+        "captures": 6,
+        "clean": 3,
+        "direct_captures": 3,
+        "forbidden_contact_shots": 3,
+        "invalid": 0,
+        "invalid_physics": 0,
+        "mean_reward": 2.830198805605267,
+        "native_misses": 3,
+        "native_releases": 9,
+        "setup_rejections": 0,
+        "table_assisted_captures": 3
+      },
+      "direct_captures": 3,
+      "negative_captures": 0,
+      "status": "passed",
+      "table_assisted_captures": 3
+    }
+  },
+  "drop_gap_definition": "Released ball-bottom Z minus board-center Z",
+  "evidence_date": "2026-11-23",
+  "gpu_lease_s": 261.2528676019865,
+  "independent_checks": 10993,
+  "initial_requests": 14,
+  "joint_units": "radians",
+  "limitations": [
+    "Known development targets; not unseen-position evaluation or a new learned-policy result.",
+    "Native ball dynamics hold both arms at checked endpoints; no driven-arm or physical validation.",
+    "One range-correction target only; the second unresolved target was not tested in this pass.",
+    "Nominal 64-substep repeats only; no noise, timestep or perception study.",
+    "Successful source records and live planner are unchanged. No 4070 or Isaac workload changes."
+  ],
+  "native_releases": 41,
+  "physics_substeps": 64,
+  "preservation_commands": [
+    {
+      "id": "parallel-board-miss-03",
+      "outcomes": [
+        {
+          "id": "parallel-board-miss-03-transfer-0030-b0-preserved-0",
+          "native_release": true,
+          "outcome": "direct",
+          "robot_contact": false,
+          "row_sha256": "a6a32f6a683a7ee3a33694914b6ab0a2c8d5341feb1a48875a950ddf59b59b85",
+          "trace_sha256": "1482c01d4552f39bc3dab66846e5740757487f1a4190466b00cc7b26824b7183"
+        },
+        {
+          "id": "parallel-board-miss-03-transfer-0030-b0-preserved-1",
+          "native_release": true,
+          "outcome": "direct",
+          "robot_contact": false,
+          "row_sha256": "046c4c01660925eaa1c2ea1e7909b15043269d5834f66f17eabf6e9cc8f1bde9",
+          "trace_sha256": "1482c01d4552f39bc3dab66846e5740757487f1a4190466b00cc7b26824b7183"
+        },
+        {
+          "id": "parallel-board-miss-03-transfer-0030-b0-preserved-2",
+          "native_release": true,
+          "outcome": "direct",
+          "robot_contact": false,
+          "row_sha256": "23c1f42ba8ef95e737ab8d301a762993687ccda5d9cf6a8d3bdd88e3abd2b6bd",
+          "trace_sha256": "1482c01d4552f39bc3dab66846e5740757487f1a4190466b00cc7b26824b7183"
+        }
+      ],
+      "request": {
+        "board_heading_offset_deg": -8.0,
+        "board_twist_deg": 0.0,
+        "bucket_xy_m": [
+          0.9425987509126437,
+          -0.03169011945004932
+        ],
+        "context_id": "parallel-board-miss-03",
+        "id": "parallel-board-miss-03-transfer-0030-b0",
+        "intended_route": "direct",
+        "proof_sha256": {
+          "context_resolution": "6be9ce6152f81b28f7b0be58d96cc729c6607fc1eb4c1211c7de2d75c3949d13",
+          "prepared_connection": "1c75a5a53ae7695672c20260e4d5d90a403d04401025dde1d5cb2b51352ef2a3"
+        },
+        "selected_q10": [
+          0.034622727395092666,
+          -0.4798080750481361,
+          -2.1637782035412805,
+          2.027007887888173e-06,
+          -1.683970128462214,
+          0.17940603878673378
+        ],
+        "selected_q14": [
+          3.0922077124791505,
+          1.3929061721884668,
+          -3.2295938084970817,
+          -0.09244058639635162,
+          -1.8597700273152293,
+          4.467999433908898
+        ],
+        "source_bank_id": "recovery:stalled-reference-test-03-pose-00326-b0",
+        "source_request_id": "stalled-reference-test-03-pose-00326-b0",
+        "source_strength": "confirmed_3_of_3",
+        "values": [
+          0.5860095331530633,
+          0.0203018480224511,
+          0.4976091239666261,
+          22.330081755597877,
+          0.1870037033253607
+        ]
+      },
+      "source_row_sha256": [
+        "b76a473f7f9c2ac4def47e32c9a0ca54fa585e5931d053d9d18a51379a927b07",
+        "d0d13055fa75b80f9bad9f4adf668d2b3af592f2186034f598195bffe4f3b7e3",
+        "dcb84289de112fd3b7d62f847a0e39a9c13307a7f2254416953db1518895a71d"
+      ]
+    },
+    {
+      "id": "parallel-board-miss-13",
+      "outcomes": [
+        {
+          "id": "parallel-board-miss-13-transfer-0015-b0-preserved-0",
+          "native_release": true,
+          "outcome": "direct",
+          "robot_contact": false,
+          "row_sha256": "4dd478666b3d8790198d09d5320f6b8e6d4a7cfce0126666bd263e6755eb9a85",
+          "trace_sha256": "930c8130b0e6fda38765a95829fdce2d811fc6595a88beacbec7e147efc31bdf"
+        },
+        {
+          "id": "parallel-board-miss-13-transfer-0015-b0-preserved-1",
+          "native_release": true,
+          "outcome": "direct",
+          "robot_contact": false,
+          "row_sha256": "59fbcae041a7173faf7f891060c6703ce4da33e60fc47e6cd2b9aa08597750a3",
+          "trace_sha256": "930c8130b0e6fda38765a95829fdce2d811fc6595a88beacbec7e147efc31bdf"
+        },
+        {
+          "id": "parallel-board-miss-13-transfer-0015-b0-preserved-2",
+          "native_release": true,
+          "outcome": "direct",
+          "robot_contact": false,
+          "row_sha256": "2644822bde45b7f4397ea120d6dfa4cb2bc1f8245330c71eb1244f0a799e6e9c",
+          "trace_sha256": "930c8130b0e6fda38765a95829fdce2d811fc6595a88beacbec7e147efc31bdf"
+        }
+      ],
+      "request": {
+        "board_heading_offset_deg": -8.0,
+        "board_twist_deg": 0.0,
+        "bucket_xy_m": [
+          0.9667326055650807,
+          -0.04091039262604272
+        ],
+        "context_id": "parallel-board-miss-13",
+        "id": "parallel-board-miss-13-transfer-0015-b0",
+        "intended_route": "direct",
+        "proof_sha256": {
+          "context_resolution": "2f573b1ff8b9a56d571e4d6bfaf009416cb2ee92195f0cdc78d831f653e2af1b",
+          "prepared_connection": "f189cc55e8dd562ac6607d2da241f5377c693c17de13f2d14e990206bbecf0cc"
+        },
+        "selected_q10": [
+          0.02328183671820652,
+          -0.5402673767616886,
+          -2.252764534531484,
+          1.6054569894731012e-06,
+          -1.712497157764066,
+          0.17229900322121294
+        ],
+        "selected_q14": [
+          3.098729702615488,
+          1.314260302770987,
+          -3.3773037527712084,
+          -0.09882255010173553,
+          -1.927494310471567,
+          4.449774517880493
+        ],
+        "source_bank_id": "recovery:stalled-reference-test-03-pose-00326-b0",
+        "source_request_id": "stalled-reference-test-03-pose-00326-b0",
+        "source_strength": "confirmed_3_of_3",
+        "values": [
+          0.6009844464019146,
+          0.0139992573566051,
+          0.4976091239666261,
+          22.330081755597877,
+          0.1870037033253607
+        ]
+      },
+      "source_row_sha256": [
+        "a1148f1fcc0a8edfa6871ae5a40c3d7442d8d6456ad701c5fed76baee49c3937",
+        "0a2bd957b1095d605607532b547ab4daa7b2ce5ab616d3599c64e86257957a24",
+        "0939387b8bdac277200d1c5bf058e0863a1833c987b722f2cc05f839876158d0"
+      ]
+    },
+    {
+      "id": "parallel-board-miss-15",
+      "outcomes": [
+        {
+          "id": "parallel-board-miss-15-transfer-0045-b0-preserved-0",
+          "native_release": true,
+          "outcome": "table",
+          "robot_contact": false,
+          "row_sha256": "a092ae1c047a4769efe2803277fae5098b0986ed02d281deecffeedaaab3be5c",
+          "trace_sha256": "fe5466fd345d59163ac59b4f1ab5d1622506ada8e99f52e7dd664e91c380b6ba"
+        },
+        {
+          "id": "parallel-board-miss-15-transfer-0045-b0-preserved-1",
+          "native_release": true,
+          "outcome": "table",
+          "robot_contact": false,
+          "row_sha256": "981e2773393282513537715e722c137d94f6a34d44c04f1f11e13a916405a34e",
+          "trace_sha256": "fe5466fd345d59163ac59b4f1ab5d1622506ada8e99f52e7dd664e91c380b6ba"
+        },
+        {
+          "id": "parallel-board-miss-15-transfer-0045-b0-preserved-2",
+          "native_release": true,
+          "outcome": "table",
+          "robot_contact": false,
+          "row_sha256": "690200580f8e419fba938cfc00e146a85ffe7505158f500dce17d81df6f46d84",
+          "trace_sha256": "fe5466fd345d59163ac59b4f1ab5d1622506ada8e99f52e7dd664e91c380b6ba"
+        }
+      ],
+      "request": {
+        "board_heading_offset_deg": 0.0,
+        "board_twist_deg": 0.0,
+        "bucket_xy_m": [
+          1.2095887213590388,
+          -0.16059263682347344
+        ],
+        "context_id": "parallel-board-miss-15",
+        "id": "parallel-board-miss-15-transfer-0045-b0",
+        "intended_route": "direct",
+        "proof_sha256": {
+          "context_resolution": "7e75f707f948744fc88aeeb9d34bba1f858f934f75faf5287d569fc501ed4b13",
+          "prepared_connection": "7e022e5e52466388f294266b25389d087774b3c7ec1181d2b0d048bc5071a2fd"
+        },
+        "selected_q10": [
+          -0.0009495529976359758,
+          -0.4803820629194622,
+          -2.1646066520714955,
+          2.0232370147638147e-06,
+          -1.684224589152569,
+          0.25046906123941504
+        ],
+        "selected_q14": [
+          3.1203864830688146,
+          1.388819793079707,
+          -3.2372637241862017,
+          -0.09068580311868292,
+          -1.863776831459333,
+          4.472640385512086
+        ],
+        "source_bank_id": "parallel:parallel-board-known-regression-baseline",
+        "source_request_id": "parallel-board-known-regression-baseline",
+        "source_strength": "confirmed_3_of_3",
+        "values": [
+          0.586509207507709,
+          -0.0005524335638711075,
+          0.4976091239666261,
+          22.330081755597877,
+          0.1870037033253607
+        ]
+      },
+      "source_row_sha256": [
+        "a679e54b953c73cf98ede9095ab77549f229f79db5aa9477282709c4a9cb4b50",
+        "da240a6c7f94c8747336416af699c8cdabfc72ba6b3049bab147240705539c4a",
+        "75284d400522722dcc4dd7ea3a97bed2d1c9a3166d43ade7c572569c0d4f09e3"
+      ]
+    }
+  ],
+  "preserved_shots": {
+    "captures": 9,
+    "completed": 9,
+    "passed": true,
+    "requested": 9
+  },
+  "producer_commit": "457c97134367e3176068ea5e09e4ce1ad71443a1",
+  "producer_source_manifest_sha256": "d38b3a70a8ca0e3b2a3b64e2327eff9d7c97022bac17252bc9562c3aaf7ec107",
+  "scene_identity_sha256": "8e2afb3ace4b0f8b9e23b57759133ff4b35a0af729048fb0d58eefa5d3947646",
+  "scope": "One known development target",
+  "search_rule": {
+    "board_branch_tolerance_rad": 0.0001,
+    "cpu_case_limit_s": 600,
+    "gap_deltas_m": [
+      0.0,
+      0.02,
+      0.04,
+      0.06,
+      0.08,
+      0.1,
+      0.13,
+      0.16,
+      0.2,
+      0.24
+    ],
+    "maximum_native_candidates_per_case": 49,
+    "maximum_total_native_releases": 226,
+    "one_per_setting": true,
+    "preservation_releases": 9,
+    "proposal_limit_s": 30,
+    "proposal_order": "Tilt outer, gap inner; unchanged pair is original only",
+    "proposals": 49,
+    "repeats_per_success": 3,
+    "scope": "One known arm-free miss; gap first and modest tilt adjustments; no training or promotion",
+    "selection": "Every eligible fixed-grid command; no flight ranking or post-drop selection",
+    "tilt_deltas_deg": [
+      0.0,
+      -3.0,
+      3.0,
+      -6.0,
+      6.0
+    ],
+    "version": "sircus-clear-shot-range-menu-v1"
+  },
+  "shot_value_order": [
+    "board_x_m",
+    "board_y_m",
+    "board_center_z_m",
+    "tilt_deg_from_horizontal",
+    "drop_gap_m"
+  ],
+  "source_bindings": {
+    "audit": "671e7b577a75417eb86d18fbc8a0f227241b5799a360e9787910ddd8352654c6",
+    "contract.json": "511e62d699fe65159b8061c675817801881567a92783fc9928fe35e91a024e91",
+    "evidence-manifest.json": "7385949b7d4bbd7bfcf2098cdee8fd94e5c890002b36d00010e2bd127596c2e2",
+    "preparation.json": "c4c84abf415c3625d226670c2e691b05c8a011e02641899cce0372227a96a474",
+    "preserved-slots.json": "d5e24732ba76cfc45da91922b98d67d883566a21c0f9fb1b47665841f62daf32",
+    "report.json": "39e074019faa58971337275efe476ee6165527f755aad46585d80b5cc1ec024e",
+    "rows.jsonl": "4b85c60798fa5fd05440c5d4a6303b9aa4ec159016264a560131656bc52b0f81",
+    "source-bank.json": "4c4bfb7b06141b847a0f17707733762d6b77c1632aa96f947a00f2f4b2e8a66b"
+  },
+  "source_summary": {
+    "board_heading_offset_deg": 6.9477438887308125,
+    "board_twist_deg": 135.0,
+    "bucket_xy_m": [
+      1.1929942869527974,
+      0.14742349109856434
+    ],
+    "id": "parallel-board-miss-09-clearance-0016-b0",
+    "prior_no_robot_contact": true,
+    "selected_q10": [
+      -0.016239233270225924,
+      -0.6872217743357377,
+      -2.207579791372531,
+      2.3790768118114246e-06,
+      -1.5203580170583504,
+      5.967149660271598
+    ],
+    "selected_q14": [
+      -3.080920771673224,
+      2.218076420956739,
+      -1.7900465743182983,
+      -2.983062888222352,
+      1.289196797262201,
+      -2.0726543544900555
+    ],
+    "values": [
+      0.6803429248048187,
+      -0.011044302443505356,
+      0.4618683735173024,
+      25.4687518028256,
+      0.1094386406066069
+    ]
+  },
+  "status": "completed",
+  "ui_section": "#clearShotRange",
+  "version": "sircus-clear-shot-range-summary-v1"
+}
