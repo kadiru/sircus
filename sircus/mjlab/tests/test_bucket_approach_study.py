@@ -2,9 +2,11 @@
 import copy
 import math
 import unittest
+from types import SimpleNamespace
+from unittest.mock import patch
 
 from sircus.mjlab.bucket_approach_study import (choose_correction,ordered_proposals,
-    schedule,summarize,SEARCH_RULE)
+    schedule,summarize,proposal_menu,SEARCH_RULE)
 from sircus.mjlab.bucket_approach_audit import expected_slots,independent_summary
 
 
@@ -61,6 +63,17 @@ class BucketApproachStudyTests(unittest.TestCase):
         scores={x:dict(predicted_score_m=v) for x,v in [('nan',math.nan),('none',None),('inf',math.inf)]}
         self.assertIsNone(choose_correction(dict(predicted_score_m=.01),rows,scores))
         self.assertIsNone(choose_correction({},[],{}))
+
+    def test_training_menu_cannot_reprepare_exact_original_geometry(self):
+        old=dict(request('original'),board_heading_offset_deg=2.,board_twist_deg=0.,intended_route='table')
+        duplicate=dict(copy.deepcopy(old),id='different-training-source')
+        changed=dict(copy.deepcopy(duplicate),id='different-setting',values=[.6,0.,.4,24.,.28])
+        with patch('sircus.mjlab.expanded_selector_plan.expanded_menu',return_value=[duplicate,changed]),patch.dict('sys.modules',{'sircus.mjlab.intergrid_library_plan':SimpleNamespace(libraries=lambda *_:{})}):
+            menu=proposal_menu(dict(id='test',original=old),[],dict(original=[],additions=[]),{},[.3,-.5,.12,8.,.05],[1.04,.35,.60,60.,.65])
+        geometry=lambda row:(tuple(row['values']),row['board_heading_offset_deg'],row['board_twist_deg'])
+        self.assertNotIn(geometry(old),[geometry(row) for row in menu])
+        self.assertIn(geometry(changed),[geometry(row) for row in menu])
+        self.assertEqual(len({geometry(row) for row in menu}),len(menu))
 
     def test_checks_are_bounded_and_groups_interleaved(self):
         rows=[dict(id=f'{group}-{i:02d}',group=group) for group in SEARCH_RULE['groups'] for i in range(30)]

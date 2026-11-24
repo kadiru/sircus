@@ -82,7 +82,11 @@ def source_inputs(a):
 def proposal_menu(case, sources, library_rows, checkpoint, low, high):
     from .expanded_selector_plan import expanded_menu, VERSION as MENU_VERSION
     from .intergrid_library_plan import libraries
-    original=case['original']; rows=[]; seen=set()
+    original=case['original']; rows=[]
+    # The exact original proof is already copied into the immutable namespace.
+    # The training library can offer that same command again under a new ID;
+    # reserve its geometry before preparing any alternatives.
+    seen={digest([original['values'],original['board_heading_offset_deg'],original['board_twist_deg']])}
     def add(row,group):
         values=row['values']; key=digest([values,row['board_heading_offset_deg'],row['board_twist_deg']])
         if (key in seen or any(not lo<=v<=hi for v,lo,hi in zip(values,low,high))
@@ -368,10 +372,19 @@ def main():
     parser.add_argument('--gpu-wait-s',type=int,default=1800)
     parser.add_argument('--stage',choices=('prepare','freeze','run','finalize'),required=True)
     args=parser.parse_args()
+    output_preexisted=args.output.exists()
     try:globals()[args.stage](args)
     except TimeoutError:
         if (args.output/'report.json').exists() and not (args.output/'native-started.json').exists():
             report=read(args.output/'report.json');report.update(status='waiting',phase='frozen',error='GPU wait expired; immutable preparation remains reusable');publish(args,report)
+        raise
+    except Exception as error:
+        # Only mark this invocation's newly created output. A mistakenly reused
+        # older path must remain unchanged, including its status report.
+        if args.stage=='prepare' and not output_preexisted and (args.output/'report.json').exists():
+            report=read(args.output/'report.json')
+            report.update(status='failed',phase='preparation_failed',error=f'{type(error).__name__}: {error}')
+            publish(args,report)
         raise
 
 
