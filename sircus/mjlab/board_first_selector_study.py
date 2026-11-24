@@ -23,7 +23,7 @@ METHODS = ("original", "retrained")
 POSITIONS = 50
 SEED = 2026112401
 PLANNING_S = 30.
-GPU_CAP_S = 3600.
+GPU_CAP_S = 3600
 WORKERS = 4
 COPIED = ("shot-library-rows.json", "route-models.json", "route-history.json",
           "training-prior.json", "calibration.json", "verification.json")
@@ -173,9 +173,13 @@ def frozen(a):
         if sha(a.output / name) != expected:
             raise ValueError("Frozen input changed: " + name)
     source = Path(__file__).resolve().parents[2]
-    for name, expected in contract["source_sha256"].items():
-        if sha(source / name) != expected:
-            raise ValueError("Computational source changed: " + name)
+    if (a.output/"execution-recovery.json").exists():
+        from .board_first_empty_resume import verify
+        verify(a.output,source)
+    else:
+        for name, expected in contract["source_sha256"].items():
+            if sha(source / name) != expected:
+                raise ValueError("Computational source changed: " + name)
     return contract
 
 
@@ -294,8 +298,13 @@ def run_native(a):
     bindings = dict(choices["bindings"], **{"choices.json": sha(a.output / "choices.json")})
     planned = {method: [slot["request"] for slot in choices["slots"] if slot["method"] == method and slot["request"] is not None]
                for method in METHODS}
-    with (a.output / "native-started.json").open("x") as stream:
-        json.dump(dict(bindings=bindings, requests_sha256=digest(planned)), stream)
+    start_receipt = dict(bindings=bindings, requests_sha256=digest(planned))
+    if (a.output/"native-started.json").exists() and (a.output/"execution-recovery.json").exists():
+        from .board_first_empty_resume import start
+        start(a,start_receipt)
+    else:
+        with (a.output / "native-started.json").open("x") as stream:
+            json.dump(start_receipt, stream)
     kwargs = dict(prior=read(a.output / "training-prior.json"), calibration=read(a.output / "calibration.json"),
                   home=read(a.output / "setup-home.json"))
     options = read(a.parent_study / "native-yaw/effective-options.json")
@@ -433,12 +442,17 @@ def main():
         parser.add_argument("--"+name, type=Path, required=True)
     parser.add_argument("--history-root", action="append", type=Path, required=True)
     parser.add_argument("--gpu-wait-s", type=int, default=43200)
-    parser.add_argument("--stage", choices=("fit", "prepare", "run", "finalize", "audit"), required=True)
+    parser.add_argument("--stage", choices=("fit", "prepare", "run", "finalize", "audit", "resume-empty"), required=True)
     parser.add_argument("--audit-output", type=Path)
+    parser.add_argument("--original-source-root", type=Path)
     args = parser.parse_args()
     if args.gpu_wait_s <= 0:
         parser.error("Positive GPU wait limit required")
-    if args.stage == "audit":
+    if args.stage == "resume-empty":
+        cpu_only()
+        from .board_first_empty_resume import prepare as prepare_resume
+        prepare_resume(args)
+    elif args.stage == "audit":
         from .board_first_selector_audit import audit
         if args.audit_output is None or args.audit_output.exists() or args.audit_output.resolve().is_relative_to(args.output.resolve()):
             parser.error("Use a fresh audit output outside immutable evidence")

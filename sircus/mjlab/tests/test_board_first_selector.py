@@ -2,12 +2,15 @@
 from copy import deepcopy
 import importlib.util
 import unittest
+import tempfile
+import json
+from pathlib import Path
 
 from sircus.mjlab import neural_shot_model as historical
 from sircus.mjlab import board_first_selector_model as model
 from sircus.mjlab.board_first_score import VERSION
 from sircus.mjlab.board_first_selector_plan import permitted_contact_score
-from sircus.mjlab.board_first_selector_study import summarize
+from sircus.mjlab.board_first_selector_study import summarize, GPU_CAP_S
 from sircus.mjlab.tests.test_neural_shot_model import record
 
 
@@ -18,6 +21,38 @@ def revised(row, captured=True, invalid=False):
 
 
 class BoardFirstSelectorTests(unittest.TestCase):
+    def test_empty_resume_never_accepts_partial_native_evidence(self):
+        from sircus.mjlab.board_first_empty_resume import require_empty
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder)
+            (path/"report.json").write_text(json.dumps(dict(phase="prepared",controls={},progress=dict(completed_releases=0))))
+            require_empty(path)
+            (path/"rows.jsonl").write_text("")
+            with self.assertRaises(ValueError):require_empty(path)
+            (path/"rows.jsonl").unlink()
+            (path/"native-0000.npz").write_bytes(b"not-even-a-valid-archive")
+            with self.assertRaises(ValueError):require_empty(path)
+
+    def test_empty_resume_source_migration_is_narrow(self):
+        from sircus.mjlab.board_first_empty_resume import source_changes
+        file = "sircus/mjlab/board_first_selector_study.py"
+        original = {file:"old", "sircus/mjlab/board_first_score.py":"unchanged"}
+        self.assertEqual(source_changes(original,dict(original,**{file:"new"}))["changed"],[file])
+        changed = dict(original,**{file:"new", "sircus/mjlab/board_first_score.py":"different-scoring"})
+        with self.assertRaises(ValueError):source_changes(original,changed)
+
+    def test_gpu_deadline_budget_is_an_alarm_compatible_integer(self):
+        # signal.alarm rejects floats before the guarded native block begins.
+        # Exercise the real deadline context without importing CUDA.
+        self.assertIs(type(GPU_CAP_S), int)
+        self.assertEqual(GPU_CAP_S, 3600)
+        try:
+            from sircus.mjlab.intergrid_system_study import gpu_deadline
+        except ModuleNotFoundError:
+            return  # The strict type assertion still runs on the light Mac env.
+        with gpu_deadline(GPU_CAP_S):
+            pass
+
     def test_robot_assisted_label_is_positive_only_for_new_task(self):
         row = record("robot", (.6, -.4), kind="arm_assisted_capture")
         new = revised(row)
