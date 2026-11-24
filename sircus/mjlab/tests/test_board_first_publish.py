@@ -52,6 +52,16 @@ class PublicationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'accounting'):
             module.normalized_counts(dict(self.counts, scorable_native=11))
 
+    def test_changed_shot_context_must_reconcile_with_audited_totals(self):
+        summary = module.read(self.study/'summary.json')
+        summary['changes'] = [dict(old_capture=False, new_capture=True, assistance_surfaces=['robot'])]
+        (self.study/'summary.json').write_text(json.dumps(summary))
+        audit = module.read(self.study/'audit.json')
+        audit['summary_sha256'] = module.sha(self.study/'summary.json')
+        (self.study/'audit.json').write_text(json.dumps(audit))
+        with self.assertRaisesRegex(ValueError, 'Changed-shot accounting'):
+            module.rescore_section(self.study)
+
 
 class ComparisonPublicationTests(PublicationTests):
     def setUp(self):

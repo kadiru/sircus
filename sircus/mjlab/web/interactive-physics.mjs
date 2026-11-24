@@ -1156,12 +1156,12 @@ function renderBoardFirst(root, raw) {
   text('status', ready ? 'Saved-shot rescoring complete · original labels preserved' : 'Checking saved trajectories · final counts await the independent audit');
   text('scope', raw.scope ?? 'Simulation only. Historical relabeling creates no new drops.');
   table(root,'counts',['Saved drops scored','Previously accepted','Accepted under board-first rule','Newly accepted','No longer accepted'],ready?[[r.counts.scorable_native,r.counts.old_captures,r.counts.new_captures,r.counts.gained,r.counts.lost]]:[]);
-  text('changes',ready?`${r.counts.gained} saved captures are newly accepted; ${r.counts.lost} no longer meet the board-first requirement. ${r.counts.invalid_native} invalid-physics traces remain excluded. Contact presence does not prove that the contact caused a bounce.`:'No new capture total is claimed yet.');
+  text('changes',ready?`${r.counts.gained} saved captures are newly accepted; ${r.counts.lost} are not confirmed under the board-first evidence rule. ${r.counts.invalid_native} invalid-physics traces remain excluded. Contact presence does not prove that the contact caused a bounce.`:'No new capture total is claimed yet.');
   const changed=ready?r.positions.filter(p=>p.counts.gained||p.counts.lost).sort((a,b)=>b.counts.gained-a.counts.gained||b.counts.lost-a.counts.lost):[];
   table(root,'positions',['Bucket X, Y (mm)','Saved drops','Old captures','New captures','Gained / lost'],changed.map(p=>[p.bucket_xy_m.map(v=>(1000*v).toFixed(1)).join(', '),p.counts.scorable_native,p.counts.old_captures,p.counts.new_captures,`${p.counts.gained} / ${p.counts.lost}`]));
   text('training',raw.training_text??'The same small network ranks proposed shots. It is retrained on corrected TRAIN labels, selected using validation data, then frozen before new test drops.');
   text('test-status',tested?'Fresh 50-position comparison complete · both checkpoints frozen':`Fresh 50-position comparison: ${c?.phase??'pending'}. Results appear after the independent audit.`);
-  table(root,'comparison',['Frozen selector','Captures / 50','Setup refused','Released misses','Invalid physics','Mean planning (s)'],tested?c.methods.map(m=>[m.label,`${m.captures} / 50`,m.setup_rejections,m.released_misses,m.invalid_physics,Number.isFinite(m.mean_planning_s)?m.mean_planning_s.toFixed(2):'—']):[]);
+  table(root,'comparison',['Frozen selector','Captures / 50','Setup refused','Released misses','Invalid physics','Mean decision time (s)'],tested?c.methods.map(m=>[m.label,`${m.captures} / 50`,m.setup_rejections,m.released_misses,m.invalid_physics,Number.isFinite(m.mean_planning_s)?m.mean_planning_s.toFixed(2):'—']):[]);
   text('conclusion',tested?c.conclusion:'Re-scoring alone is not evidence that a newly trained model generalizes better.');
   text('proof',ready?`Rescore report SHA-256: ${r.provenance.report_sha256}. Independent audit: ${r.provenance.audit_sha256}.`:'');
 }

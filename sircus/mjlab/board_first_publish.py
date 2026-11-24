@@ -42,8 +42,22 @@ def rescore_section(study):
                  for p in summary["buckets"]]
     if any(sum(p["counts"][key] for p in positions) != value for key, value in counts.items()):
         raise ValueError("Per-position and total accounting differ")
+    context = []
+    if "groups" in summary:
+        groups = summary["groups"]
+        source_count = len({group["source_study"] for group in groups})
+        steps = sorted({group["substeps"] for group in groups if group["counts"]["scorable_native"]})
+        context.append(f"{source_count} historical study sources; saved native substeps: {', '.join(map(str, steps))}.")
+    if "changes" in summary:
+        gained = [row for row in summary["changes"] if row["new_capture"] and not row["old_capture"]]
+        lost = [row for row in summary["changes"] if row["old_capture"] and not row["new_capture"]]
+        if len(gained) != counts["gained"] or len(lost) != counts["lost"]:
+            raise ValueError("Changed-shot accounting differs")
+        robot = sum("robot" in row["assistance_surfaces"] for row in gained)
+        table = sum(set(row["assistance_surfaces"]) == {"table"} for row in gained)
+        context.append(f"Newly accepted recordings: {robot} include post-board robot contact; {table} include only table assistance.")
     return dict(status="completed", audit_status="passed", counts=counts, positions=positions,
-        exclusions=summary["exclusions"], metadata=summary["metadata"],
+        exclusions=summary["exclusions"], metadata=summary["metadata"], context=" ".join(context),
         provenance=dict(report_sha256=sha(study / "summary.json"), audit_sha256=sha(study / "audit.json"),
                         manifest_sha256=sha(study / "manifest.json")))
 
@@ -217,10 +231,14 @@ def compose(rescore, *, comparison=None, comparison_audit=None):
     if (comparison is None) != (comparison_audit is None):
         raise ValueError("Comparison path and independent audit must be supplied together")
     result = dict(version=VERSION, rescore=rescore_section(rescore),
-        scope="Recorded simulation evidence, re-scored under a new version. Original scores and checkpoints are preserved.",
+        scope=("Saved simulation drops compared with each recording's original scoring rules. "
+               "Older sources excluded table bounces too, so historical gains are not all newly allowed robot bounces. "
+               "This is label accounting, not a new capture-rate test. Original scores and checkpoints are preserved."),
         comparison=dict(phase="preparing corrected labels", status="pending"))
     if comparison is not None:
         result["comparison"] = comparison_section(comparison, comparison_audit)
+    if result["rescore"]["context"]:
+        result["scope"] = result["rescore"]["context"] + " " + result["scope"]
     return result
 
 
