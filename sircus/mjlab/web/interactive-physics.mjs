@@ -1336,3 +1336,93 @@ export const { expandedSelectorReplaysReady, expandedSelectorReplayMovie, render
   }
   return {expandedSelectorReplaysReady:ready,expandedSelectorReplayMovie:movie,renderExpandedSelectorReplays:render};
 })();
+
+// Read-only native64 diagnostic; this module never selects or executes a shot.
+export const {bucketApproachReady, renderBucketApproach} = (() => {
+  const VERSION='sircus-bucket-approach-display-v1';
+  const cache=new WeakMap();
+  const CASES=['04','10','19'].map(n=>`expanded-selector-test-${n}`);
+  const METHODS=['original','corrected'];
+  const hash=v=>typeof v==='string' && /^[a-f0-9]{64}$/.test(v);
+  const integer=v=>Number.isInteger(v) && v>=0;
+  const vector=(v,n)=>Array.isArray(v) && v.length===n && v.every(Number.isFinite);
+  const settings=s=>s===null || (vector(s?.values,5) && s.values[4]>0 && vector(s.q10_rad,6) && vector(s.q14_rad,6)
+    && vector(s.release_ball_center_m,3) && Number.isFinite(s.heading_offset_deg) && Number.isFinite(s.twist_deg));
+  function counts(r){return r && r.requested===3 && r.completed===3
+    && ['released','captures','flight_misses','setup_rejections','invalid_physics','robot_contacts','bucket_contacts'].every(k=>integer(r[k]))
+    && r.released+r.setup_rejections===3 && r.captures+r.flight_misses+r.invalid_physics===r.released
+    && r.robot_contacts<=r.released && r.bucket_contacts<=r.released;}
+  function forecast(f){return f && typeof f.summary==='string' && typeof f.limits==='string'
+    && ['first_collision_s','minimum_margin_m','opening_margin_m'].every(k=>f[k]===null || Number.isFinite(f[k]))
+    && (f.first_collision_s===null || f.first_collision_s>=0)
+    && (f.collision===null || typeof f.collision==='boolean');}
+  function ready(x){
+    if(x?.version!==VERSION || x.status!=='completed' || x.audit_status!=='passed' || x.scope!=='development'
+      || x.physics_substeps!==64 || x.frozen_before_native!==true
+      || !['report_sha256','audit_sha256','preparation_sha256'].every(k=>hash(x.provenance?.[k]))
+      || !integer(x.checks_count) || x.checks_count<1
+      || !Array.isArray(x.cases) || x.cases.map(c=>c.id).join()!==CASES.join()
+      || !Array.isArray(x.diagnostic_controls) || x.diagnostic_controls.length!==1
+      || !Array.isArray(x.preservation) || x.preservation.length!==4
+      || new Set(x.preservation.map(p=>p.id)).size!==4
+      || !integer(x.native_releases) || !['controls_pre','controls_post'].every(p=>x.controls?.[p]?.status==='passed' && x.controls[p].requested===9))return false;
+    for(const c of x.cases){
+      if(!vector(c.bucket_xy_m,2) || !['current','expanded'].includes(c.original_method))return false;
+      for(const key of METHODS){const m=c.methods?.[key];if(!counts(m)||!settings(m.settings)||!forecast(m.forecast)
+        || (m.settings===null)!==(m.setup_rejections===3))return false;}
+    }
+    if(![...x.preservation,...x.diagnostic_controls].every(p=>vector(p.bucket_xy_m,2)&&counts(p)&&settings(p.settings)&&p.settings!==null&&forecast(p.forecast)))return false;
+    return x.native_releases===18+[...x.preservation,...x.diagnostic_controls].reduce((n,p)=>n+p.released,0)
+      +x.cases.reduce((n,c)=>n+METHODS.reduce((s,k)=>s+c.methods[k].released,0),0);
+  }
+  function render(root,raw){
+    root.hidden=raw?.version!==VERSION;if(root.hidden)return;
+    const signature=JSON.stringify(raw);if(cache.get(root)===signature)return;cache.set(root,signature);
+    const doc=root.ownerDocument,find=k=>root.querySelector(`[data-bucket-approach="${k}"]`),complete=ready(raw);
+    for(const k of ['cases','preservation','diagnostic'])find(k).replaceChildren();
+    find('status').textContent=complete?'Bucket-approach correction complete · native drops independently checked':'Bucket-approach test awaits a completed independent audit. Final capture counts are not shown yet.';
+    for(const k of ['summary','controls','conclusion','proof','limits'])find(k).textContent='';
+    if(!complete)return;
+    const el=(p,tag,text,cls)=>{const n=doc.createElement(tag);if(text!==undefined)n.textContent=String(text);if(cls)n.className=cls;p.append(n);return n;};
+    const table=(parent,headings,rows)=>{const t=el(parent,'table'),h=el(el(t,'thead'),'tr'),b=el(t,'tbody');headings.forEach(v=>{el(h,'th',v).scope='col';});for(const values of rows){const tr=el(b,'tr');values.forEach((v,i)=>{const n=el(tr,i?'td':'th',v);if(!i)n.scope='row';});}};
+    const mm=n=>(1000*n).toFixed(1),vec=v=>v.map(mm).join(', '),number=(n,format)=>n===null?'Not predicted':format(n);
+    const sum=k=>raw.cases.reduce((n,c)=>n+c.methods[k].captures,0);
+    find('summary').textContent=`Three previously missed placements, three repeat slots each: unchanged shots ${sum('original')}/9 captures; approach-checked selection ${sum('corrected')}/9. Setup refusals remain unsuccessful attempts. Choices were frozen before these drops.`;
+    for(const c of raw.cases){
+      const card=el(find('cases'),'article',undefined,'hybrid-miss-case');card.id=`bucket-approach-${c.id.slice(-2)}`;
+      el(card,'h3',`Case ${c.id.slice(-2)} · bucket (${vec(c.bucket_xy_m)}) mm`);
+      el(card,'p',`Original shot came from the ${c.original_method==='current'?'current planner':'expanded selector'} in the earlier comparison.`,'fine');
+      const pair=METHODS.map(k=>c.methods[k]);
+      const wrap=el(card,'div',undefined,'table-wrap');
+      table(wrap,['Result / setting','Unchanged missed shot','Approach-checked choice'],[
+        ['Captured and retained',...pair.map(m=>`${m.captures} / 3`)],
+        ['Released but missed',...pair.map(m=>m.flight_misses)],
+        ['No checked setup / invalid physics',...pair.map(m=>`${m.setup_rejections} / ${m.invalid_physics}`)],
+        ['Shots with robot / pre-entry bucket contact',...pair.map(m=>`${m.robot_contacts} / ${m.bucket_contacts}`)],
+        ['Commanded board center X, Y, Z (mm)',...pair.map(m=>m.settings?vec(m.settings.values.slice(0,3)):'No selection')],
+        ['Board tilt from horizontal (°)',...pair.map(m=>m.settings?m.settings.values[3].toFixed(2):'—')],
+        ['Drop gap (mm)',...pair.map(m=>m.settings?mm(m.settings.values[4]):'—')],
+        ['Ball release center X, Y, Z (mm)',...pair.map(m=>m.settings?vec(m.settings.release_ball_center_m):'—')],
+        ['Forecast approach',...pair.map(m=>m.forecast.summary)],
+        ['Predicted first wall contact (s)',...pair.map(m=>number(m.forecast.first_collision_s,n=>n.toFixed(4)))],
+        ['Predicted minimum wall margin (mm)',...pair.map(m=>number(m.forecast.minimum_margin_m,mm))],
+        ['Predicted opening margin (mm)',...pair.map(m=>number(m.forecast.opening_margin_m,mm))],
+      ]);
+      const detail=el(card,'details');el(detail,'summary','Arm joints, orientation and forecast limits');
+      table(el(detail,'div',undefined,'table-wrap'),['Setting','Unchanged missed shot','Approach-checked choice'],[
+        ['Heading offset / board twist (°)',...pair.map(m=>m.settings?`${m.settings.heading_offset_deg.toFixed(2)} / ${m.settings.twist_deg.toFixed(2)}`:'—')],
+        ['Dropper joints (rad)',...pair.map(m=>m.settings?m.settings.q10_rad.map(n=>n.toFixed(5)).join(', '):'—')],
+        ['Bouncer joints (rad)',...pair.map(m=>m.settings?m.settings.q14_rad.map(n=>n.toFixed(5)).join(', '):'—')],
+        ['Forecast limitation',...pair.map(m=>m.forecast.limits)],
+      ]);
+    }
+    table(find('diagnostic'),['Unchanged shot','Bucket X, Y (mm)','Captures','Robot contact repeats'],raw.diagnostic_controls.map(p=>[p.id,vec(p.bucket_xy_m),`${p.captures} / 3`,`${p.robot_contacts} / 3`]));
+    table(find('preservation'),['Saved successful shot','Bucket X, Y (mm)','Captures','Forecast approach'],raw.preservation.map(p=>[p.id,vec(p.bucket_xy_m),`${p.captures} / 3`,p.forecast.summary]));
+    const preserved=raw.preservation.reduce((n,p)=>n+p.captures,0);
+    find('controls').textContent=`Unchanged successful shots: ${preserved}/12 captures. All 18 positive/negative control checks passed. ${raw.native_releases} native releases; ${raw.checks_count.toLocaleString()} independent evidence checks.`;
+    find('conclusion').textContent=raw.conclusion;
+    find('limits').textContent=raw.limits;
+    find('proof').textContent=`Report: ${raw.provenance.report_sha256}. Independent audit: ${raw.provenance.audit_sha256}. Frozen preparation: ${raw.provenance.preparation_sha256}.`;
+  }
+  return {bucketApproachReady:ready,renderBucketApproach:render};
+})();

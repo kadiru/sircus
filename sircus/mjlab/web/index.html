@@ -8,6 +8,19 @@
 <p id="savedReplayExplanation" class="fine">Recorded native simulation. Playback runs in your browser.</p><div id="savedReplayMarkers" class="saved-replay-markers" aria-label="Jump to a measured event"></div>
 </section>
 <div class="result" role="status" aria-live="polite"><span class="status-dot" id="resultDot"></span><div><strong id="resultTitle">Waiting for the learning study</strong><p id="resultText">Manual solves unlock after the completed study and frozen-checkpoint evaluation.</p></div></div>
+<section id="bucketApproachStudy" class="results-section fast-planning-section hybrid-miss-section" hidden>
+<p class="eyebrow">PREDICT THE WHOLE APPROACH · CHECK THE REAL DROP</p><h2>Will the rising ball hit the bucket wall?</h2>
+<p class="scope-note">An opening prediction can look good even when the ball hits the bucket’s outside wall first. This test checks that earlier approach, then compares selected shots in native simulation.</p>
+<p data-bucket-approach="status" class="subtle" role="status"></p><p data-bucket-approach="summary" class="fine"></p>
+<div data-bucket-approach="cases"></div>
+<h3>Unchanged arm-contact miss</h3><p class="fine">Case 47’s earlier miss hit the board arm. It is repeated without correction; this bucket-wall change does not target arm contact.</p>
+<div data-bucket-approach="diagnostic" class="table-wrap" tabindex="0" role="region" aria-label="Unchanged arm-contact miss repeats"></div>
+<h3>Previously successful shots</h3><p class="fine">These unchanged settings are repeated separately. A forecast warning is not a new scoring rule: later table, rim and robot bounces remain allowed.</p>
+<div data-bucket-approach="preservation" class="table-wrap" tabindex="0" role="region" aria-label="Unchanged successful shot repeats"></div>
+<p data-bucket-approach="controls" class="fine"></p><p data-bucket-approach="conclusion" class="scope-note"></p>
+<p class="fine">Three known development misses, not new unseen positions. Every admitted drop uses 64 substeps and arms held at checked endpoints. Capture still requires the first bounce on the board and one continuous second fully inside the bucket. No training, camera perception, live planner switch or physical robot test.</p>
+<details><summary>Evidence and forecast limits</summary><p data-bucket-approach="proof" class="fine"></p><p data-bucket-approach="limits" class="fine"></p></details>
+</section>
 <section id="expandedSelectorReplays" class="results-section fast-planning-section hybrid-miss-section" hidden>
 <p class="eyebrow">SAME BUCKET · TWO CHOSEN SHOTS · SAVED FLIGHTS</p><h2>Where the planners chose differently</h2>
 <p class="scope-note">A capture means the first bounce was on the board, then the whole ball stayed inside the bucket for one continuous second. Later table or robot bounces are allowed.</p>
