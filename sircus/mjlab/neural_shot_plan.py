@@ -34,6 +34,11 @@ def proposal_layout(layout):
 
 def menu(layout, libraries, checkpoint):
     """A frozen finite geometry menu; no IK, contacts or native outcomes here."""
+    if libraries.get("expanded_menu_version") is not None:
+        from .expanded_selector_plan import VERSION, expanded_menu
+        if libraries["expanded_menu_version"] != VERSION:
+            raise ValueError("Unknown expanded shot-menu version")
+        return expanded_menu(layout, libraries, checkpoint)
     context = proposal_layout(layout)
     base = base_proposals(context, libraries, checkpoint)
     sources = {route: libraries[name][route] for route, name in ROUTE_LIBRARIES.items()}
