@@ -124,6 +124,11 @@ def fit(a):
     original_checkpoint = read(a.neural_study / "neural-checkpoint.json")
     data = {split: attach_scores(lines(a.neural_study / name), revised)
             for split, name in (("train", "training-dataset.jsonl"), ("validation", "validation-dataset.jsonl"))}
+    if a.output.exists():
+        raise ValueError("Preserve the existing study; use a fresh output")
+    # Inventory history before creating our own mutable progress report, which
+    # would otherwise become part of the immutable historical exclusion set.
+    layout_archive = fresh_layouts(a, reference, source_contract)
     a.output.mkdir(parents=True, exist_ok=False)
     report = dict(version=VERSION, status="running", phase="fitting", audit_status="pending", controls={},
                   progress=dict(prepared=0, completed_releases=0, planned_releases=None), gpu_lease_s=0.)
@@ -132,7 +137,7 @@ def fit(a):
         shutil.copyfile(a.neural_study / name, a.output / name)
     shutil.copyfile(a.parent_study / "setup-home.json", a.output / "setup-home.json")
     shutil.copyfile(a.neural_study / "neural-checkpoint.json", a.output / "original-checkpoint.json")
-    atomic(a.output / "layouts.json", fresh_layouts(a, reference, source_contract))
+    atomic(a.output / "layouts.json", layout_archive)
     for split, records in data.items():
         append(a.output / (split + "-dataset.jsonl"), records)
     fitted = train(data["train"], data["validation"], seed=original_checkpoint["seed"],
