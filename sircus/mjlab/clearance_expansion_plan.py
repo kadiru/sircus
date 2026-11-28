@@ -221,6 +221,12 @@ def _ranker(config):
             if config["contact_ranking_version"] != contact_version:
                 raise ValueError("Unknown explicit contact ranking version")
             implementation = BoardFirstFlightRanker
+        if config.get("approach_ranking_version") is not None:
+            from .approach_comparison_plan import ApproachFlightRanker, VERSION as approach_version, CONTACT_VERSION
+            if (config["approach_ranking_version"] != approach_version
+                    or config.get("contact_ranking_version") != CONTACT_VERSION):
+                raise ValueError("Unknown approach ranking version or contact semantics")
+            implementation = ApproachFlightRanker
         _rankers[key] = implementation(config["scene"], config["calibration"], Path(config["assets"]), config["rule"])
     return _rankers[key]
 

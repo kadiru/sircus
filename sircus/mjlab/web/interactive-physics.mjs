@@ -1439,3 +1439,79 @@ export const {bucketApproachReady, renderBucketApproach} = (() => {
   }
   return {bucketApproachReady:ready,renderBucketApproach:render};
 })();
+
+// Additive result display: no planner API, execution controls or automatic promotion.
+export const {approachComparisonReady, renderApproachComparison} = (() => {
+  const VERSION='sircus-approach-comparison-display-v1', METHODS=['current','approach'];
+  const hash=h=>typeof h==='string' && /^[a-f0-9]{64}$/.test(h);
+  const integer=n=>Number.isInteger(n) && n>=0;
+  const nonnegative=n=>Number.isFinite(n) && n>=0;
+  const vector=v=>Array.isArray(v) && v.length===2 && v.every(Number.isFinite);
+  const outcomes=['capture','flight miss','setup refused','invalid physics'];
+  const cache=new WeakMap();
+  function ready(x){
+    if(x?.version!==VERSION || x.status!=='completed' || x.audit_status!=='passed' || x.positions!==50
+      || x.physics_substeps!==64 || x.frozen_before_test!==true || x.attempts_per_position!==1
+      || !nonnegative(x.planning_budget_s) || x.planning_budget_s<=0 || !integer(x.checks_count) || x.checks_count<1
+      || !['report_sha256','audit_sha256','contract_sha256','manifest_sha256'].every(k=>hash(x.provenance?.[k]))
+      || !Array.isArray(x.methods) || x.methods.length!==2 || x.methods.map(m=>m.id).sort().join()!==[...METHODS].sort().join()
+      || !Array.isArray(x.results) || x.results.length!==50 || !integer(x.native_releases)
+      || !nonnegative(x.gpu_wait_s) || !nonnegative(x.gpu_lease_s) || x.gpu_lease_s<=0 || x.controls_passed!==18
+      || typeof x.conclusion!=='string' || typeof x.protocol!=='string')return false;
+    for(const m of x.methods){
+      if(m.attempts!==50 || !hash(m.checkpoint_sha256) || !['captures','releases','setup_rejections','released_misses','invalid_physics'].every(k=>integer(m[k]))
+        || m.releases+m.setup_rejections!==50 || m.captures+m.released_misses+m.invalid_physics!==m.releases
+        || !['mean','median','p90'].every(k=>nonnegative(m.decision_s?.[k])&&nonnegative(m.request_s?.[k])&&m.request_s[k]>=m.decision_s[k])
+        || m.decision_s.p90<m.decision_s.median || m.request_s.p90<m.request_s.median)return false;
+    }
+    const ids=new Set(),coordinates=new Set(),paired={both:0,current_only:0,approach_only:0,neither:0};
+    for(const r of x.results){
+      if(typeof r.id!=='string' || ids.has(r.id) || !vector(r.bucket_xy_m) || coordinates.has(JSON.stringify(r.bucket_xy_m)))return false;
+      ids.add(r.id);coordinates.add(JSON.stringify(r.bucket_xy_m));
+      for(const method of METHODS){const a=r[method];if(!outcomes.includes(a?.outcome)||!nonnegative(a.decision_s)||!nonnegative(a.request_s)||a.request_s<a.decision_s)return false;}
+      const old=r.current.outcome==='capture',changed=r.approach.outcome==='capture';paired[old&&changed?'both':old?'current_only':changed?'approach_only':'neither']++;
+    }
+    if(!Object.keys(paired).every(k=>x.paired?.[k]===paired[k]))return false;
+    if(!x.methods.every(m=>[['captures','capture'],['released_misses','flight miss'],['setup_rejections','setup refused'],['invalid_physics','invalid physics']].every(([k,o])=>x.results.filter(r=>r[m.id].outcome===o).length===m[k])))return false;
+    const stats=values=>{const sorted=[...values].sort((a,b)=>a-b);return {mean:values.reduce((a,b)=>a+b,0)/values.length,median:(sorted[24]+sorted[25])/2,p90:sorted[Math.ceil(.9*sorted.length)-1]};};
+    for(const m of x.methods){for(const field of ['decision_s','request_s']){const expected=stats(x.results.map(r=>r[m.id][field]));if(!['mean','median','p90'].every(k=>Math.abs(m[field][k]-expected[k])<=1e-8))return false;}}
+    return x.native_releases===18+x.methods.reduce((n,m)=>n+m.releases,0);
+  }
+  function render(root,raw){
+    root.hidden=raw?.version!==VERSION;if(root.hidden)return;
+    const signature=JSON.stringify(raw);if(cache.get(root)===signature)return;cache.set(root,signature);
+    const doc=root.ownerDocument,find=k=>root.querySelector(`[data-approach-comparison="${k}"]`),complete=ready(raw);
+    for(const k of ['outcomes','times','positions'])find(k).replaceChildren();
+    for(const k of ['status','progress','paired','timing-note','gpu','conclusion','protocol','proof'])find(k).textContent='';
+    const timestamp=Number.isFinite(raw.observed_at_unix)?new Date(raw.observed_at_unix*1000).toLocaleString():null;
+    if(!complete){
+      find('status').textContent=raw.status==='failed'?'Comparison stopped before an audited result.':raw.queue_expired===true?'GPU queue wait expired before simulation started; a retry is needed.':raw.phase==='waiting_for_4090'?'Last reported: waiting for the RTX 4090.':'Comparison in progress — final capture rates await the independent audit.';
+      find('progress').textContent=raw.progress_text??'No final capture counts are published yet.';
+      find('gpu').textContent=raw.phase==='waiting_for_4090'&&nonnegative(raw.gpu_wait_s)?`Cumulative GPU queue wait at the recorded update: ${(raw.gpu_wait_s/60).toFixed(1)} min. Existing workloads are not interrupted.`:'';
+      find('proof').textContent=timestamp?`Status snapshot recorded ${timestamp}. This is the last reported state, not a live process check.`:'';
+      return;
+    }
+    const element=(parent,tag,value)=>{const node=doc.createElement(tag);if(value!==undefined)node.textContent=String(value);parent.append(node);return node;};
+    const table=(slot,headings,rows)=>{const tab=element(find(slot),'table'),head=element(element(tab,'thead'),'tr'),body=element(tab,'tbody');headings.forEach(t=>{element(head,'th',t).scope='col';});for(const row of rows){const tr=element(body,'tr');row.forEach((value,i)=>{const cell=element(tr,i?'td':'th',value);if(!i)cell.scope='row';});}};
+    const ordered=METHODS.map(id=>raw.methods.find(m=>m.id===id)),fmt=n=>n.toFixed(2);
+    find('status').textContent='50-position comparison complete · native outcomes independently checked';
+    find('progress').textContent='Both planners were frozen before test drops. Each had one attempt at the same 50 new positions; setup refusals remain in the denominator.';
+    table('outcomes',['Result','Current planner','Expanded search + approach check'],[
+      ['Captured and retained',...ordered.map(m=>`${m.captures} / 50 (${(2*m.captures).toFixed(0)}%)`)],
+      ['Released balls',...ordered.map(m=>m.releases)],['No checked setup',...ordered.map(m=>m.setup_rejections)],
+      ['Released but missed',...ordered.map(m=>m.released_misses)],['Invalid physics',...ordered.map(m=>m.invalid_physics)],
+    ]);
+    find('paired').textContent=`Both captured ${raw.paired.both} positions. New method gained ${raw.paired.approach_only}, lost ${raw.paired.current_only}; neither captured ${raw.paired.neither}.`;
+    table('times',['Planning time (seconds)','Current planner','Expanded search + approach check'],[
+      ...[['mean','Mean'],['median','Median'],['p90','90th percentile']].map(([key,label])=>[`${label} decision`,...ordered.map(m=>fmt(m.decision_s[key]))]),
+      ...[['mean','Mean'],['median','Median'],['p90','90th percentile']].map(([key,label])=>[`${label} full request`,...ordered.map(m=>fmt(m.request_s[key]))]),
+    ]);
+    find('timing-note').textContent=`Both use the same ${raw.planning_budget_s}-second decision deadline. Full request time includes worker initialization, protocol and shutdown overhead. Times cover all 50 requests per planner, including setup refusals; the nearest-rank 90th percentile is the 45th of 50 ordered times.`;
+    find('gpu').textContent=`GPU queue wait: ${(raw.gpu_wait_s/60).toFixed(1)} min, separate from planning. Native execution lease: ${(raw.gpu_lease_s/60).toFixed(1)} min. ${raw.native_releases} native releases including all 18 passed controls; ${raw.checks_count.toLocaleString()} evidence checks.`;
+    find('conclusion').textContent=raw.conclusion;
+    find('protocol').textContent=raw.protocol;
+    table('positions',['Bucket X, Y (mm)','Current outcome','New outcome','Decision seconds: current / new','Full request seconds: current / new'],raw.results.map(r=>[r.bucket_xy_m.map(n=>(n*1000).toFixed(1)).join(', '),r.current.outcome,r.approach.outcome,`${fmt(r.current.decision_s)} / ${fmt(r.approach.decision_s)}`,`${fmt(r.current.request_s)} / ${fmt(r.approach.request_s)}`]));
+    find('proof').textContent=`Report ${raw.provenance.report_sha256}. Independent audit ${raw.provenance.audit_sha256}. Frozen contract ${raw.provenance.contract_sha256}. Evidence manifest ${raw.provenance.manifest_sha256}.`;
+  }
+  return {approachComparisonReady:ready,renderApproachComparison:render};
+})();
