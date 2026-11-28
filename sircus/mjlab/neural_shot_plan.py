@@ -34,6 +34,11 @@ def proposal_layout(layout):
 
 def menu(layout, libraries, checkpoint):
     """A frozen finite geometry menu; no IK, contacts or native outcomes here."""
+    if libraries.get("approach_menu_version") is not None:
+        from .approach_comparison_plan import VERSION, comparison_menu
+        if libraries["approach_menu_version"] != VERSION:
+            raise ValueError("Unknown bucket-approach menu version")
+        return comparison_menu(layout, libraries, checkpoint)
     if libraries.get("expanded_menu_version") is not None:
         from .expanded_selector_plan import VERSION, expanded_menu
         if libraries["expanded_menu_version"] != VERSION:

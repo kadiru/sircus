@@ -8,6 +8,21 @@
 <p id="savedReplayExplanation" class="fine">Recorded native simulation. Playback runs in your browser.</p><div id="savedReplayMarkers" class="saved-replay-markers" aria-label="Jump to a measured event"></div>
 </section>
 <div class="result" role="status" aria-live="polite"><span class="status-dot" id="resultDot"></span><div><strong id="resultTitle">Waiting for the learning study</strong><p id="resultText">Manual solves unlock after the completed study and frozen-checkpoint evaluation.</p></div></div>
+<section id="approachComparison" class="results-section fast-planning-section" hidden>
+<p class="eyebrow">COMPLETE PLANNER COMPARISON · 50 NEW POSITIONS · ONE ATTEMPT EACH</p><h2>Does checking the full approach improve the first drop?</h2>
+<p class="scope-note">Compare the current interactive planner with the previously frozen expanded selector, additional local tilt/drop-gap candidates and full bucket-approach ranking. Both must pass the same arm setup checks, use the same decision budget and make at most one drop per position. This is a complete planner comparison, not a test of the approach check alone.</p>
+<p data-approach-comparison="status" class="subtle" role="status"></p><p data-approach-comparison="progress" class="fine"></p>
+<div data-approach-comparison="outcomes" class="table-wrap" tabindex="0" role="region" aria-label="Capture and setup outcomes on fifty fresh positions"></div>
+<p data-approach-comparison="paired" class="scope-note"></p>
+<h3>How long did planning take?</h3>
+<div data-approach-comparison="times" class="table-wrap" tabindex="0" role="region" aria-label="Decision and full planning request times"></div>
+<p data-approach-comparison="timing-note" class="fine"></p><p data-approach-comparison="gpu" class="fine"></p>
+<p data-approach-comparison="conclusion" class="scope-note"></p>
+<details><summary>Both attempts at each bucket position</summary><div data-approach-comparison="positions" class="table-wrap" tabindex="0" role="region" aria-label="Paired first-drop results and planning times"></div></details>
+<p class="fine">The scoring rule is unchanged: the first bounce must be on the board, then the whole ball must stay inside the bucket for one continuous second. Later table, rim, robot or other rebounds are allowed. A predicted wall overlap affects ranking, not whether a measured capture counts.</p>
+<p class="fine">Native MuJoCo at 64 substeps, with arms held at checked endpoints. This tests shot selection and ball flight, not driven-arm motion, camera perception or physical robots. No training on these 50 positions and no automatic live-planner change. The 4070 and Isaac setup remain separate.</p>
+<details><summary>Protocol and evidence</summary><p data-approach-comparison="protocol" class="fine"></p><p data-approach-comparison="proof" class="fine"></p></details>
+</section>
 <section id="bucketApproachStudy" class="results-section fast-planning-section hybrid-miss-section" hidden>
 <p class="eyebrow">PREDICT THE WHOLE APPROACH · CHECK THE REAL DROP</p><h2>Will the rising ball hit the bucket wall?</h2>
 <p class="scope-note">An opening prediction can look good even when the ball hits the bucket’s outside wall first. This test checks that earlier approach, then compares selected shots in native simulation.</p>

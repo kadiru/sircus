@@ -151,6 +151,12 @@ def _prepare_branches(engine, proposals, originals, assets):
             for role, arm, implementation in zip((10, 14), arms, solve, strict=True):
                 def preserved(targets, initial, *, starts, iterations,
                               role=role, implementation=implementation, **kwargs):
+                    # Nested reference IK owns its preservation mask and seed.
+                    # Forward that call unchanged; injecting these keywords a
+                    # second time can fail before any endpoint/path check.
+                    if "preserve_known" in kwargs:
+                        return implementation(targets, initial, starts=starts,
+                                              iterations=iterations, **kwargs)
                     return implementation(
                         targets, initial, starts=1 if role == 10 else BRANCH_RULE["starts_per_arm"],
                         iterations=iterations, seed=proposal["branch_seed"],
@@ -221,6 +227,12 @@ def _ranker(config):
             if config["contact_ranking_version"] != contact_version:
                 raise ValueError("Unknown explicit contact ranking version")
             implementation = BoardFirstFlightRanker
+        if config.get("approach_ranking_version") is not None:
+            from .approach_comparison_plan import ApproachFlightRanker, VERSION as approach_version, CONTACT_VERSION
+            if (config["approach_ranking_version"] != approach_version
+                    or config.get("contact_ranking_version") != CONTACT_VERSION):
+                raise ValueError("Unknown approach ranking version or contact semantics")
+            implementation = ApproachFlightRanker
         _rankers[key] = implementation(config["scene"], config["calibration"], Path(config["assets"]), config["rule"])
     return _rankers[key]
 

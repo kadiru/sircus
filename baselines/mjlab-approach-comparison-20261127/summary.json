@@ -1,0 +1,1051 @@
+{
+  "version": "sircus-approach-comparison-display-v1",
+  "status": "completed",
+  "phase": "completed",
+  "audit_status": "passed",
+  "positions": 50,
+  "physics_substeps": 64,
+  "attempts_per_position": 1,
+  "frozen_before_test": true,
+  "planning_budget_s": 30.0,
+  "methods": [
+    {
+      "id": "current",
+      "attempts": 50,
+      "releases": 50,
+      "captures": 43,
+      "setup_rejections": 0,
+      "released_misses": 7,
+      "invalid_physics": 0,
+      "decision_s": {
+        "mean": 11.844862459761789,
+        "median": 5.723323629004881,
+        "p90": 30.0
+      },
+      "request_s": {
+        "mean": 12.121109086102805,
+        "median": 5.826844945520861,
+        "p90": 30.041899111005478
+      },
+      "checkpoint_sha256": "3ea83197149204bb92782f9efd9a7ee985d6c7bbbfb0823bd068642eebdd1a1e"
+    },
+    {
+      "id": "approach",
+      "attempts": 50,
+      "releases": 41,
+      "captures": 32,
+      "setup_rejections": 9,
+      "released_misses": 8,
+      "invalid_physics": 1,
+      "decision_s": {
+        "mean": 13.685892649461747,
+        "median": 10.353320741996868,
+        "p90": 30.0
+      },
+      "request_s": {
+        "mean": 14.003051819056273,
+        "median": 10.911048515990842,
+        "p90": 30.055297876999248
+      },
+      "checkpoint_sha256": "c34a574a6b6e39416fcd581184ec5b40dce31f5a93a17c6a956269aea24b8980"
+    }
+  ],
+  "results": [
+    {
+      "id": "approach-comparison-test-00",
+      "bucket_xy_m": [
+        0.23493674716916907,
+        -0.5499196461013889
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 2.617512358992826,
+        "request_s": 2.6187785930233076
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 24.332961423962843,
+        "request_s": 24.358969527995214
+      }
+    },
+    {
+      "id": "approach-comparison-test-01",
+      "bucket_xy_m": [
+        0.14543223038973324,
+        -0.627727072067
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 4.701180244970601,
+        "request_s": 4.703558772976976
+      },
+      "approach": {
+        "outcome": "setup refused",
+        "decision_s": 2.1506612369557843,
+        "request_s": 2.166983018978499
+      }
+    },
+    {
+      "id": "approach-comparison-test-02",
+      "bucket_xy_m": [
+        0.4308339051709081,
+        -0.5101797262151723
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 2.990402881987393,
+        "request_s": 2.991734895040281
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 13.812453374033794,
+        "request_s": 13.828780904004816
+      }
+    },
+    {
+      "id": "approach-comparison-test-03",
+      "bucket_xy_m": [
+        0.314356221399744,
+        -0.6195204009580249
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 2.5247311540297233,
+        "request_s": 3.629034949990455
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 10.808344196004327,
+        "request_s": 10.821944117953535
+      }
+    },
+    {
+      "id": "approach-comparison-test-04",
+      "bucket_xy_m": [
+        0.6090909310997679,
+        -0.5621135739386589
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 3.5703306579962373,
+        "request_s": 3.572284572990611
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 8.618313991988543,
+        "request_s": 8.626734336023219
+      }
+    },
+    {
+      "id": "approach-comparison-test-05",
+      "bucket_xy_m": [
+        0.5997551552793344,
+        -0.6097518347160855
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 2.820788241981063,
+        "request_s": 2.8224749739747494
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 4.304345297976397,
+        "request_s": 4.307290226977784
+      }
+    },
+    {
+      "id": "approach-comparison-test-06",
+      "bucket_xy_m": [
+        0.7188788863101723,
+        -0.5630471706412408
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 6.670690863975324,
+        "request_s": 6.677640934998635
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 3.613568687986117,
+        "request_s": 3.6164334199856967
+      }
+    },
+    {
+      "id": "approach-comparison-test-07",
+      "bucket_xy_m": [
+        0.7918557190901974,
+        -0.6156431743265641
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 7.14734479598701,
+        "request_s": 7.1522964970208704
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 8.5712674119859,
+        "request_s": 8.580444821971469
+      }
+    },
+    {
+      "id": "approach-comparison-test-08",
+      "bucket_xy_m": [
+        0.970935450460003,
+        -0.5046194405986838
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 3.0901555020245723,
+        "request_s": 3.0926263500005007
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 22.211147291993257,
+        "request_s": 22.23089721001452
+      }
+    },
+    {
+      "id": "approach-comparison-test-09",
+      "bucket_xy_m": [
+        0.9773875536311822,
+        -0.607656146242287
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 15.350165736977942,
+        "request_s": 16.47626164299436
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 21.690682405023836,
+        "request_s": 21.69781314797001
+      }
+    },
+    {
+      "id": "approach-comparison-test-10",
+      "bucket_xy_m": [
+        1.1482305394341867,
+        -0.5418420063189037
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 14.607528948050458,
+        "request_s": 14.805917535966728
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 17.05427173600765,
+        "request_s": 18.64150712400442
+      }
+    },
+    {
+      "id": "approach-comparison-test-11",
+      "bucket_xy_m": [
+        1.2210695881896383,
+        -0.6186722727961038
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 22.682390772970393,
+        "request_s": 22.700894830049947
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 30.0,
+        "request_s": 31.64417175098788
+      }
+    },
+    {
+      "id": "approach-comparison-test-12",
+      "bucket_xy_m": [
+        0.2273732099232929,
+        -0.2927203875351343
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 14.392731872969307,
+        "request_s": 14.400247681012843
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 5.01811570598511,
+        "request_s": 5.035074142972007
+      }
+    },
+    {
+      "id": "approach-comparison-test-13",
+      "bucket_xy_m": [
+        0.1319657713631577,
+        -0.28163943463702534
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 3.2611361199524254,
+        "request_s": 3.2623758839908987
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 8.76627677603392,
+        "request_s": 8.773483644996304
+      }
+    },
+    {
+      "id": "approach-comparison-test-14",
+      "bucket_xy_m": [
+        0.3693865566147544,
+        -0.358514330434207
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 5.7183375880122185,
+        "request_s": 5.720915054960642
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 30.0,
+        "request_s": 30.055297876999248
+      }
+    },
+    {
+      "id": "approach-comparison-test-15",
+      "bucket_xy_m": [
+        0.41847014894578977,
+        -0.252122121280532
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 3.150865423027426,
+        "request_s": 3.1521308660157956
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 7.693521692010108,
+        "request_s": 7.707011412014253
+      }
+    },
+    {
+      "id": "approach-comparison-test-16",
+      "bucket_xy_m": [
+        0.5646092529987037,
+        -0.3148329792166097
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 2.941173855040688,
+        "request_s": 2.942482789978385
+      },
+      "approach": {
+        "outcome": "setup refused",
+        "decision_s": 4.109931304992642,
+        "request_s": 4.125789206998888
+      }
+    },
+    {
+      "id": "approach-comparison-test-17",
+      "bucket_xy_m": [
+        0.6038660697387623,
+        -0.41649385488644536
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 4.656817096984014,
+        "request_s": 5.842541354999412
+      },
+      "approach": {
+        "outcome": "invalid physics",
+        "decision_s": 30.0,
+        "request_s": 30.12023841100745
+      }
+    },
+    {
+      "id": "approach-comparison-test-18",
+      "bucket_xy_m": [
+        0.7630273150894846,
+        -0.3273828251798848
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 3.0242371650529094,
+        "request_s": 3.0255682629649527
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 4.976494813046884,
+        "request_s": 4.99302351399092
+      }
+    },
+    {
+      "id": "approach-comparison-test-19",
+      "bucket_xy_m": [
+        0.8415718920672445,
+        -0.34558448846780904
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 30.0,
+        "request_s": 31.464838867017534
+      },
+      "approach": {
+        "outcome": "flight miss",
+        "decision_s": 25.73365351901157,
+        "request_s": 27.50081182399299
+      }
+    },
+    {
+      "id": "approach-comparison-test-20",
+      "bucket_xy_m": [
+        0.9079513309303471,
+        -0.3226893416493508
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 2.84125967300497,
+        "request_s": 4.038430197979324
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 7.959521673968993,
+        "request_s": 7.977703829004895
+      }
+    },
+    {
+      "id": "approach-comparison-test-21",
+      "bucket_xy_m": [
+        0.991379725807038,
+        -0.40815139916200605
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 4.761002413986716,
+        "request_s": 4.765700471994933
+      },
+      "approach": {
+        "outcome": "flight miss",
+        "decision_s": 30.0,
+        "request_s": 30.05722355400212
+      }
+    },
+    {
+      "id": "approach-comparison-test-22",
+      "bucket_xy_m": [
+        1.1092906116345023,
+        -0.3303917068724285
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 4.201701886020601,
+        "request_s": 4.205455713963602
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 27.955273550993297,
+        "request_s": 27.980838378018234
+      }
+    },
+    {
+      "id": "approach-comparison-test-23",
+      "bucket_xy_m": [
+        1.2069414450377536,
+        -0.33428839333734267
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 2.9756219680421054,
+        "request_s": 2.9776995190186426
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 17.489405246975366,
+        "request_s": 17.505500725004822
+      }
+    },
+    {
+      "id": "approach-comparison-test-24",
+      "bucket_xy_m": [
+        0.24168243286599356,
+        -0.11700323744347474
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 8.218765932018869,
+        "request_s": 8.221881424018648
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 16.30986799299717,
+        "request_s": 16.319592915999237
+      }
+    },
+    {
+      "id": "approach-comparison-test-25",
+      "bucket_xy_m": [
+        0.1277285472951597,
+        -0.18263903159431177
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 4.454538499005139,
+        "request_s": 4.456357234972529
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 12.646780550014228,
+        "request_s": 12.657729780999944
+      }
+    },
+    {
+      "id": "approach-comparison-test-26",
+      "bucket_xy_m": [
+        0.4261865529196122,
+        -0.06628716425895737
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 3.078099701029714,
+        "request_s": 3.0793240520288236
+      },
+      "approach": {
+        "outcome": "flight miss",
+        "decision_s": 11.346928824030329,
+        "request_s": 11.364312805992085
+      }
+    },
+    {
+      "id": "approach-comparison-test-27",
+      "bucket_xy_m": [
+        0.45075973522448076,
+        0.006920149658518615
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 4.082543536962476,
+        "request_s": 5.464256124978419
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 3.3812353780376725,
+        "request_s": 5.076682260958478
+      }
+    },
+    {
+      "id": "approach-comparison-test-28",
+      "bucket_xy_m": [
+        0.5772830548548046,
+        -0.12931316442184562
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 28.51006131299073,
+        "request_s": 28.511279362021014
+      },
+      "approach": {
+        "outcome": "setup refused",
+        "decision_s": 6.104167513025459,
+        "request_s": 6.1190709279617295
+      }
+    },
+    {
+      "id": "approach-comparison-test-29",
+      "bucket_xy_m": [
+        0.5179127443271818,
+        -0.10904170756522676
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 29.754802395007573,
+        "request_s": 31.171222442004364
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 9.975965481018648,
+        "request_s": 11.690195401024539
+      }
+    },
+    {
+      "id": "approach-comparison-test-30",
+      "bucket_xy_m": [
+        0.8073212347910297,
+        -0.078650204440952
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 30.0,
+        "request_s": 30.03327186399838
+      },
+      "approach": {
+        "outcome": "flight miss",
+        "decision_s": 30.0,
+        "request_s": 30.043077393027488
+      }
+    },
+    {
+      "id": "approach-comparison-test-31",
+      "bucket_xy_m": [
+        0.8409692573300862,
+        -0.15673508247893797
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 5.728309669997543,
+        "request_s": 7.117055033042561
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 20.5045573329553,
+        "request_s": 22.237750266038347
+      }
+    },
+    {
+      "id": "approach-comparison-test-32",
+      "bucket_xy_m": [
+        0.9369689545915315,
+        -0.03554759083512249
+      ],
+      "current": {
+        "outcome": "flight miss",
+        "decision_s": 30.0,
+        "request_s": 30.036732028995175
+      },
+      "approach": {
+        "outcome": "setup refused",
+        "decision_s": 3.932843408023473,
+        "request_s": 3.94887279602699
+      }
+    },
+    {
+      "id": "approach-comparison-test-33",
+      "bucket_xy_m": [
+        0.9269575960145259,
+        -0.058113978100502395
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 30.0,
+        "request_s": 31.284916119999252
+      },
+      "approach": {
+        "outcome": "setup refused",
+        "decision_s": 5.911256991035771,
+        "request_s": 5.9308717679814436
+      }
+    },
+    {
+      "id": "approach-comparison-test-34",
+      "bucket_xy_m": [
+        1.100469389553311,
+        -0.08319660314055322
+      ],
+      "current": {
+        "outcome": "flight miss",
+        "decision_s": 30.0,
+        "request_s": 30.217121311987285
+      },
+      "approach": {
+        "outcome": "flight miss",
+        "decision_s": 30.0,
+        "request_s": 31.65797635196941
+      }
+    },
+    {
+      "id": "approach-comparison-test-35",
+      "bucket_xy_m": [
+        1.1883052423508946,
+        -0.16505296909707218
+      ],
+      "current": {
+        "outcome": "flight miss",
+        "decision_s": 30.0,
+        "request_s": 30.046390358998906
+      },
+      "approach": {
+        "outcome": "flight miss",
+        "decision_s": 20.801027975976467,
+        "request_s": 20.813813844986726
+      }
+    },
+    {
+      "id": "approach-comparison-test-36",
+      "bucket_xy_m": [
+        0.21141414432956876,
+        0.1196281821458505
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 4.098532019008417,
+        "request_s": 4.100331555004232
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 10.730676002975088,
+        "request_s": 12.266299993963912
+      }
+    },
+    {
+      "id": "approach-comparison-test-37",
+      "bucket_xy_m": [
+        0.1959295399878203,
+        0.2148110379003785
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 5.807360270991921,
+        "request_s": 5.81114853604231
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 3.104676079994533,
+        "request_s": 3.1071498630335554
+      }
+    },
+    {
+      "id": "approach-comparison-test-38",
+      "bucket_xy_m": [
+        0.3405947167546452,
+        0.1031026337658005
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 4.3724702569888905,
+        "request_s": 4.37424373801332
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 3.7807779780123383,
+        "request_s": 3.7974110310315154
+      }
+    },
+    {
+      "id": "approach-comparison-test-39",
+      "bucket_xy_m": [
+        0.4472855979979493,
+        0.1931194350583345
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 4.220686551008839,
+        "request_s": 4.2225360160227865
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 10.99036082503153,
+        "request_s": 11.000152914028149
+      }
+    },
+    {
+      "id": "approach-comparison-test-40",
+      "bucket_xy_m": [
+        0.5712191879296467,
+        0.16769989007074748
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 4.3020167899667285,
+        "request_s": 4.303244024049491
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 4.435370457998943,
+        "request_s": 4.438841716037132
+      }
+    },
+    {
+      "id": "approach-comparison-test-41",
+      "bucket_xy_m": [
+        0.6525019649546012,
+        0.20362389812288456
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 6.799827602982987,
+        "request_s": 6.803135904017836
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 4.257840832986403,
+        "request_s": 4.264203009952325
+      }
+    },
+    {
+      "id": "approach-comparison-test-42",
+      "bucket_xy_m": [
+        0.7685461102931301,
+        0.1274794412235576
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 7.583475877007004,
+        "request_s": 8.783967174007557
+      },
+      "approach": {
+        "outcome": "setup refused",
+        "decision_s": 8.576590412994847,
+        "request_s": 8.593829285004176
+      }
+    },
+    {
+      "id": "approach-comparison-test-43",
+      "bucket_xy_m": [
+        0.6846913181065107,
+        0.21988649969647825
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 11.491382525011431,
+        "request_s": 11.496195144020021
+      },
+      "approach": {
+        "outcome": "setup refused",
+        "decision_s": 4.909697955008596,
+        "request_s": 4.924468496988993
+      }
+    },
+    {
+      "id": "approach-comparison-test-44",
+      "bucket_xy_m": [
+        0.9883024929117521,
+        0.14324992219226254
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 14.62036464002449,
+        "request_s": 14.63739856297616
+      },
+      "approach": {
+        "outcome": "setup refused",
+        "decision_s": 2.6373332730145194,
+        "request_s": 2.6543591159861535
+      }
+    },
+    {
+      "id": "approach-comparison-test-45",
+      "bucket_xy_m": [
+        1.0425747104609835,
+        0.2436471623364782
+      ],
+      "current": {
+        "outcome": "flight miss",
+        "decision_s": 30.0,
+        "request_s": 30.041899111005478
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 18.631329653027933,
+        "request_s": 18.643804083985742
+      }
+    },
+    {
+      "id": "approach-comparison-test-46",
+      "bucket_xy_m": [
+        1.120139945005891,
+        0.10855756061739869
+      ],
+      "current": {
+        "outcome": "flight miss",
+        "decision_s": 30.0,
+        "request_s": 30.0407878140104
+      },
+      "approach": {
+        "outcome": "setup refused",
+        "decision_s": 5.4020592420129105,
+        "request_s": 7.0837026819936
+      }
+    },
+    {
+      "id": "approach-comparison-test-47",
+      "bucket_xy_m": [
+        1.1088417623629323,
+        0.2157574537895948
+      ],
+      "current": {
+        "outcome": "flight miss",
+        "decision_s": 29.114535029046237,
+        "request_s": 29.41397087799851
+      },
+      "approach": {
+        "outcome": "flight miss",
+        "decision_s": 30.0,
+        "request_s": 30.04081556998426
+      }
+    },
+    {
+      "id": "approach-comparison-test-48",
+      "bucket_xy_m": [
+        0.20423014053693636,
+        -0.007663580691252725
+      ],
+      "current": {
+        "outcome": "capture",
+        "decision_s": 5.3072431570035405,
+        "request_s": 5.309887629002333
+      },
+      "approach": {
+        "outcome": "capture",
+        "decision_s": 9.053076975978911,
+        "request_s": 9.062021135992836
+      }
+    },
+    {
+      "id": "approach-comparison-test-49",
+      "bucket_xy_m": [
+        1.1431178347801543,
+        0.069353612263518
+      ],
+      "current": {
+        "outcome": "flight miss",
+        "decision_s": 30.0,
+        "request_s": 30.03500964900013
+      },
+      "approach": {
+        "outcome": "flight miss",
+        "decision_s": 30.0,
+        "request_s": 30.061619415995665
+      }
+    }
+  ],
+  "paired": {
+    "both": 31,
+    "current_only": 12,
+    "approach_only": 1,
+    "neither": 6
+  },
+  "controls_passed": 18,
+  "native_releases": 109,
+  "gpu_wait_s": 0.025716438016388565,
+  "gpu_lease_s": 366.84584492398426,
+  "checks_count": 196747,
+  "protocol": "Current interactive planner versus expanded candidate search plus full bucket-approach ranking. The proposed method uses the previously frozen expanded neural selector/library plus a bounded local tilt/drop-gap menu and approach ranking. Both frozen methods use the same decision deadline, arm setup/path checks, 64-substep physics and one attempted drop per target. Both include the same nested-IK adapter bug fix; the live service remains unchanged. Native commands are frozen before execution in batches of up to 32 independent worlds. This compares complete methods, not the bucket check alone. The current planner may penalize predicted later robot contacts while the proposed ranking does not; actual v4 outcome scoring permits those later contacts for both methods. No fitting or test-drop feedback changes selections. The forecast does not simulate arbitrary multi-bounce contact response; native board-first capture scoring remains unchanged.",
+  "conclusion": "Current planner 43/50; expanded search plus full-approach check 32/50 (-11). This batch compares the complete methods; it does not isolate the check from the expanded search. The live planner remains unchanged.",
+  "provenance": {
+    "report_sha256": "4d01c9b4f232e6d7a0ea4160532ec40e349c87b6b7dd67de69b87aec6bcb8439",
+    "audit_sha256": "71759b8e9a427a42bf94d39e7ed2b4c5da6370d458dae45cee8a3acf775cb964",
+    "contract_sha256": "2ceb610b789c971c9066402b13eb0f043f825082f21deff01593b34955318689",
+    "manifest_sha256": "30e71944f9d3235868c33d5cebd09d9b31106f494272a92b27396b9a8af8b44a",
+    "source_commit": "003b84f587a3027d5d2b54526d864b3e66ca7205",
+    "computational_sources_sha256": "5ced071f6e7bf38e116fd18812eb1e6e6fe719991e866bf423ca01c2a581071f",
+    "choices_sha256": "48152fa04626286b750a208402ecb657193da05582efad668ace120426a4c528",
+    "native_started_sha256": "5b2234dc4ff370f548c9b305815e106efbfdfcd964b9570e7406edeac75d2345",
+    "preparation_started_sha256": "7288bccc6002b418fac2221cc2e90e23d7099e5cc855c6547ac016d06433afb7",
+    "preflight_sha256": "6033eae30bb1c8fc99b818f92d09834d3602d66f2d8ecffd85cb6a0e2a976ce1",
+    "export_helper_sha256": "7934dd20869f9de761d692598e93c81a2b682fc06f38611e62778a404b20c2f1"
+  },
+  "paper_metrics": {
+    "methods": [
+      {
+        "id": "current",
+        "positions": 50,
+        "releases": 50,
+        "captures": 43,
+        "capture_rate": 0.86,
+        "setup_rejections": 0,
+        "released_misses": 7,
+        "invalid_physics": 0,
+        "decision_s": {
+          "mean": 11.844862459761789,
+          "median": 5.723323629004881,
+          "p90": 30.0,
+          "max": 30.0
+        },
+        "request_s": {
+          "mean": 12.121109086102805,
+          "median": 5.826844945520861,
+          "p90": 30.041899111005478,
+          "max": 31.464838867017534
+        }
+      },
+      {
+        "id": "approach",
+        "positions": 50,
+        "releases": 41,
+        "captures": 32,
+        "capture_rate": 0.64,
+        "setup_rejections": 9,
+        "released_misses": 8,
+        "invalid_physics": 1,
+        "decision_s": {
+          "mean": 13.685892649461747,
+          "median": 10.353320741996868,
+          "p90": 30.0,
+          "max": 30.0
+        },
+        "request_s": {
+          "mean": 14.003051819056273,
+          "median": 10.911048515990842,
+          "p90": 30.055297876999248,
+          "max": 31.65797635196941
+        }
+      }
+    ],
+    "paired": {
+      "both": 31,
+      "current_only": 12,
+      "approach_only": 1,
+      "neither": 6
+    },
+    "capture_difference_count": -11,
+    "capture_difference_percentage_points": -22,
+    "interpretation": "One attempted drop per method at each of fifty fresh positions; setup declines stay in the denominator. Complete methods are compared, not the bucket-approach check in isolation."
+  },
+  "source_commit": "003b84f587a3027d5d2b54526d864b3e66ca7205",
+  "failed_attempts": [
+    {
+      "attempt": "v1",
+      "status": "failed_during_cpu_preparation",
+      "source_commit": "6f73b86b74c7e59aaba34001f72c96019ce08196",
+      "completed_planning_requests": 78,
+      "native_releases": 0,
+      "used_for_capture_comparison": false,
+      "reason": "The alternative-arm adapter supplied duplicate solver options to a nested reference IK call. The common adapter was corrected for both methods; the failed attempt was preserved and the comparison restarted on fresh positions.",
+      "report_sha256": "5c8bb0929ad9de075dd4763eca53d1b3a01adc994565b8a333e80ac043509412",
+      "contract_sha256": "08ccba5de988386a8b8fbec7fe29ff480f94b0b85dadfa2597c2795fc869175f"
+    }
+  ],
+  "aborted_attempts": [
+    {
+      "attempt": "v2",
+      "status": "controlled_stop_for_execution_batching",
+      "source_commit": "2e63eb603d8a0b5586a540e1d783601c4e1d2b5a",
+      "completed_evaluation_drops": 16,
+      "completed_control_drops": 9,
+      "requested_without_completed_row": 1,
+      "used_for_capture_comparison": false,
+      "test_outcomes_used_to_change_planners": false,
+      "reason": "Individual native packets projected beyond the frozen GPU time limit. The partial run was preserved; the next prospective comparison batches independent worlds without changing either planner.",
+      "report_sha256": "130e68a45efa0d211f9d3284260effa007e8c4d1fb66a3011719aa10aafe2cf6",
+      "contract_sha256": "4d3318c129aa4cb6febff97a208bb4b08c6136c5df7ffbe85be51e107945d43d",
+      "stop_receipt_sha256": "749af45a2a0d76b4fe53ab8dd222533d6f1a2a4762660d1b9ab32158e9071696"
+    }
+  ],
+  "freshness": {
+    "seed": 2026112717,
+    "processing_seed": 2026112718,
+    "positions": 50,
+    "minimum_separation_m": 0.005,
+    "excluded_coordinate_count": 5166,
+    "historical_root_count": 2,
+    "inventoried_metadata_references": 6977,
+    "excluded_coordinates_sha256": "46e84b1d13ead7b904eee3052122755c270d3b0de6bbdd24e94623e598f49c2b",
+    "layouts_sha256": "17da240d02e2602bec1a3f7816c514fac3289f55a2f0a49f4e08f5de7c55e5d8",
+    "strata": {
+      "grid_perimeter": 16,
+      "near_fixed_base": 2,
+      "rectangle_center": 24,
+      "rectangle_interior": 8
+    },
+    "first_attempt_positions_excluded": 50,
+    "partially_executed_attempt_positions_excluded": 50,
+    "scope": "Fresh against all coordinates in the frozen inventoried metadata, the CPU-only first attempt and the partially executed second attempt. Missing or unpublished history is not certified."
+  },
+  "audit_source_commit": "8859f60e538ecd79dba29a14b7110eff5e49df3b",
+  "audit_revision": {
+    "original_source_manifest_sha256": "5ced071f6e7bf38e116fd18812eb1e6e6fe719991e866bf423ca01c2a581071f",
+    "auditor_source_sha256": {
+      "sircus/mjlab/approach_comparison_audit.py": "e6acd38c36b368d71fa37c6848569a84237c69befe2cc91d33ed6dd4d04bfa31",
+      "sircus/mjlab/approach_comparison_study.py": "f7f76a0dd869dc48b084006d0f087d818f4146bf2826f723a3866c505f370614"
+    },
+    "original_producer_verified": true,
+    "permitted_changes": [
+      "sircus/mjlab/approach_comparison_audit.py",
+      "sircus/mjlab/approach_comparison_study.py"
+    ]
+  }
+}
