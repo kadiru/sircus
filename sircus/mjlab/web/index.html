@@ -8,6 +8,21 @@
 <p id="savedReplayExplanation" class="fine">Recorded native simulation. Playback runs in your browser.</p><div id="savedReplayMarkers" class="saved-replay-markers" aria-label="Jump to a measured event"></div>
 </section>
 <div class="result" role="status" aria-live="polite"><span class="status-dot" id="resultDot"></span><div><strong id="resultTitle">Waiting for the learning study</strong><p id="resultText">Manual solves unlock after the completed study and frozen-checkpoint evaluation.</p></div></div>
+<section id="preservedShot" class="results-section fast-planning-section" hidden>
+<p class="eyebrow">KEEP A CHECKED SHOT · THEN TRY ALTERNATIVES</p><h2>Can we improve a shot without losing a usable setup?</h2>
+<p class="scope-note">The earlier expanded search found no usable arm setup at nine positions where the current planner did. This study preserves the current planner’s fully checked shot while examining alternatives. If an alternative fails its checks or runs out of time, the checked shot remains available.</p>
+<p data-preserved-shot="status" class="subtle" role="status"></p><p data-preserved-shot="progress" class="fine"></p>
+<h3>1 · Why the nine setups were lost</h3><p data-preserved-shot="diagnosis-status" class="fine"></p>
+<div data-preserved-shot="diagnosis" class="table-wrap" tabindex="0" role="region" aria-label="Nine historical setup failures and candidate ordering"></div>
+<h3>2 · Repeat those nine positions</h3><p data-preserved-shot="development-status" class="fine"></p>
+<div data-preserved-shot="development" class="table-wrap" tabindex="0" role="region" aria-label="Matched repeats at the nine known positions"></div>
+<h3>3 · Compare on 50 fresh positions</h3><p data-preserved-shot="fresh-status" class="fine"></p>
+<div data-preserved-shot="outcomes" class="table-wrap" tabindex="0" role="region" aria-label="First-drop capture and setup comparison"></div><p data-preserved-shot="paired" class="scope-note"></p>
+<div data-preserved-shot="times" class="table-wrap" tabindex="0" role="region" aria-label="Measured full planning request times"></div><p data-preserved-shot="timing-note" class="fine"></p>
+<details><summary>Each fresh bucket position</summary><div data-preserved-shot="positions" class="table-wrap" tabindex="0" role="region" aria-label="Paired outcomes at fifty fresh positions"></div></details>
+<p class="fine">Native MuJoCo at 64 substeps, with arms held at checked endpoints. A capture requires the first bounce on the board and the whole ball inside the bucket for one continuous second. Later table, rim or robot rebounds are allowed. A checked setup does not guarantee a capture. This does not test driven-arm motion, perception or physical hardware.</p>
+<details><summary>Independent audit evidence</summary><p data-preserved-shot="proof" class="fine"></p></details>
+</section>
 <section id="approachComparison" class="results-section fast-planning-section" hidden>
 <p class="eyebrow">COMPLETE PLANNER COMPARISON · 50 NEW POSITIONS · ONE ATTEMPT EACH</p><h2>Does checking the full approach improve the first drop?</h2>
 <p class="scope-note">Compare the current interactive planner with the previously frozen expanded selector, additional local tilt/drop-gap candidates and full bucket-approach ranking. Both must pass the same arm setup checks, use the same decision budget and make at most one drop per position. This is a complete planner comparison, not a test of the approach check alone.</p>

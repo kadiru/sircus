@@ -1515,3 +1515,148 @@ export const {approachComparisonReady, renderApproachComparison} = (() => {
   }
   return {approachComparisonReady:ready,renderApproachComparison:render};
 })();
+
+// Preserve checked shots: additive read-only comparison display.
+export const {PRESERVED_SHOT_VERSION, preservedDiagnosisReady, preservedDevelopmentReady, preservedFreshReady, preservedPaired, renderPreservedShot} = (() => {
+// Read-only, independently audited sections. Native outcomes never initiate planning.
+const PRESERVED_SHOT_VERSION = 'sircus-preserved-shot-display-v1';
+const METHODS = ['current', 'preserved'];
+const CASES = [1, 16, 28, 32, 33, 42, 43, 44, 46].map(n => `approach-comparison-test-${String(n).padStart(2, '0')}`);
+const OUTCOMES = ['capture', 'flight miss', 'setup refused', 'invalid physics'];
+const integer = n => Number.isInteger(n) && n >= 0;
+const finite = n => Number.isFinite(n) && n >= 0;
+const vector = v => Array.isArray(v) && v.length === 2 && v.every(Number.isFinite);
+const hash = h => typeof h === 'string' && /^[a-f0-9]{64}$/.test(h);
+const proof = (x, keys = ['audit_sha256', 'manifest_sha256']) => x?.audit_status === 'passed' && keys.every(k => hash(x.provenance?.[k]));
+const knownCases = rows => Array.isArray(rows) && rows.length === 9 &&
+  rows.every(r => vector(r.bucket_xy_m)) && rows.map(r => r.id).sort().join() === [...CASES].sort().join();
+
+function preservedDiagnosisReady(x) {
+  return proof(x) && integer(x.checks_count) && x.checks_count > 0 && knownCases(x.positions) && x.positions.every(r =>
+    ['current_checks', 'current_admitted', 'expanded_checks', 'expanded_local_checks'].every(k => integer(r[k])) &&
+    r.current_admitted > 0 && r.expanded_checks === 16 && r.expanded_local_checks <= 16 && finite(r.expanded_decision_s) && r.expanded_decision_s < 30 &&
+    (r.current_geometry_rank === null || (integer(r.current_geometry_rank) && r.current_geometry_rank > 0)) &&
+    Array.isArray(r.rejections) && r.rejections.length > 0 && r.rejections.every(v => typeof v.reason === 'string' && integer(v.count) && v.count > 0) &&
+    r.rejections.reduce((s, v) => s + v.count, 0) === r.expanded_checks);
+}
+
+function preservedDevelopmentReady(x) {
+  return x?.status === 'completed' && x.physics_substeps === 64 && proof(x) && knownCases(x.positions) &&
+    integer(x.controls?.passed) && integer(x.controls?.total) && x.controls.total > 0 && x.controls.passed === x.controls.total &&
+    x.positions.every(r => METHODS.every(id => {
+      const m = r[id];
+      return m && ['attempts', 'captures', 'releases'].every(k => integer(m[k])) && m.attempts === 3 &&
+        m.captures <= m.releases && m.releases <= m.attempts;
+    }) && r.current.attempts === r.preserved.attempts && integer(r.preserved.used_fallback) && r.preserved.used_fallback <= r.preserved.attempts);
+}
+
+function stats(values) {
+  const ordered = [...values].sort((a, b) => a - b);
+  return {mean: values.reduce((a, b) => a + b, 0) / 50, median: (ordered[24] + ordered[25]) / 2, p90: ordered[44]};
+}
+
+function preservedFreshReady(x) {
+  if (x?.status !== 'completed' || !proof(x, ['report_sha256', 'audit_sha256', 'contract_sha256', 'manifest_sha256']) ||
+      x.positions !== 50 || x.physics_substeps !== 64 || x.frozen_before_test !== true || x.attempts_per_position !== 1 ||
+      !integer(x.checks_count) || x.checks_count < 1 || !Array.isArray(x.methods) || x.methods.length !== 2 ||
+      x.methods.map(m => m.id).sort().join() !== [...METHODS].sort().join() || !Array.isArray(x.results) || x.results.length !== 50) return false;
+  const ids = new Set(), coordinates = new Set();
+  for (const r of x.results) {
+    if (typeof r.id !== 'string' || ids.has(r.id) || !vector(r.bucket_xy_m) || coordinates.has(JSON.stringify(r.bucket_xy_m))) return false;
+    ids.add(r.id); coordinates.add(JSON.stringify(r.bucket_xy_m));
+    if (!METHODS.every(id => OUTCOMES.includes(r[id]?.outcome) && finite(r[id].request_s)) || typeof r.preserved.used_fallback !== 'boolean' ||
+        (r.preserved.used_fallback && r.preserved.outcome === 'setup refused')) return false;
+  }
+  return x.methods.every(m => {
+    if (m.attempts !== 50 || !['captures', 'releases', 'setup_rejections', 'released_misses', 'invalid_physics'].every(k => integer(m[k])) ||
+        m.releases + m.setup_rejections !== 50 || m.captures + m.released_misses + m.invalid_physics !== m.releases) return false;
+    const counts = [['captures', 'capture'], ['released_misses', 'flight miss'], ['setup_rejections', 'setup refused'], ['invalid_physics', 'invalid physics']];
+    if (!counts.every(([k, o]) => x.results.filter(r => r[m.id].outcome === o).length === m[k])) return false;
+    const expected = stats(x.results.map(r => r[m.id].request_s));
+    return ['mean', 'median', 'p90'].every(k => finite(m.request_s?.[k]) && Math.abs(expected[k] - m.request_s[k]) <= 1e-8);
+  });
+}
+
+function preservedPaired(rows) {
+  const pair = {both: 0, current_only: 0, preserved_only: 0, neither: 0, fallback: 0};
+  for (const r of rows) {
+    const old = r.current.outcome === 'capture', now = r.preserved.outcome === 'capture';
+    pair[old && now ? 'both' : old ? 'current_only' : now ? 'preserved_only' : 'neither']++;
+    pair.fallback += Number(r.preserved.used_fallback);
+  }
+  return pair;
+}
+
+const REASONS = {
+  proven_full_pose_wrist_reach_rejected: 'Wrist target beyond reach',
+  finite_ik_unresolved: 'Joint solver found no solution within its search',
+  action_bounds_or_minimum_distance_rejected: 'Shot outside declared bounds or minimum distance',
+  strict_endpoint_clearance_or_pose_rejected: 'Endpoint clearance or pose check failed',
+};
+const cache = new WeakMap();
+function renderPreservedShot(root, raw) {
+  if (!root) return;
+  root.hidden = raw?.version !== PRESERVED_SHOT_VERSION;
+  if (root.hidden) return;
+  const signature = JSON.stringify(raw);
+  if (cache.get(root) === signature) return;
+  cache.set(root, signature);
+  const find = key => root.querySelector(`[data-preserved-shot="${key}"]`), doc = root.ownerDocument;
+  for (const key of ['diagnosis', 'development', 'outcomes', 'times', 'positions']) find(key).replaceChildren();
+  for (const key of ['status', 'progress', 'diagnosis-status', 'development-status', 'fresh-status', 'paired', 'timing-note', 'proof']) find(key).textContent = '';
+  const element = (parent, tag, text) => {const node = doc.createElement(tag); if (text !== undefined) node.textContent = String(text); parent.append(node); return node;};
+  const table = (slot, headings, rows) => {
+    const tab = element(find(slot), 'table'), head = element(element(tab, 'thead'), 'tr'), body = element(tab, 'tbody');
+    headings.forEach(h => {element(head, 'th', h).scope = 'col';});
+    rows.forEach(row => {const tr = element(body, 'tr'); row.forEach((v, i) => {const cell = element(tr, i ? 'td' : 'th', v); if (!i) cell.scope = 'row';});});
+  };
+  const xy = r => r.bucket_xy_m.map(n => (n * 1000).toFixed(1)).join(', ');
+  const short = id => id.slice(-2);
+  const proofs = [];
+  const unavailable = x => x?.status === 'failed' ? 'Stopped before an audited result.' : 'Final results await completed simulation and independent audit.';
+  find('status').textContent = raw.status === 'failed' ? 'Last reported: study stopped.' : raw.phase === 'waiting_for_4090' ? 'Last reported: waiting for the RTX 4090.' : 'Preserve a checked shot before trying alternatives.';
+  find('progress').textContent = typeof raw.progress_text === 'string' ? raw.progress_text : 'Historical diagnosis, repeated checks and fresh-position evaluation are reported separately below.';
+
+  if (preservedDiagnosisReady(raw.diagnosis)) {
+    const d = raw.diagnosis;
+    const locals = d.positions.reduce((n, r) => n + r.expanded_local_checks, 0);
+    find('diagnosis-status').textContent = `The expanded search checked 16 candidates at each of these nine positions and rejected them all. ${locals} of 144 checks were new local variations. The current planner had a checked setup at every position. These declines exhausted the candidate limit, not the time limit.`;
+    table('diagnosis', ['Case · bucket X, Y (mm)', 'Current: checked / admitted', 'Expanded: local / checked', 'Why expanded stopped', 'Current selected shot in expanded order'], d.positions.map(r => [
+      `${short(r.id)} · ${xy(r)}`, `${r.current_checks} / ${r.current_admitted}`, `${r.expanded_local_checks} / ${r.expanded_checks}`,
+      r.rejections.map(v => `${v.count} × ${REASONS[v.reason] || v.reason}`).join('; '), r.current_geometry_rank === null ? 'Not in menu' : `Rank ${r.current_geometry_rank} (only 16 checked)`,
+    ]));
+    proofs.push(`Diagnosis audit ${d.provenance.audit_sha256}; evidence ${d.provenance.manifest_sha256}.`);
+  } else find('diagnosis-status').textContent = 'Historical diagnosis is not yet independently verified for display.';
+
+  if (preservedDevelopmentReady(raw.development)) {
+    const d = raw.development;
+    find('development-status').textContent = `Matched repeats at the nine known problem positions. ${d.controls.passed}/${d.controls.total} controls passed. These are development checks, not new-position generalization.`;
+    table('development', ['Case · bucket X, Y (mm)', 'Current captures / attempts', 'Preserved captures / attempts', 'Current / preserved releases', 'Preserved current-shot uses'], d.positions.map(r => [
+      `${short(r.id)} · ${xy(r)}`, `${r.current.captures} / ${r.current.attempts}`, `${r.preserved.captures} / ${r.preserved.attempts}`,
+      `${r.current.releases} / ${r.preserved.releases}`, r.preserved.used_fallback,
+    ]));
+    proofs.push(`Development audit ${d.provenance.audit_sha256}; evidence ${d.provenance.manifest_sha256}.`);
+  } else find('development-status').textContent = unavailable(raw.development);
+
+  if (preservedFreshReady(raw.fresh)) {
+    const f = raw.fresh, methods = METHODS.map(id => f.methods.find(m => m.id === id)), pair = preservedPaired(f.results);
+    find('fresh-status').textContent = '50 fresh positions complete. Both methods were frozen before testing; each gets at most one drop per position. Setup refusals remain in the denominator.';
+    table('outcomes', ['Result', 'Current planner', 'Planner preserving a checked shot'], [
+      ['Captured and retained', ...methods.map(m => `${m.captures} / 50 (${2 * m.captures}%)`)],
+      ['Released balls', ...methods.map(m => m.releases)], ['No checked setup', ...methods.map(m => m.setup_rejections)],
+      ['Released but missed', ...methods.map(m => m.released_misses)], ['Invalid physics', ...methods.map(m => m.invalid_physics)],
+    ]);
+    find('paired').textContent = `Both captured ${pair.both} positions. Preserving a checked shot gained ${pair.preserved_only}, lost ${pair.current_only}; neither captured ${pair.neither}. The current checked shot was retained at ${pair.fallback}/50 positions.`;
+    table('times', ['Full planning request (seconds)', 'Current planner', 'Planner preserving a checked shot'], [['mean', 'Mean'], ['median', 'Median'], ['p90', '90th percentile']].map(([key, label]) => [label, ...methods.map(m => m.request_s[key].toFixed(2))]));
+    find('timing-note').textContent = 'Times are measured full request wall time, including initialization and optional expansion, across all 50 positions. Inner worker decision clocks are not substituted for end-to-end time. GPU queue wait and native drop execution are separate.';
+    table('positions', ['Bucket X, Y (mm)', 'Current outcome', 'Preserved outcome', 'Current shot retained?', 'Full request seconds: current / preserved'], f.results.map(r => [
+      xy(r), r.current.outcome, r.preserved.outcome, r.preserved.used_fallback ? 'Yes' : 'No', `${r.current.request_s.toFixed(2)} / ${r.preserved.request_s.toFixed(2)}`,
+    ]));
+    proofs.push(`Fresh report ${f.provenance.report_sha256}; audit ${f.provenance.audit_sha256}; frozen contract ${f.provenance.contract_sha256}; evidence ${f.provenance.manifest_sha256}.`);
+  } else find('fresh-status').textContent = unavailable(raw.fresh);
+  if (Number.isFinite(raw.observed_at_unix)) proofs.push(`Status snapshot recorded ${new Date(raw.observed_at_unix * 1000).toLocaleString()}; this is not a live process check.`);
+  find('proof').textContent = proofs.join(' ');
+}
+
+return {PRESERVED_SHOT_VERSION, preservedDiagnosisReady, preservedDevelopmentReady, preservedFreshReady, preservedPaired, renderPreservedShot};
+})();
