@@ -129,3 +129,42 @@ class ClearanceExpansionPlanTests(unittest.TestCase):
                 self.plan._prepare_branches(engine, [proposal], {"original": original}, "/tmp/assets")
         self.assertIs(engine.adapter.resolver, old)
         self.assertEqual([arm.solve_candidates for arm in arms], methods)
+
+    def test_branch_wrapper_preserves_nested_reference_options_and_outer_budgets(self):
+        import numpy as np
+        old = object()
+        original = self.row("original")
+        proposal = dict(source_request_id="original", branch_seed=1234)
+        calls = []
+        def implementation(targets, initial, **kwargs):
+            calls.append((targets, initial, kwargs))
+            return kwargs
+        arms = [SimpleNamespace(solve_candidates=implementation) for _ in range(2)]
+        resolver = SimpleNamespace(solver=SimpleNamespace(ik=SimpleNamespace(dropper=arms[0], board=arms[1])))
+        def prepare(rows, *, one_per_setting):
+            self.assertEqual(rows, [proposal])
+            self.assertFalse(one_per_setting)
+            for role, arm in zip((10, 14), arms, strict=True):
+                outer = arm.solve_candidates(["candidate"], "initial", starts=8,
+                    iterations=77, known="saved-joints", normal_only=False)
+                self.assertEqual(outer["starts"], 1 if role == 10 else self.plan.BRANCH_RULE["starts_per_arm"])
+                self.assertEqual((outer["iterations"], outer["seed"]), (77, 1234))
+                np.testing.assert_array_equal(outer["preserve_known"], [True])
+                # Real fallback/reference solves already supply their own
+                # preservation mask, random seed and solve budget. Previously
+                # this call supplied preserve_known/seed twice and crashed.
+                for mask in ([False], [True], None):
+                    nested = arm.solve_candidates(["reference"], "reference-initial", starts=3,
+                        iterations=19, known="reference-joints", normal_only=True,
+                        preserve_known=mask, seed=902)
+                    self.assertEqual(nested, dict(starts=3, iterations=19,
+                        known="reference-joints", normal_only=True, preserve_known=mask, seed=902))
+            return [original], [{"admitted": 1}]
+        engine = SimpleNamespace(adapter=SimpleNamespace(resolver=old), prepare=prepare)
+        with patch.object(self.plan, "BoardOnlyResolver", return_value=resolver):
+            result = self.plan._prepare_branches(engine, [proposal], {"original": original}, "/tmp/assets")
+        self.assertEqual(result["admitted"], [original])
+        self.assertEqual(result["records"], [{"admitted": 1}])
+        self.assertEqual(len(calls), 8)
+        self.assertIs(engine.adapter.resolver, old)
+        self.assertTrue(all(arm.solve_candidates is implementation for arm in arms))

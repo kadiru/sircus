@@ -39,6 +39,19 @@ This compares two complete products. A gain cannot be attributed solely to the
 bucket check: the library, selector, candidate menu and contact ranking also
 differ from the current method.
 
+Both comparison lanes include the same small correction to the shared IK
+adapter: nested reference searches retain their explicitly supplied solver
+options instead of receiving duplicate `preserve_known`/`seed` keywords.
+Models, ranking rules, search budgets and endpoint/path gates are unchanged.
+The live service has not received this correction or been restarted.
+
+The first preparation attempt (`approach-comparison-v1`, producer `6f73b86`)
+stopped after 78 saved planning requests when this bug appeared in the expanded
+planner's alternate board-joint search. It performed **zero native drops**.
+That failed directory is preserved. The corrected comparison uses a new source
+snapshot and output directory; the failed attempt's positions join the
+historical exclusion inventory before the new 50 positions are sampled.
+
 ## Frozen inputs and placements
 
 - Copy both checkpoint files and all library inputs byte for byte from the

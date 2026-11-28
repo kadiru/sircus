@@ -151,6 +151,12 @@ def _prepare_branches(engine, proposals, originals, assets):
             for role, arm, implementation in zip((10, 14), arms, solve, strict=True):
                 def preserved(targets, initial, *, starts, iterations,
                               role=role, implementation=implementation, **kwargs):
+                    # Nested reference IK owns its preservation mask and seed.
+                    # Forward that call unchanged; injecting these keywords a
+                    # second time can fail before any endpoint/path check.
+                    if "preserve_known" in kwargs:
+                        return implementation(targets, initial, starts=starts,
+                                              iterations=iterations, **kwargs)
                     return implementation(
                         targets, initial, starts=1 if role == 10 else BRANCH_RULE["starts_per_arm"],
                         iterations=iterations, seed=proposal["branch_seed"],
