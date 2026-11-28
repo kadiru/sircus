@@ -1,0 +1,209 @@
+{
+  "version": "sircus-preserved-shot-diagnosis-v1",
+  "audit_status": "passed",
+  "checks_count": 196747,
+  "provenance": {
+    "audit_sha256": "71759b8e9a427a42bf94d39e7ed2b4c5da6370d458dae45cee8a3acf775cb964",
+    "manifest_sha256": "30e71944f9d3235868c33d5cebd09d9b31106f494272a92b27396b9a8af8b44a"
+  },
+  "findings": {
+    "checked_proposals": 144,
+    "current_historical_captures": 7,
+    "current_selected_present_in_expanded_menu": 4,
+    "declined_positions": 9,
+    "expanded_local_prefix_count": 134,
+    "expanded_rejection_counts": {
+      "action_bounds_or_minimum_distance_rejected": 20,
+      "finite_ik_unresolved": 42,
+      "proven_full_pose_wrist_reach_rejected": 81,
+      "strict_endpoint_clearance_or_pose_rejected": 1
+    },
+    "expanded_timeouts": 0,
+    "explanation": "The expanded neural prefix exhausted 16 rejected proposals and returned early with no setup. Added local variants occupied most checks. No admitted setup meant no alternative-joint branch search. The current checked command was not preserved."
+  },
+  "positions": [
+    {
+      "id": "approach-comparison-test-01",
+      "bucket_xy_m": [
+        0.14543223038973324,
+        -0.627727072067
+      ],
+      "current_checks": 3,
+      "current_admitted": 3,
+      "expanded_checks": 16,
+      "expanded_local_checks": 15,
+      "expanded_decision_s": 2.1506612369557843,
+      "rejections": [
+        {
+          "reason": "proven_full_pose_wrist_reach_rejected",
+          "count": 16
+        }
+      ],
+      "current_geometry_rank": 70
+    },
+    {
+      "id": "approach-comparison-test-16",
+      "bucket_xy_m": [
+        0.5646092529987037,
+        -0.3148329792166097
+      ],
+      "current_checks": 1,
+      "current_admitted": 1,
+      "expanded_checks": 16,
+      "expanded_local_checks": 15,
+      "expanded_decision_s": 4.109931304992642,
+      "rejections": [
+        {
+          "reason": "action_bounds_or_minimum_distance_rejected",
+          "count": 4
+        },
+        {
+          "reason": "finite_ik_unresolved",
+          "count": 12
+        }
+      ],
+      "current_geometry_rank": null
+    },
+    {
+      "id": "approach-comparison-test-28",
+      "bucket_xy_m": [
+        0.5772830548548046,
+        -0.12931316442184562
+      ],
+      "current_checks": 1,
+      "current_admitted": 1,
+      "expanded_checks": 16,
+      "expanded_local_checks": 14,
+      "expanded_decision_s": 6.104167513025459,
+      "rejections": [
+        {
+          "reason": "action_bounds_or_minimum_distance_rejected",
+          "count": 16
+        }
+      ],
+      "current_geometry_rank": null
+    },
+    {
+      "id": "approach-comparison-test-32",
+      "bucket_xy_m": [
+        0.9369689545915315,
+        -0.03554759083512249
+      ],
+      "current_checks": 13,
+      "current_admitted": 6,
+      "expanded_checks": 16,
+      "expanded_local_checks": 15,
+      "expanded_decision_s": 3.932843408023473,
+      "rejections": [
+        {
+          "reason": "proven_full_pose_wrist_reach_rejected",
+          "count": 16
+        }
+      ],
+      "current_geometry_rank": 76
+    },
+    {
+      "id": "approach-comparison-test-33",
+      "bucket_xy_m": [
+        0.9269575960145259,
+        -0.058113978100502395
+      ],
+      "current_checks": 10,
+      "current_admitted": 6,
+      "expanded_checks": 16,
+      "expanded_local_checks": 15,
+      "expanded_decision_s": 5.911256991035771,
+      "rejections": [
+        {
+          "reason": "proven_full_pose_wrist_reach_rejected",
+          "count": 16
+        }
+      ],
+      "current_geometry_rank": 76
+    },
+    {
+      "id": "approach-comparison-test-42",
+      "bucket_xy_m": [
+        0.7685461102931301,
+        0.1274794412235576
+      ],
+      "current_checks": 1,
+      "current_admitted": 1,
+      "expanded_checks": 16,
+      "expanded_local_checks": 15,
+      "expanded_decision_s": 8.576590412994847,
+      "rejections": [
+        {
+          "reason": "finite_ik_unresolved",
+          "count": 15
+        },
+        {
+          "reason": "proven_full_pose_wrist_reach_rejected",
+          "count": 1
+        }
+      ],
+      "current_geometry_rank": null
+    },
+    {
+      "id": "approach-comparison-test-43",
+      "bucket_xy_m": [
+        0.6846913181065107,
+        0.21988649969647825
+      ],
+      "current_checks": 6,
+      "current_admitted": 5,
+      "expanded_checks": 16,
+      "expanded_local_checks": 15,
+      "expanded_decision_s": 4.909697955008596,
+      "rejections": [
+        {
+          "reason": "finite_ik_unresolved",
+          "count": 15
+        },
+        {
+          "reason": "strict_endpoint_clearance_or_pose_rejected",
+          "count": 1
+        }
+      ],
+      "current_geometry_rank": 60
+    },
+    {
+      "id": "approach-comparison-test-44",
+      "bucket_xy_m": [
+        0.9883024929117521,
+        0.14324992219226254
+      ],
+      "current_checks": 20,
+      "current_admitted": 13,
+      "expanded_checks": 16,
+      "expanded_local_checks": 15,
+      "expanded_decision_s": 2.6373332730145194,
+      "rejections": [
+        {
+          "reason": "proven_full_pose_wrist_reach_rejected",
+          "count": 16
+        }
+      ],
+      "current_geometry_rank": null
+    },
+    {
+      "id": "approach-comparison-test-46",
+      "bucket_xy_m": [
+        1.120139945005891,
+        0.10855756061739869
+      ],
+      "current_checks": 4,
+      "current_admitted": 3,
+      "expanded_checks": 16,
+      "expanded_local_checks": 15,
+      "expanded_decision_s": 5.4020592420129105,
+      "rejections": [
+        {
+          "reason": "proven_full_pose_wrist_reach_rejected",
+          "count": 16
+        }
+      ],
+      "current_geometry_rank": null
+    }
+  ]
+}

@@ -68,7 +68,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let renderApproachComparison, renderBucketApproach, renderExpandedSelectorReplays, expandedSelectorReplayAssets, renderExpandedSelector, renderBoardFirst, physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, directPathFirstSummary, stalledReferenceSummary, hybridMissCorrectionSummary, boardPoseRecoverySummary, boardFallbackSummary, guardedBoardFallbackSummary, parallelBoardSummary, nearbyShotTransferSummary, remainingLinkClearanceSummary, clearShotRangeSummary, physicsSceneActive = false, physicsViewKey = '';
+let renderPreservedShot, renderApproachComparison, renderBucketApproach, renderExpandedSelectorReplays, expandedSelectorReplayAssets, renderExpandedSelector, renderBoardFirst, physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, armCheckSpeedSummary, directPathFirstSummary, stalledReferenceSummary, hybridMissCorrectionSummary, boardPoseRecoverySummary, boardFallbackSummary, guardedBoardFallbackSummary, parallelBoardSummary, nearbyShotTransferSummary, remainingLinkClearanceSummary, clearShotRangeSummary, physicsSceneActive = false, physicsViewKey = '';
 let savedReplayRows = [], savedReplaySignature = '';
 const physicsSelected = () => $('mode').value === 'physics' && physics?.available === true;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
@@ -1054,6 +1054,7 @@ async function loadStatus() {
     showRemainingLinkClearance();
     showClearShotRange();
     if (renderBoardFirst) renderBoardFirst($('boardFirstStudy'), report?.board_first_study);
+    if (renderPreservedShot) renderPreservedShot($('preservedShot'), report?.preserved_shot);
     if (renderApproachComparison) renderApproachComparison($('approachComparison'), report?.approach_comparison);
     if (renderBucketApproach) renderBucketApproach($('bucketApproachStudy'), report?.bucket_approach_study);
     if (renderExpandedSelector) renderExpandedSelector($('expandedSelectorStudy'), report?.expanded_selector_study);
@@ -2060,6 +2061,7 @@ async function initializePhysics() {
     remainingLinkClearanceSummary = module.remainingLinkClearanceSummary;
     clearShotRangeSummary = module.clearShotRangeSummary;
     renderBoardFirst = module.renderBoardFirst;
+    renderPreservedShot = module.renderPreservedShot;
     renderApproachComparison = module.renderApproachComparison;
     renderBucketApproach = module.renderBucketApproach;
     renderExpandedSelector = module.renderExpandedSelector;
@@ -2084,6 +2086,7 @@ async function initializePhysics() {
     showRemainingLinkClearance();
     showClearShotRange();
     if (renderBoardFirst) renderBoardFirst($('boardFirstStudy'), report?.board_first_study);
+    if (renderPreservedShot) renderPreservedShot($('preservedShot'), report?.preserved_shot);
     if (renderApproachComparison) renderApproachComparison($('approachComparison'), report?.approach_comparison);
     if (renderBucketApproach) renderBucketApproach($('bucketApproachStudy'), report?.bucket_approach_study);
     if (renderExpandedSelector) renderExpandedSelector($('expandedSelectorStudy'), report?.expanded_selector_study);
