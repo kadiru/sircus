@@ -196,7 +196,7 @@ def verify_preparation(a):
     from .expanded_shot_library import verify_library
     from .approach_comparison_study import (METHODS, POSITIONS, VERSION as STUDY_VERSION,
         frozen, lines, source_inputs, current_planner_binding, expanded_parent_binding,
-        SEED, PROCESSING_SEED, schedule)
+        SEED, PROCESSING_SEED, schedule, native_schedule, NATIVE_BATCH_SIZE, NATIVE_ADAPTERS, NATIVE_SCHEDULE_VERSION)
     from .intergrid_proposer_plan import sample_splits
     from .board_first_score import VERSION as score_version
     from .approach_comparison_plan import description
@@ -206,6 +206,9 @@ def verify_preparation(a):
     checks.equal(contract["expanded_parent"], expanded_parent_binding(a), "Unchanged independently audited expanded parent")
     checks.equal(contract["training_performed"], False, "No fitting in this study")
     checks.equal(contract["approach_planner"], description(), "Exact bounded proposal and forecast protocol")
+    native = contract["native_execution"]
+    checks.equal((native["version"],native["batch_size"],native["method_order"],native["adapter_order"]),
+                 (NATIVE_SCHEDULE_VERSION,NATIVE_BATCH_SIZE,list(METHODS),list(NATIVE_ADAPTERS)), "Explicit independent-world native batching")
     checks.equal(contract["scoring_version"], score_version, "Unchanged native version 4 scoring")
     checks.equal((contract["seed"], contract["processing_seed"], contract["planning_budget_s"],
                   contract["workers"], contract["max_native_releases"], contract["matched_controls"]),
@@ -270,7 +273,32 @@ def verify_preparation(a):
     from .planning_budget_plan import _wrap_choice
     checks.equal(choices["slots"], [_wrap_choice(plan["site"]["choice"], plan["variant"]) for plan in plans],
                  "Frozen choices exactly wrap pre-deadline selected commands")
-    required = set(contract["frozen_inputs"]) | {"contract.json", "plans.json", "preparation-started.json", "admission-proof-bindings.json"}
+    packets = read(study/"native-schedule.json")
+    checks.equal(packets, native_schedule(contract,choices["slots"]),
+                 "Native packets frozen from commands before release, without outcomes")
+    from .stalled_reference_plan import request_mode
+    selected = {s["id"]:s for s in choices["slots"] if s["request"] is not None}
+    released_ids = [identity for packet in packets for identity in packet["request_ids"]]
+    checks.equal((len(released_ids),set(released_ids)),(len(selected),set(selected)),
+                 "Exactly one scheduled native release for every admitted slot")
+    indexed = {(s["context_id"],s["method"]):s for s in choices["slots"]}
+    for packet in packets:
+        checks.require(0 < len(packet["request_ids"]) <= NATIVE_BATCH_SIZE,
+                       "Bounded nonempty native packet")
+        checks.require(all(selected[identity]["method"] == packet["method"]
+                           and request_mode(selected[identity]["request"]) == packet["adapter"]
+                           for identity in packet["request_ids"]), "Every packet uses one exact method and adapter")
+    for method in METHODS:
+        for mode in NATIVE_ADAPTERS:
+            expected = []
+            for identity in contract["processing_order"]:
+                slot = indexed[identity,method]
+                if slot["request"] is not None and request_mode(slot["request"]) == mode:
+                    expected.append(slot["id"])
+            actual = [identity for packet in packets if (packet["method"],packet["adapter"]) == (method,mode)
+                      for identity in packet["request_ids"]]
+            checks.equal(actual,expected, "Frozen position order retained within native lane/"+method+"/"+mode)
+    required = set(contract["frozen_inputs"]) | {"contract.json", "plans.json", "preparation-started.json", "admission-proof-bindings.json", "native-schedule.json"}
     checks.require(required <= set(choices["bindings"]), "All models, data, inputs and decisions frozen")
     for name, checksum in choices["bindings"].items():
         checks.equal(sha(contained(study,name)), checksum, "Frozen preparation input/"+name)
@@ -320,7 +348,7 @@ def require_preflight(a):
 def audit(a):
     from . import board_first_score_oracle as revised
     from . import table_assisted_score_oracle as historical
-    from .approach_comparison_study import METHODS, board_first_controls, lines, summarize, planned_requests
+    from .approach_comparison_study import METHODS, board_first_controls, lines, summarize, planned_requests, native_schedule
     from .direct_path_first_audit import verify_heading
     from .cell1050_rebound_study import control_requests
     from .policy64_verify import audit_native_options
@@ -341,13 +369,13 @@ def audit(a):
     required = {"current-checkpoint.json", "expanded-checkpoint.json", "train-dataset.jsonl", "validation-dataset.jsonl", "choices.json", "plans.json", "preparation-started.json"}
     checks.require(required <= started["bindings"].keys(), "Weights, labels and choices frozen before test")
     planned = planned_requests(contract, slots)
-    expected_test_order = [s["id"] for identity in contract["processing_order"]
-        for method in contract["method_order"][identity]
-        for s in slots if s["context_id"] == identity and s["method"] == method and s["request"] is not None]
+    packets = native_schedule(contract,slots)
+    expected_test_order = [identity for packet in packets for identity in packet["request_ids"]]
+    checks.equal(started["native_schedule_sha256"], sha(study/"native-schedule.json"), "Native start binds batched schedule")
     checks.equal(started["requests_sha256"], digest(planned), "One-drop command ledger frozen")
     rows = lines(study/"rows.jsonl")
     checks.equal([r["id"] for r in rows if r["adapter_directory"] != "native-controls"],
-                 expected_test_order, "Balanced paired native order")
+                 expected_test_order, "Exact frozen batched native order")
     checks.require(len(rows) <= 118, "At most 100 evaluation drops and 18 controls")
     calibration = read(study/"calibration.json")["score_config"]
     prior, home = read(study/"training-prior.json"), read(study/"setup-home.json")
@@ -364,6 +392,18 @@ def audit(a):
                      [r["id"] for r in planned[method]], method+"/exact frozen release order")
     groups, resolutions = defaultdict(list), defaultdict(dict)
     packet_names = {row["request_packet"] for row in rows}
+    observed_packets = []
+    seen_packets = set()
+    for row in rows:
+        name = row["request_packet"]
+        if name in seen_packets:
+            continue
+        seen_packets.add(name)
+        if row["adapter_directory"] != "native-controls":
+            actual = read(study/name)
+            observed_packets.append(dict(method=row["adapter_directory"].removeprefix("native-"),
+                adapter=actual["native_adapter_mode"],request_ids=[r["id"] for r in actual["rows"]]))
+    checks.equal(observed_packets, packets, "Actual native packet boundaries and adapter modes match frozen schedule")
     checks.equal(packet_names, {p.relative_to(study).as_posix() for p in (study/"requests").glob("*.json")},
                  "No undeclared request packets")
     for name in packet_names:

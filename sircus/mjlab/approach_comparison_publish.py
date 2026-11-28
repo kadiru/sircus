@@ -22,7 +22,9 @@ DISPLAY_METHOD = {'current':'current', 'expanded':'approach'}
 PROTOCOL = ('Current interactive planner versus expanded candidate search plus full bucket-approach ranking. '
             'The proposed method uses the previously frozen expanded neural selector/library plus a bounded local tilt/drop-gap menu and approach ranking. '
             'Both frozen methods use the same decision deadline, arm setup/path checks, 64-substep physics '
-            'and one attempted drop per target. This compares complete methods, not the bucket check alone. '
+            'and one attempted drop per target. Both include the same nested-IK adapter bug fix; the live service remains unchanged. '
+            'Native commands are frozen before execution in batches of up to 32 independent worlds. '
+            'This compares complete methods, not the bucket check alone. '
             'The current planner may penalize predicted later robot contacts while the proposed ranking does not; actual v4 outcome scoring permits those later contacts for both methods. '
             'No fitting or test-drop feedback changes selections. The forecast does not simulate arbitrary '
             'multi-bounce contact response; native board-first capture scoring remains unchanged.')

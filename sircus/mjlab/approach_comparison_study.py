@@ -25,6 +25,9 @@ PROCESSING_SEED = 2026112718
 PLANNING_S = 30.
 GPU_CAP_S = 3600
 WORKERS = 2
+NATIVE_BATCH_SIZE = 32
+NATIVE_ADAPTERS = ("reference", "direct_first")
+NATIVE_SCHEDULE_VERSION = "sircus-approach-native-lanes-v1"
 COPIED = ("shot-library-rows.json", "route-models.json", "route-history.json",
           "training-prior.json", "calibration.json", "verification.json")
 
@@ -217,6 +220,10 @@ def freeze(a):
         planning_budget_s=PLANNING_S, reference_path_s=5., early_score_m=.005,
         gpu_cap_s=GPU_CAP_S, workers=WORKERS, seed=SEED,
         processing_seed=PROCESSING_SEED, processing_order=order, method_order=method_order,
+        native_execution=dict(version=NATIVE_SCHEDULE_VERSION, batch_size=NATIVE_BATCH_SIZE,
+            method_order=list(METHODS), adapter_order=list(NATIVE_ADAPTERS),
+            ordering="Round-robin method/adapter packets; preserve frozen position order within each lane",
+            scope="Independent reset worlds; batching changes execution order only, never frozen decisions or physics"),
         max_native_releases=118, matched_controls=18,
         scope="Frozen current live hybrid versus frozen expanded selector with a broader menu and full bucket approach forecast; privileged geometry, held endpoints, one shot per fresh placement; no training or live promotion")
     contract["fingerprint"] = digest(contract)
@@ -313,6 +320,7 @@ def prepare(a):
             if sha(contained(a.output,name)) != expected:raise ValueError("Incomplete prepared proof")
             proofs[name] = expected
     atomic(a.output/"admission-proof-bindings.json", proofs)
+    atomic(a.output/"native-schedule.json", native_schedule(contract, slots))
     bindings = dict(contract["frozen_inputs"], **{"contract.json":sha(a.output/"contract.json"), "plans.json":sha(a.output/"plans.json"), "preparation-started.json":sha(a.output/"preparation-started.json")})
     bindings.update(proofs)
     # Freeze all accepted and late preparation evidence, not only the winning proofs.
@@ -364,7 +372,6 @@ def board_first_controls(rows):
 def run_native(a):
     from .cell1050_heading_native import HeadingEngine
     from .direct_path_first import DirectPathEngine, hydrate_direct_resolution
-    from .stalled_reference_study import execute_mixed
     from .cell1050_rebound_study import control_requests, annotate
     from .intergrid_route_labels import annotate_routes
     from .coverage_training_study import append
@@ -383,8 +390,15 @@ def run_native(a):
         raise ValueError("Complete preparation before native evaluation")
     choices = read(a.output / "choices.json")
     bindings = dict(choices["bindings"], **{"choices.json": sha(a.output / "choices.json")})
+    if NATIVE_BATCH != NATIVE_BATCH_SIZE:
+        raise ValueError("Native vector batch size differs from frozen schedule")
+    packets = native_schedule(contract, choices["slots"])
+    if packets != read(a.output/"native-schedule.json"):
+        raise ValueError("Frozen native schedule changed")
     planned = planned_requests(contract, choices["slots"])
-    start_receipt = dict(bindings=bindings, requests_sha256=digest(planned), preflight_sha256=sha(a.preflight_output))
+    start_receipt = dict(bindings=bindings, requests_sha256=digest(planned),
+                         native_schedule_sha256=sha(a.output/"native-schedule.json"),
+                         preflight_sha256=sha(a.preflight_output))
     if (a.output/"native-started.json").exists():
         raise ValueError("Preserve prior native execution; no implicit partial retry")
     kwargs = dict(prior=read(a.output / "training-prior.json"), calibration=read(a.output / "calibration.json"),
@@ -408,7 +422,8 @@ def run_native(a):
                     raise ValueError("Exact prepared resolution unavailable; native replanning is forbidden")
         name = f"requests/batch-{packet_number:05d}.json"
         packet_number += 1
-        atomic(a.output / name, dict(rows=batch, phase=phase, control=control, adapter_directory=directory))
+        atomic(a.output / name, dict(rows=batch, phase=phase, control=control, adapter_directory=directory,
+            native_adapter_mode="matched_control" if control else "direct_first" if isinstance(engine, DirectPathEngine) else "reference"))
         measured, timing = engine.evaluate(batch, phase)
         if [row["id"] for row in measured] != [row["id"] for row in batch] or any(row["native_release"] is not True for row in measured):
             raise ValueError("Frozen admitted command did not release exactly once")
@@ -467,15 +482,15 @@ def run_native(a):
                     if gate["status"] != "passed":
                         raise RuntimeError("Matched controls failed: " + phase)
                 else:
-                    by_slot = {(s["context_id"],s["method"]):s for s in choices["slots"]}
-                    for identity in contract["processing_order"]:
-                        for method in contract["method_order"][identity]:
-                            request = by_slot[identity,method]["request"]
-                            if request is not None:
-                                execute_mixed(engines[method], [request], "test_" + method, "native-" + method, execute)
-                                report["progress"]["completed_releases"] += 1
-                                report.update(phase="test_" + method, gpu_lease_s=time.monotonic() - begin)
-                                publish(a, report)
+                    by_id = {r["id"]:r for requests in planned.values() for r in requests}
+                    for packet in packets:
+                        method, mode = packet["method"], packet["adapter"]
+                        engine = native_engine(engines[method], mode)
+                        batch = [by_id[identity] for identity in packet["request_ids"]]
+                        execute(engine, batch, "test_" + method, "native-" + method)
+                        report["progress"]["completed_releases"] += len(batch)
+                        report.update(phase="test_" + method, gpu_lease_s=time.monotonic() - begin)
+                        publish(a, report)
                 report["phase"] = phase
                 publish(a, report)
         report["gpu_lease_s"] = time.monotonic() - begin
@@ -484,10 +499,48 @@ def run_native(a):
     publish(a, report)
 
 
+def native_engine(pair, mode):
+    """One cache sequence for the two adapters sharing a method namespace."""
+    engine = pair[mode]
+    engine.adapter.packet = max(e.adapter.packet for e in pair.values())
+    return engine
+
+
+def native_schedule(contract, slots):
+    """Freeze bounded homogeneous adapter packets without consulting outcomes."""
+    from .stalled_reference_plan import request_mode
+    execution = contract["native_execution"]
+    if (execution["version"], execution["batch_size"], execution["method_order"], execution["adapter_order"]) != (
+            NATIVE_SCHEDULE_VERSION, NATIVE_BATCH_SIZE, list(METHODS), list(NATIVE_ADAPTERS)):
+        raise ValueError("Unknown native batching protocol")
+    lookup = {(s["context_id"],s["method"]):s for s in slots}
+    expected = {(identity,method) for identity in contract["processing_order"] for method in METHODS}
+    if len(lookup) != len(slots) or len({s["id"] for s in slots}) != len(slots) or set(lookup) != expected:
+        raise ValueError("One frozen slot per method and position required")
+    lanes = {(method,mode):[] for method in METHODS for mode in NATIVE_ADAPTERS}
+    for identity in contract["processing_order"]:
+        for method in METHODS:
+            slot = lookup[identity,method]
+            request = slot["request"]
+            if request is not None:
+                if request["id"] != slot["id"]:
+                    raise ValueError("Slot and native command identities differ")
+                lanes[method,request_mode(request)].append(request["id"])
+    packets = []
+    for offset in range(0,max(map(len,lanes.values()),default=0),NATIVE_BATCH_SIZE):
+        for method in METHODS:
+            for mode in NATIVE_ADAPTERS:
+                ids = lanes[method,mode][offset:offset+NATIVE_BATCH_SIZE]
+                if ids:
+                    packets.append(dict(method=method,adapter=mode,request_ids=ids))
+    return packets
+
+
 def planned_requests(contract, slots):
-    lookup = {(s["context_id"], s["method"]):s["request"] for s in slots}
-    return {method:[lookup[identity,method] for identity in contract["processing_order"]
-                    if lookup[identity,method] is not None] for method in METHODS}
+    requests = {s["id"]:s["request"] for s in slots if s["request"] is not None}
+    packets = native_schedule(contract,slots)
+    return {method:[requests[identity] for packet in packets if packet["method"]==method
+                    for identity in packet["request_ids"]] for method in METHODS}
 
 
 def percentile90(values):

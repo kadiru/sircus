@@ -13,6 +13,23 @@ from sircus.mjlab.benchmark_verify import digest, read, sha
 from sircus.mjlab.sweep_worker import atomic
 
 
+def execution_contract(order,method_order):
+    return dict(processing_order=order,method_order=method_order,native_execution=dict(
+        version=study.NATIVE_SCHEDULE_VERSION,batch_size=study.NATIVE_BATCH_SIZE,
+        method_order=list(study.METHODS),adapter_order=list(study.NATIVE_ADAPTERS)))
+
+
+def slots_for(layouts,mode=lambda i,m:"reference"):
+    slots=[]
+    for i,l in enumerate(layouts):
+        for method in study.METHODS:
+            identity=l["id"]+method
+            namespace="resolutions" if mode(i,method)=="reference" else "direct-contexts"
+            slots.append(dict(id=identity,context_id=l["id"],method=method,
+                              request=dict(id=identity,context_resolution_file=namespace+"/proof.json")))
+    return slots
+
+
 class ApproachComparisonStudyTests(unittest.TestCase):
     def test_balanced_order_is_seeded_and_independent_of_outcomes(self):
         layouts=[dict(id=f"p{i}", bucket_xy_m=[i/100, 0]) for i in range(50)]
@@ -26,13 +43,51 @@ class ApproachComparisonStudyTests(unittest.TestCase):
     def test_release_schedule_keeps_declines_out_of_native_but_not_slots(self):
         layouts=[dict(id=f"p{i}") for i in range(4)]
         order, methods=study.schedule(layouts)
-        slots=[dict(context_id=l["id"], method=m,
-                    request=None if l["id"]=="p1" and m=="expanded" else dict(id=l["id"]+m))
-               for l in layouts for m in study.METHODS]
-        planned=study.planned_requests(dict(processing_order=order,method_order=methods),slots)
+        slots=slots_for(layouts)
+        next(s for s in slots if s["context_id"]=="p1" and s["method"]=="expanded")["request"]=None
+        planned=study.planned_requests(execution_contract(order,methods),slots)
         self.assertEqual([r["id"] for r in planned["current"]],[identity+"current" for identity in order])
         self.assertEqual([r["id"] for r in planned["expanded"]],[identity+"expanded" for identity in order if identity!="p1"])
         self.assertEqual(len(slots),8)
+
+    def test_batching_uses_independent_homogeneous_worlds_and_keeps_lane_order(self):
+        layouts=[dict(id=f"p{i}") for i in range(50)]
+        order,methods=study.schedule(layouts)
+        slots=slots_for(layouts,lambda i,m:"reference" if i%3 else "direct_first")
+        contract=execution_contract(order,methods)
+        packets=study.native_schedule(contract,slots)
+        lookup={s["id"]:s for s in slots}
+        flat=[identity for packet in packets for identity in packet["request_ids"]]
+        self.assertEqual((len(flat),set(flat)),(100,set(lookup)))
+        self.assertLessEqual(len(packets),8)
+        for packet in packets:
+            self.assertTrue(0<len(packet["request_ids"])<=32)
+            for identity in packet["request_ids"]:
+                self.assertEqual(lookup[identity]["method"],packet["method"])
+        for method in study.METHODS:
+            for mode in study.NATIVE_ADAPTERS:
+                actual=[identity for packet in packets if (packet["method"],packet["adapter"])==(method,mode)
+                        for identity in packet["request_ids"]]
+                expected=[identity+method for identity in order if (int(identity[1:])%3!=0)==(mode=="reference")]
+                self.assertEqual(actual,expected)
+        wrong=deepcopy(slots);wrong[1]["id"]=wrong[0]["id"]
+        with self.assertRaises(ValueError):study.native_schedule(contract,wrong)
+
+    def test_single_mode_uses_32_world_packets_then_remainders(self):
+        layouts=[dict(id=f"p{i}") for i in range(50)]
+        order,methods=study.schedule(layouts)
+        packets=study.native_schedule(execution_contract(order,methods),slots_for(layouts))
+        self.assertEqual([(p["method"],len(p["request_ids"])) for p in packets],
+                         [("current",32),("expanded",32),("current",18),("expanded",18)])
+
+    def test_adapters_share_monotonic_cache_counter_without_overwriting(self):
+        pair={m:SimpleNamespace(adapter=SimpleNamespace(packet=0)) for m in study.NATIVE_ADAPTERS}
+        written=[]
+        for mode in ("reference","direct_first","reference","reference","direct_first"):
+            engine=study.native_engine(pair,mode)
+            written.append(engine.adapter.packet)
+            engine.adapter.packet+=1
+        self.assertEqual(written,[0,1,2,3,4])
 
     def test_accounting_includes_setup_declines_and_reports_nearest_rank_p90(self):
         layouts=[dict(id=f"p{i}",bucket_xy_m=[i/100,0]) for i in range(50)]

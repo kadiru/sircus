@@ -52,6 +52,17 @@ That failed directory is preserved. The corrected comparison uses a new source
 snapshot and output directory; the failed attempt's positions join the
 historical exclusion inventory before the new 50 positions are sampled.
 
+The second attempt (`approach-comparison-v2`, producer `2e63eb6`) passed
+preflight but sent each native shot separately. Measured packet times of about
+40 seconds made the full comparison likely to exceed its one-hour execution
+budget. Only this comparison process was stopped. Its immutable evidence
+contains 16 completed evaluation records and 9 pre-controls; an interrupted
+packet may not have a complete observation, so these are saved records rather
+than a claim about total attempted releases. No target outcomes were inspected
+or used to change the planners. V3 uses fresh positions excluding both earlier
+sets and batches independent simulation worlds. Models, menus, decision limits,
+scoring and physics settings remain unchanged.
+
 ## Frozen inputs and placements
 
 - Copy both checkpoint files and all library inputs byte for byte from the
@@ -69,9 +80,15 @@ historical exclusion inventory before the new 50 positions are sampled.
   new positions and those coordinates. This is novelty against available
   evidence, not a claim about missing or unpublished data.
 - Shuffle position order with seed `2026112718`. Exactly 25 positions give each
-  method the first submission/release turn. Both independent planning lanes
-  run concurrently at each position; native drops follow the frozen paired
-  order.
+  method the first CPU submission turn. Both independent planning lanes run
+  concurrently at each position.
+- Before any drop, freeze `native-schedule.json`. Group admitted commands by
+  method and native adapter (`reference` or `direct_first`), retain the frozen
+  position order within each lane, and execute up to 32 independent worlds per
+  packet. Visit the current then expanded method, reference then direct
+  adapter, for each 32-row chunk. Native order is explicitly batched rather
+  than paired position by position; every method still has one attempted shot
+  at each of the same 50 positions.
 
 ## Execution and audit
 
@@ -92,11 +109,11 @@ Use `python -m sircus.mjlab.approach_comparison_study --stage STAGE` with:
 --assets /home/kadir/sircus-isaac/assets
 --history-root /home/kadir/sircus-mjlab/output
 --history-root /mnt/robot-training/sircus-mjlab/output
---output /mnt/robot-training/sircus-mjlab/output/approach-comparison-v1
+--output /mnt/robot-training/sircus-mjlab/output/approach-comparison-v3
 --gpu-lock /home/kadir/sircus-isaac/scene.lock
 --gpu-wait-s 3600
---preflight-output /mnt/robot-training/sircus-mjlab/output/approach-comparison-v1-preflight.json
---audit-output /mnt/robot-training/sircus-mjlab/output/approach-comparison-v1-audit.json
+--preflight-output /mnt/robot-training/sircus-mjlab/output/approach-comparison-v3-preflight.json
+--audit-output /mnt/robot-training/sircus-mjlab/output/approach-comparison-v3-audit.json
 ```
 
 Run CPU stages with `CUDA_VISIBLE_DEVICES=''`. For `run`, expose only the
@@ -109,7 +126,11 @@ are never altered.
 Preparation saves the full menu, checked prefix, path and endpoint evidence,
 worker/deadline receipts, predictions and chosen command. All preparation bytes
 are frozen before the independent preflight. Native execution refuses a missing
-or mismatched passed preflight, and never replans a prepared command.
+or mismatched passed preflight, and never replans a prepared command. Preflight
+also verifies every selected command occurs exactly once in the native schedule,
+with the correct adapter and within-lane order. The two adapters sharing a
+method directory use a common monotonic cache index so their arrays cannot
+overwrite each other.
 
 Native execution is bounded by one acquired GPU-hour and 118 releases: at most
 100 evaluation drops plus 9 original matched controls before and 9 after. Each
@@ -124,7 +145,8 @@ overwritten. Failed outputs remain available for diagnosis.
 
 The final independent audit rechecks exact model/source bytes, historical
 exclusions, every accepted planning publication, deadline/early-return rules,
-path proofs and the native request ledger. It recomputes historical and current
+path proofs, declared packet boundaries and the native request ledger. It
+checks each independent world's record ID and initial state, and recomputes historical and current
 scores from every dense native trace, verifies time-zero identity and controls,
 and rejects uncounted or duplicate releases.
 
