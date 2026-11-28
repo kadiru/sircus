@@ -150,6 +150,24 @@ checks each independent world's record ID and initial state, and recomputes hist
 scores from every dense native trace, verifies time-zero identity and controls,
 and rejects uncounted or duplicate releases.
 
+The v3 producer completed all 91 admitted evaluation drops and 18 controls.
+Its first final audit stopped on the historical `invalid` text label for one
+invalid-physics shot. The native adapters deliberately write
+`native_physics_outside_calibrated_domain`, while the scorer writes
+`uncalibrated_contact_dynamics`. Both reject that shot with
+`through_wall_after_entry`; its version-4 outcome is unchanged. The corrected
+auditor reconstructs this existing adapter label while continuing to compare
+every detailed physics reason and all capture fields. It does not relabel the
+saved observations or run another drop.
+
+For this read-only re-audit, use `--stage audit` with
+`--original-source-root /mnt/robot-training/sircus-mjlab/studies/approach-comparison-v3`.
+The original producer archive must still match every frozen source hash. The
+executing archive may differ only in the study/audit modules implementing this
+verification correction; all other computational sources must match. The audit
+receipt records both verifier-module hashes and the original source-manifest
+digest. This override is rejected for preparation, preflight, or native execution.
+
 ## Reported measurements
 
 For each method: captures out of all 50 positions, setup declines, released

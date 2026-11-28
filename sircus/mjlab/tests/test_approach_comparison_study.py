@@ -246,6 +246,64 @@ class ApproachComparisonStudyTests(unittest.TestCase):
             atomic(root/"splits.json",dict(train=[[.1,.2]],future_splits=dict(test=[[.3,.4]])))
             self.assertEqual(audit.history_coordinates(root/"splits.json"),{(.1,.2),(.3,.4)})
 
+    def test_historical_adapter_label_does_not_relax_capture_or_physics_evidence(self):
+        from sircus.mjlab.benchmark_verify import Checks
+        oracle=dict(invalid_physics=True,invalid="uncalibrated_contact_dynamics",
+            invalid_physics_reasons=["bucket_penetration"], route_success=False,success=False,
+            complete_success=False,single_bounce_success=False,route_quality=0)
+        row=dict(oracle,id="shot",invalid="native_physics_outside_calibrated_domain")
+        audit.verify_historical_observation(row,oracle,Checks())
+        self.assertEqual(oracle["invalid"],"uncalibrated_contact_dynamics")
+        for key,value in (("invalid_physics_reasons",["different_reason"]),("invalid_physics",False),
+                          ("route_success",True),("success",True),("complete_success",True),
+                          ("single_bounce_success",True),("route_quality",1),("invalid",None)):
+            altered=deepcopy(row);altered[key]=value
+            with self.subTest(key=key):
+                with self.assertRaises(Exception):audit.verify_historical_observation(altered,oracle,Checks())
+        bad=deepcopy(oracle);bad["invalid"]="unknown"
+        with self.assertRaises(ValueError):audit.verify_historical_observation(row,bad,Checks())
+        good=dict(invalid_physics=False,invalid=None,success=True,invalid_physics_reasons=[])
+        audit.verify_historical_observation(dict(good,id="valid"),good,Checks())
+
+    def test_source_override_is_audit_only_and_preserves_every_other_source(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);original=root/"producer";current=root/"auditor"
+            names=(*study.AUDITOR_ONLY_MODULES,"sircus/mjlab/native_score.py")
+            for parent in (original,current):
+                for name in names:
+                    path=parent/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text("original "+name)
+            contract=dict(source_sha256={name:sha(original/name) for name in names})
+            study.verify_source_bindings(contract,current)
+            for name in study.AUDITOR_ONLY_MODULES:(current/name).write_text("corrected auditor "+name)
+            receipt=study.verify_source_bindings(contract,current,original,"audit")
+            self.assertEqual(receipt["original_source_manifest_sha256"],digest(contract["source_sha256"]))
+            self.assertEqual(set(receipt["auditor_source_sha256"]),set(study.AUDITOR_ONLY_MODULES))
+            for stage in (None,"freeze","prepare","preflight","run","finalize"):
+                with self.subTest(stage=stage):
+                    with self.assertRaisesRegex(ValueError,"only for the audit"):
+                        study.verify_source_bindings(contract,current,original,stage)
+            with self.assertRaisesRegex(ValueError,"Computational source changed"):
+                study.verify_source_bindings(contract,current)
+            (current/names[-1]).write_text("changed physics")
+            with self.assertRaisesRegex(ValueError,"Computational source changed"):
+                study.verify_source_bindings(contract,current,original,"audit")
+            (current/names[-1]).write_bytes((original/names[-1]).read_bytes())
+            (original/study.AUDITOR_ONLY_MODULES[0]).write_text("changed original")
+            with self.assertRaisesRegex(ValueError,"Original producer source changed"):
+                study.verify_source_bindings(contract,current,original,"audit")
+
+    def test_original_source_cannot_escape_manifest_root_through_symlink(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);original=root/"producer";current=root/"auditor"
+            names=study.AUDITOR_ONLY_MODULES
+            for parent in (original,current):
+                for name in names:
+                    path=parent/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text(name)
+            contract=dict(source_sha256={name:sha(original/name) for name in names})
+            outside=root/"outside.py";outside.write_bytes((original/names[0]).read_bytes())
+            (original/names[0]).unlink();(original/names[0]).symlink_to(outside)
+            with self.assertRaises(Exception):study.verify_source_bindings(contract,current,original,"audit")
+
     def test_partial_preparation_is_preserved(self):
         with tempfile.TemporaryDirectory() as folder:
             output=Path(folder)

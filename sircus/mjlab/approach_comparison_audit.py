@@ -345,10 +345,33 @@ def require_preflight(a):
     return receipt
 
 
+def verify_historical_observation(row, oracle, checks):
+    """Apply only the established adapter's public invalid-reason label.
+
+    The calibrated adapter normalizes this single label after native scoring.
+    Detailed physics reasons and all failure/capture fields must still match
+    the independent oracle. No invalid outcome is converted into a capture.
+    """
+    from .table_assisted_env import _same
+    expected = dict(oracle)
+    if oracle.get("invalid_physics") is True:
+        if oracle.get("invalid") != "uncalibrated_contact_dynamics":
+            raise ValueError("Unknown historical numerical-domain invalid reason")
+        for name in ("route_success", "success", "complete_success", "single_bounce_success"):
+            if oracle.get(name) is not False:
+                raise ValueError("Invalid historical physics must not be a capture: "+name)
+        if oracle.get("route_quality") != 0:
+            raise ValueError("Invalid historical physics must have zero route quality")
+        expected["invalid"] = "native_physics_outside_calibrated_domain"
+    for key, value in expected.items():
+        _same(row[key], value, row["id"]+"/historical/"+key)
+        checks.count += 1
+
+
 def audit(a):
     from . import board_first_score_oracle as revised
     from . import table_assisted_score_oracle as historical
-    from .approach_comparison_study import METHODS, board_first_controls, lines, summarize, planned_requests, native_schedule
+    from .approach_comparison_study import METHODS, board_first_controls, lines, summarize, planned_requests, native_schedule, verify_source_bindings
     from .direct_path_first_audit import verify_heading
     from .cell1050_rebound_study import control_requests
     from .policy64_verify import audit_native_options
@@ -437,9 +460,7 @@ def audit(a):
             if "contact_distance_m" in arrays:trace["contact_distance_m"]=arrays["contact_distance_m"][:,col]
             args = contract["scene"], row["bucket_xy_m"], row["board_normal"], calibration, trace
             old, new = historical.score_trace(*args), revised.score_trace(*args)
-            for key, value in old.items():
-                _same(row[key], value, row["id"]+"/historical/"+key)
-                checks.count += 1
+            verify_historical_observation(row, old, checks)
             _same(row["board_first_score"], new, row["id"]+"/new independent score")
             checks.count += len(new)
     for directory in {r["adapter_directory"] for r in rows}:
@@ -458,7 +479,10 @@ def audit(a):
     comparison = summarize(layouts,slots,rows,plans)
     checks.equal(report["comparison"], comparison, "Independent comparison accounting")
     checks.require(0 < report["gpu_lease_s"] <= contract["gpu_cap_s"] <=3600, "At most one GPU hour")
+    revision = verify_source_bindings(contract, Path(__file__).resolve().parents[2],
+                                     getattr(a,"original_source_root",None), getattr(a,"stage",None))
     return dict(version=VERSION,status="passed",checks_count=checks.count,frozen_before_test=True,
+                audit_revision=revision,
                 report_sha256=sha(study/"report.json"),evidence_manifest_sha256=sha(study/"evidence-manifest.json"),
                 contract_sha256=sha(study/"contract.json"),choices_sha256=sha(study/"choices.json"),
                 checkpoint_sha256={m:sha(study/(m+"-checkpoint.json")) for m in METHODS},

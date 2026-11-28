@@ -28,6 +28,10 @@ WORKERS = 2
 NATIVE_BATCH_SIZE = 32
 NATIVE_ADAPTERS = ("reference", "direct_first")
 NATIVE_SCHEDULE_VERSION = "sircus-approach-native-lanes-v1"
+AUDITOR_ONLY_MODULES = (
+    "sircus/mjlab/approach_comparison_audit.py",
+    "sircus/mjlab/approach_comparison_study.py",
+)
 COPIED = ("shot-library-rows.json", "route-models.json", "route-history.json",
           "training-prior.json", "calibration.json", "verification.json")
 
@@ -232,6 +236,29 @@ def freeze(a):
     publish(a, report)
 
 
+def verify_source_bindings(contract, source, original_source=None, stage=None):
+    """Permit only a separately recorded auditor revision after native completion."""
+    source = Path(source)
+    expected = contract["source_sha256"]
+    if original_source is not None:
+        if stage != "audit":
+            raise ValueError("Original-source override is permitted only for the audit stage")
+        original_source = Path(original_source)
+        if not set(AUDITOR_ONLY_MODULES) <= set(expected):
+            raise ValueError("Original manifest must bind both auditor modules")
+        for name, checksum in expected.items():
+            if sha(contained(original_source,name)) != checksum:
+                raise ValueError("Original producer source changed: "+name)
+    for name, checksum in expected.items():
+        actual = sha(contained(source,name))
+        if actual != checksum and (original_source is None or name not in AUDITOR_ONLY_MODULES):
+            raise ValueError("Computational source changed: "+name)
+    return dict(original_source_manifest_sha256=digest(expected),
+                auditor_source_sha256={name:sha(contained(source,name)) for name in AUDITOR_ONLY_MODULES},
+                original_producer_verified=original_source is not None,
+                permitted_changes=list(AUDITOR_ONLY_MODULES) if original_source is not None else [])
+
+
 def frozen(a):
     contract = read(a.output / "contract.json")
     if contract.get("fingerprint") != digest({k: v for k, v in contract.items() if k != "fingerprint"}):
@@ -240,8 +267,7 @@ def frozen(a):
         if sha(a.output / name) != expected:
             raise ValueError("Frozen input changed: " + name)
     source = Path(__file__).resolve().parents[2]
-    for name, expected in contract["source_sha256"].items():
-        if sha(source/name) != expected:raise ValueError("Computational source changed: "+name)
+    verify_source_bindings(contract, source, getattr(a,"original_source_root",None), getattr(a,"stage",None))
     return contract
 
 
@@ -630,6 +656,8 @@ def main():
     args = parser.parse_args()
     if args.gpu_wait_s <= 0:
         parser.error("Positive GPU wait limit required")
+    if args.original_source_root is not None and args.stage != "audit":
+        parser.error("--original-source-root is an audit-only override")
     if args.stage in {"audit", "preflight"}:
         from .approach_comparison_audit import audit, preflight
         if args.stage == "preflight":
